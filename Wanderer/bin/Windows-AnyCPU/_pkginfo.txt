@@ -1,0 +1,1 @@
+C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\AppPackages\CordovaApp.Windows_1.0.0.1_anycpu_debug_Test\CordovaApp.Windows_1.0.0.1_anycpu_debug.appx

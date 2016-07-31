@@ -1,0 +1,379 @@
+﻿/*px are bad bad bad bad! plz fix*/
+
+
+body {
+    top: 0;
+    margin: 0;
+    padding: 0;
+    color: #222;
+    font-family: 'Roboto', "Helvetica", serif;
+    font-weight: 300;
+    background-color: white;
+    font-size: 18px;
+}
+
+#all {
+    /*position: absolute;
+    width: 1500px;
+    left: 50%;
+    margin-left: -750px;
+    top: 0;*/
+    padding: 5px;
+    z-index: 2;
+}
+
+[draggable] {
+    user-select: none;
+}
+
+
+.red {
+    color:red;
+}
+/*
+    this next section we do stuff with the columns
+*/
+
+#content {
+    -webkit-column-width: 450px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.column {
+    vertical-align: top;
+    width: 500px;
+}
+
+.section {
+    -webkit-column-break-inside: avoid;
+}
+
+.divider {
+    -webkit-column-break-after: always;
+    display: none;
+}
+
+@media only screen and (min-width:0px) {
+    #divider4 {
+        display: block;
+    }
+}
+
+@media only screen and (min-width:1059px) {
+    #divider3 {
+        display: block;
+    }
+}
+
+@media only screen and (min-width:1579px) {
+    #divider2 {
+        display: block;
+    }
+}
+
+@media only screen and (min-width:2099px) {
+    #divider1 {
+        display: block;
+    }
+}
+
+.mock-section-title {
+    visibility: hidden;
+}
+
+.section-title, .mock-section-title {
+    color: white;
+    margin: 0px;
+}
+
+
+/*.write {
+    padding: 0px 10px;
+}*/
+
+.section-header, .divider {
+    -webkit-transition: all 0.3s ease;
+    padding: 8px;
+    background-color: #333;
+    border-radius: 3px 3px 0 0;
+}
+
+.section.hidden .section-header {
+    border-radius: 3px 3px 3px 3px;
+}
+
+
+
+.hide-button, .edit-button {
+    float: right;
+}
+
+/*.write {
+	padding: 0px 10px;
+}*/
+
+button {
+    outline: none;
+    text-transform: lowercase;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    border: 2px solid #333;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 10pt;
+    font-weight: bold;
+    /*	line-height: 12pt;*/
+    text-decoration: none;
+    /*	margin-bottom: 2px;*/
+    /*	margin-top: 6px;*/
+    margin-left: 8px;
+}
+
+    button:hover {
+        background-color: #903;
+        border-color: #903;
+        /*		border: 1px solid #903;*/
+    }
+
+input, textarea {
+    outline: none;
+    border: 2px solid #222;
+    border-radius: 3px;
+}
+
+    input:focus, textarea:focus {
+        border-color: #903;
+    }
+
+input {
+    width: 100px;
+    padding: 5px 10px;
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+     /*input.input-element {
+       text-transform: lowercase;
+    }*/
+
+select {
+    outline: none;
+    background: transparent;
+    border: 2px solid #222;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 100px;
+    border-radius: 3px;
+}
+
+    select:focus {
+        border-color: #903;
+    }
+
+.section-body, .fixed-content {
+    /*background-color: #DDD;*/
+    background-color: #C2C2C2;
+    
+    border-radius: 0 0 3px 3px;
+    /*border: 2px solid #222;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;*/
+    -webkit-transition: all 0.3s ease;
+}
+
+.pad-me {
+    padding: 10px 8px;
+}
+
+.section, .mock-section { /*#skills-section, #traits-section, #misc-section*/
+    /*padding: 30px 0px 20px 0px;*/
+    margin-top: 50px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    -webkit-transition: all 0.3s ease;
+    /*box-shadow: 0px 0px 10px #fff;
+    border: 1px solid #333;
+    margin-left:5px;
+    margin-right:5px;*/
+    /*	border: 2px solid #222;*/
+}
+
+
+    .section.hidden .section-body {
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .section.hidden .edit-button {
+        display: none;
+    }
+
+ul.element-list {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    /*	background-color: green;*/
+    /*	border: 2px solid #222;*/
+    /*	border-right: 0px;*/
+    /*	border-top: 0px;*/
+    /*	border-left: 0px;*/
+}
+
+li > div.write {
+    margin-top: 5px;
+}
+
+li.misc > div.write {
+    display: inline;
+}
+
+li.skill, li.trait, li.misc, li.item {
+    padding: 5px 0px 5px 20px;
+    margin: 0px;
+    background: #E2E2E2;
+    /*background: #DADADA;*/
+    /*this unfortunatly does not make the gradients fade in and out */
+    /*-webkit-transition: all 0.3s ease;*/
+}
+
+    li.skill.highlight, li.trait.highlight, li.misc.highlight , li.item.highlight {
+        background: -webkit-linear-gradient(left, #DADADA, #DADADA, #DADADA, #903);
+    }
+
+    li.skill:nth-child(odd), li.trait:nth-child(odd), li.misc:nth-child(odd), li.item:nth-child(odd) {
+        /*background: #F8F5F6;*/
+        background: #EEE;
+    }
+
+    li.skill.highlight:nth-child(odd), li.trait.highlight:nth-child(odd), li.misc.highlight:nth-child(odd) , li.item.highlight:nth-child(odd) {
+        background: -webkit-linear-gradient(left, #F8F5F6, #F8F5F6, #F8F5F6, #903);
+    }
+
+
+
+
+
+li {
+    margin: 10px 0px;
+}
+
+.char-text {
+    width: calc(100% - 8px);
+    overflow:hidden;
+    /*resize: vertical; oh edge you bastard what am i going to do...*/
+}
+/*
+#all.play .write {
+	
+	display: none;
+}
+
+#all.write .play {
+	display: none;
+}*/
+
+.section.play .write {
+    /*we can have styling for when we are in play*/
+    display: none;
+}
+
+.section.write .play {
+    /*or when we are in write mode*/
+    display: none;
+}
+
+.counter-name {
+    width: 100px;
+    display: inline-block;
+}
+
+.roll-results {
+    border: 2px solid #222;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.roll-result {
+    /*display:inline-block;*/
+    width: 10%;
+    -webkit-transition: all 0.3s ease;
+    border-color: #000000;
+    padding-right: 10px;
+    text-align: right;
+    /*opacity: 0.0;*/
+}
+
+    .roll-result.active {
+        width: 90%;
+        /*opacity: 1;*/
+    }
+
+.rolling .roll-result {
+    width: 25%;
+    border-right-width: 2px;
+    border-right-style: solid;
+    /*opacity: 0.6;*/
+}
+
+    .rolling .roll-result.active {
+        width: 50%;
+        /*opacity: 1;*/
+    }
+
+#traits-section, .tip, #goals-section { /*#cards-section, */
+    display: none;
+}
+
+/* NPCs section */
+
+table {
+    width: 100%;
+}
+
+/*.animate-enter {
+	-webkit-transition: 1s linear all;
+	opacity: 0;
+}
+ 
+.animate-enter.animate-enter-active {
+	opacity: 1;
+}*/
+
+
+.ng-enter {
+  -webkit-transition: .5s;
+  opacity: 0;
+}
+
+.ng-enter-active {
+    opacity: 1;
+}
+
+.ng-leave {
+  -webkit-transition: .5s;
+   opacity: 1;
+}
+
+.ng-leave-active {
+    opacity: 0;
+}
+
+
+/*HAND*/
+
+/*.cards {
+}*/
+    .cards .card{
+        width:200px;
+    }
+
+    .cards .card img{
+        height: 400px;
+        width:100%;
+    }
