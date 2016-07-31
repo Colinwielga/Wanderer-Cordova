@@ -10,3 +10,4 @@ Wanderer/AppPackages/CordovaApp.Windows_1.0.0.1_anycpu_debug_Test/CordovaApp.Win
 *.appxrecipe
 *.suo
 .vs/Wanderer/v14/.suo
+*.suo
