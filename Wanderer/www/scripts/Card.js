@@ -37,6 +37,14 @@
 // 10 during the day, 4 at night
 // 10 during the night, 10 at night
 
+// a card that is good when you are at low HP
+
+// I think the plan is put some interesting cards that don't anything about your character in to the deck
+// and make the god cards push you to play a certain way
+// althought not the indifferent god cards
+// the disfavor cards make you bad at the thing?
+// maybe I should not even have disfavor cards
+
 Card.map = {
     0: new Card("THE FOOL", "0 play at anytime to make someone make a mistake, 8 if you are drunk"),
     1: new Card("THE MAGICAIN", "3, 12 if pass is 8 or higher"),

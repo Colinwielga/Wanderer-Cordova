@@ -11,3 +11,7 @@ Wanderer/AppPackages/CordovaApp.Windows_1.0.0.1_anycpu_debug_Test/CordovaApp.Win
 *.suo
 .vs/Wanderer/v14/.suo
 *.suo
+Wanderer/bin/Windows-AnyCPU/Debug/Microsoft.AppxPackage.Metadata.Overrides.props
+*.suo
+*.user
+Wanderer/Wanderer.jsproj.user
