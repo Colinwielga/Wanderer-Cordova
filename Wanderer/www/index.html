@@ -33,16 +33,28 @@
                     <h2 class="section-title">Gods</h2>
                 </div>
                 <div class="section-body fixed-content pad-me">
-                        <table class="gods pad-me">
-                            <tr data-ng-repeat="god in charactor.gods" >
-                                <td>{{god.name}}</td>
-                                <td>{{god.sex}}</td>
-                                <td>{{god.godOf}}</td>
-                                <td><input type="radio"  name="{{god.name}}" value="SCORN" data-ng-bind="god.relation" id="{{'scorn-'+god.name}}"/><label for="{{'scorn-'+god.name}}"> scorn</label></td>
-                                <td><input type="radio" name="{{god.name}}" value="INDIFFERANCE" data-ng-bind="god.relation" id="{{'indifferance-'+god.name}}"/><label for="{{'indifferance-'+god.name}}"> indifferance</label></td>
-                                <td><input type="radio" name="{{god.name}}" value="FAVOR" data-ng-bind="god.relation" id="{{'favor-'+god.name}}"/><label for="{{'favor-'+god.name}}"> favor</label></td>
-                            </tr>
-                        </table>
+                    <table class="gods pad-me">
+                        <tr data-ng-repeat="god in charactor.gods">
+                            <td>{{god.name}}</td>
+                            <td>{{god.sex}}</td>
+                            <td>{{god.godOf}}</td>
+                            <td>
+                                <label>
+                                    <input type="radio" name="{{god.name}}" value="SCORN" data-ng-model="god.relation" /> scorn
+                                </label>
+                            </td>
+                            <td>
+                                <label>
+                                    <input type="radio" name="{{god.name}}" value="INDIFFERANCE" data-ng-model="god.relation" /> indifferance
+                                </label>
+                            </td>
+                            <td>
+                                <label>
+                                    <input type="radio" name="{{god.name}}" value="FAVOR" data-ng-model="god.relation" /> favor
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -146,7 +158,7 @@
 
     <!-- hack? atleast very ugly -->
     <p style="visibility:hidden">{{onUpdate()}}</p>
-    
+
     <scripts>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>

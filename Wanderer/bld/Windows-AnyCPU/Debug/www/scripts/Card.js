@@ -13,7 +13,13 @@
         throw { message: "card not found" };
     }
     this.getImage = function () {
-        return "images/cards/" + this.id() + ".jpg";
+        var id = this.id();
+        // this feels like a hack
+        // can i just use the name?
+        while (id > 100) {
+            id -= 100;
+        }
+        return "images/cards/" + id + ".jpg";
     }
 };
 
@@ -187,5 +193,5 @@ Card.draw = function () {
     });
 
 
-    return Math.floor(Math.random() * deck.length);
+    return deck[Math.floor(Math.random() * deck.length)];
 }

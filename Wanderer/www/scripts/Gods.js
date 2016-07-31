@@ -4,7 +4,7 @@
     FAVOR:'FAVOR'
 };
 
-var God = function (name, sex, godOf, misc,relation, scorn, favor, indifferance) {
+var God = function (name, sex, godOf, misc,relation, scorn, indifferance,favor) {
     this.name = name;
     this.sex = sex;
     this.godOf = godOf;

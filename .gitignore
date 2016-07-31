@@ -5,3 +5,8 @@ Wanderer/bld/Windows-AnyCPU/Debug/www/index.html
 *.appxrecipe
 Wanderer/AppPackages/CordovaApp.Windows_1.0.0.1_anycpu_debug_Test/CordovaApp.Windows_1.0.0.1_anycpu_debug.appx
 *.appxupload
+*.appxupload
+Wanderer/AppPackages/CordovaApp.Windows_1.0.0.1_anycpu_debug_Test/CordovaApp.Windows_1.0.0.1_anycpu_debug.appx
+*.appxrecipe
+*.suo
+.vs/Wanderer/v14/.suo

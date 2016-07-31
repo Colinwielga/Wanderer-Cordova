@@ -13,7 +13,13 @@
         throw { message: "card not found" };
     }
     this.getImage = function () {
-        return "images/cards/" + this.id() + ".jpg";
+        var id = this.id();
+        // this feels like a hack
+        // can i just use the name?
+        while (id >= 100) {
+            id -= 100;
+        }
+        return "images/cards/" + id + ".jpg";
     }
 };
 
@@ -130,7 +136,7 @@ Card.map = {
     115: new Card("THE DEVIL", "(scorn) 7 take -3 on your next roll"),
     116: new Card("THE TOWER", "(scorn) 8 you keep this card after playing it, each time you do it's value decrease by 2"),
     117: new Card("THE STAR", "(scorn) 10 reveal this card when you draw it"),
-    118: new Card("THE MOON", "7 you may only play this card at night. discard it and draw another if you can't play any cards"),
+    118: new Card("THE MOON", "(scorn) 7 you may only play this card at night. discard it and draw another if you can't play any cards"),
     119: new Card("THE SUN", "(scorn) 7 you may only play this card during the day. discard it and draw another if you can't play any cards"),
     120: new Card("JUDGEMENT", "(scorn) 5 when you play this card place the remaining cards in your hand inorder faceup on the table. you must play them in that order"),
     121: new Card("THE WORLD", "(scorn) you can't play this card. discard and draw another if you critically fail. discard it and draw another if you can't play any cards"),
@@ -148,11 +154,11 @@ Card.map = {
     210: new Card("WHEEL OF FORTUNE", "(blessing) top card of the deck"),
     211: new Card("JUSTICE", "(blessing) 10 draw three cards then discard 3 cards"),
     212: new Card("THE HANGED MAN", "(blessing) 15 if you can play this card you must"),
-    213: new Card("DEATH", "(blessing) 15, heal two click you this roll results in a death"),
-    214: new Card("TEMPERANCE", "(blessing) 0 draw 3 cards"),
+    213: new Card("DEATH", "(blessing) 15, heal two click if this roll results in a death"),
+    214: new Card("TEMPERANCE", "(blessing) 6, draw 3 cards"),
     215: new Card("THE DEVIL", "(blessing) 10, 15 if you are acting selfishly"),
     216: new Card("THE TOWER", "(blessing) 6 you may keep this card after playing it, each time you do it's value decrease by 3 if it's value is >=15 discard it"),
-    217: new Card("THE STAR", "(blessing) 6 you may discard a card to keep this one in your hand"),
+    217: new Card("THE STAR", "(blessing) 6 you may discard a card to keep this one in your hand after playing it"),
     218: new Card("THE MOON", "(blessing) 10, 15 if acting directly"),
     219: new Card("THE SUN", "(blessing) 10, 15 if acting deceptively"),
     220: new Card("JUDGEMENT", "(blessing) 12, or 15 and take a hit"),
@@ -187,5 +193,5 @@ Card.draw = function () {
     });
 
 
-    return Math.floor(Math.random() * deck.length);
+    return deck[Math.floor(Math.random() * deck.length)];
 }
