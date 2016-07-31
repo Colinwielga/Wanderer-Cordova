@@ -28,452 +28,452 @@
     <AppXManifest Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\build\windows\debug\anycpu\win8.1\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:48.934</Modified>
+      <Modified>2016-07-31T02:29:16.837</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\SplashScreen.scale-100.png">
       <PackagePath>images\SplashScreen.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:47.999</Modified>
+      <Modified>2016-07-31T02:29:15.897</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\Square150x150Logo.scale-100.png">
       <PackagePath>images\Square150x150Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:47.975</Modified>
+      <Modified>2016-07-31T02:29:15.873</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\Square30x30Logo.scale-100.png">
       <PackagePath>images\Square30x30Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:47.979</Modified>
+      <Modified>2016-07-31T02:29:15.876</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\Square310x310Logo.scale-100.png">
       <PackagePath>images\Square310x310Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:47.981</Modified>
+      <Modified>2016-07-31T02:29:15.879</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\Square44x44Logo.scale-100.png">
       <PackagePath>images\Square44x44Logo.scale-100.png</PackagePath>
-      <Modified>2016-07-31T02:19:47.983</Modified>
+      <Modified>2016-07-31T02:29:15.882</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\Square70x70Logo.scale-100.png">
       <PackagePath>images\Square70x70Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:47.986</Modified>
+      <Modified>2016-07-31T02:29:15.885</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\Square71x71Logo.scale-100.png">
       <PackagePath>images\Square71x71Logo.scale-100.png</PackagePath>
-      <Modified>2016-07-31T02:19:47.989</Modified>
+      <Modified>2016-07-31T02:29:15.887</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\StoreLogo.scale-100.png">
       <PackagePath>images\StoreLogo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:47.992</Modified>
+      <Modified>2016-07-31T02:29:15.890</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\images\Wide310x150Logo.scale-100.png">
       <PackagePath>images\Wide310x150Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-07-31T02:19:47.995</Modified>
+      <Modified>2016-07-31T02:29:15.894</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\cordova-js-src\exec.js">
       <PackagePath>www\cordova-js-src\exec.js</PackagePath>
-      <Modified>2016-07-31T02:19:48.188</Modified>
+      <Modified>2016-07-31T02:29:16.083</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\cordova-js-src\platform.js">
       <PackagePath>www\cordova-js-src\platform.js</PackagePath>
-      <Modified>2016-07-31T02:19:48.189</Modified>
+      <Modified>2016-07-31T02:29:16.092</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\cordova.js">
       <PackagePath>www\cordova.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.583</Modified>
+      <Modified>2016-07-31T02:29:15.462</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\cordova_plugins.js">
       <PackagePath>www\cordova_plugins.js</PackagePath>
-      <Modified>2016-07-31T02:19:48.194</Modified>
+      <Modified>2016-07-31T02:29:16.097</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\External\angular.min.js">
       <PackagePath>www\External\angular.min.js</PackagePath>
-      <Modified>2016-07-31T02:19:48.275</Modified>
+      <Modified>2016-07-31T02:29:16.181</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\External\jquery-3.1.0.min.js">
       <PackagePath>www\External\jquery-3.1.0.min.js</PackagePath>
-      <Modified>2016-07-31T02:19:48.359</Modified>
+      <Modified>2016-07-31T02:29:16.264</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\appBundle.js">
       <PackagePath>www\scripts\appBundle.js</PackagePath>
-      <Modified>2016-07-31T02:19:48.360</Modified>
+      <Modified>2016-07-31T02:29:16.265</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\Card.js">
       <PackagePath>www\scripts\Card.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.538</Modified>
+      <Modified>2016-07-31T02:29:15.399</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\g.js">
       <PackagePath>www\scripts\g.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.539</Modified>
+      <Modified>2016-07-31T02:29:15.400</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\Gods.js">
       <PackagePath>www\scripts\Gods.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.541</Modified>
+      <Modified>2016-07-31T02:29:15.402</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\platformOverrides.js">
       <PackagePath>www\scripts\platformOverrides.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.919</Modified>
+      <Modified>2016-07-31T02:29:15.803</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\roll.js">
       <PackagePath>www\scripts\roll.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.543</Modified>
+      <Modified>2016-07-31T02:29:15.408</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\wandererController.js">
       <PackagePath>www\scripts\wandererController.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.544</Modified>
+      <Modified>2016-07-31T02:29:15.410</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\winstore-jscompat.js">
       <PackagePath>www\scripts\winstore-jscompat.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.928</Modified>
+      <Modified>2016-07-31T02:29:15.812</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\WinJS\js\base.js">
       <PackagePath>www\WinJS\js\base.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.914</Modified>
+      <Modified>2016-07-31T02:29:15.793</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\winstore-jscompat\winstore-jscompat.js">
       <PackagePath>www\winstore-jscompat\winstore-jscompat.js</PackagePath>
-      <Modified>2016-07-31T02:19:47.916</Modified>
+      <Modified>2016-07-31T02:29:15.795</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\css\index.css">
       <PackagePath>www\css\index.css</PackagePath>
-      <Modified>2016-07-31T02:19:47.155</Modified>
+      <Modified>2016-07-31T02:29:14.996</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\css\newStyle.css">
       <PackagePath>www\css\newStyle.css</PackagePath>
-      <Modified>2016-07-31T02:19:48.195</Modified>
+      <Modified>2016-07-31T02:29:16.098</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\0.jpg">
       <PackagePath>www\images\cards\0.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.234</Modified>
+      <Modified>2016-07-31T02:29:15.076</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\1.jpg">
       <PackagePath>www\images\cards\1.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.238</Modified>
+      <Modified>2016-07-31T02:29:15.079</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\10.jpg">
       <PackagePath>www\images\cards\10.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.241</Modified>
+      <Modified>2016-07-31T02:29:15.083</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\11.jpg">
       <PackagePath>www\images\cards\11.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.245</Modified>
+      <Modified>2016-07-31T02:29:15.087</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\12.jpg">
       <PackagePath>www\images\cards\12.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.248</Modified>
+      <Modified>2016-07-31T02:29:15.091</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\13.jpg">
       <PackagePath>www\images\cards\13.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.252</Modified>
+      <Modified>2016-07-31T02:29:15.094</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\14.jpg">
       <PackagePath>www\images\cards\14.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.255</Modified>
+      <Modified>2016-07-31T02:29:15.097</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\15.jpg">
       <PackagePath>www\images\cards\15.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.259</Modified>
+      <Modified>2016-07-31T02:29:15.101</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\16.jpg">
       <PackagePath>www\images\cards\16.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.262</Modified>
+      <Modified>2016-07-31T02:29:15.105</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\17.jpg">
       <PackagePath>www\images\cards\17.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.266</Modified>
+      <Modified>2016-07-31T02:29:15.109</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\18.jpg">
       <PackagePath>www\images\cards\18.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.270</Modified>
+      <Modified>2016-07-31T02:29:15.113</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\19.jpg">
       <PackagePath>www\images\cards\19.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.273</Modified>
+      <Modified>2016-07-31T02:29:15.116</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\2.jpg">
       <PackagePath>www\images\cards\2.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.277</Modified>
+      <Modified>2016-07-31T02:29:15.119</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\20.jpg">
       <PackagePath>www\images\cards\20.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.280</Modified>
+      <Modified>2016-07-31T02:29:15.123</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\21.jpg">
       <PackagePath>www\images\cards\21.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.284</Modified>
+      <Modified>2016-07-31T02:29:15.126</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\22.jpg">
       <PackagePath>www\images\cards\22.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.288</Modified>
+      <Modified>2016-07-31T02:29:15.130</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\23.jpg">
       <PackagePath>www\images\cards\23.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.291</Modified>
+      <Modified>2016-07-31T02:29:15.134</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\24.jpg">
       <PackagePath>www\images\cards\24.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.296</Modified>
+      <Modified>2016-07-31T02:29:15.137</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\25.jpg">
       <PackagePath>www\images\cards\25.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.299</Modified>
+      <Modified>2016-07-31T02:29:15.141</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\26.jpg">
       <PackagePath>www\images\cards\26.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.303</Modified>
+      <Modified>2016-07-31T02:29:15.145</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\27.jpg">
       <PackagePath>www\images\cards\27.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.306</Modified>
+      <Modified>2016-07-31T02:29:15.149</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\28.jpg">
       <PackagePath>www\images\cards\28.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.310</Modified>
+      <Modified>2016-07-31T02:29:15.153</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\29.jpg">
       <PackagePath>www\images\cards\29.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.313</Modified>
+      <Modified>2016-07-31T02:29:15.157</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\3.jpg">
       <PackagePath>www\images\cards\3.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.316</Modified>
+      <Modified>2016-07-31T02:29:15.161</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\30.jpg">
       <PackagePath>www\images\cards\30.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.320</Modified>
+      <Modified>2016-07-31T02:29:15.164</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\31.jpg">
       <PackagePath>www\images\cards\31.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.323</Modified>
+      <Modified>2016-07-31T02:29:15.169</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\32.jpg">
       <PackagePath>www\images\cards\32.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.327</Modified>
+      <Modified>2016-07-31T02:29:15.173</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\33.jpg">
       <PackagePath>www\images\cards\33.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.330</Modified>
+      <Modified>2016-07-31T02:29:15.176</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\34.jpg">
       <PackagePath>www\images\cards\34.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.333</Modified>
+      <Modified>2016-07-31T02:29:15.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\35.jpg">
       <PackagePath>www\images\cards\35.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.336</Modified>
+      <Modified>2016-07-31T02:29:15.183</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\36.jpg">
       <PackagePath>www\images\cards\36.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.340</Modified>
+      <Modified>2016-07-31T02:29:15.187</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\37.jpg">
       <PackagePath>www\images\cards\37.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.343</Modified>
+      <Modified>2016-07-31T02:29:15.191</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\38.jpg">
       <PackagePath>www\images\cards\38.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.347</Modified>
+      <Modified>2016-07-31T02:29:15.195</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\39.jpg">
       <PackagePath>www\images\cards\39.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.350</Modified>
+      <Modified>2016-07-31T02:29:15.198</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\4.jpg">
       <PackagePath>www\images\cards\4.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.353</Modified>
+      <Modified>2016-07-31T02:29:15.202</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\40.jpg">
       <PackagePath>www\images\cards\40.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.357</Modified>
+      <Modified>2016-07-31T02:29:15.206</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\41.jpg">
       <PackagePath>www\images\cards\41.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.360</Modified>
+      <Modified>2016-07-31T02:29:15.209</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\42.jpg">
       <PackagePath>www\images\cards\42.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.363</Modified>
+      <Modified>2016-07-31T02:29:15.213</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\43.jpg">
       <PackagePath>www\images\cards\43.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.366</Modified>
+      <Modified>2016-07-31T02:29:15.216</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\44.jpg">
       <PackagePath>www\images\cards\44.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.370</Modified>
+      <Modified>2016-07-31T02:29:15.220</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\45.jpg">
       <PackagePath>www\images\cards\45.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.373</Modified>
+      <Modified>2016-07-31T02:29:15.224</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\46.jpg">
       <PackagePath>www\images\cards\46.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.377</Modified>
+      <Modified>2016-07-31T02:29:15.228</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\47.jpg">
       <PackagePath>www\images\cards\47.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.381</Modified>
+      <Modified>2016-07-31T02:29:15.231</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\48.jpg">
       <PackagePath>www\images\cards\48.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.385</Modified>
+      <Modified>2016-07-31T02:29:15.235</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\49.jpg">
       <PackagePath>www\images\cards\49.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.388</Modified>
+      <Modified>2016-07-31T02:29:15.239</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\5.jpg">
       <PackagePath>www\images\cards\5.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.391</Modified>
+      <Modified>2016-07-31T02:29:15.242</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\50.jpg">
       <PackagePath>www\images\cards\50.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.395</Modified>
+      <Modified>2016-07-31T02:29:15.246</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\51.jpg">
       <PackagePath>www\images\cards\51.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.398</Modified>
+      <Modified>2016-07-31T02:29:15.249</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\52.jpg">
       <PackagePath>www\images\cards\52.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.402</Modified>
+      <Modified>2016-07-31T02:29:15.253</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\53.jpg">
       <PackagePath>www\images\cards\53.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.406</Modified>
+      <Modified>2016-07-31T02:29:15.257</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\54.jpg">
       <PackagePath>www\images\cards\54.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.409</Modified>
+      <Modified>2016-07-31T02:29:15.261</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\55.jpg">
       <PackagePath>www\images\cards\55.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.413</Modified>
+      <Modified>2016-07-31T02:29:15.265</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\56.jpg">
       <PackagePath>www\images\cards\56.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.416</Modified>
+      <Modified>2016-07-31T02:29:15.269</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\57.jpg">
       <PackagePath>www\images\cards\57.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.420</Modified>
+      <Modified>2016-07-31T02:29:15.273</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\58.jpg">
       <PackagePath>www\images\cards\58.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.423</Modified>
+      <Modified>2016-07-31T02:29:15.277</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\59.jpg">
       <PackagePath>www\images\cards\59.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.427</Modified>
+      <Modified>2016-07-31T02:29:15.281</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\6.jpg">
       <PackagePath>www\images\cards\6.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.430</Modified>
+      <Modified>2016-07-31T02:29:15.284</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\60.jpg">
       <PackagePath>www\images\cards\60.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.433</Modified>
+      <Modified>2016-07-31T02:29:15.288</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\61.jpg">
       <PackagePath>www\images\cards\61.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.437</Modified>
+      <Modified>2016-07-31T02:29:15.292</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\62.jpg">
       <PackagePath>www\images\cards\62.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.441</Modified>
+      <Modified>2016-07-31T02:29:15.296</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\63.jpg">
       <PackagePath>www\images\cards\63.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.444</Modified>
+      <Modified>2016-07-31T02:29:15.299</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\64.jpg">
       <PackagePath>www\images\cards\64.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.447</Modified>
+      <Modified>2016-07-31T02:29:15.303</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\65.jpg">
       <PackagePath>www\images\cards\65.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.452</Modified>
+      <Modified>2016-07-31T02:29:15.307</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\66.jpg">
       <PackagePath>www\images\cards\66.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.455</Modified>
+      <Modified>2016-07-31T02:29:15.310</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\67.jpg">
       <PackagePath>www\images\cards\67.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.458</Modified>
+      <Modified>2016-07-31T02:29:15.314</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\68.jpg">
       <PackagePath>www\images\cards\68.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.461</Modified>
+      <Modified>2016-07-31T02:29:15.318</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\69.jpg">
       <PackagePath>www\images\cards\69.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.465</Modified>
+      <Modified>2016-07-31T02:29:15.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\7.jpg">
       <PackagePath>www\images\cards\7.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.468</Modified>
+      <Modified>2016-07-31T02:29:15.325</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\70.jpg">
       <PackagePath>www\images\cards\70.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.472</Modified>
+      <Modified>2016-07-31T02:29:15.329</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\71.jpg">
       <PackagePath>www\images\cards\71.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.475</Modified>
+      <Modified>2016-07-31T02:29:15.333</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\72.jpg">
       <PackagePath>www\images\cards\72.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.478</Modified>
+      <Modified>2016-07-31T02:29:15.336</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\73.jpg">
       <PackagePath>www\images\cards\73.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.482</Modified>
+      <Modified>2016-07-31T02:29:15.340</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\74.jpg">
       <PackagePath>www\images\cards\74.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.485</Modified>
+      <Modified>2016-07-31T02:29:15.344</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\75.jpg">
       <PackagePath>www\images\cards\75.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.488</Modified>
+      <Modified>2016-07-31T02:29:15.347</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\76.jpg">
       <PackagePath>www\images\cards\76.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.492</Modified>
+      <Modified>2016-07-31T02:29:15.351</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\77.jpg">
       <PackagePath>www\images\cards\77.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.495</Modified>
+      <Modified>2016-07-31T02:29:15.354</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\8.jpg">
       <PackagePath>www\images\cards\8.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.498</Modified>
+      <Modified>2016-07-31T02:29:15.358</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\images\cards\9.jpg">
       <PackagePath>www\images\cards\9.jpg</PackagePath>
-      <Modified>2016-07-31T02:19:47.502</Modified>
+      <Modified>2016-07-31T02:29:15.361</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\index.html">
       <PackagePath>www\index.html</PackagePath>
-      <Modified>2016-07-31T02:19:48.086</Modified>
+      <Modified>2016-07-31T02:29:15.982</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\www\scripts\appBundle.js.map">
       <PackagePath>www\scripts\appBundle.js.map</PackagePath>
-      <Modified>2016-07-31T02:19:47.514</Modified>
+      <Modified>2016-07-31T02:29:15.375</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\config.xml">
       <PackagePath>config.xml</PackagePath>
-      <Modified>2016-07-31T02:19:47.110</Modified>
+      <Modified>2016-07-31T02:29:14.949</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Colin_000\Contacts\Documents\Visual Studio 14\Projects\Wanderer\Wanderer\platforms\windows\build\windows\debug\anycpu\win8.1\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-07-31T02:19:48.759</Modified>
+      <Modified>2016-07-31T02:29:16.657</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

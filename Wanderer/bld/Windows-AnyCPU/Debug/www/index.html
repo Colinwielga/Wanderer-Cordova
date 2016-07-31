@@ -29,7 +29,7 @@
 
         <div id="content">
 
-            <div id="gods-section" class="drag section">
+            <div id="gods-section" class="section">
                 <div class="section-header">
                     <!--<button class="hide-button" type="button">-</button>-->
                     <h2 class="section-title">Gods</h2>
@@ -40,15 +40,15 @@
                                 <td>{{god.name}}</td>
                                 <td>{{god.sex}}</td>
                                 <td>{{god.godOf}}</td>
-                                <td><input type="radio"  name="{{god.name}}" value="'SCORN'" data-ng-bind="god.relation" id="{{"scorn-"+god.name}}"/><label for="{{"scorn-"+god.name}}"> scorn</label></td>
-                                <td><input type="radio" name="{{god.name}}" value="'INDIFFERANCE'" data-ng-bind="god.relation" id="{{"indifferance-"+god.name}}"/><label for="{{"indifferance-"+god.name}}"> indifferance</label></td>
-                                <td><input type="radio" name="{{god.name}}" value="'FAVOR'" data-ng-bind="god.relation" id="{{"favor-"+god.name}}"/><label for="{{"favor-"+god.name}}"> favor</label></td>
+                                <td><input type="radio"  name="{{god.name}}" value="SCORN" data-ng-bind="god.relation" id="{{'scorn-'+god.name}}"/><label for="{{'scorn-'+god.name}}"> scorn</label></td>
+                                <td><input type="radio" name="{{god.name}}" value="INDIFFERANCE" data-ng-bind="god.relation" id="{{'indifferance-'+god.name}}"/><label for="{{'indifferance-'+god.name}}"> indifferance</label></td>
+                                <td><input type="radio" name="{{god.name}}" value="FAVOR" data-ng-bind="god.relation" id="{{'favor-'+god.name}}"/><label for="{{'favor-'+god.name}}"> favor</label></td>
                             </tr>
                         </table>
                 </div>
             </div>
 
-            <div id="cards-section" class="drag section">
+            <div id="cards-section" class="section">
                 <div class="section-header">
                     <!--<button class="hide-button" type="button">-</button>-->
                     <h2 class="section-title">Hand</h2>
