@@ -105,17 +105,23 @@ body {
     border-radius: 3px 3px 3px 3px;
 }
 
-
+.hide-check[checked=true] ~ div {
+    background:red;
+}
 
 .hide-button, .edit-button {
     float: right;
+}
+
+.hide-check {
+    display:none;
 }
 
 /*.write {
 	padding: 0px 10px;
 }*/
 
-button {
+button , label.hide-button {
     outline: none;
     text-transform: lowercase;
     cursor: pointer;
@@ -133,7 +139,7 @@ button {
     margin-left: 8px;
 }
 
-    button:hover {
+    button:hover, label.hide-button:hover {
         background-color: #903;
         border-color: #903;
         /*		border: 1px solid #903;*/
@@ -149,7 +155,7 @@ input, textarea {
         border-color: #903;
     }
 
-input {
+input[type=button] {
     width: 100px;
     padding: 5px 10px;
     margin-left: 8px;

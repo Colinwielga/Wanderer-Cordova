@@ -1,5 +1,4 @@
 ﻿App.controller('wandererController', ['$scope', function ($scope) {
-
     // we load the character
     // TODO support multiple characters
     var characterList = ["autosave"];
@@ -14,6 +13,7 @@
     if (last !== undefined) {
         tempChar = JSON.parse(last);
     }
+
     // we generate a default character
     $scope.charactor = {
         cards: [], 
@@ -25,6 +25,7 @@
         facts: 3,
         name: "autosave"
     }
+
     // and then if anything is save we overwright
     if (tempChar !== undefined) {
         for (var prop in $scope.charactor) {
@@ -40,6 +41,8 @@
         var charactorListString = window.localStorage.getItem("charactorlist");
         if (charactorListString !== undefined) {
             characterList = JSON.parse(charactorListString);
+        } else {
+            characterList = [];
         }
 
         var characterIndex = characterList.indexOf($scope.charactor.name);

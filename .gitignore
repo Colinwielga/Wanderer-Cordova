@@ -15,3 +15,8 @@ Wanderer/bin/Windows-AnyCPU/Debug/Microsoft.AppxPackage.Metadata.Overrides.props
 *.suo
 *.user
 Wanderer/Wanderer.jsproj.user
+Wanderer/bin/Windows-AnyCPU/Debug/Wanderer.build.appxrecipe
+*.ps1
+Wanderer/AppPackages/CordovaApp.Windows_1.0.0.10_anycpu_debug_Test/Add-AppDevPackage.resources/Add-AppDevPackage.psd1
+*.psd1
+Wanderer/config.xml

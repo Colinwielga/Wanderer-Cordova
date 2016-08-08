@@ -29,9 +29,10 @@
 
             <div id="gods-section" class="section">
                 <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
+                    <label class="hide-button" for="gods-hide">-</label>
                     <h2 class="section-title">Gods</h2>
                 </div>
+                <input type="checkbox" class="hide-check" id="gods-hide" />
                 <div class="section-body fixed-content pad-me">
                     <table class="gods pad-me">
                         <tr data-ng-repeat="god in charactor.gods">
@@ -75,36 +76,6 @@
                 </div>
             </div>
 
-            <div id="tools-section" class="section">
-                <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
-                    <h2 class="section-title">Tools</h2>
-                </div>
-                <div class="section-body fixed-content pad-me">
-                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.tools" placeholder="Tools your character has at their disposal. Start with 3." class="char-text auto-resize"></textarea>
-                </div>
-            </div>
-
-            <div id="description-section" class="section">
-                <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
-                    <h2 class="section-title">Description</h2>
-                </div>
-                <div class="section-body fixed-content pad-me">
-                    <!--<input type="text" placeholder="name"/>-->
-                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.statements" placeholder="Description" class="char-text auto-resize"></textarea>
-                </div>
-            </div>
-
-            <div id="notes-section" class="section">
-                <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
-                    <h2 class="section-title">Notes</h2>
-                </div>
-                <div class="section-body fixed-content pad-me">
-                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.notes" placeholder="Keep notes" class="char-text auto-resize"></textarea>
-                </div>
-            </div>
 
             <div id="roll-section" class="section">
                 <div class="section-header">
@@ -153,6 +124,39 @@
                     </div>-->
                 </div>
             </div>
+
+            <div id="tools-section" class="section">
+                <div class="section-header">
+                    <button class="hide-button" type="button">-</button>
+                    <h2 class="section-title">Tools</h2>
+                </div>
+                <div class="section-body fixed-content pad-me">
+                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.tools" placeholder="Tools your character has at their disposal. Start with 3." class="char-text auto-resize"></textarea>
+                </div>
+            </div>
+
+            <div id="description-section" class="section">
+                <div class="section-header">
+                    <!--<button class="hide-button" type="button">-</button>-->
+                    <h2 class="section-title">Description</h2>
+                </div>
+                <div class="section-body fixed-content pad-me">
+                    <!--<input type="text" placeholder="name"/>-->
+                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.statements" placeholder="Description" class="char-text auto-resize"></textarea>
+                </div>
+            </div>
+
+            <div id="notes-section" class="section">
+                <div class="section-header">
+                    <!--<button class="hide-button" type="button">-</button>-->
+                    <h2 class="section-title">Notes</h2>
+                </div>
+                <div class="section-body fixed-content pad-me">
+                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.notes" placeholder="Keep notes" class="char-text auto-resize"></textarea>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
