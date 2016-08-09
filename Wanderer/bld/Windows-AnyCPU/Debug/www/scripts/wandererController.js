@@ -1,33 +1,69 @@
 ﻿App.controller('wandererController', ['$scope', function ($scope) {
-    // TODO just store card ID 
-    // the whole card object is hard to save 
+    // we load the character
+    // TODO support multiple characters
+    var characterList = ["autosave"];
+    var charactorListString = window.localStorage.getItem("charactorlist");
+    if (charactorListString !== undefined) {
+        characterList = JSON.parse(charactorListString);
+    }
+    
+    // we load the last character used
+    var last = undefined;//window.localStorage.getItem(characterList[characterList.length-1]);//
+    var tempChar = undefined;
+    if (last !== undefined) {
+        tempChar = JSON.parse(last);
+    }
 
-    var last = undefined;//window.localStorage.getItem("autosave");//
-    if (last === undefined) {
-        $scope.charactor = {
-            cards: [],
-            gods:God.gods,
-            tools: "",
-            statements: "",
-            notes: "",
-            hp: 10,
-            facts: 3,
-            name: ""
+    // we generate a default character
+    $scope.charactor = {
+        cards: [], 
+        gods: God.gods,
+        tools: "",
+        statements: "",
+        notes: "",
+        hp: 10,
+        facts: 3,
+        name: "autosave"
+    }
+
+    // and then if anything is save we overwright
+    if (tempChar !== undefined) {
+        for (var prop in $scope.charactor) {
+            if (tempChar[prop] !== undefined) {
+                $scope.charactor[prop] = tempChar[prop];
+            }
         }
-    } else {
-        $scope.charactor = JSON.parse(last);
     }
 
     var save = function () {
-        var output = JSON.stringify($scope.charactor)
-        window.localStorage.setItem("autosave", output);
+
+        //we make sure your character is at the end of the charactorlist
+        var charactorListString = window.localStorage.getItem("charactorlist");
+        if (charactorListString !== undefined) {
+            characterList = JSON.parse(charactorListString);
+        } else {
+            characterList = [];
+        }
+
+        var characterIndex = characterList.indexOf($scope.charactor.name);
+        if (characterIndex !== -1) {
+            characterList.cards.splice(i, 1);
+        }
+        characterList.push($scope.charactor.name);
+        charactorListString = JSON.stringify(characterList);
+        window.localStorage.setItem("charactorlist", charactorListString);
+        
+
+        // save your character
+        var output = JSON.stringify($scope.charactor);
+        window.localStorage.setItem($scope.charactor.name, output);
+        
         //setTimeout(function () {
         //    save();
         //}
         //, 1000);
     }
-
-
+   
     $scope.onUpdate = function () {
         save();
         var toRezie = $(".auto-resize");

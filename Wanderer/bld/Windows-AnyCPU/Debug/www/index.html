@@ -13,7 +13,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
+    <link rel="stylesheet" type="text/css" href="css/newStyle.css">
     <title>Wanderer</title>
 
     <!-- externals -->
@@ -31,10 +31,11 @@
 
             <div id="gods-section" class="section">
                 <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
+                    <label class="hide-button" for="gods-hide">-</label>
                     <h2 class="section-title">Gods</h2>
                 </div>
-                <div class="section-body fixed-content pad-me">
+                <input type="checkbox" class="hide-check" id="gods-hide" />
+                <div class="section-body fixed-content">
                     <table class="gods pad-me">
                         <tr data-ng-repeat="god in charactor.gods">
                             <td>{{god.name}}</td>
@@ -62,99 +63,124 @@
 
             <div id="cards-section" class="section">
                 <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
+                    <label class="hide-button" for="cards-hide">-</label>
                     <h2 class="section-title">Hand</h2>
                 </div>
-                <div class="section-body fixed-content pad-me">
-                    <button data-ng-click="draw()"> draw </button>
-                    <div class="cards">
-                        <div data-ng-repeat="cardID in charactor.cards" class="card pad-me" style="display: inline-block">
-                            <img src="{{getImage(cardID)}}" alt="{{getName(cardID)}}" />
-                            <p>{{getText(cardID)}}</p>
-                            <button type="button" data-ng-click="discard(cardID)">Discard</button>
+                <input type="checkbox" class="hide-check" id="cards-hide" />
+                <div class="section-body fixed-content">
+                    <div class="pad-me">
+                        <button data-ng-click="draw()"> draw </button>
+                        <div class="cards">
+                            <div data-ng-repeat="cardID in charactor.cards" class="card pad-me" style="display: inline-block">
+                                <img src="{{getImage(cardID)}}" alt="{{getName(cardID)}}" />
+                                <p>{{getText(cardID)}}</p>
+                                <button type="button" data-ng-click="discard(cardID)">Discard</button>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="roll-section" class="section">
+                <div class="section-header">
+                    <label class="hide-button" for="roll-hide">-</label>
+                    <h2 class="section-title">Roll</h2>
+                </div>
+                <input type="checkbox" class="hide-check" id="roll-hide" />
+                <div class="section-body fixed-content">
+                    <div class="pad-me">
+                        <!-- add tooltips -->
+                        <button data-ng-click="roll(14)"> 14 </button>
+                        <button data-ng-click="roll(12)"> 12 </button>
+                        <button data-ng-click="roll(9)"> 9 </button>
+                        <button data-ng-click="roll(7)"> 7 </button>
+                        <button data-ng-click="roll(5)"> 5 </button>
+                        <button data-ng-click="roll(2)"> 3 </button>
+                        <h3>public</h3>
+                        <table class="outcomes">
+                            <tr data-ng-repeat="outcome in publicLastRoll" class="pad-me">
+                                <td>{{outcome.getDC()}}</td>
+                                <td>{{outcome.result}}</td>
+                            </tr>
+                        </table>
+                        <h3>private</h3>
+                        <table class="outcomes">
+                            <tr data-ng-repeat="outcome in privateLastRoll" class="pad-me">
+                                <td>{{outcome.getDC()}}</td>
+                                <td>{{outcome.result}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="couters-section" class="section">
+                <div class="section-header">
+                    <label class="hide-button" for="couters-hide">-</label>
+                    <h2 class="section-title">Counters</h2>
+                </div>
+                <input type="checkbox" class="hide-check" id="couters-hide" />
+                <div class="section-body fixed-content">
+
+                    <div class="pad-me">
+                        <div>
+                            HP:<input type="number" value="" data-ng-model="charactor.hp" /><button data-ng-click="hit()">hit</button><button data-ng-click="heal()">heal</button>
+                        </div>
+                        <div>
+                            Facts:<input type="number" value="" data-ng-model="charactor.facts" />
+                        </div>
+                        <!--<div>
+                            active:<input type="checkbox" data-ng-model="charactor.canAct" />
+                        </div>-->
                     </div>
                 </div>
             </div>
 
             <div id="tools-section" class="section">
                 <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
+                    <label class="hide-button" for="tools-hide">-</label>
                     <h2 class="section-title">Tools</h2>
                 </div>
-                <div class="section-body fixed-content pad-me">
-                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.tools" placeholder="Tools your character has at their disposal. Start with 3." class="char-text auto-resize"></textarea>
+                <input type="checkbox" class="hide-check" id="tools-hide" />
+                <div class="section-body fixed-content">
+
+                    <div class="pad-me">
+                        <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.tools" placeholder="Tools your character has at their disposal. Start with 3." class="char-text auto-resize"></textarea>
+                    </div>
                 </div>
             </div>
 
             <div id="description-section" class="section">
                 <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
+                    <label class="hide-button" for="description-hide">-</label>
                     <h2 class="section-title">Description</h2>
                 </div>
+                <input type="checkbox" class="hide-check" id="description-hide" />
                 <div class="section-body fixed-content pad-me">
-                    <!--<input type="text" placeholder="name"/>-->
-                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.statements" placeholder="Description" class="char-text auto-resize"></textarea>
+
+                    <div class="pad-me">
+                        <!--<input type="text" placeholder="name"/>-->
+                        <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.statements" placeholder="Description" class="char-text auto-resize"></textarea>
+                    </div>
                 </div>
             </div>
 
             <div id="notes-section" class="section">
                 <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
+                    <label class="hide-button" for="notes-hide">-</label>
                     <h2 class="section-title">Notes</h2>
                 </div>
+                <input type="checkbox" class="hide-check" id="notes-hide" />
                 <div class="section-body fixed-content pad-me">
-                    <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.notes" placeholder="Keep notes" class="char-text auto-resize"></textarea>
+
+                    <div class="pad-me">
+                        <textarea data-ng-keyup="resize(this)" data-ng-model="charactor.notes" placeholder="Keep notes" class="char-text auto-resize"></textarea>
+                    </div>
                 </div>
             </div>
 
-            <div id="roll-section" class="section">
-                <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
-                    <h2 class="section-title">Roll</h2>
-                </div>
-                <div class="section-body fixed-content pad-me">
-                    <!-- add tooltips -->
-                    <button data-ng-click="roll(14)"> 14 </button>
-                    <button data-ng-click="roll(12)"> 12 </button>
-                    <button data-ng-click="roll(9)"> 9 </button>
-                    <button data-ng-click="roll(7)"> 7 </button>
-                    <button data-ng-click="roll(5)"> 5 </button>
-                    <button data-ng-click="roll(2)"> 3 </button>
-                    <h3>public</h3>
-                    <table class="outcomes">
-                        <tr data-ng-repeat="outcome in publicLastRoll" class="pad-me">
-                            <td>{{outcome.getDC()}}</td>
-                            <td>{{outcome.result}}</td>
-                        </tr>
-                    </table>
-                    <h3>private</h3>
-                    <table class="outcomes">
-                        <tr data-ng-repeat="outcome in privateLastRoll" class="pad-me">
-                            <td>{{outcome.getDC()}}</td>
-                            <td>{{outcome.result}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
 
-            <div id="couters-section" class="section">
-                <div class="section-header">
-                    <!--<button class="hide-button" type="button">-</button>-->
-                    <h2 class="section-title">Counters</h2>
-                </div>
-                <div class="section-body fixed-content pad-me">
-                    <div>
-                        HP:<input type="number" value="" data-ng-model="charactor.hp" /><button data-ng-click="hit()">hit</button><button data-ng-click="heal()">heal</button>
-                    </div>
-                    <div>
-                        Facts:<input type="number" value="" data-ng-model="charactor.facts" />
-                    </div>
-                    <!--<div>
-                        active:<input type="checkbox" data-ng-model="charactor.canAct" />
-                    </div>-->
-                </div>
-            </div>
         </div>
     </div>
 
