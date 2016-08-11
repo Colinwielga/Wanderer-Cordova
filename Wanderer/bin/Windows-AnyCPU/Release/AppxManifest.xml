@@ -7,7 +7,7 @@
 
     For more information on package manifest files, see http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="45205-Dev.WandererRPG" Publisher="CN=758BF981-4C62-48DC-BD25-D1C3B579D9CE" Version="1.0.0.1" ProcessorArchitecture="neutral" />
+  <Identity Name="45205-Dev.WandererRPG" Publisher="CN=758BF981-4C62-48DC-BD25-D1C3B579D9CE" Version="1.0.1.2" ProcessorArchitecture="neutral" />
   <Properties>
     <DisplayName>Wanderer RPG</DisplayName>
     <PublisherDisplayName>-Dev</PublisherDisplayName>
@@ -50,8 +50,8 @@
     <build:Item Name="CodeSharingProject" Value="248F659F-DAC5-46E8-AC09-60EC9FC95053" />
     <build:Item Name="VisualStudio" Version="14.0" />
     <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Community 2015" />
-    <build:Item Name="OperatingSystem" Version="10.0.10586.0 (th2_release.151029-1700)" />
-    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="14.0.25420.1" />
+    <build:Item Name="OperatingSystem" Version="10.0.14393.0 (rs1_release.160715-1616)" />
+    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="14.0.25425.1" />
     <build:Item Name="ProjectGUID" Value="ca968033-ff89-4e36-b269-ed7f1a2c5323" />
     <build:Item Name="MakePri.exe" Version="6.3.9600.17336 (winblue.150226-1500)" />
   </build:Metadata>
