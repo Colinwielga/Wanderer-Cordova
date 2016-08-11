@@ -28,7 +28,7 @@ body {
 
 
 .red {
-    color:red;
+    color: red;
 }
 /*
     this next section we do stuff with the columns
@@ -49,9 +49,7 @@ body {
 
 .section {
     -webkit-column-break-inside: avoid;
-
-    overflow:hidden;
-
+    overflow: hidden;
 }
 
 .divider {
@@ -102,8 +100,8 @@ body {
     padding: 8px;
     background-color: #333;
     border-radius: 3px 3px 0 0;
-    z-index:10;
-    position:relative;
+    z-index: 10;
+    position: relative;
 }
 
 .section.hidden .section-header {
@@ -111,36 +109,39 @@ body {
 }
 
 .hide-check ~ .section-body {
-    -moz-transition: max-height ease-in-out .4s,transform linear .4s;
-    -o-transition: max-height ease-in-out .4s,transform linear .4s;
-    -webkit-transition: max-height ease-in-out .4s,transform linear .4s;
-    transition: max-height ease-in-out .4s,transform linear .4s;
+    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
+    transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
     max-height: 2000px;
-    transform:translateY(0%);
-    overflow:hidden;
+    transform: translateY(0%);
+    overflow: hidden;
 }
 
-    /**/
+/*transform:translateY(-100%);*/
 .hide-check:checked ~ .section-body {
-        transform:translateY(-100%);
-        max-height: 0px;
+    max-height: 0px;
+    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
 }
 
-    /*animation:slideUp 1s linear;*/
+/*animation:slideUp 1s linear;*/
 
 .hide-button, .edit-button {
     float: right;
 }
 
 .hide-check {
-    display:none;
+    display: none;
 }
 
 /*.write {
 	padding: 0px 10px;
 }*/
 
-button , label.hide-button {
+button, label.hide-button {
     outline: none;
     text-transform: lowercase;
     cursor: pointer;
@@ -174,14 +175,14 @@ input, textarea {
         border-color: #903;
     }
 
-input[type=button] {
-    width: 100px;
-    padding: 5px 10px;
-    margin-left: 8px;
-    margin-right: 0;
-}
+    input[type=button] {
+        width: 100px;
+        padding: 5px 10px;
+        margin-left: 8px;
+        margin-right: 0;
+    }
 
-     /*input.input-element {
+/*input.input-element {
        text-transform: lowercase;
     }*/
 
@@ -202,7 +203,6 @@ select {
 .section-body, .fixed-content {
     /*background-color: #DDD;*/
     background-color: #C2C2C2;
-    
     border-radius: 0 0 3px 3px;
     /*border: 2px solid #222;
     border-right: 0px;
@@ -267,7 +267,7 @@ li.skill, li.trait, li.misc, li.item {
     /*-webkit-transition: all 0.3s ease;*/
 }
 
-    li.skill.highlight, li.trait.highlight, li.misc.highlight , li.item.highlight {
+    li.skill.highlight, li.trait.highlight, li.misc.highlight, li.item.highlight {
         background: -webkit-linear-gradient(left, #DADADA, #DADADA, #DADADA, #903);
     }
 
@@ -276,7 +276,7 @@ li.skill, li.trait, li.misc, li.item {
         background: #EEE;
     }
 
-    li.skill.highlight:nth-child(odd), li.trait.highlight:nth-child(odd), li.misc.highlight:nth-child(odd) , li.item.highlight:nth-child(odd) {
+    li.skill.highlight:nth-child(odd), li.trait.highlight:nth-child(odd), li.misc.highlight:nth-child(odd), li.item.highlight:nth-child(odd) {
         background: -webkit-linear-gradient(left, #F8F5F6, #F8F5F6, #F8F5F6, #903);
     }
 
@@ -290,7 +290,7 @@ li {
 
 .char-text {
     width: calc(100% - 8px);
-    overflow:hidden;
+    overflow: hidden;
     /*resize: vertical; oh edge you bastard what am i going to do...*/
 }
 /*
@@ -372,8 +372,8 @@ table {
 
 
 .ng-enter {
-  -webkit-transition: .5s;
-  opacity: 0;
+    -webkit-transition: .5s;
+    opacity: 0;
 }
 
 .ng-enter-active {
@@ -381,8 +381,8 @@ table {
 }
 
 .ng-leave {
-  -webkit-transition: .5s;
-   opacity: 1;
+    -webkit-transition: .5s;
+    opacity: 1;
 }
 
 .ng-leave-active {
@@ -394,13 +394,13 @@ table {
 
 /*.cards {
 }*/
-    .cards .card{
-        width:200px;
-    }
+.cards .card {
+    width: 200px;
+}
 
-    .cards .card img{
+    .cards .card img {
         height: 400px;
-        width:100%;
+        width: 100%;
     }
 
 /*@keyframes slideUp {
