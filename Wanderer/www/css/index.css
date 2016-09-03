@@ -20,6 +20,12 @@ body {
     top: 0;*/
     padding: 5px;
     z-index: 2;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently  not supported by any browser */
 }
 
 [draggable] {
@@ -35,7 +41,9 @@ body {
 */
 
 #content {
-    -webkit-column-width: 450px;
+    -moz-column-width: 500px;
+    -webkit-column-width: 500px;
+    column-width: 500px;
     padding-left: 5px;
     padding-right: 5px;
     margin-left: 5%;
@@ -47,13 +55,15 @@ body {
     width: 500px;
 }
 
+/*-webkit-column-break-inside: avoid;*/
 .section {
-    -webkit-column-break-inside: avoid;
+    page-break-inside:avoid;
     overflow: hidden;
 }
 
+/*-webkit-column-break-after: always;*/
 .divider {
-    -webkit-column-break-after: always;
+    page-break-after:always;
     display: none;
 }
 

@@ -6,4 +6,50 @@ var App = angular.module("wandererApp", []);
 App.config(['$compileProvider',
     function ($compileProvider) {
         $compileProvider.imgSrcSanitizationWhitelist('images/');
-}]);
+    }]);
+
+
+function isbefore(a, b) {
+    if (a.parentNode == b.parentNode) {
+        for (var cur = a; cur; cur = cur.previousSibling) {
+            if (cur === b) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function dragenter(e) {
+    //console.log("enter!", this)
+    if (source != this) {
+        if (isbefore(source, this)) {
+            this.parentNode.insertBefore(source, this);
+        }
+        else {
+            this.parentNode.insertBefore(source, this.nextSibling);
+        }
+    }
+}
+
+function dragenterdiv(e) {
+    // we always insert before a divider
+    this.parentNode.insertBefore(source, this);
+}
+
+function dragstart(e) {
+    //console.log("start!", this)
+    source = this;
+    e.originalEvent.dataTransfer.effectAllowed = 'move';
+}
+
+$(document).ready(function () {
+    $(".drag").on('dragenter', dragenter);
+
+    $(".drag").on('dragstart', dragstart);
+
+
+    $(".divider").on('dragenter', dragenterdiv);
+});
+
+
