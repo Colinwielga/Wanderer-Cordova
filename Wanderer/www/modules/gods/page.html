@@ -1,0 +1,22 @@
+﻿<table class="gods">
+    <tr data-ng-repeat="god in charactor.gods">
+        <td>{{god.name}}</td>
+        <td>{{god.sex}}</td>
+        <td>{{god.godOf}}</td>
+        <td>
+            <label>
+                <input type="radio" name="{{god.name}}" value="SCORN" data-ng-model="god.relation" /> scorn
+            </label>
+        </td>
+        <td>
+            <label>
+                <input type="radio" name="{{god.name}}" value="INDIFFERANCE" data-ng-model="god.relation" /> indifferance
+            </label>
+        </td>
+        <td>
+            <label>
+                <input type="radio" name="{{god.name}}" value="FAVOR" data-ng-model="god.relation" /> favor
+            </label>
+        </td>
+    </tr>
+</table>

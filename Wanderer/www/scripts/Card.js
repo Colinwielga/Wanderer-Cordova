@@ -165,7 +165,7 @@ Card.map = {
     213: new Card("DEATH", "(blessing) 15, heal two click if this roll results in a death"),
     214: new Card("TEMPERANCE", "(blessing) 6, draw 3 cards"),
     215: new Card("THE DEVIL", "(blessing) 10, 15 if you are acting selfishly"),
-    216: new Card("THE TOWER", "(blessing) 6 you may keep this card after playing it, each time you do it's value decrease by 3 if it's value is >=15 discard it"),
+    216: new Card("THE TOWER", "(blessing) 6 you may keep this card after playing it, each time you do it's value increase by 3 if it's value is >=15 discard it"),
     217: new Card("THE STAR", "(blessing) 6 you may discard a card to keep this one in your hand after playing it"),
     218: new Card("THE MOON", "(blessing) 10, 15 if acting directly"),
     219: new Card("THE SUN", "(blessing) 10, 15 if acting deceptively"),

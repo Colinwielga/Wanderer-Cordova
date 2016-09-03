@@ -6,7 +6,7 @@
     if (charactorListString !== undefined) {
         characterList = JSON.parse(charactorListString);
     }
-    
+
     // we load the last character used
     var last = undefined;//window.localStorage.getItem(characterList[characterList.length-1]);//
     var tempChar = undefined;
@@ -14,9 +14,39 @@
         tempChar = JSON.parse(last);
     }
 
+    $scope.modules = [{
+        title:"Cards",
+        url: "modules/cards/page.html"
+    },
+    {
+        title:"Counters",
+        url: "modules/counters/page.html"
+    },
+    {
+        title: "Gods",
+        url: "modules/gods/page.html"
+    },
+    {
+        title: "Tools",
+        url: "modules/tools/page.html"
+    },
+    {
+        title: "Description",
+        url: "modules/description/page.html"
+    },
+    {
+        title: "Notes",
+        url: "modules/notes/page.html"
+    },
+    {
+        title: "Roll",
+        url: "modules/roll/page.html"
+    }
+    ]
+
     // we generate a default character
     $scope.charactor = {
-        cards: [], 
+        cards: [],
         gods: God.gods,
         tools: "",
         statements: "",
@@ -39,7 +69,7 @@
 
         //we make sure your character is at the end of the charactorlist
         var charactorListString = window.localStorage.getItem("charactorlist");
-        if (charactorListString !== undefined) {
+        if (charactorListString != undefined) {
             characterList = JSON.parse(charactorListString);
         } else {
             characterList = [];
@@ -47,30 +77,30 @@
 
         var characterIndex = characterList.indexOf($scope.charactor.name);
         if (characterIndex !== -1) {
-            characterList.cards.splice(i, 1);
+            characterList.splice(characterIndex, 1);
         }
         characterList.push($scope.charactor.name);
         charactorListString = JSON.stringify(characterList);
         window.localStorage.setItem("charactorlist", charactorListString);
-        
+
 
         // save your character
         var output = JSON.stringify($scope.charactor);
         window.localStorage.setItem($scope.charactor.name, output);
-        
+
         //setTimeout(function () {
         //    save();
         //}
         //, 1000);
     }
-   
+
     $scope.onUpdate = function () {
         save();
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {
             var target = toRezie[i];
             target.style.height = "1px";
-            target.style.height = (25+target.scrollHeight)+"px";
+            target.style.height = (25 + target.scrollHeight) + "px";
         }
         return "on upate";
     }
