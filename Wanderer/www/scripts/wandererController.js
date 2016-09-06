@@ -8,7 +8,7 @@
     }
 
     // we load the last character used
-    var last = undefined;//window.localStorage.getItem(characterList[characterList.length-1]);//
+    var last = window.localStorage.getItem(characterList[characterList.length - 1]);//undefined;//
     var tempChar = undefined;
     if (last !== undefined) {
         tempChar = JSON.parse(last);
