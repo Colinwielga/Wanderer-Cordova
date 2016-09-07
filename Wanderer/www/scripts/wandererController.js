@@ -51,7 +51,8 @@
         tools: "",
         statements: "",
         notes: "",
-        hp: 10,
+        hp: 8,
+        encounterHP:4,
         facts: 3,
         name: "autosave"
     }
@@ -276,13 +277,26 @@
     }
 
     $scope.hit = function () {
-        $scope.charactor.hp -= hpMover();
+        var dif = hpMover();
+        if ($scope.charactor.encounterHP > dif){
+            $scope.charactor.encounterHP-= dif;
+        }else{
+            dif -= $scope.charactor.encounterHP;
+            $scope.charactor.encounterHP = 0;
+            $scope.charactor.hp -= dif;
+        }
+        $scope.charactor.encounterHP = Math.floor($scope.charactor.encounterHP * 10) / 10;
         $scope.charactor.hp = Math.floor($scope.charactor.hp * 10) / 10;
     }
 
     $scope.heal = function () {
         $scope.charactor.hp += hpMover();
+        $scope.charactor.encounterHP = Math.floor($scope.charactor.encounterHP * 10) / 10;
         $scope.charactor.hp = Math.floor($scope.charactor.hp * 10) / 10;
+    }
+
+    $scope.recoverEncounterHP = function () {
+        $scope.charactor.encounterHP = 4;
     }
 }]);
 
