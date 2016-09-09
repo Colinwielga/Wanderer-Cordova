@@ -23,18 +23,21 @@
     <div id="all">
         <div id="page-header" class="pad-me">
             <!--<h1>Wanderer</h1>-->
+            <!--<input type="checkbox" id="show-settings" name="show settings" value="show settings" />-->
         </div>
 
+        <!--<div id="settings" ></div>-->
+        
         <div id="content">
-
+            <!--draggable="true"-->
             <div data-ng-repeat="module in modules">
-                <div id="notes-section"  draggable="true" class="drag section">
-                    <div class="section-header">
+                <div id="notes-section"   class="drag section">
+                    <div class="section-header" >
                         <label class="hide-button" for="{{module.title}}-hide">-</label>
                         <h2 class="section-title">{{module.title}}</h2>
                     </div>
                     <input type="checkbox" class="hide-check" id="{{module.title}}-hide" />
-                    <div class="section-body fixed-content">
+                    <div class="section-body fixed-content" >
                         <div class="pad-me">
                             <div data-ng-include="module.url"></div>
                         </div>

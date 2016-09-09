@@ -1,18 +1,61 @@
 ﻿App.controller('wandererController', ['$scope', function ($scope) {
-    // we load the character
-    // TODO support multiple characters
-    var characterList = ["autosave"];
-    var charactorListString = window.localStorage.getItem("charactorlist");
-    if (charactorListString !== undefined) {
-        characterList = JSON.parse(charactorListString);
+
+    $scope.newCharacter = function () {
+        var d = new Date();
+        var now = d.getTime();
+        return {
+            cards: [],
+            gods: God.gods,
+            tools: "",
+            statements: "",
+            notes: "",
+            hp: 8,
+            encounterHP: 4,
+            facts: 3,
+            name: "autosave",
+            id: now
+        }
     }
 
-    // we load the last character used
-    var last = window.localStorage.getItem(characterList[characterList.length - 1]);//undefined;//
-    var tempChar = undefined;
-    if (last !== undefined) {
-        tempChar = JSON.parse(last);
+    $scope.fresh = function () {
+        $scope.charactor = $scope.newCharacter();
+        save();
     }
+
+    $scope.Load = function (charName) {
+        //TODO handle bad names
+
+        // we load the last character used
+        var last = window.localStorage.getItem(charName);//undefined;//
+        var tempChar = undefined;
+        if (last !== undefined) {
+            tempChar = JSON.parse(last);
+        }
+
+        // we generate a default character
+        $scope.charactor=$scope.newCharacter();
+
+        // and then if anything is save we overwright
+        if (tempChar != undefined) {
+            for (var prop in $scope.charactor) {
+                if (tempChar[prop] !== undefined) {
+                    $scope.charactor[prop] = tempChar[prop];
+                }
+            }
+        }
+    }
+
+
+    // we load the character
+    // TODO support multiple characters
+    $scope.characterList = ["autosave"];
+    var charactorListString = window.localStorage.getItem("charactorlist");
+    if (charactorListString !== undefined) {
+        $scope.characterList = JSON.parse(charactorListString);
+    }
+
+    $scope.Load($scope.characterList[$scope.characterList.length - 1]);
+
 
     $scope.modules = [{
         title:"Cards",
@@ -41,53 +84,40 @@
     {
         title: "Roll",
         url: "modules/roll/page.html"
+    },{
+        title:"Manage",
+        url: "modules/manage/page.html"
     }
     ]
-
-    // we generate a default character
-    $scope.charactor = {
-        cards: [],
-        gods: God.gods,
-        tools: "",
-        statements: "",
-        notes: "",
-        hp: 8,
-        encounterHP:4,
-        facts: 3,
-        name: "autosave"
+    
+    $scope.getCharName = function (id){
+        var json = window.localStorage.getItem(id);
+        var tempChar = JSON.parse(json);
+        return tempChar.name;
     }
 
-    // and then if anything is save we overwright
-    if (tempChar !== undefined) {
-        for (var prop in $scope.charactor) {
-            if (tempChar[prop] !== undefined) {
-                $scope.charactor[prop] = tempChar[prop];
-            }
-        }
-    }
-
-    var save = function () {
+    $scope.save = function () {
 
         //we make sure your character is at the end of the charactorlist
         var charactorListString = window.localStorage.getItem("charactorlist");
         if (charactorListString != undefined) {
-            characterList = JSON.parse(charactorListString);
+            $scope.characterList = JSON.parse(charactorListString);
         } else {
-            characterList = [];
+            $scope.characterList = [];
         }
 
-        var characterIndex = characterList.indexOf($scope.charactor.name);
+        var characterIndex = $scope.characterList.indexOf($scope.charactor.id);
         if (characterIndex !== -1) {
-            characterList.splice(characterIndex, 1);
+            $scope.characterList.splice(characterIndex, 1);
         }
-        characterList.push($scope.charactor.name);
-        charactorListString = JSON.stringify(characterList);
+        $scope.characterList.push($scope.charactor.id);
+        charactorListString = JSON.stringify($scope.characterList);
         window.localStorage.setItem("charactorlist", charactorListString);
 
 
         // save your character
         var output = JSON.stringify($scope.charactor);
-        window.localStorage.setItem($scope.charactor.name, output);
+        window.localStorage.setItem($scope.charactor.id, output);
 
         //setTimeout(function () {
         //    save();
@@ -96,7 +126,7 @@
     }
 
     $scope.onUpdate = function () {
-        save();
+        $scope.save();
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {
             var target = toRezie[i];
