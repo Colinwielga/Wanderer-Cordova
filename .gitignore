@@ -3,4 +3,6 @@
 *.appxrecipe
 *.ps1
 Wanderer/AppPackages/*
-Wanderer/bld/Windows-AnyCPU/Debug/*
+Wanderer/bin/*
+Wanderer/bld/*
+
