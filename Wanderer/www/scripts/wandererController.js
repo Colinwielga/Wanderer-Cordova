@@ -50,7 +50,7 @@
     // TODO support multiple characters
     $scope.characterList = ["autosave"];
     var charactorListString = window.localStorage.getItem("charactorlist");
-    if (charactorListString !== undefined) {
+    if (charactorListString !== undefined && charactorListString !== null) {
         $scope.characterList = JSON.parse(charactorListString);
     }
 

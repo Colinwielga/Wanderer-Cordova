@@ -153,7 +153,7 @@ body {
 	padding: 0px 10px;
 }*/
 
-button, label.hide-button {
+button, label.hide-button, input[type=button] {
     outline: none;
     text-transform: lowercase;
     cursor: pointer;
@@ -164,6 +164,7 @@ button, label.hide-button {
     padding: 5px 10px;
     font-size: 10pt;
     font-weight: bold;
+    margin: 2px;
     /*	line-height: 12pt;*/
     text-decoration: none;
     /*	margin-bottom: 2px;*/
@@ -171,31 +172,26 @@ button, label.hide-button {
     margin-left: 8px;
 }
 
-    button:hover, label.hide-button:hover {
+    button:hover, label.hide-button:hover, input[type=button]:hover {
         background-color: #903;
         border-color: #903;
+        text-transform: lowercase;
         /*		border: 1px solid #903;*/
     }
 
-input, textarea {
+input[type=text], textarea {
     outline: none;
     border: 2px solid #222;
     border-radius: 3px;
+    margin:2px;
 }
 
-    input:focus, textarea:focus {
+    input[type=text]:focus, textarea:focus {
         border-color: #903;
     }
 
-    input[type=button] {
-        width: 100px;
-        padding: 5px 10px;
-        margin-left: 8px;
-        margin-right: 0;
-    }
 
 /*input.input-element {
-       text-transform: lowercase;
     }*/
 
 select {
