@@ -3,22 +3,10 @@
     $scope.newCharacter = function () {
         var d = new Date();
         var now = d.getTime();
-        return {
-            cards: [],
-            gods: God.gods,
-            tools: "",
-            statements: "",
-            notes: "",
-            hp: 8,
-            encounterHP: 4,
-            facts: 3,
-            name: "autosave",
-            id: now
-        }
-    }
-
-    $scope.fresh = function () {
-        $scope.charactor = $scope.newCharacter();
+        $scope.charactor = {};
+        g.Wanderer.components.forEach(function (item) {
+            item.OnNewCharacter();
+        });
         save();
     }
 
@@ -33,70 +21,26 @@
         }
 
         // we generate a default character
-        $scope.charactor=$scope.newCharacter();
+        $scope.charactor = tempChar;//$scope.newCharacter();
 
-        // and then if anything is save we overwright
-        if (tempChar != undefined) {
-            for (var prop in $scope.charactor) {
-                if (tempChar[prop] !== undefined) {
-                    $scope.charactor[prop] = tempChar[prop];
-                }
-            }
-        }
-    }
-
-
-    // we load the character
-    // TODO support multiple characters
-    $scope.characterList = ["autosave"];
-    var charactorListString = window.localStorage.getItem("charactorlist");
-    if (charactorListString !== undefined && charactorListString !== null) {
-        $scope.characterList = JSON.parse(charactorListString);
+        g.Wanderer.components.forEach(function (item) {
+            item.OnLoad();
+        });
     }
 
     $scope.Load($scope.characterList[$scope.characterList.length - 1]);
 
-
-    $scope.modules = [{
-        title:"Cards",
-        url: "modules/cards/page.html"
-    },
-    {
-        title:"Counters",
-        url: "modules/counters/page.html"
-    },
-    {
-        title: "Gods",
-        url: "modules/gods/page.html"
-    },
-    {
-        title: "Tools",
-        url: "modules/tools/page.html"
-    },
-    {
-        title: "Description",
-        url: "modules/description/page.html"
-    },
-    {
-        title: "Notes",
-        url: "modules/notes/page.html"
-    },
-    {
-        title: "Roll",
-        url: "modules/roll/page.html"
-    },{
-        title:"Manage",
-        url: "modules/manage/page.html"
-    }
-    ]
-    
-    $scope.getCharName = function (id){
+    $scope.getCharName = function (id) {
         var json = window.localStorage.getItem(id);
         var tempChar = JSON.parse(json);
         return tempChar.name;
     }
 
     $scope.save = function () {
+
+        g.Wanderer.components.forEach(function (item) {
+            item.OnSave();
+        });
 
         //we make sure your character is at the end of the charactorlist
         var charactorListString = window.localStorage.getItem("charactorlist");
@@ -328,5 +272,34 @@
     $scope.recoverEncounterHP = function () {
         $scope.charactor.encounterHP = 4;
     }
+
+
+    // we load the character
+    $scope.characterList = ["autosave"];
+    var charactorListString = window.localStorage.getItem("charactorlist");
+    if (charactorListString !== undefined && charactorListString !== null) {
+        $scope.characterList = JSON.parse(charactorListString);
+    }
+
+
+    g.Wanderer.components.forEach(function (item) {
+        var comFactory = function (comp) {
+            comp.read = function (key) {
+                return $scope.charactor[item.getId()][key];
+            }
+            comp.canRead = function (key) {
+                return $scope.charactor[item.getId()] !== undefined && $scope.charactor[item.getId()][key] !== undefined;
+            }
+            comp.write = function (key, value) {
+                if ($scope.charactor[item.getId()] !== undefined) {
+                    $scope.charactor[item.getId()] = {};
+                }$scope.charactor[item.getId()][key] =value;
+                
+            }
+            return comp;
+        }
+        var communicator = comFactory(item);
+        item.OnStart(communicator);
+    });
 }]);
 

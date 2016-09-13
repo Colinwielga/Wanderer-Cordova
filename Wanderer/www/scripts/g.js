@@ -1,6 +1,8 @@
 ﻿// TODO get better typing for angular https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/angularjs/angular.d.ts
 //declare var angular: any;
 
+var g = {};
+
 var App = angular.module("wandererApp", []);
 
 App.config(['$compileProvider',
@@ -8,6 +10,19 @@ App.config(['$compileProvider',
         $compileProvider.imgSrcSanitizationWhitelist('images/');
     }]);
 
+
+g.Wanderer = {
+    components: [],
+    register: function (componentFactory) {
+        var newComp = new componentFactory();
+        for (var i = 0; i < g.Wanderer.components.length; i++) {
+            if (g.Wanderer.components.getId() == newComp.getId()) {
+                throw { mesage: "two components with the same id" }
+            }
+        }
+        g.Wanderer.components.push(newComp);
+    }
+};
 
 function isbefore(a, b) {
     if (a.parentNode == b.parentNode) {
@@ -45,10 +60,7 @@ function dragstart(e) {
 
 $(document).ready(function () {
     $(".drag").on('dragenter', dragenter);
-
     $(".drag").on('dragstart', dragstart);
-
-
     $(".divider").on('dragenter', dragenterdiv);
 });
 
