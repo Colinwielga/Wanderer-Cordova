@@ -1,0 +1,8 @@
+﻿<button data-ng-click="module.draw()"> draw </button>
+<div class="cards">
+    <div data-ng-repeat="cardID in module.cards" class="card pad-me" style="display: inline-block">
+        <img src="{{module.getImage(cardID)}}" alt="{{module.getName(cardID)}}" />
+        <p>{{module.getText(cardID)}}</p>
+        <button type="button" data-ng-click="module.discard(cardID)">Discard</button>
+    </div>
+</div>

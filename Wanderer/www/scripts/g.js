@@ -16,7 +16,7 @@ g.Wanderer = {
     register: function (componentFactory) {
         var newComp = new componentFactory();
         for (var i = 0; i < g.Wanderer.components.length; i++) {
-            if (g.Wanderer.components.getId() == newComp.getId()) {
+            if (g.Wanderer.components[i].getId() == newComp.getId()) {
                 throw { mesage: "two components with the same id" }
             }
         }

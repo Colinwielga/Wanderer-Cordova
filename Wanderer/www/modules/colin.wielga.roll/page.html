@@ -1,0 +1,21 @@
+﻿<!-- add tooltips -->
+<button data-ng-click="module.roll(14)"> 14 </button>
+<button data-ng-click="module.roll(12)"> 12 </button>
+<button data-ng-click="module.roll(9)"> 9 </button>
+<button data-ng-click="module.roll(7)"> 7 </button>
+<button data-ng-click="module.roll(5)"> 5 </button>
+<button data-ng-click="module.roll(2)"> 3 </button>
+<h3>public</h3>
+<table class="outcomes">
+    <tr data-ng-repeat="outcome in module.publicLastRoll" class="pad-me">
+        <td>{{outcome.getDC()}}</td>
+        <td>{{outcome.result}}</td>
+    </tr>
+</table>
+<h3>private</h3>
+<table class="outcomes">
+    <tr data-ng-repeat="outcome in module.privateLastRoll" class="pad-me">
+        <td>{{outcome.getDC()}}</td>
+        <td>{{outcome.result}}</td>
+    </tr>
+</table>

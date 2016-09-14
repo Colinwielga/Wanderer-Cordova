@@ -33,17 +33,16 @@
             <div data-ng-repeat="module in modules">
                 <div id="notes-section"   class="drag section">
                     <div class="section-header" >
-                        <label class="hide-button" for="{{module.title}}-hide">-</label>
-                        <h2 class="section-title">{{module.title}}</h2>
+                        <label class="hide-button" for="{{module.getId()}}-hide">-</label>
+                        <h2 class="section-title">{{module.getTitle()}}</h2>
                     </div>
-                    <input type="checkbox" class="hide-check" id="{{module.title}}-hide" />
+                    <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
                     <div class="section-body fixed-content" >
-                        <div class="pad-me">
-                            <div data-ng-include="module.url"></div>
+                        <div class="pad-me" id="{{module.getId()}}">
+                            <div data-ng-include="module.getHmtl()"></div>
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -56,11 +55,20 @@
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
         <script type="text/javascript" src="scripts/appBundle.js"></script>
 
-        <script src="scripts/Gods.js"></script>
-        <script src="scripts/Card.js"></script>
-        <script src="scripts/roll.js"></script>
-
         <script src="scripts/g.js"></script>
+
+        <script src="modules/colin.wielga.manage/script.js"></script>
+        <script src="modules/colin.wielga.gods/Gods.js"></script>
+        <script src="modules/colin.wielga.gods/script.js"></script>
+        <script src="modules/colin.wielga.cards/Card.js"></script>
+        <script src="modules/colin.wielga.cards/script.js"></script>
+        <script src="modules/colin.wielga.description/script.js"></script>
+        <script src="modules/colin.wielga.counters/script.js"></script>
+        <script src="modules/colin.wielga.notes/script.js"></script>
+        <script src="modules/colin.wielga.roll/roll.js"></script>
+         <script src="modules/colin.wielga.roll/script.js"></script>
+        <script src="modules/colin.wielga.tools/script.js"></script>
+
         <!-- I think wandererController has to be down here, since it requires the UI to have loaded -->
         <script src="scripts/wandererController.js"></script>
     </scripts>
