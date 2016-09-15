@@ -4,7 +4,7 @@
     this.getId = function () {
         return "colin.wielga.tools"
     }
-    this.OnStart = function (communicator) {
+    this.OnStart = function (communicator,dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
@@ -26,12 +26,22 @@
     this.getTitle = function () {
         return "Tools";
     }
-    this.getDescription = function () {
-        return "This is a unimplemented componet";
+    this.getRequires = function () {
+        return [];
     }
-    this.getVersion = function () {
-        return 1;
+
+    this.getPublic = function () {
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            }
+        }
     }
+
+    this.OnNewCharacter();
 }
 
 g.Wanderer.register(component);

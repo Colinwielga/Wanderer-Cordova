@@ -1,11 +1,11 @@
 ﻿var component = function () {
-    this.cards = [];
 
     this.getId = function () {
         return "colin.wielga.cards"
     }
-    this.OnStart = function (communicator) {
+    this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
+        this.godsPublic = dependencies[0];
     }
     this.OnNewCharacter = function () {
         this.cards = [];
@@ -27,11 +27,19 @@
     this.getTitle = function () {
         return "Hand";
     }
-    this.getDescription = function () {
-        return "This is a unimplemented componet";
+    this.getRequires = function () {
+        return ["colin.wielga.gods"];
     }
-    this.getVersion = function () {
-        return 1;
+
+    this.getPublic = function () {
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            }
+        }
     }
 
     this.getImage = function (id) {
@@ -51,7 +59,7 @@
             var num = -1;
             var fail = false;
             while (num === -1 || fail) {
-                num = Card.draw();
+                num = Card.draw(this.godsPublic.getGods());
                 fail = false;
                 for (var i = 0; i < this.cards.length; i++) {
                     if (this.cards[i] === num) {
@@ -70,6 +78,7 @@
             }
         }
     };
+    this.OnNewCharacter();
 }
 
 g.Wanderer.register(component);

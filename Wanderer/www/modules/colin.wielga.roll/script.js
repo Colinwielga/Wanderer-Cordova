@@ -2,7 +2,7 @@
     this.getId = function () {
         return "colin.wielga.roll"
     }
-    this.OnStart = function (communicator) {
+    this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () { }
@@ -15,11 +15,19 @@
     this.getTitle = function () {
         return "Roll";
     }
-    this.getDescription = function () {
-        return "This is a unimplemented componet";
+    this.getRequires = function () {
+        return [];
     }
-    this.getVersion = function () {
-        return 1;
+
+    this.getPublic = function () {
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            }
+        }
     }
     // TODO
     // you should be able to get pass with hard choice
@@ -149,6 +157,8 @@
         this.publicLastRoll = publicOutcomes;
         this.privateLastRoll = privateOutcomes;
     }
+
+    this.OnNewCharacter();
 }
 
 g.Wanderer.register(component);

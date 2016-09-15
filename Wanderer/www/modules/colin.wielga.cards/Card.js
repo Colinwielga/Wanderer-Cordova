@@ -186,7 +186,7 @@ Card.deckSize = function () {
     return count;
 }
 
-Card.draw = function () {
+Card.draw = function (gods) {
     // list of ids
     var deck = [];
 
@@ -198,7 +198,7 @@ Card.draw = function () {
     // add the god cards 
     // TODO this is a weird dependency 
     // and it's breaking cards 
-    God.gods.forEach(function (god) {
+    gods.forEach(function (god) {
         deck.push(God.getCardId(god));
     });
 

@@ -1,12 +1,11 @@
 ﻿// TODO this is badly designed
 // I should not be saving so much info about gods
 var component = function () {
-    this.gods = God.generateGods();
 
     this.getId = function () {
         return "colin.wielga.gods"
     }
-    this.OnStart = function (communicator) {
+    this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
@@ -29,12 +28,25 @@ var component = function () {
     this.getTitle = function () {
         return "Gods";
     }
-    this.getDescription = function () {
-        return "This is a unimplemented componet";
+    this.getRequires = function () {
+        return [];
     }
-    this.getVersion = function () {
-        return 1;
+
+    this.getPublic = function () {
+        var that = this;
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            },
+        getGods: function() {
+            return that.gods;
+        }
+        }
     }
+    this.OnNewCharacter();
 }
 
 g.Wanderer.register(component);

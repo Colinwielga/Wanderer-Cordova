@@ -1,16 +1,13 @@
 ﻿var component = function () {
-    this.description = "";
-    this.name = "";
-
     this.getId = function () {
         return "colin.wielga.description"
     }
-    this.OnStart = function (communicator) {
+    this.OnStart = function (communicator,dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
         this.description = "";
-        this.name = "";
+        this.name = "Nameless";
     }
     this.OnSave = function () {
         this.communicator.write("description", this.description);
@@ -35,12 +32,28 @@
     this.getTitle = function () {
         return "Description";
     }
-    this.getDescription = function () {
-        return "This is a unimplemented componet";
+    this.getRequires = function () {
+        return [];
     }
-    this.getVersion = function () {
-        return 1;
+
+    this.getPublic = function () {
+        var that = this;
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            },
+            getCharacterDescription: function () {
+                return that.description;
+            },
+            getCharacterName: function () {
+                return that.name;
+            }
+        }
     }
+    this.OnNewCharacter();
 }
 
 g.Wanderer.register(component);

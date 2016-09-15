@@ -1,5 +1,7 @@
 ﻿App.controller('wandererController', ['$scope', function ($scope) {
 
+    window.localStorage.clear();
+
     $scope.modules = g.Wanderer.components;
 
     $scope.newCharacter = function () {
@@ -7,9 +9,14 @@
         var now = d.getTime();
         $scope.charactor = {id:now};
         g.Wanderer.components.forEach(function (item) {
-            item.OnNewCharacter();
+            if (item.OnNewCharacter !== undefined) {
+                try {
+                    item.OnNewCharacter();
+                } catch (e) {
+                }
+            }
         });
-        save();
+        $scope.save();
     }
 
     $scope.Load = function (charName) {
@@ -26,20 +33,24 @@
         $scope.charactor = tempChar;//$scope.newCharacter();
 
         g.Wanderer.components.forEach(function (item) {
-            item.OnLoad();
+            if (item.OnLoad !== undefined) {
+                try {
+                    item.OnLoad();
+                } catch (e) {
+                }
+            }
         });
-    }
-
-    $scope.getCharName = function (id) {
-        var json = window.localStorage.getItem(id);
-        var tempChar = JSON.parse(json);
-        return tempChar.name;
     }
 
     $scope.save = function () {
 
         g.Wanderer.components.forEach(function (item) {
-            item.OnSave();
+            if (item.OnSave !== undefined) {
+                try {
+                    item.OnSave();
+                } catch (e) {
+                }
+            }
         });
 
         //we make sure your character is at the end of the charactorlist
@@ -81,7 +92,7 @@
     }
 
     // we load the character
-    $scope.characterList = ["autosave"];
+    $scope.characterList = [];
     var charactorListString = window.localStorage.getItem("charactorlist");
     if (charactorListString !== undefined && charactorListString !== null) {
         $scope.characterList = JSON.parse(charactorListString);
@@ -106,9 +117,35 @@
             return comp;
         }
         var communicator = comFactory(item);
-        item.OnStart(communicator);
+        if (item.OnStart !== undefined) {
+            try {
+                var dependencies = [];
+                if (item.getRequires !== undefined) {
+                    var lookingFors = item.getRequires();
+                    lookingFors.forEach(function (lookingFor) {
+                        var fondOne = false;
+                        g.Wanderer.components.forEach(function (inner) {
+                            if (!fondOne && lookingFor === inner.getId()) {
+                                fondOne = true;
+                                dependencies.push(inner.getPublic())
+                            }
+                        });
+                        if (!fondOne) {
+                            var stupid = 0;
+                            //TODO!! something this is bad
+                        }
+                    });
+                }
+                item.OnStart(communicator, dependencies);
+            }catch(e){
+            }
+        }
     });
 
-    $scope.Load($scope.characterList[$scope.characterList.length - 1]);
+    if ($scope.characterList.length > 0) {
+        $scope.Load($scope.characterList[$scope.characterList.length - 1]);
+    } else {
+        $scope.newCharacter();
+    }
 }]);
 

@@ -1,6 +1,9 @@
 ﻿
 
 var component = function () {
+
+    this.Dependencies = ["colin.wielga.tools"];
+
     // all component need a unique ID
     this.getId = function () {
         return "colin.wielga.template"
@@ -11,8 +14,10 @@ var component = function () {
     // a component talks to the rest of the app throught a communicator
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
-    this.OnStart = function (communicator) {
+    // all events are optional
+    this.OnStart = function (communicator,dependencies) {
         this.communicator = communicator
+        this.Dependencies = dependencies
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
@@ -34,20 +39,32 @@ var component = function () {
         //}
     }
 
+    // hmm is it really safe for this to be a function?
+    // we use functions so no one can edit
+    this.getRequires = function () {
+        return ["colin.wielga.tools"];
+    }
+
+    this.getPublic = function () {
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            }
+        }
+    }
 
     // a component should be able to provide some infomation
     this.getHmtl = function () {
-        return "modules/"+ this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html"
     }
     this.getTitle = function () {
         return "title";
     }
-    this.getDescription = function () {
-        return "This is a unimplemented componet";
-    }
-    this.getVersion = function () {
-        return 1;
-    }
+
+    this.OnNewCharacter();
 }
 
 g.Wanderer.register(component);

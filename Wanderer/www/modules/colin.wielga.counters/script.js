@@ -1,12 +1,8 @@
 ﻿var component = function () {
-    this.hp = 8;
-    this.encounterHP = 4;
-    this.facts = 3;
-
     this.getId = function () {
         return "colin.wielga.counters"
     }
-    this.OnStart = function (communicator) {
+    this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
@@ -42,11 +38,18 @@
     this.getTitle = function () {
         return "Counters";
     }
-    this.getDescription = function () {
-        return "This is a unimplemented componet";
+    this.getRequires = function () {
+        return [];
     }
-    this.getVersion = function () {
-        return 1;
+    this.getPublic = function () {
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            }
+        }
     }
 
     var hpMover = function () {
@@ -75,6 +78,8 @@
     this.recoverEncounterHP = function () {
         this.encounterHP = 4;
     }
+
+    this.OnNewCharacter();
 }
 
 g.Wanderer.register(component);
