@@ -16,7 +16,7 @@ var component = function () {
         return "modules/" + this.getId() + "/page.html"
     }
     this.getTitle = function () {
-        return "Cards";
+        return "Manage";
     }
     this.getRequires = function () {
         return [];//"colin.wielga.description"
