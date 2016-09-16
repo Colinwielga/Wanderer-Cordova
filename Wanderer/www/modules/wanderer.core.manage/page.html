@@ -1,0 +1,5 @@
+﻿<div data-ng-repeat="charId in module.characterList">
+    {{module.getCharName(charId)}}
+    <input type="button" value="load" data-ng-click="module.Load(charId)" />
+</div>
+<input id="addButton" type="button" name="new" value="New" data-ng-click="module.newCharacter()" />

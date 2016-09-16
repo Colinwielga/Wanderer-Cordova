@@ -21,7 +21,17 @@ g.Wanderer = {
             }
         }
         g.Wanderer.components.push(newComp);
-    }
+    },
+    //maybe this should be a dictonary
+    getComponent:function (lookingFor) {
+        for (var i = 0; i < g.Wanderer.components.length; i++) {
+            var inner =g.Wanderer.components[i];
+            if (lookingFor === inner.getId()) {
+                return inner.getPublic();
+            }
+        } 
+        throw {message:"could not find id: "+lookingFor};
+}
 };
 
 function isbefore(a, b) {

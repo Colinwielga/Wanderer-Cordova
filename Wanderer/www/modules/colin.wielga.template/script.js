@@ -38,6 +38,8 @@ var component = function () {
         //this.key = "default value"
         //}
     }
+    this.OnUpdate = function () {
+    }
 
     // hmm is it really safe for this to be a function?
     // we use functions so no one can edit

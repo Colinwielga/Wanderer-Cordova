@@ -2,150 +2,209 @@
 
     window.localStorage.clear();
 
-    $scope.modules = g.Wanderer.components;
-
-    $scope.newCharacter = function () {
-        var d = new Date();
-        var now = d.getTime();
-        $scope.charactor = {id:now};
-        g.Wanderer.components.forEach(function (item) {
-            if (item.OnNewCharacter !== undefined) {
-                try {
-                    item.OnNewCharacter();
-                } catch (e) {
-                }
-            }
-        });
-        $scope.save();
-    }
-
-    $scope.Load = function (charName) {
-        //TODO handle bad names
-
-        // we load the last character used
-        var last = window.localStorage.getItem(charName);//undefined;//
-        var tempChar = undefined;
-        if (last !== undefined) {
-            tempChar = JSON.parse(last);
-        }
-
-        // we generate a default character
-        $scope.charactor = tempChar;//$scope.newCharacter();
-
-        g.Wanderer.components.forEach(function (item) {
-            if (item.OnLoad !== undefined) {
-                try {
-                    item.OnLoad();
-                } catch (e) {
-                }
-            }
-        });
-    }
-
-    $scope.save = function () {
-
-        g.Wanderer.components.forEach(function (item) {
-            if (item.OnSave !== undefined) {
-                try {
-                    item.OnSave();
-                } catch (e) {
-                }
-            }
-        });
-
-        //we make sure your character is at the end of the charactorlist
+    var component = function () {
+        var that = this;
+        // we load the character
+        that.characterList = [];
         var charactorListString = window.localStorage.getItem("charactorlist");
-        if (charactorListString != undefined) {
-            $scope.characterList = JSON.parse(charactorListString);
-        } else {
-            $scope.characterList = [];
+        if (charactorListString !== undefined && charactorListString !== null) {
+            that.characterList = JSON.parse(charactorListString);
         }
 
-        var characterIndex = $scope.characterList.indexOf($scope.charactor.id);
-        if (characterIndex !== -1) {
-            $scope.characterList.splice(characterIndex, 1);
+        that.getId = function () {
+            return "wanderer.core.manage"
         }
-        $scope.characterList.push($scope.charactor.id);
-        charactorListString = JSON.stringify($scope.characterList);
-        window.localStorage.setItem("charactorlist", charactorListString);
+        that.OnStart = function (communicator, dependencies) {
+            that.communicator = communicator;
+            // that.description = dependencies[0];
+        }
+        that.OnNewCharacter = function () {
+            var d = new Date();
+            that.id = d.getTime();
+            that.saveAs = "untitled " + d.toString();
+        }
+        that.OnSave = function () {
+            this.communicator.write("id", that.id);
+            this.communicator.write("saveAs", that.saveAs);
+        }
+        that.OnLoad = function () {
+            if (that.communicator.canRead("id")) {
+                that.id = that.communicator.read("id");
+            } else {
+                var d = new Date();
+                that.id = d.getTime();
+            }
+            if (that.communicator.canRead("saveAs")) {
+                that.saveAs = that.communicator.read("saveAs");
+            } else {
+                var d = new Date();
+                that.saveAs = "untitled " + d.toString();
+            }
+        }
+        that.OnUpdate = function () {
+            that.save();
+        }
+        that.getHmtl = function () {
+            return "modules/" + that.getId() + "/page.html"
+        }
+        that.getTitle = function () {
+            return "Manage";
+        }
+        that.getRequires = function () {
+            return [];//"colin.wielga.description"
+        }
+        that.getPublic = function () {
+            return {
+                getDescription: function () {
+                    return "This is a unimplemented componet";
+                },
+                getVersion: function () {
+                    return 1;
+                },
+                comFactory: function (item) {
+                    return {
+                        read: function (key) {
+                            return that.charactor[item.getId()][key];
+                        }, canRead: function (key) {
+                            return that.charactor[item.getId()] !== undefined && that.charactor[item.getId()][key] !== undefined;
+                        }, write: function (key, value) {
+                            if (that.charactor[item.getId()] === undefined) {
+                                that.charactor[item.getId()] = {};
+                            }
+                            that.charactor[item.getId()][key] = value;
+                        }
+                    };
+                }, loadLastCharacter: function () {
+                    if (that.characterList.length > 0) {
+                        that.Load(that.characterList[that.characterList.length - 1]);
+                    } else {
+                        that.newCharacter();
+                    }
+                }
+            }
+        }
+        that.getCharName = function (id) {
+            var json = window.localStorage.getItem(id);
+            var tempChar = JSON.parse(json);
+            return tempChar["wanderer.core.manage"].saveAs;
+        }
+
+        that.newCharacter = function () {
+            // should this even be in scope, let's move that in to here
+            // TODO saved as is going to move in to here!
+            // actully it's not in the character tho
+            that.charactor = {};
+            g.Wanderer.components.forEach(function (item) {
+                if (item.OnNewCharacter !== undefined) {
+                    try {
+                        item.OnNewCharacter();
+                    } catch (e) {
+                    }
+                }
+            });
+            that.save();
+        }
+
+        that.Load = function (charName) {
+            //TODO handle bad names
+
+            // we load the last character used
+            var last = window.localStorage.getItem(charName);//undefined;//
+            var tempChar = undefined;
+            if (last !== undefined) {
+                tempChar = JSON.parse(last);
+            }
+
+            // we generate a default character
+            that.charactor = tempChar;//that.newCharacter();
+
+            g.Wanderer.components.forEach(function (item) {
+                if (item.OnLoad !== undefined) {
+                    try {
+                        item.OnLoad();
+                    } catch (e) {
+                    }
+                }
+            });
+        }
+
+        that.save = function () {
+
+            g.Wanderer.components.forEach(function (item) {
+                if (item.OnSave !== undefined) {
+                    try {
+                        item.OnSave();
+                    } catch (e) {
+                    }
+                }
+            });
+
+            //we make sure your character is at the end of the charactorlist
+            var charactorListString = window.localStorage.getItem("charactorlist");
+            if (charactorListString != undefined) {
+                that.characterList = JSON.parse(charactorListString);
+            } else {
+                that.characterList = [];
+            }
+
+            var characterIndex = that.characterList.indexOf(that.id);
+            if (characterIndex !== -1) {
+                that.characterList.splice(characterIndex, 1);
+            }
+            that.characterList.push(that.id);
+            charactorListString = JSON.stringify(that.characterList);
+            window.localStorage.setItem("charactorlist", charactorListString);
 
 
-        // save your character
-        var output = JSON.stringify($scope.charactor);
-        window.localStorage.setItem($scope.charactor.id, output);
+            // save your character
+            var output = JSON.stringify(that.charactor);
+            window.localStorage.setItem(that.id, output);
 
-        //setTimeout(function () {
-        //    save();
-        //}
-        //, 1000);
+            //setTimeout(function () {
+            //    save();
+            //}
+            //, 1000);
+        }
+        that.OnNewCharacter();
     }
+
+    g.Wanderer.register(component);
 
     $scope.onUpdate = function () {
-        $scope.save();
+        g.Wanderer.components.forEach(function (item) {
+            if (item.OnUpdate !== undefined) {
+                try {
+                    item.OnUpdate();
+                } catch (e) {
+                }
+            }
+        });
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {
             var target = toRezie[i];
             target.style.height = "1px";
             target.style.height = (25 + target.scrollHeight) + "px";
         }
-        return "on upate";
+        return "on update";
     }
-
-    // we load the character
-    $scope.characterList = [];
-    var charactorListString = window.localStorage.getItem("charactorlist");
-    if (charactorListString !== undefined && charactorListString !== null) {
-        $scope.characterList = JSON.parse(charactorListString);
-    }
+    $scope.modules = g.Wanderer.components;
 
 
+    var managePublic = g.Wanderer.getComponent("wanderer.core.manage")
     g.Wanderer.components.forEach(function (item) {
-        var comFactory = function (comp) {
-            comp.read = function (key) {
-                return $scope.charactor[item.getId()][key];
-            }
-            comp.canRead = function (key) {
-                return $scope.charactor[item.getId()] !== undefined && $scope.charactor[item.getId()][key] !== undefined;
-            }
-            comp.write = function (key, value) {
-                if ($scope.charactor[item.getId()] === undefined) {
-                    $scope.charactor[item.getId()] = {};
-                }
-                $scope.charactor[item.getId()][key] = value;
-                
-            }
-            return comp;
-        }
-        var communicator = comFactory(item);
+        var communicator = managePublic.comFactory(item);
         if (item.OnStart !== undefined) {
             try {
                 var dependencies = [];
                 if (item.getRequires !== undefined) {
                     var lookingFors = item.getRequires();
-                    lookingFors.forEach(function (lookingFor) {
-                        var fondOne = false;
-                        g.Wanderer.components.forEach(function (inner) {
-                            if (!fondOne && lookingFor === inner.getId()) {
-                                fondOne = true;
-                                dependencies.push(inner.getPublic())
-                            }
-                        });
-                        if (!fondOne) {
-                            var stupid = 0;
-                            //TODO!! something this is bad
-                        }
-                    });
+                    dependencies.push(g.Wanderer.getComponent(item.getId()));
                 }
                 item.OnStart(communicator, dependencies);
             }catch(e){
             }
         }
     });
-
-    if ($scope.characterList.length > 0) {
-        $scope.Load($scope.characterList[$scope.characterList.length - 1]);
-    } else {
-        $scope.newCharacter();
-    }
+    managePublic.loadLastCharacter();
 }]);
 
