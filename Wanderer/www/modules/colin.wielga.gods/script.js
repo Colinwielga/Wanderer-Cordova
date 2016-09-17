@@ -41,9 +41,9 @@ var component = function () {
             getVersion: function () {
                 return 1;
             },
-        getGods: function() {
-            return that.gods;
-        }
+            getGods: function () {
+                return that.gods;
+            }
         }
     }
     this.OnNewCharacter();
