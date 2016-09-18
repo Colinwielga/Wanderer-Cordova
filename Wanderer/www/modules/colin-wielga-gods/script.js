@@ -3,7 +3,7 @@
 var component = function () {
 
     this.getId = function () {
-        return "colin.wielga.gods"
+        return "colin-wielga-gods"
     }
     this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator

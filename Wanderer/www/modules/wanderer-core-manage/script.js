@@ -1,6 +1,7 @@
 ﻿var component = function () {
     //window.localStorage.clear();
     var that = this;
+    that.json = {};
     // we load the character
     that.characterList = [];
     var charactorListString = window.localStorage.getItem("charactorlist");
@@ -9,7 +10,7 @@
     }
 
     that.getId = function () {
-        return "wanderer.core.manage"
+        return "wanderer-core-manage"
     }
     that.OnStart = function (communicator, dependencies) {
         that.communicator = communicator;
@@ -22,7 +23,7 @@
     }
     that.OnSave = function () {
         //this.communicator.write("id", that.id);
-        this.communicator.write("saveAs", that.saveAs);
+        //this.communicator.write("saveAs", that.saveAs);
     }
     that.OnLoad = function () {
         //if (that.communicator.canRead("id")) {
@@ -31,12 +32,12 @@
         //    var d = new Date();
         //    that.id = d.getTime();
         //}
-        if (that.communicator.canRead("saveAs")) {
-            that.saveAs = that.communicator.read("saveAs");
-        } else {
-            var d = new Date();
-            that.saveAs = "untitled " + d.toString();
-        }
+        //if (that.communicator.canRead("saveAs")) {
+        //    that.saveAs = that.communicator.read("saveAs");
+        //} else {
+        //    var d = new Date();
+        //    that.saveAs = "untitled " + d.toString();
+        //}
     }
     that.OnUpdate = function () {
         //that.save();
@@ -84,13 +85,13 @@
         try {
             var json = window.localStorage.getItem(id);
             var tempChar = JSON.parse(json);
-            return tempChar["wanderer.core.manage"].saveAs;
+            return tempChar[that.getId()].saveAs;
         } catch (e) {
             return "unknow file name";
         }
     }
 
-    that.newCharacter = function (shouldSave) {
+    that.newCharacter = function () {
 
         that.charactor = {};
         g.Wanderer.components.forEach(function (item) {
@@ -101,11 +102,15 @@
                 }
             }
         });
+
+        // update json
+        that.updateJson()
     }
 
     that.Load = function (charName) {
         //TODO handle bad names
 
+        that.saveAs = charName;
 
         // we load the last character used
         var last = window.localStorage.getItem(charName);//undefined;//
@@ -125,6 +130,8 @@
                 }
             }
         });
+
+        that.updateJson()
     }
 
     that.Delete = function (charId) {
@@ -146,7 +153,7 @@
         window.localStorage.setItem("charactorlist", charactorListString);
 
         // then we create a new character
-        that.newCharacter(false);
+        that.newCharacter();
     }
 
     that.save = function () {
@@ -176,6 +183,8 @@
         charactorListString = JSON.stringify(that.characterList);
         window.localStorage.setItem("charactorlist", charactorListString);
 
+        // update json:
+        that.updateJson()
 
         // save your character
         var output = JSON.stringify(that.charactor);
@@ -186,6 +195,36 @@
         //}
         //, 1000);
     }
+
+    that.saveJson = function () {
+        try {
+            var charactorListString = window.localStorage.getItem("charactorlist");
+            if (charactorListString != undefined) {
+                that.characterList = JSON.parse(charactorListString);
+            } else {
+                that.characterList = [];
+            }
+
+            var characterIndex = that.characterList.indexOf(that.saveAs);
+            if (characterIndex !== -1) {
+                that.characterList.splice(characterIndex, 1);
+            }
+            that.characterList.push(that.saveAs);
+            charactorListString = JSON.stringify(that.characterList);
+            window.localStorage.setItem("charactorlist", charactorListString);
+
+            // save your character
+            window.localStorage.setItem(that.saveAs, that.json);
+
+            that.Load(that.saveAs);
+
+        } catch (e) {}
+    }
+
+    that.updateJson = function () {
+        that.json = JSON.stringify(that.charactor);
+    }
+
     that.OnNewCharacter();
 }
 

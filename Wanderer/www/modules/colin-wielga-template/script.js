@@ -2,11 +2,9 @@
 
 var component = function () {
 
-    this.Dependencies = ["colin.wielga.tools"];
-
     // all component need a unique ID
     this.getId = function () {
-        return "colin.wielga.template"
+        return "colin-wielga-template"
     }
 
     // A component should know how to handle some events
@@ -44,7 +42,7 @@ var component = function () {
     // hmm is it really safe for this to be a function?
     // we use functions so no one can edit
     this.getRequires = function () {
-        return ["colin.wielga.tools"];
+        return ["colin-wielga-tools"];
     }
 
     this.getPublic = function () {

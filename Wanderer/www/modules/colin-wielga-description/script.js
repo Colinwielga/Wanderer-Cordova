@@ -1,6 +1,6 @@
 ﻿var component = function () {
     this.getId = function () {
-        return "colin.wielga.description"
+        return "colin-wielga-description"
     }
     this.OnStart = function (communicator,dependencies) {
         this.communicator = communicator

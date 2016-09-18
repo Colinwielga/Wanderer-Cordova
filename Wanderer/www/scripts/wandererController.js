@@ -21,7 +21,7 @@
     $scope.modules = g.Wanderer.components;
 
 
-    var managePublic = g.Wanderer.getComponent("wanderer.core.manage")
+    var managePublic = g.Wanderer.getComponent("wanderer-core-manage")
     g.Wanderer.components.forEach(function (item) {
         var communicator = managePublic.comFactory(item);
         if (item.OnStart !== undefined) {

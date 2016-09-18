@@ -1,7 +1,7 @@
 ﻿var component = function () {
 
     this.getId = function () {
-        return "colin.wielga.cards"
+        return "colin-wielga-cards"
     }
     this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
@@ -28,7 +28,7 @@
         return "Hand";
     }
     this.getRequires = function () {
-        return ["colin.wielga.gods"];
+        return ["colin-wielga-gods"];
     }
 
     this.getPublic = function () {

@@ -1,30 +1,30 @@
 ﻿var component = function () {
-    this.tools = "";
-
+    this.notes = ""
     this.getId = function () {
-        return "colin.wielga.tools"
+        return "colin-wielga-notes"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
-        this.tools = "";
+        this.notes = "";
     }
     this.OnSave = function () {
-        this.communicator.write("tools", this.tools);
+        this.communicator.write("notes", this.notes);
     }
     this.OnLoad = function () {
-        if (this.communicator.canRead("tools")) {
-            this.tools = this.communicator.read("tools");
+        if (this.communicator.canRead("notes")) {
+            this.notes = this.communicator.read("notes");
         } else {
-            this.tools = 8;
+            this.notes = "";
         }
     }
+
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
     this.getTitle = function () {
-        return "Tools";
+        return "Notes";
     }
     this.getRequires = function () {
         return [];
