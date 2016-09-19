@@ -1,7 +1,11 @@
 ﻿<button data-ng-click="addNewMove()">+</button>
 <div>
-    <div data-ng-repeat="move in list">
-        <h3>{{move.title}}</h3></br>
-        {{move.leadin}} <b>{{move.conditions}}</b> {{move.body}}
+    <div data-ng-repeat="move in module.moveslist">
+        <h3>{{move.title}}</h3>
+        {{move.leadin}} <b>{{move.conditions}}</b> {{move.prelist}}
+        <ul>
+            <li data-ng-repeat="item in move.list">{{item}}</li>
+        </ul>
+        {{move.postlist}}
     </div>
 </div>

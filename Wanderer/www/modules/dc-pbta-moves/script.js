@@ -19,8 +19,21 @@ var component = function () {
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.moveslist = [{
+            title: "Go Aggro",
+            leadin: "When you",
+            conditions: "go aggro on someone,",
+            prelist: "roll +hard. On a 10+, they have to choose: \
+                Force your hand and suck it up, or cave and do what you want. \
+                On a 7-9, they can instead choose 1: ",
+            list: ["get the hell out of your way",
+                "barricade themselves securely in",
+                "give you something they think you want",
+                "back off calmly, hands where you can see",
+                "tell you what you want to know (or what you want to hear)"],
+            postlist: ""
+        }];
+        this.showNewMovePanel = false
     }
     // called when a character is saved
     this.OnSave = function () {
@@ -65,12 +78,6 @@ var component = function () {
     this.OnNewCharacter();
 
     //Module-specific components
-    this.moveslist = [{
-        title: "Go Aggro",
-        leadin: "When you",
-        conditions: "go aggro on someone,",
-        body: "roll +hard. On a 10+, they have to choose: Force your hand and suck it up, or cave and do what you want."
-    }];
 
 }
 
