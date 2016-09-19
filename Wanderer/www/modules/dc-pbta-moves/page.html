@@ -1,4 +1,7 @@
-﻿<button data-ng-click="addNewMove()">+</button>
+﻿<button data-ng-click="module.showNewMovePanel = !module.showNewMovePanel">+</button>
+<div data-ng-show="module.showNewMovePanel">
+    
+</div>
 <div>
     <div data-ng-repeat="move in module.moveslist">
         <h3>{{move.title}}</h3>
