@@ -34,6 +34,37 @@ var component = function () {
             postlist: ""
         }];
         this.showNewMovePanel = false
+        // this.newmove = {
+        //     title:"",
+        //     leadin:"",
+        //     conditions:"",
+        //     prelist:"",
+        //     list:["",
+        //         "",
+        //         ""],
+        //     postlist:""
+        // }
+        this.newmove = {
+        title:"[New Move]",
+        leadin:"",
+        conditions:"[you act and/or circumstances dictate]",
+        prelist:"[Say what you do/what happens and maybe roll + some stat. On a 10+, \
+            something specific happens that's probably what you wanted, \
+            and maybe you pick enough options from a list to get a good outcome. \
+            On a 7-9, something specific happens that's probably only some of what you wanted, \
+            or what you wanted but with strings attached, and maybe you pick enough options \
+            from a list to have to make a hard choice between important things. \
+            On a 6 or less, the MC makes a hard move, but this move might offer some \
+            choices or suggestions.",
+        list:["The thing you're trying to do fundamentally works",
+            "You don't suffer the side-effects",
+            "You avoid some negative consequence that you'd otherwise have to deal with",
+            "You get some extra benefit or way in which you are effective"],
+        postlist:"Overall, the move can affect the fiction, the mechanics, or both, it can \
+            have a temporary or permanent effect, it can trigger another move, it can \
+            change the way another move works when you use it, or anything else you \
+            might think of.]"
+            }
     }
     // called when a character is saved
     this.OnSave = function () {
@@ -78,6 +109,9 @@ var component = function () {
     this.OnNewCharacter();
 
     //Module-specific components
+    this.addNewMove = function(){
+        this.moveslist.push(this.newmove); 
+    }
 
 }
 

@@ -1,6 +1,15 @@
 ﻿<button data-ng-click="module.showNewMovePanel = !module.showNewMovePanel">+</button>
 <div data-ng-show="module.showNewMovePanel">
-    
+    Title:<input type="text" data-ng-model="module.newmove.title"></input>
+    </br>
+    When <input type="text" data-ng-model="module.newmove.conditions"></input>...
+    </br>
+    <input type="textarea" data-ng-model="module.newmove.prelist"></input>
+    <div data-ng-repeat="item in module.newmove.list">
+            <input type="text" data-ng-model="item"></input>
+    </div>
+    <input type="textarea" data-ng-model="module.newmove.postlist"></input>
+    <button data-ng-click="module.addNewMove()">Add</button>
 </div>
 <div>
     <div data-ng-repeat="move in module.moveslist">
