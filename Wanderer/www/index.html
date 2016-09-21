@@ -30,7 +30,7 @@
         
         <div id="content">
             <!--draggable="true"-->
-            <div data-ng-repeat="module in modules">
+            <div data-ng-repeat="module in modules()">
                 <div id="notes-section"   class="drag section">
                     <div class="section-header" >
                         <label class="hide-button" for="{{module.getId()}}-hide">-</label>

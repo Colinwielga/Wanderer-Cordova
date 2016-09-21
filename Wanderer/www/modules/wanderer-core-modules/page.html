@@ -1,0 +1,4 @@
+﻿<div data-ng-repeat="mod in module.components" data-ng-show="module.show(mod)">
+    {{mod.getTitle()}}
+    <input type="button" value="{{module.text(mod)}}" data-ng-click="module.toggle(mod)"  />
+</div>

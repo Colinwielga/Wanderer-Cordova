@@ -1,6 +1,4 @@
-﻿
-
-var component = function () {
+﻿var component = function () {
 
     // all component need a unique ID
     this.getId = function () {
@@ -67,4 +65,4 @@ var component = function () {
     this.OnNewCharacter();
 }
 
-g.Wanderer.register(component);
+g.ComponentManager.register(component);

@@ -1,8 +1,9 @@
 ﻿App.controller('wandererController', ['$scope', function ($scope) {
-   
+    var managePublic = g.ComponentManager.getComponent("wanderer-core-manage")
+    var manageModules = g.ComponentManager.getComponent("wanderer-core-modules")
 
     $scope.onUpdate = function () {
-        g.Wanderer.components.forEach(function (item) {
+        manageModules.components.forEach(function (item) {
             if (item.OnUpdate !== undefined) {
                 try {
                     item.OnUpdate();
@@ -18,11 +19,8 @@
         }
         return "on update";
     }
-    $scope.modules = g.Wanderer.components;
 
-
-    var managePublic = g.Wanderer.getComponent("wanderer-core-manage")
-    g.Wanderer.components.forEach(function (item) {
+    manageModules.components.forEach(function (item) {
         var communicator = managePublic.comFactory(item);
         if (item.OnStart !== undefined) {
             try {
@@ -30,7 +28,7 @@
                 if (item.getRequires !== undefined) {
                     var lookingFors = item.getRequires();
                     for (var i = 0; i < lookingFors.length; i++) {
-                        dependencies.push(g.Wanderer.getComponent(lookingFors[i]));
+                        dependencies.push(manageModules.getComponent(lookingFors[i]));
                     }
                 }
                 item.OnStart(communicator, dependencies);
@@ -39,5 +37,20 @@
         }
     });
     managePublic.loadLastCharacter();
+
+    $scope.modules = function () {
+
+        var ids = manageModules.activeComponents();
+
+        var res = [];
+
+        for (var i = 0; i < ids.length; i++) {
+            res.push(manageModules.getComponent(ids[i]));
+        }
+
+        return res;
+    }
+
+
 }]);
 
