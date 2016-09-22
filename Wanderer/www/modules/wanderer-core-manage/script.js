@@ -13,7 +13,7 @@
     }
     that.OnStart = function (communicator, dependencies) {
         that.communicator = communicator;
-        that.JSONEditor = dependencies[0];
+        //that.JSONEditor = dependencies[0];
     }
     that.OnNewCharacter = function () {
         var d = new Date();
@@ -35,7 +35,7 @@
     }
 
     this.getRequires = function () {
-        return ["wanderer-core-json-editor"];
+        return [];//["wanderer-core-json-editor"];
     }
 
     that.getHmtl = function () {
@@ -124,7 +124,7 @@
         });
 
         // update json
-        that.JSONEditor.updateJson(JSON.stringify(that.charactor))
+        //that.JSONEditor.updateJson(JSON.stringify(that.charactor))
     }
 
     that.Load = function (charName) {
@@ -151,7 +151,7 @@
             }
         });
 
-        that.JSONEditor.updateJson(JSON.stringify(that.charactor))
+        //that.JSONEditor.updateJson(JSON.stringify(that.charactor))
     }
 
     that.Delete = function (charId) {
@@ -204,7 +204,7 @@
         window.localStorage.setItem("charactorlist", charactorListString);
 
         // update json:
-        that.JSONEditor.updateJson(JSON.stringify(that.charactor))
+        //that.JSONEditor.updateJson(JSON.stringify(that.charactor))
 
         // save your character
         var output = JSON.stringify(that.charactor);
