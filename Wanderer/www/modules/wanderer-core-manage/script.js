@@ -1,7 +1,6 @@
 ﻿var component = function () {
     //window.localStorage.clear();
     var that = this;
-    that.json = {};
     // we load the character
     that.characterList = [];
     var charactorListString = window.localStorage.getItem("charactorlist");
@@ -14,42 +13,36 @@
     }
     that.OnStart = function (communicator, dependencies) {
         that.communicator = communicator;
-        // that.description = dependencies[0];
+        that.JSONEditor = dependencies[0];
     }
     that.OnNewCharacter = function () {
         var d = new Date();
-        //that.id = d.getTime();
-        that.saveAs = "untitled " + d.toString();
+        that.saveAs = "untitled " + d.getDate();
     }
     that.OnSave = function () {
-        //this.communicator.write("id", that.id);
-        //this.communicator.write("saveAs", that.saveAs);
+        this.communicator.write("saveAs", that.saveAs);
     }
     that.OnLoad = function () {
-        //if (that.communicator.canRead("id")) {
-        //    that.id = that.communicator.read("id");
-        //} else {
-        //    var d = new Date();
-        //    that.id = d.getTime();
-        //}
-        //if (that.communicator.canRead("saveAs")) {
-        //    that.saveAs = that.communicator.read("saveAs");
-        //} else {
-        //    var d = new Date();
-        //    that.saveAs = "untitled " + d.toString();
-        //}
+        if (that.communicator.canRead("saveAs")) {
+            that.saveAs = that.communicator.read("saveAs");
+        } else {
+            var d = new Date();
+            that.saveAs = "untitled " + d.getDate();
+        }
     }
     that.OnUpdate = function () {
         //that.save();
     }
+
+    this.getRequires = function () {
+        return ["wanderer-core-json-editor"];
+    }
+
     that.getHmtl = function () {
         return "modules/" + that.getId() + "/page.html"
     }
     that.getTitle = function () {
         return "Manage";
-    }
-    that.getRequires = function () {
-        return [];//"colin.wielga.description"
     }
     that.getPublic = function () {
         return {
@@ -72,12 +65,40 @@
                         that.charactor[item.getId()][key] = value;
                     }
                 };
-            }, loadLastCharacter: function () {
+            },
+            loadLastCharacter: function () {
                 if (that.characterList.length > 0) {
                     that.Load(that.characterList[that.characterList.length - 1]);
                 } else {
                     that.newCharacter();
                 }
+            },
+            saveJson: function (saveTo,json) {
+                try {
+                    var charactorListString = window.localStorage.getItem("charactorlist");
+                    if (charactorListString != undefined) {
+                        that.characterList = JSON.parse(charactorListString);
+                    } else {
+                        that.characterList = [];
+                    }
+
+                    var characterIndex = that.characterList.indexOf(saveTo);
+                    if (characterIndex !== -1) {
+                        that.characterList.splice(characterIndex, 1);
+                    }
+                    that.characterList.push(saveTo);
+                    charactorListString = JSON.stringify(that.characterList);
+                    window.localStorage.setItem("charactorlist", charactorListString);
+
+                    // save your character
+                    window.localStorage.setItem(saveTo, json);
+
+                    that.Load(saveTo);
+
+                } catch (e) {}
+            },
+            getJSON: function () {
+                return JSON.stringify(that.charactor);
             }
         }
     }
@@ -92,7 +113,6 @@
     }
 
     that.newCharacter = function () {
-
         that.charactor = {};
         g.ComponentManager.components.forEach(function (item) {
             if (item.OnNewCharacter !== undefined) {
@@ -104,7 +124,7 @@
         });
 
         // update json
-        that.updateJson()
+        that.JSONEditor.updateJson(JSON.stringify(that.charactor))
     }
 
     that.Load = function (charName) {
@@ -131,7 +151,7 @@
             }
         });
 
-        that.updateJson()
+        that.JSONEditor.updateJson(JSON.stringify(that.charactor))
     }
 
     that.Delete = function (charId) {
@@ -184,46 +204,14 @@
         window.localStorage.setItem("charactorlist", charactorListString);
 
         // update json:
-        that.updateJson()
+        that.JSONEditor.updateJson(JSON.stringify(that.charactor))
 
         // save your character
         var output = JSON.stringify(that.charactor);
         window.localStorage.setItem(that.saveAs, output);
 
-        //setTimeout(function () {
-        //    save();
-        //}
-        //, 1000);
     }
 
-    that.saveJson = function () {
-        try {
-            var charactorListString = window.localStorage.getItem("charactorlist");
-            if (charactorListString != undefined) {
-                that.characterList = JSON.parse(charactorListString);
-            } else {
-                that.characterList = [];
-            }
-
-            var characterIndex = that.characterList.indexOf(that.saveAs);
-            if (characterIndex !== -1) {
-                that.characterList.splice(characterIndex, 1);
-            }
-            that.characterList.push(that.saveAs);
-            charactorListString = JSON.stringify(that.characterList);
-            window.localStorage.setItem("charactorlist", charactorListString);
-
-            // save your character
-            window.localStorage.setItem(that.saveAs, that.json);
-
-            that.Load(that.saveAs);
-
-        } catch (e) {}
-    }
-
-    that.updateJson = function () {
-        that.json = JSON.stringify(that.charactor);
-    }
 
     that.OnNewCharacter();
 }

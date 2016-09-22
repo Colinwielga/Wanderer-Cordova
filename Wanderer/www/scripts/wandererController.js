@@ -32,7 +32,7 @@
                     }
                 }
                 item.OnStart(communicator, dependencies);
-            }catch(e){
+            } catch (e) {
             }
         }
     });
