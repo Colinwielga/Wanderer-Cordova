@@ -84,8 +84,8 @@
     that.getCharName = function (id) {
         try {
             var json = window.localStorage.getItem(id);
-            var tempChar = JSON.parse(json);
-            return tempChar[that.getId()].saveAs;
+            //var tempChar = JSON.parse(json);
+            return id;//tempChar[that.getId()].saveAs;
         } catch (e) {
             return "unknow file name";
         }
@@ -94,7 +94,7 @@
     that.newCharacter = function () {
 
         that.charactor = {};
-        g.Wanderer.components.forEach(function (item) {
+        g.ComponentManager.components.forEach(function (item) {
             if (item.OnNewCharacter !== undefined) {
                 try {
                     item.OnNewCharacter();
@@ -114,15 +114,15 @@
 
         // we load the last character used
         var last = window.localStorage.getItem(charName);//undefined;//
-        var tempChar = undefined;
-        if (last !== undefined) {
+        var tempChar = {};
+        if (last !== undefined && last !== null) {
             tempChar = JSON.parse(last);
         }
 
         // we generate a default character
         that.charactor = tempChar;//that.newCharacter();
 
-        g.Wanderer.components.forEach(function (item) {
+        g.ComponentManager.components.forEach(function (item) {
             if (item.OnLoad !== undefined) {
                 try {
                     item.OnLoad();
@@ -158,7 +158,7 @@
 
     that.save = function () {
 
-        g.Wanderer.components.forEach(function (item) {
+        g.ComponentManager.components.forEach(function (item) {
             if (item.OnSave !== undefined) {
                 try {
                     item.OnSave();
@@ -228,4 +228,4 @@
     that.OnNewCharacter();
 }
 
-g.Wanderer.register(component);
+g.ComponentManager.register(component);

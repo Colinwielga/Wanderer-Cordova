@@ -27,7 +27,7 @@ var component = function () {
         if (this.communicator.canRead("activeComponents")) {
             this.activeComponents = this.communicator.read("activeComponents");
         } else {
-            this.activeComponents = [this];
+            this.activeComponents = [this.getId()];
         }
     }
     this.OnUpdate = function () { }
@@ -64,7 +64,18 @@ var component = function () {
             },
             activeComponents:
                 function () {
-                    return that.activeComponents;
+                    var res = [];
+                    for (var i = 0; i < that.activeComponents.length; i++) {
+                        var lookingFor = that.activeComponents[i];
+                        for (var j = 0; j < that.components.length; j++) {
+                            var inner = that.components[j];
+                            if (lookingFor === inner.getId()) {
+                                res.push(inner);
+                            }
+                        }
+                    }
+
+                    return res;
                 },
             components: that.components
         }

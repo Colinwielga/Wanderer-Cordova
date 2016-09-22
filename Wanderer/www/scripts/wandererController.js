@@ -38,19 +38,7 @@
     });
     managePublic.loadLastCharacter();
 
-    $scope.modules = function () {
-
-        var ids = manageModules.activeComponents();
-
-        var res = [];
-
-        for (var i = 0; i < ids.length; i++) {
-            res.push(manageModules.getComponent(ids[i]));
-        }
-
-        return res;
-    }
-
+    $scope.modules = manageModules.activeComponents;
 
 }]);
 
