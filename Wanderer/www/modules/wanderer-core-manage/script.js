@@ -1,6 +1,10 @@
 ﻿var component = function () {
+
+
     //window.localStorage.clear();
     var that = this;
+    that.VERSIION = "VERSION"
+    that.META = "META"
     // we load the character
     that.characterList = [];
     var charactorListString = window.localStorage.getItem("charactorlist");
@@ -13,6 +17,7 @@
     }
     that.OnStart = function (communicator, dependencies) {
         that.communicator = communicator;
+        that.logger = dependencies[0];
         //that.JSONEditor = dependencies[0];
     }
     that.OnNewCharacter = function () {
@@ -35,7 +40,7 @@
     }
 
     this.getRequires = function () {
-        return [];//["wanderer-core-json-editor"];
+        return ["wanderer-core-logger"];//["wanderer-core-json-editor"];
     }
 
     that.getHmtl = function () {
@@ -63,6 +68,17 @@
                             that.charactor[item.getId()] = {};
                         }
                         that.charactor[item.getId()][key] = value;
+                    }, lastVersion: function () {
+                        if (that.charactor[item.getId()] === undefined) {
+                            return -1;
+                        }
+                        if (that.charactor[item.getId()][that.META] === undefined) {
+                            return -1;
+                        }
+                        if (that.charactor[item.getId()][that.META][that.VERSION] === undefined) {
+                            return -1;
+                        }
+                        return that.charactor[item.getId()][that.META][that.VERSION];
                     }
                 };
             },
@@ -95,7 +111,11 @@
 
                     that.Load(saveTo);
 
-                } catch (e) {}
+                } catch (e) {
+                    if (that.logger != undefined && that.logger.writeToLog != undefined) {
+                        that.logger.writeToLog(e);
+                    }
+                }
             },
             getJSON: function () {
                 return JSON.stringify(that.charactor);
@@ -108,6 +128,9 @@
             //var tempChar = JSON.parse(json);
             return id;//tempChar[that.getId()].saveAs;
         } catch (e) {
+            if (that.logger != undefined && that.logger.writeToLog != undefined) {
+                that.logger.writeToLog(e);
+            }
             return "unknow file name";
         }
     }
@@ -119,6 +142,9 @@
                 try {
                     item.OnNewCharacter();
                 } catch (e) {
+                    if (that.logger != undefined && that.logger.writeToLog != undefined) {
+                        that.logger.writeToLog(e);
+                    }
                 }
             }
         });
@@ -147,6 +173,9 @@
                 try {
                     item.OnLoad();
                 } catch (e) {
+                    if (that.logger != undefined && that.logger.writeToLog != undefined) {
+                        that.logger.writeToLog(e);
+                    }
                 }
             }
         });
@@ -182,7 +211,17 @@
             if (item.OnSave !== undefined) {
                 try {
                     item.OnSave();
+                    if (that.charactor[item.getId()]== undefined) {
+                        that.charactor[item.getId()] = {};
+                    }
+                    if (that.charactor[item.getId()][that.META]) {
+                        that.charactor[item.getId()][that.META] = {};
+                    }
+                    that.charactor[item.getId()][that.META][that.VERSION] = item.getPublic().getVersion();
                 } catch (e) {
+                    if (that.logger != undefined && that.logger.writeToLog != undefined) {
+                        that.logger.writeToLog(e);
+                    }
                 }
             }
         });

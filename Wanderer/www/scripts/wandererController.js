@@ -1,6 +1,7 @@
 ﻿App.controller('wandererController', ['$scope', function ($scope) {
     var managePublic = g.ComponentManager.getComponent("wanderer-core-manage")
     var manageModules = g.ComponentManager.getComponent("wanderer-core-modules")
+    var logger = g.ComponentManager.getComponent("wanderer-core-logger")
 
     $scope.onUpdate = function () {
         manageModules.components.forEach(function (item) {
@@ -8,6 +9,9 @@
                 try {
                     item.OnUpdate();
                 } catch (e) {
+                    if (logger != undefined && logger.writeToLog != undefined) {
+                        logger.writeToLog(e);
+                    }
                 }
             }
         });
@@ -33,6 +37,9 @@
                 }
                 item.OnStart(communicator, dependencies);
             } catch (e) {
+                if (logger != undefined && logger.writeToLog != undefined) {
+                    logger.writeToLog(e);
+                }
             }
         }
     });
