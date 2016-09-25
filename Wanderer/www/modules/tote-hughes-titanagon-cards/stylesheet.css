@@ -1,0 +1,381 @@
+﻿div.card-container{
+	display: inline-block;
+}
+div.card{
+	display: inline-block;
+	font-family: 'Roboto', 'Helvetica', serif;
+	margin: 10px;
+	width: 200px;
+	height: 350px;
+	background-color: #333333;
+	border-radius: 10px;
+	text-align: center;
+	border: solid black 2px;
+	cursor: pointer;
+}
+.card:hover{
+	opacity: 0.95;
+	box-shadow: 0px 0px 20px #666666;
+}
+div.card-border{
+	margin:5px;
+	width: 188px;
+	height: 338px;
+	border-radius: 5px;
+	border: solid black 1px;
+	border-style: dashed;
+}
+div.card-number-container{
+	position: relative;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+div.card-name-container{
+	position: relative;
+	margin: 0 auto;
+}
+div.card-poly-container{
+	height: 180px;
+	position: relative;
+	margin: 0 auto;
+}
+span.card-name{
+	display: inline-block;
+	color: white;
+	width: 100%;
+	margin: auto;
+	margin-top: 5px;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+span.card-number{
+	display: inline-block;
+	color: white;
+	width: 100%;
+	margin: auto;
+	font-size: 60px;
+	line-height: 40px;
+}
+span.card-ability{
+	display: inline-block;
+	margin-top: 5px;
+	color: white;
+	width: 100%;
+	font-size: 14px;
+}
+svg.card-poly {
+	position: relative;
+	vertical-align: middle;
+}
+svg.card-poly > polygon{
+	fill: white;
+}
+.positioner {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+/*Polygon 0*/
+svg.poly-0-0-0 {
+	width: 0px;
+	height: 0px;
+	transform: scale(1.2,1.2);
+}
+/*Polygon 3-0*/
+svg.poly-3-0-0 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2);
+}
+svg.poly-3-0-30 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+svg.poly-3-0-60 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2) rotate(60deg);
+	margin-left: 15px;
+}
+svg.poly-3-0-90 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+/*Polygon 4-0*/
+svg.poly-4-0-0 {
+	width: 58px;
+	height: 58px;
+	transform: scale(1.2,1.2);
+}
+svg.poly-4-0-30 {
+	width: 58px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+svg.poly-4-0-60 {
+	width: 58px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+/*Polygon 4-1*/
+svg.poly-4-1-0 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(15deg);
+}
+svg.poly-4-1-30 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(45deg);
+}
+svg.poly-4-1-60 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(75deg);
+}
+svg.poly-4-1-90 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(105deg);
+}
+svg.poly-4-1-120 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(135deg);
+}
+svg.poly-4-1-150 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(165deg);
+}
+/*Polygon 4-2*/
+svg.poly-4-2-0 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+svg.poly-4-2-30 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+svg.poly-4-2-60 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}
+svg.poly-4-2-90 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(180deg);
+}
+svg.poly-4-2-120 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(210deg);
+}
+svg.poly-4-2-150 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(240deg);
+}
+/*Polygon 5-0*/
+svg.poly-5-0-0 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(-90deg);
+}
+svg.poly-5-0-30 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(-30deg);
+	margin-left: 20px;
+}
+svg.poly-5-0-60 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(-60deg);
+	margin-left: 20px;
+}
+svg.poly-5-0-90 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(0deg);
+}
+svg.poly-5-0-120 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(30deg);
+	margin-left: 10px;
+	margin-top: 25px;
+}
+svg.poly-5-0-150 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(60deg);
+	margin-left: 20px;
+	margin-top: 25px;
+}
+svg.poly-5-0-180 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+svg.poly-5-0-210 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(120deg);
+	margin-right: 20px;
+	margin-top: 25px;
+}
+svg.poly-5-0-240 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(150deg);
+	margin-right: 20px;
+}
+svg.poly-5-0-270 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(180deg);
+}
+svg.poly-5-0-300 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(210deg);
+	margin-right: 20px;
+}
+svg.poly-5-0-330 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(240deg);
+	margin-right: 20px;
+}
+/*Polygon 6-0*/
+svg.poly-6-0-0 {
+	width: 108px;
+	height: 94.6px;
+	transform: scale(1.2,1.2);
+}
+svg.poly-6-0-30 {
+	width: 108px;
+	height: 94.6px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+/*Polygon 6-1*/
+svg.poly-6-1-0 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2);
+}
+svg.poly-6-1-30 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+svg.poly-6-1-60 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+svg.poly-6-1-90 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+svg.poly-6-1-120 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+svg.poly-6-1-150 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}
+/*Polygon 6-2*/
+svg.poly-6-2-0 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(15deg);
+}
+svg.poly-6-2-30 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(45deg);
+}
+svg.poly-6-2-60 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(75deg);
+}
+svg.poly-6-2-90 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(105deg);
+}
+/*Polygon 6-3*/
+svg.poly-6-3-0 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(0deg);
+}
+svg.poly-6-3-30 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+svg.poly-6-3-60 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+svg.poly-6-3-90 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+svg.poly-6-3-120 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+svg.poly-6-3-150 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}
+/*Polygon6-4*/
+svg.poly-6-4-0 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(0deg);
+}
+svg.poly-6-4-30 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+svg.poly-6-4-60 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+svg.poly-6-4-90 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+svg.poly-6-4-120 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+svg.poly-6-4-150 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}
