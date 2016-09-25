@@ -10,7 +10,7 @@
                 <div class="card-poly-container">
                     <span class="positioner"></span>
                     <svg class="card-poly poly-{{module.getCardPolyID(cardID)}}">
-                        <polygon points="{{module.getCardPolyPoints(cardID)}}"></polygon>
+                        <polygon ng-attr-points="{{module.getCardPolyPoints(cardID)}}" ></polygon> 
                     </svg>
                 </div>
                 <div class="card-number-container">
