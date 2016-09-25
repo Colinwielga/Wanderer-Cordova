@@ -7,11 +7,19 @@ div.card{
 	margin: 10px;
 	width: 200px;
 	height: 350px;
-	background-color: #333333;
 	border-radius: 10px;
 	text-align: center;
 	border: solid black 2px;
 	cursor: pointer;
+}
+div.card-color-0{
+	background-color: #333333;
+}
+div.card-color-1{
+	background-color: #663333;
+}
+div.card-color-2{
+	background-color: #333366;
 }
 .card:hover{
 	opacity: 0.95;

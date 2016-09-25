@@ -2,7 +2,7 @@
 ﻿<button data-ng-click="module.draw()"> draw </button>
 <div class="cards">
     <div data-ng-repeat="cardID in module.cards" class="card-container">
-        <div class="card" data-ng-click="module.discard(cardID)" >
+        <div class="card card-color-{{module.getCardColor(cardID)}}" data-ng-click="module.discard(cardID)" >
             <div class="card-border">
                 <div class="card-name-container">
                     <span class="card-name">{{module.getCardName(cardID)}}</span>

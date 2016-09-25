@@ -61,12 +61,8 @@
         return TitanagonCard.getCard(id).ability;
     }
 
-    this.getCardPath = function (id) {
-        return TitanagonCard.getCard(id).getCardPath();
-    }
-
-    this.getText = function (id) {
-        return TitanagonCard.getCard(id).text;
+    this.getCardColor = function (id) {
+        return TitanagonCard.getCard(id).color;
     }
 
     this.draw = function () {
