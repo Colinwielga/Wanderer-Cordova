@@ -150,7 +150,7 @@
         });
 
         // update json
-        //that.JSONEditor.updateJson(JSON.stringify(that.charactor))
+        //that.JSONEditor.updateJson(that.getPublic().getJSON())
     }
 
     that.Load = function (charName) {
@@ -180,7 +180,7 @@
             }
         });
 
-        //that.JSONEditor.updateJson(JSON.stringify(that.charactor))
+        //that.JSONEditor.updateJson(that.getPublic().getJSON())
     }
 
     that.Delete = function (charId) {
@@ -243,10 +243,10 @@
         window.localStorage.setItem("charactorlist", charactorListString);
 
         // update json:
-        //that.JSONEditor.updateJson(JSON.stringify(that.charactor))
+        //that.JSONEditor.updateJson(that.getPublic().getJSON())
 
         // save your character
-        var output = JSON.stringify(that.charactor);
+        var output = that.getPublic().getJSON();
         window.localStorage.setItem(that.saveAs, output);
 
     }

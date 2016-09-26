@@ -11,18 +11,27 @@
         this.cards = [];
     }
     this.OnSave = function () {
-        this.communicator.write("cards",JSON.stringify(this.cards));
+        this.communicator.write("cards", this.cards);
     }
     this.OnLoad = function () {
-        if (this.communicator.canRead("cards")) {
-            this.cards = JSON.parse(this.communicator.read("cards"));
-        } else {
-            this.OnNewCharacter();
+        if (this.communicator.lastVersion() === -1) {
+            if (this.communicator.canRead("cards")) {
+                this.cards = JSON.parse(this.communicator.read("cards"));
+            } else {
+                this.OnNewCharacter();
+            }
+        } else if (this.communicator.lastVersion() === this.getPublic().getVersion()) {
+
+            if (this.communicator.canRead("cards")) {
+                this.cards = this.communicator.read("cards");
+            } else {
+                this.OnNewCharacter();
+            }
         }
     }
 
     this.getHmtl = function () {
-        return "modules/"+ this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html"
     }
     this.getTitle = function () {
         return "Ousichor Hand";
@@ -37,7 +46,7 @@
                 return "This is a unimplemented componet";
             },
             getVersion: function () {
-                return 1;
+                return 1.1;
             }
         }
     }

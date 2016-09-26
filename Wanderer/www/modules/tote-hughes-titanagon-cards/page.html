@@ -10,6 +10,7 @@
                 <div class="card-poly-container">
                     <span class="positioner"></span>
                     <svg class="card-poly poly-{{module.getCardPolyID(cardID)}}">
+                        <!-- ng-attr-point is ugly. Here is a bit about why it exists: https://docs.angularjs.org/guide/interpolation  -->
                         <polygon ng-attr-points="{{module.getCardPolyPoints(cardID)}}" ></polygon> 
                     </svg>
                 </div>
