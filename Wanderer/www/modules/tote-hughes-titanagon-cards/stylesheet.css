@@ -1,5 +1,34 @@
-﻿div.card-container{
+/*﻿Rules area*/
+div.card-rules-container{
+	margin: 0 -8px;
+	padding: 0px 8px 10px 8px;
+	border: 0;
+	border-bottom: solid #333333 1px;
+	border-style: dashed;
+	text-align: justify;
+}
+span.card-rules{
+	font-style: italic;
+}
+
+/*Buttons area*/
+.card-buttons-container{
+	margin: 0 -8px;
+	padding: 8px 8px 8px 8px;
+	border: 0;
+/*	border-bottom: solid #333333 1px;*/
+/*	border-style: dashed;*/
+	box-shadow: 0 4px 3px gray;
+	align-content: center;
+}
+
+/*Cards area*/
+div.card-cards-container{
+	margin-top: 8px;
+}
+div.card-container{
 	display: inline-block;
+	vertical-align: top;
 }
 div.card{
 	display: inline-block;
@@ -34,16 +63,20 @@ div.card-border{
 	border-style: dashed;
 }
 div.card-number-container{
+	overflow: auto;
+	height: 125px;
 	position: relative;
 	margin: 0 auto;
-	margin-top: 10px;
+	margin-top: 0px;
+	padding: 0 5px 5px 5px;
 }
 div.card-name-container{
+	height: 50px;
 	position: relative;
 	margin: 0 auto;
 }
 div.card-poly-container{
-	height: 180px;
+	height: 160px;
 	position: relative;
 	margin: 0 auto;
 }
@@ -52,9 +85,18 @@ span.card-name{
 	color: white;
 	width: 100%;
 	margin: auto;
-	margin-top: 5px;
+	margin-top: 3px;
 	font-size: 20px;
 	text-transform: uppercase;
+}
+span.card-adjective{
+	display: block;
+	margin-top: -3px;
+	color: white;
+	width: 100%;
+	font-size: 12px;
+	text-transform: lowercase;
+	font-style: italic;
 }
 span.card-number{
 	display: inline-block;
@@ -66,10 +108,11 @@ span.card-number{
 }
 span.card-ability{
 	display: inline-block;
-	margin-top: 5px;
+	margin-top: 1px;
 	color: white;
 	width: 100%;
 	font-size: 14px;
+	line-height: 17px;
 }
 svg.card-poly {
 	position: relative;
