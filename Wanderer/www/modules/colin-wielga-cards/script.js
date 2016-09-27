@@ -50,15 +50,19 @@
         }
     }
 
-    this.getImage = function (id) {
+    this.getCardValue = function (id) {
+        return Card.getCard(id).getValue();
+    }
+
+    this.getCardImage = function (id) {
         return Card.getCard(id).getImage();
     }
 
-    this.getName = function (id) {
+    this.getCardName = function (id) {
         return Card.getCard(id).name;
     }
 
-    this.getText = function (id) {
+    this.getCardAbility = function (id) {
         return Card.getCard(id).text;
     }
 

@@ -5,6 +5,20 @@ var g = {};
 
 var App = angular.module("wandererApp", []);
 
+
+// source:
+// http://stackoverflow.com/questions/13781685/angularjs-ng-src-equivalent-for-background-imageurl
+App.directive('backImg', function () {
+    return function (scope, element, attrs) {
+        attrs.$observe('backImg', function (value) {
+            element.css({
+                'background-image': 'url(' + value + ')',
+                'background-size': 'cover'
+            });
+        });
+    };
+});
+
 App.config(['$compileProvider',
     function ($compileProvider) {
         $compileProvider.imgSrcSanitizationWhitelist('images/');
