@@ -1,12 +1,17 @@
 ﻿App.controller('wandererController', ['$scope', function ($scope) {
-   
+    var managePublic = g.ComponentManager.getComponent("wanderer-core-manage")
+    var manageModules = g.ComponentManager.getComponent("wanderer-core-modules")
+    var logger = g.ComponentManager.getComponent("wanderer-core-logger")
 
     $scope.onUpdate = function () {
-        g.Wanderer.components.forEach(function (item) {
+        manageModules.components.forEach(function (item) {
             if (item.OnUpdate !== undefined) {
                 try {
                     item.OnUpdate();
                 } catch (e) {
+                    if (logger != undefined && logger.writeToLog != undefined) {
+                        logger.writeToLog(e);
+                    }
                 }
             }
         });
@@ -18,11 +23,8 @@
         }
         return "on update";
     }
-    $scope.modules = g.Wanderer.components;
 
-
-    var managePublic = g.Wanderer.getComponent("wanderer-core-manage")
-    g.Wanderer.components.forEach(function (item) {
+    manageModules.components.forEach(function (item) {
         var communicator = managePublic.comFactory(item);
         if (item.OnStart !== undefined) {
             try {
@@ -30,14 +32,20 @@
                 if (item.getRequires !== undefined) {
                     var lookingFors = item.getRequires();
                     for (var i = 0; i < lookingFors.length; i++) {
-                        dependencies.push(g.Wanderer.getComponent(lookingFors[i]));
+                        dependencies.push(manageModules.getComponent(lookingFors[i]));
                     }
                 }
                 item.OnStart(communicator, dependencies);
-            }catch(e){
+            } catch (e) {
+                if (logger != undefined && logger.writeToLog != undefined) {
+                    logger.writeToLog(e);
+                }
             }
         }
     });
     managePublic.loadLastCharacter();
+
+    $scope.modules = manageModules.activeComponents;
+
 }]);
 

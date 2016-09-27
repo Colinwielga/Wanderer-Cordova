@@ -41,7 +41,8 @@
         }
     }
 
+
     this.OnNewCharacter();
 }
 
-g.Wanderer.register(component);
+g.ComponentManager.register(component);

@@ -86,7 +86,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetPlatformIdentifier>MDD</TargetPlatformIdentifier>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
   </PropertyGroup>
   <Target Name="EnsureBuildPrerequisites">

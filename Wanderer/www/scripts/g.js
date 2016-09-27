@@ -5,34 +5,136 @@ var g = {};
 
 var App = angular.module("wandererApp", []);
 
+
+// source:
+// http://stackoverflow.com/questions/13781685/angularjs-ng-src-equivalent-for-background-imageurl
+App.directive('backImg', function () {
+    return function (scope, element, attrs) {
+        attrs.$observe('backImg', function (value) {
+            element.css({
+                'background-image': 'url(' + value + ')',
+                'background-size': 'cover'
+            });
+        });
+    };
+});
+
 App.config(['$compileProvider',
     function ($compileProvider) {
         $compileProvider.imgSrcSanitizationWhitelist('images/');
     }]);
 
+var component = function () {
+    this.getId = function () {
+        return "wanderer-core-modules"
+    }
 
-g.Wanderer = {
-    components: [],
-    register: function (componentFactory) {
-        var newComp = new componentFactory();
-        for (var i = 0; i < g.Wanderer.components.length; i++) {
-            if (g.Wanderer.components[i].getId() == newComp.getId()) {
-                throw { mesage: "two components with the same id" }
+    this.OnStart = function (communicator, dependencies) {
+        this.communicator = communicator;
+        this.Dependencies = dependencies;
+    }
+    this.OnNewCharacter = function () {}
+    this.OnSave = function () {
+        this.communicator.write("activeComponents", this.activeComponents);
+    }
+    this.OnLoad = function () {
+        if (this.communicator.canRead("activeComponents")) {
+            this.activeComponents = this.communicator.read("activeComponents");
+        } else {
+            this.activeComponents = [this.getId()];
+        }
+    }
+    this.OnUpdate = function () { }
+    this.getRequires = function () {
+        return [];
+    }
+    this.getPublic = function () {
+        var that = this;
+        return {
+            getDescription: function () {
+                return "This is a unimplemented componet";
+            },
+            getVersion: function () {
+                return 1;
+            },
+            register: function (componentFactory) {
+                var newComp = new componentFactory();
+                for (var i = 0; i < that.components.length; i++) {
+                    if (that.components[i].getId() == newComp.getId()) {
+                        throw { mesage: "two components with the same id" }
+                    }
+                }
+                that.components.push(newComp);
+            },
+            //maybe this should be a dictonary
+            getComponent: function (lookingFor) {
+                for (var i = 0; i < that.components.length; i++) {
+                    var inner = that.components[i];
+                    if (lookingFor === inner.getId()) {
+                        return inner.getPublic();
+                    }
+                }
+                throw { message: "could not find id: " + lookingFor };
+            },
+            activeComponents:
+                function () {
+                    var res = [];
+                    for (var i = 0; i < that.activeComponents.length; i++) {
+                        var lookingFor = that.activeComponents[i];
+                        for (var j = 0; j < that.components.length; j++) {
+                            var inner = that.components[j];
+                            if (lookingFor === inner.getId()) {
+                                res.push(inner);
+                            }
+                        }
+                    }
+
+                    return res;
+                },
+            components: that.components
+        }
+    }
+    this.getHmtl = function () {
+        return "modules/" + this.getId() + "/page.html"
+    }
+    this.getTitle = function () {
+        return "modules";
+    }
+    this.toggle = function (mod) {
+        if (mod != this) {
+            var i = this.activeComponents.indexOf(mod.getId());
+            if (i == -1) {
+                this.activeComponents.push(mod.getId());
+            } else {
+                this.activeComponents.splice(i, 1);
             }
         }
-        g.Wanderer.components.push(newComp);
-    },
-    //maybe this should be a dictonary
-    getComponent:function (lookingFor) {
-        for (var i = 0; i < g.Wanderer.components.length; i++) {
-            var inner =g.Wanderer.components[i];
-            if (lookingFor === inner.getId()) {
-                return inner.getPublic();
+    }
+
+    this.text = function (mod) {
+        var i = this.activeComponents.indexOf(mod.getId());
+            if (i == -1) {
+                return "show";
+            } else {
+                return "hide";
             }
-        } 
-        throw {message:"could not find id: "+lookingFor};
+    }
+
+    this.show = function (mod) {
+        if (mod != this) { 
+            return true;
+        } else {
+            return false;
+        }
+    }
+    this.activeComponents = [this.getId()];
+    this.components = [this];
 }
-};
+
+var c=new component()
+
+g.ComponentManager =c.getPublic();
+
 
 function isbefore(a, b) {
     if (a.parentNode == b.parentNode) {

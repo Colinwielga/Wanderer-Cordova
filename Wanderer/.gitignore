@@ -4,3 +4,10 @@
 [Pp]lugins/wp8.json
 [Pp]lugins/remote_ios.json
 /[Pp]latforms/
+Wanderer/AppPackages/*
+Wanderer/bin/*
+Wanderer/bld/*
+*.appxupload
+*.suo
+*.appxrecipe
+*.ps1

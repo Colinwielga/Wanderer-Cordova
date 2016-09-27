@@ -11,12 +11,16 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <!-- module css -->
+    <!--<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />-->
+    
     <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
     <title>Wanderer</title>
 
     <!-- externals -->
     <script src="External/angular.min.js"></script>
     <script src="External/jquery-3.1.0.min.js"></script>
+    
 
 </head>
 <body data-ng-controller="wandererController">
@@ -30,8 +34,8 @@
         
         <div id="content">
             <!--draggable="true"-->
-            <div data-ng-repeat="module in modules">
-                <div id="notes-section"   class="drag section">
+            <div data-ng-repeat="module in modules()">
+                <div id="{{module.getId()}}"   class="drag section">
                     <div class="section-header" >
                         <label class="hide-button" for="{{module.getId()}}-hide">-</label>
                         <h2 class="section-title">{{module.getTitle()}}</h2>
@@ -57,9 +61,22 @@
 
         <script src="scripts/g.js"></script>
 
+        <script src="modules/wanderer-core-json-editor/script.js"></script>
         <script src="modules/wanderer-core-manage/script.js"></script>
         <script src="modules/wanderer-core-logger/script.js"></script>
         <script src="modules/dc-pbta-moves/script.js"></script>
+        <script src="modules/colin-wielga-gods/Gods.js"></script>
+        <script src="modules/colin-wielga-gods/script.js"></script>
+        <script src="modules/colin-wielga-cards/Card.js"></script>
+        <script src="modules/colin-wielga-cards/script.js"></script>
+        <script src="modules/tote-hughes-titanagon-cards/TitanagonCard.js"></script>
+        <script src="modules/tote-hughes-titanagon-cards/script.js"></script>
+        <script src="modules/colin-wielga-description/script.js"></script>
+        <script src="modules/colin-wielga-counters/script.js"></script>
+        <script src="modules/colin-wielga-notes/script.js"></script>
+        <script src="modules/colin-wielga-roll/roll.js"></script>
+         <script src="modules/colin-wielga-roll/script.js"></script>
+        <script src="modules/colin-wielga-tools/script.js"></script>
 
         <!-- I think wandererController has to be down here, since it requires the UI to have loaded -->
         <script src="scripts/wandererController.js"></script>

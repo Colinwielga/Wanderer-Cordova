@@ -1,15 +1,19 @@
-﻿
+﻿// Colin you have seperation in name only here 
+// this is all tangled up with Wander-core-manage
+// that is pushing changes to us
 
 var component = function () {
-    this.log = [];
-
+    var that = this;
+    that.json = {};
+    that.saveAs = "";
 
     this.getId = function () {
-        return "wanderer-core-logger"
+        return "wanderer-core-json-editor"
     }
 
     this.OnStart = function (communicator,dependencies) {
         this.communicator = communicator
+        this.manage = dependencies[0]
     }
     this.OnNewCharacter = function () {}
     this.OnSave = function () {}
@@ -17,20 +21,19 @@ var component = function () {
     this.OnUpdate = function () {}
 
     this.getRequires = function () {
-        return [];
+        return ["wanderer-core-manage"];
     }
 
     this.getPublic = function () {
-        var that = this;
         return {
             getDescription: function () {
-                return "Handles logging";
+                return "This is a unimplemented componet";
             },
             getVersion: function () {
                 return 1;
             },
-            writeToLog: function (str) {
-                that.log.push(str);
+            updateJson:function (newJson) {
+                that.json = newJson;
             }
         }
     }
@@ -40,10 +43,14 @@ var component = function () {
         return "modules/" + this.getId() + "/page.html"
     }
     this.getTitle = function () {
-        return "Log";
+        return "JSON Editor";
     }
-
-    this.OnNewCharacter();
+    this.saveJSON = function () {
+        that.manage.saveJson(that.saveAs, that.json);
+    }
+    this.refreshJSON = function () {
+        that.getPublic().updateJson(that.manage.getJSON());
+    }
 }
 
 g.ComponentManager.register(component);

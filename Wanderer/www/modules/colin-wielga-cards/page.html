@@ -1,8 +1,26 @@
-﻿<button data-ng-click="module.draw()"> draw </button>
+﻿<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />
+<button data-ng-click="module.draw()"> draw </button>
 <div class="cards">
-    <div data-ng-repeat="cardID in module.cards" class="card pad-me" style="display: inline-block">
-        <img src="{{module.getImage(cardID)}}" alt="{{module.getName(cardID)}}" />
-        <p>{{module.getText(cardID)}}</p>
-        <button type="button" data-ng-click="module.discard(cardID)">Discard</button>
+    <div data-ng-repeat="cardID in module.cards" class="card-container">
+        <div class="card card-color-dark" data-ng-click="module.discard(cardID)">
+            <div class="card-border" back-img="{{module.getCardImage(cardID)}}">
+                <!-- data-ng-style="{'background-image':'url(/static/'+module.getCardImage(cardID)+')'}" -->
+                <!--<img src="{{module.getCardImage(cardID)}}" alt="{{module.getCardName(cardID)}}" />-->
+                <!-- style="{{'background-image: url(' + module.getCardImage(cardID) +');'}}" -->
+                <!--<div class="card-name-container">
+                    <span class="card-name">{{module.getCardName(cardID)}}</span>
+                </div>-->
+                <!--<div class="card-poly-container">
+                    <span class="positioner">
+                                         </span>
+                </div>-->
+                <div class="card-padding"
+                     ></div>
+                <div class="card-number-container">
+                    <span class="card-ability">{{module.getCardAbility(cardID)}}</span>
+                    <span class="card-number">{{module.getCardValue(cardID)}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

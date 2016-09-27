@@ -1,17 +1,17 @@
 ﻿var component = function () {
 
     this.getId = function () {
-        return "colin-wielga-cards"
+        return "tote-hughes-titanagon-cards"
     }
     this.OnStart = function (communicator, dependencies) {
-        this.communicator = communicator
-        this.godsPublic = dependencies[0];
+        this.communicator = communicator;
+        this.Dependencies = dependencies;
     }
     this.OnNewCharacter = function () {
         this.cards = [];
     }
     this.OnSave = function () {
-        this.communicator.write("cards",this.cards);
+        this.communicator.write("cards", this.cards);
     }
     this.OnLoad = function () {
         if (this.communicator.lastVersion() === -1) {
@@ -20,7 +20,8 @@
             } else {
                 this.OnNewCharacter();
             }
-        }else if (this.communicator.lastVersion() === this.getPublic().getVersion()) {
+        } else if (this.communicator.lastVersion() === this.getPublic().getVersion()) {
+
             if (this.communicator.canRead("cards")) {
                 this.cards = this.communicator.read("cards");
             } else {
@@ -30,13 +31,13 @@
     }
 
     this.getHmtl = function () {
-        return "modules/"+ this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html"
     }
     this.getTitle = function () {
-        return "Hand";
+        return "Ousichor Hand";
     }
     this.getRequires = function () {
-        return ["colin-wielga-gods"];
+        return [];
     }
 
     this.getPublic = function () {
@@ -50,28 +51,38 @@
         }
     }
 
-    this.getCardValue = function (id) {
-        return Card.getCard(id).getValue();
-    }
-
-    this.getCardImage = function (id) {
-        return Card.getCard(id).getImage();
-    }
 
     this.getCardName = function (id) {
-        return Card.getCard(id).name;
+        return TitanagonCard.getCard(id).name;
+    }
+    this.getCardAdjective = function (id) {
+        return TitanagonCard.getCard(id).adjective;
     }
 
+    this.getCardPolyID = function (id) {
+        return TitanagonCard.getCard(id).polyID;
+    }
+    this.getCardPolyPoints = function (id) {
+        return TitanagonCard.getCard(id).polyPoints;
+    }
+
+    this.getCardValue = function (id) {
+        return TitanagonCard.getCard(id).value;
+    }
     this.getCardAbility = function (id) {
-        return Card.getCard(id).text;
+        return TitanagonCard.getCard(id).ability;
+    }
+
+    this.getCardColor = function (id) {
+        return TitanagonCard.getCard(id).color;
     }
 
     this.draw = function () {
-        if (this.cards.length < Card.deckSize()) {
+        if (this.cards.length < TitanagonCard.deckSize()) {
             var num = -1;
             var fail = false;
             while (num === -1 || fail) {
-                num = Card.draw(this.godsPublic.getGods());
+                num = TitanagonCard.draw();
                 fail = false;
                 for (var i = 0; i < this.cards.length; i++) {
                     if (this.cards[i] === num) {
