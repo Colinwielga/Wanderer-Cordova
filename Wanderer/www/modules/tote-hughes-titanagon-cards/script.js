@@ -55,6 +55,9 @@
     this.getCardName = function (id) {
         return TitanagonCard.getCard(id).name;
     }
+    this.getCardAdjective = function (id) {
+        return TitanagonCard.getCard(id).adjective;
+    }
 
     this.getCardPolyID = function (id) {
         return TitanagonCard.getCard(id).polyID;
