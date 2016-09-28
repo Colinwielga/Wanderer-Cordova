@@ -2,13 +2,13 @@
 
 
 /*﻿Rules area*/
-div.card-rules-container{
-	margin: 0 -8px;
-	padding: 0px 8px 10px 8px;
+div.rules-container{
+	/*margin: 0 -8px;
+	padding: 0px 8px 10px 8px;*/
 	border: 0;
 	border-bottom: solid #333333 1px;
-	border-style: dashed;
-	text-align: justify;
+	/*border-style: dashed;*/
+	/*text-align: justify;*/
 }
 span.card-rules{
 	font-style: italic;
@@ -270,13 +270,36 @@ body {
     transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
 }
 
+
+.hide-help-check ~ .rules-container {
+    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
+    transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    max-height: 2000px;
+    transform: translateY(0%);
+    overflow: hidden;
+}
+
+/*transform:translateY(-100%);*/
+/*border-bottom: 0px;*/
+.hide-help-check:checked ~ .rules-container {
+    max-height: 0px;
+    
+    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+}
+
+
 /*animation:slideUp 1s linear;*/
 
 .hide-button, .edit-button {
     float: right;
 }
 
-.hide-check {
+.hide-check, .hide-help-check {
     display: none;
 }
 

@@ -13,14 +13,13 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <!-- module css -->
     <!--<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />-->
-    
     <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
     <title>Wanderer</title>
 
     <!-- externals -->
     <script src="External/angular.min.js"></script>
     <script src="External/jquery-3.1.0.min.js"></script>
-    
+
 
 </head>
 <body data-ng-controller="wandererController">
@@ -31,20 +30,28 @@
         </div>
 
         <!--<div id="settings" ></div>-->
-        
+
         <div id="content">
             <!--draggable="true"-->
             <div data-ng-repeat="module in modules()">
-                <div id="{{module.getId()}}"   class="drag section">
-                    <div class="section-header" >
+                <div id="{{module.getId()}}" class="drag section">
+                    <div class="section-header">
                         <label class="hide-button" for="{{module.getId()}}-hide">-</label>
+                        <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
                         <h2 class="section-title">{{module.getTitle()}}</h2>
                     </div>
-                    <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
-                    <div class="section-body fixed-content" >
-                        <div class="pad-me" id="{{module.getId()}}">
-                            <div data-ng-include="module.getRulesHtml()" class="card-rules-container"></div>
-                            <div data-ng-include="module.getHmtl()"></div>
+                    <div id="{{module.getId()}}">
+                        <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
+                        <div class="section-body fixed-content">
+                            <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked/>
+                            <div class="rules-container">
+                                <div class="pad-me">
+                                    <div data-ng-include="module.getRulesHtml()"></div>
+                                </div>
+                            </div>
+                            <div class="pad-me">
+                                <div data-ng-include="module.getHmtl()"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,7 +82,7 @@
         <script src="modules/colin-wielga-counters/script.js"></script>
         <script src="modules/colin-wielga-notes/script.js"></script>
         <script src="modules/colin-wielga-roll/roll.js"></script>
-         <script src="modules/colin-wielga-roll/script.js"></script>
+        <script src="modules/colin-wielga-roll/script.js"></script>
         <script src="modules/colin-wielga-tools/script.js"></script>
 
         <!-- I think wandererController has to be down here, since it requires the UI to have loaded -->
