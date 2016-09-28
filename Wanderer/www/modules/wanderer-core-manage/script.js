@@ -46,14 +46,14 @@
     that.getHmtl = function () {
         return "modules/" + that.getId() + "/page.html"
     }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
+    }
     that.getTitle = function () {
         return "Manage";
     }
     that.getPublic = function () {
         return {
-            getDescription: function () {
-                return "This is a unimplemented componet";
-            },
             getVersion: function () {
                 return 1;
             },

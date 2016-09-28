@@ -26,9 +26,6 @@ var component = function () {
 
     this.getPublic = function () {
         return {
-            getDescription: function () {
-                return "This is a unimplemented componet";
-            },
             getVersion: function () {
                 return 1;
             },
@@ -41,6 +38,9 @@ var component = function () {
     // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
+    }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
     }
     this.getTitle = function () {
         return "JSON Editor";

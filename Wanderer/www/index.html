@@ -43,6 +43,7 @@
                     <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
                     <div class="section-body fixed-content" >
                         <div class="pad-me" id="{{module.getId()}}">
+                            <div data-ng-include="module.getRulesHtml()" class="card-rules-container"></div>
                             <div data-ng-include="module.getHmtl()"></div>
                         </div>
                     </div>
