@@ -51,31 +51,34 @@
         }
     }
 
-
-    this.getCardName = function (id) {
-        return TitanagonCard.getCard(id).name;
-    }
-    this.getCardAdjective = function (id) {
-        return TitanagonCard.getCard(id).adjective;
+    this.getCard = function (id) {
+        return TitanagonCard.getCard(id);
     }
 
-    this.getCardPolyID = function (id) {
-        return TitanagonCard.getCard(id).polyID;
-    }
-    this.getCardPolyPoints = function (id) {
-        return TitanagonCard.getCard(id).polyPoints;
-    }
+    //this.getCardName = function (id) {
+    //    return TitanagonCard.getCard(id).name;
+    //}
+    //this.getCardAdjective = function (id) {
+    //    return TitanagonCard.getCard(id).adjective;
+    //}
 
-    this.getCardValue = function (id) {
-        return TitanagonCard.getCard(id).value;
-    }
-    this.getCardAbility = function (id) {
-        return TitanagonCard.getCard(id).ability;
-    }
+    //this.getCardPolyID = function (id) {
+    //    return TitanagonCard.getCard(id).polyID;
+    //}
+    //this.getCardPolyPoints = function (id) {
+    //    return TitanagonCard.getCard(id).polyPoints;
+    //}
 
-    this.getCardColor = function (id) {
-        return TitanagonCard.getCard(id).color;
-    }
+    //this.getCardValue = function (id) {
+    //    return TitanagonCard.getCard(id).value;
+    //}
+    //this.getCardAbility = function (id) {
+    //    return TitanagonCard.getCard(id).ability;
+    //}
+
+    //this.getCardColor = function (id) {
+    //    return TitanagonCard.getCard(id).color;
+    //}
 
     this.draw = function () {
         if (this.cards.length < TitanagonCard.deckSize()) {

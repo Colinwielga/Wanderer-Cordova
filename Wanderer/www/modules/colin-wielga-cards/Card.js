@@ -22,6 +22,9 @@
         }
         return "images/cards/" + id + ".jpg";
     }
+    this.getHtml = function () {
+        return "modules/colin-wielga-cards/card.html"
+    }
     this.getValue = function () {
         return this.value;
     }

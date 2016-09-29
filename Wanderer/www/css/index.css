@@ -2,15 +2,15 @@
 
 
 /*﻿Rules area*/
-div.rules-container{
+.rules-divider{
 	/*margin: 0 -8px;
 	padding: 0px 8px 10px 8px;*/
 	border: 0;
-	border-bottom: solid #333333 1px;
+	border-bottom: dashed #333333 1px;
 	/*border-style: dashed;*/
 	/*text-align: justify;*/
 }
-span.card-rules{
+.rules-text{
 	font-style: italic;
 }
 

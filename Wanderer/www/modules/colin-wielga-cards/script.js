@@ -50,21 +50,25 @@
         }
     }
 
-    this.getCardValue = function (id) {
-        return Card.getCard(id).getValue();
+    this.getCard=function (id) {
+        return Card.getCard(id);
     }
 
-    this.getCardImage = function (id) {
-        return Card.getCard(id).getImage();
-    }
+    //this.getCardValue = function (id) {
+    //    return Card.getCard(id).getValue();
+    //}
 
-    this.getCardName = function (id) {
-        return Card.getCard(id).name;
-    }
+    //this.getCardImage = function (id) {
+    //    return Card.getCard(id).getImage();
+    //}
 
-    this.getCardAbility = function (id) {
-        return Card.getCard(id).text;
-    }
+    //this.getCardName = function (id) {
+    //    return Card.getCard(id).name;
+    //}
+
+    //this.getCardAbility = function (id) {
+    //    return Card.getCard(id).text;
+    //}
 
     this.draw = function () {
         if (this.cards.length < Card.deckSize()) {
