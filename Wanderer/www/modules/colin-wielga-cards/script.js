@@ -9,20 +9,32 @@
     }
     this.OnNewCharacter = function () {
         this.cards = [];
+        this.deck = [];
     }
     this.OnSave = function () {
-        this.communicator.write("cards",this.cards);
+        this.communicator.write("cards", this.cards);
+        this.communicator.write("deck", this.deck);
     }
     this.OnLoad = function () {
-        if (this.communicator.lastVersion() === -1) {
+        var version =this.communicator.lastVersion();
+        if (version === -1) {
             if (this.communicator.canRead("cards")) {
                 this.cards = JSON.parse(this.communicator.read("cards"));
+                this.deck = this.startingDeck();
             } else {
                 this.OnNewCharacter();
             }
-        }else if (this.communicator.lastVersion() === this.getPublic().getVersion()) {
+        } else if (version === 1.1) {
             if (this.communicator.canRead("cards")) {
                 this.cards = this.communicator.read("cards");
+                this.deck = this.startingDeck();
+            } else {
+                this.OnNewCharacter();
+            }
+        } else if (version === this.getPublic().getVersion()) {
+            if (this.communicator.canRead("cards") && this.communicator.canRead("deck")) {
+                this.cards = this.communicator.read("cards");
+                this.deck = this.communicator.read("deck");
             } else {
                 this.OnNewCharacter();
             }
@@ -45,7 +57,7 @@
     this.getPublic = function () {
         return {
             getVersion: function () {
-                return 1.1;
+                return 1.2;
             }
         }
     }
@@ -70,12 +82,33 @@
     //    return Card.getCard(id).text;
     //}
 
+    this.toggleDeck = function(id) {
+        var at = this.deck.indexOf(id);
+        if (at == -1) {
+            this.deck.push(id);
+        } else {
+            this.deck.splice(at, 1);
+        }
+    }
+
+    this.inDeck = function (id) {
+        return this.deck.indexOf(id)!== -1;
+    }
+
+    this.possibleCards = function () {
+        return Card.possibleCards();
+    }
+
+    this.startingDeck = function() {
+        return this.possibleCards();
+    }
+
     this.draw = function () {
-        if (this.cards.length < Card.deckSize()) {
+        if (this.cards.length < this.deck.length) {
             var num = -1;
             var fail = false;
             while (num === -1 || fail) {
-                num = Card.draw(this.godsPublic.getGods());
+                num = this.deck[Math.floor(Math.random() * this.deck.length)];
                 fail = false;
                 for (var i = 0; i < this.cards.length; i++) {
                     if (this.cards[i] === num) {

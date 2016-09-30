@@ -25,3 +25,11 @@
     -webkit-flex: 1 0 auto;
     flex: 1 0 auto;
 }
+
+#colin-wielga-cards .card-in-deck-true {
+    background-color:red;
+}
+
+#colin-wielga-cards .card-in-deck-false {
+
+}

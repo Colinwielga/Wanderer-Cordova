@@ -212,3 +212,13 @@ Card.draw = function (gods) {
 
     return deck[Math.floor(Math.random() * deck.length)];
 }
+
+Card.possibleCards = function () {
+    var keys = [];
+    for (var key in Card.map) {
+        if (Card.map.hasOwnProperty(key)) {
+            keys.push(key);
+        }
+    }
+    return keys;
+}
