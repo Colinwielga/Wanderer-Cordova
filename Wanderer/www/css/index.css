@@ -256,14 +256,15 @@ body {
     -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
     -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
     transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
-    max-height: 2000px;
+    max-height: 20000px;
     transform: translateY(0%);
-    overflow: hidden;
+    overflow-y:hidden;
 }
 
 /*transform:translateY(-100%);*/
 .hide-check:checked ~ .section-body {
     max-height: 0px;
+    overflow-y: hidden;
     -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
@@ -276,16 +277,16 @@ body {
     -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
     -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
     transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
-    max-height: 2000px;
+    max-height: 20000px;
     transform: translateY(0%);
-    overflow: hidden;
+    overflow-y:hidden;
 }
 
 /*transform:translateY(-100%);*/
 /*border-bottom: 0px;*/
 .hide-help-check:checked ~ .rules-container {
     max-height: 0px;
-    
+    overflow-y: hidden;
     -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
