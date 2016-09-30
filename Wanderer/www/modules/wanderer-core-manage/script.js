@@ -214,7 +214,7 @@
                     if (that.charactor[item.getId()]== undefined) {
                         that.charactor[item.getId()] = {};
                     }
-                    if (that.charactor[item.getId()][that.META]) {
+                    if (that.charactor[item.getId()][that.META]== undefined) {
                         that.charactor[item.getId()][that.META] = {};
                     }
                     that.charactor[item.getId()][that.META][that.VERSION] = item.getPublic().getVersion();
