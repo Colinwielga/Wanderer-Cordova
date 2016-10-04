@@ -1,4 +1,8 @@
-﻿var component = function () {
+﻿var ColinWielgaCards= {};
+
+ColinWielgaCards.decklist = [];
+
+ColinWielgaCards.component = function () {
 
     this.getId = function () {
         return "colin-wielga-cards"
@@ -9,32 +13,32 @@
     }
     this.OnNewCharacter = function () {
         this.cards = [];
-        this.deck = [];
+        this.activeCards = [];
     }
     this.OnSave = function () {
         this.communicator.write("cards", this.cards);
-        this.communicator.write("deck", this.deck);
+        this.communicator.write("deck", this.activeCards);
     }
     this.OnLoad = function () {
         var version =this.communicator.lastVersion();
         if (version === -1) {
             if (this.communicator.canRead("cards")) {
                 this.cards = JSON.parse(this.communicator.read("cards"));
-                this.deck = this.startingDeck();
+                this.activeCards = this.startingDeck();
             } else {
                 this.OnNewCharacter();
             }
         } else if (version === 1.1) {
             if (this.communicator.canRead("cards")) {
                 this.cards = this.communicator.read("cards");
-                this.deck = this.startingDeck();
+                this.activeCards = this.startingDeck();
             } else {
                 this.OnNewCharacter();
             }
         } else if (version === this.getPublic().getVersion()) {
             if (this.communicator.canRead("cards") && this.communicator.canRead("deck")) {
                 this.cards = this.communicator.read("cards");
-                this.deck = this.communicator.read("deck");
+                this.activeCards = this.communicator.read("deck");
             } else {
                 this.OnNewCharacter();
             }
@@ -63,40 +67,31 @@
     }
 
     this.getCard=function (id) {
-        return Card.getCard(id);
+        return this.activeCards.allCards[id];
     }
 
-    //this.getCardValue = function (id) {
-    //    return Card.getCard(id).getValue();
-    //}
-
-    //this.getCardImage = function (id) {
-    //    return Card.getCard(id).getImage();
-    //}
-
-    //this.getCardName = function (id) {
-    //    return Card.getCard(id).name;
-    //}
-
-    //this.getCardAbility = function (id) {
-    //    return Card.getCard(id).text;
-    //}
-
-    this.toggleDeck = function(id) {
-        var at = this.deck.indexOf(id);
+    this.toggleCardActive = function (id) {
+        var at = this.activeCards.indexOf(id);
         if (at == -1) {
-            this.deck.push(id);
+            this.activeCards.push(id);
         } else {
-            this.deck.splice(at, 1);
+            this.activeCards.splice(at, 1);
         }
     }
 
     this.inDeck = function (id) {
-        return this.deck.indexOf(id)!== -1;
+        return this.activeCards.indexOf(id)!== -1;
     }
 
     this.possibleCards = function () {
-        return Card.possibleCards();
+        var keys = [];
+        for (var key in this.selectedDeck.allCards) {
+            // what is this if for??
+            if (this.selectedDeck.allCards.hasOwnProperty(key)) {
+                keys.push(key);
+            }
+        }
+        return keys;
     }
 
     this.startingDeck = function() {
@@ -104,11 +99,11 @@
     }
 
     this.draw = function () {
-        if (this.cards.length < this.deck.length) {
+        if (this.cards.length < this.activeCards.length) {
             var num = -1;
             var fail = false;
             while (num === -1 || fail) {
-                num = this.deck[Math.floor(Math.random() * this.deck.length)];
+                num = this.activeCards[Math.floor(Math.random() * this.activeCards.length)];
                 fail = false;
                 for (var i = 0; i < this.cards.length; i++) {
                     if (this.cards[i] === num) {
@@ -130,4 +125,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponentManager.register(component);
+g.ComponentManager.register(ColinWielgaCards.component);

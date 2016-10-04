@@ -12,7 +12,7 @@
     </center>
 </div>
 <div class="deck-container">
-    <div data-ng-repeat="cardID in module.possibleCards()" class="card-container card-in-deck-{{module.inDeck(cardID)}}" data-ng-init="card = module.getCard(cardID)" data-ng-click="module.toggleDeck(cardID)">
+    <div data-ng-repeat="cardID in module.possibleCards()" class="card-container card-in-deck-{{module.inDeck(cardID)}}" data-ng-init="card = module.getCard(cardID)" data-ng-click="module.toggleCardActive(cardID)">
         {{card.name}}
     </div>
 </div>
