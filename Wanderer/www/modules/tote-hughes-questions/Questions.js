@@ -14,7 +14,7 @@ Questions.QuestionTemplates = [
     // "!": don't include the article.
     // "@": use the plural word and exclude the article.
     new Questions.QuestionTemplate(1, "Why did you kill your %!family%?", 8),
-    new Questions.QuestionTemplate(17, "How did you kill your %@family%?", 4),
+//    new Questions.QuestionTemplate(17, "How did you kill your %@family%?", 4),
     new Questions.QuestionTemplate(2, "How were you betrayed by %person%?", 6),
     new Questions.QuestionTemplate(3, "When was the last time you saw your %!family%?", 4),
     new Questions.QuestionTemplate(4, "Why did you stop being %profession%?", 4),
