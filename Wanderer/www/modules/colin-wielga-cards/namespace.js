@@ -1,0 +1,3 @@
+﻿var ColinWielgaCards = {};
+
+ColinWielgaCards.decklist = [];
