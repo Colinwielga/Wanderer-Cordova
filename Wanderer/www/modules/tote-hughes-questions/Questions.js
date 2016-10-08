@@ -214,7 +214,7 @@ Questions.getNewQuestion = function(forbiddenIDs) {
     // Get an unanswered question template:
     var possibleQuestionTemplates = [];
     for (var i = 0; i < Questions.QuestionTemplates.length; i++) {
-        var allowed = !forbiddenIDs.includes(Questions.QuestionTemplates[i].id);
+        var allowed = (forbiddenIDs.indexOf(Questions.QuestionTemplates[i].id) == -1);
         if (allowed) {
             possibleQuestionTemplates.push(Questions.QuestionTemplates[i]);
         }
@@ -238,7 +238,7 @@ Questions.getNewQuestion = function(forbiddenIDs) {
         }
         var allowedFields = [];
         for (var i = 0; i < Questions.QuestionFields.length; i++) {
-            if (Questions.QuestionFields[i].categories.includes(category)) {
+            if (Questions.QuestionFields[i].categories.indexOf(category) !== -1) {
                 allowedFields.push(Questions.QuestionFields[i]);
             }
         }
