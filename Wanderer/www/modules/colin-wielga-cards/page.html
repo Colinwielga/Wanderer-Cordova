@@ -6,7 +6,7 @@
 </div>
 <div class="card-cards-container">
     <center>
-        <div data-ng-repeat="cardID in module.cards" class="card-container" data-ng-init="card = module.getCard(cardID)">
+        <div data-ng-repeat="cardID in module.hand" class="card-container" data-ng-init="card = module.getCard(cardID)">
             <div data-ng-include="card.getHtml()"></div>
         </div>
     </center>
