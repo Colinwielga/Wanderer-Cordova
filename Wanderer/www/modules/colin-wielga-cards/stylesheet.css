@@ -27,9 +27,39 @@
 }
 
 #colin-wielga-cards .card-in-deck-true {
-    background-color:red;
 }
 
 #colin-wielga-cards .card-in-deck-false {
+        opacity:.3;
+}
 
+#colin-wielga-cards .deck-container {
+    -moz-column-width: 200px;
+    -webkit-column-width: 200px;
+    column-width: 200px;
+    -moz-column-gap: 5px;
+    -webkit-column-gap: 5px;
+    column-gap: 5px;
+}
+
+/*i like this pattern but goes know why it seems like at of extra work */
+
+#colin-wielga-cards #setting-hide.hide-check ~ .deck-container-outer {
+    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
+    transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    max-height: 20000px;
+    transform: translateY(0%);
+    overflow-y:hidden;
+}
+
+/*transform:translateY(-100%);*/
+#colin-wielga-cards #setting-hide.hide-check:checked ~ .deck-container-outer {
+    max-height: 0px;
+    overflow-y: hidden;
+    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
 }

@@ -310,7 +310,7 @@ body {
 	padding: 0px 10px;
 }*/
 
-button, label.hide-button, input[type=button] {
+button, label.hide-button, input[type=button], label.label-button{
     outline: none;
     text-transform: lowercase;
     cursor: pointer;

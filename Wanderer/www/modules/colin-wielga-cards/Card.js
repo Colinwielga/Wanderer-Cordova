@@ -9,7 +9,7 @@ ColinWielgaCards.AhlosainCard = function (name, text, value,deck) {
             if (deck.allCards.hasOwnProperty(prop)) {
                 var num = parseInt(prop);
                 if (deck.allCards[num] === this) {
-                    return num;
+                    return parseInt(num);
                 }
             }
         }
@@ -192,7 +192,7 @@ ColinWielgaCards.AhlosainDeck.allCards={
     }
 
 
-ColinWielgaCards.decklist.push();
+ColinWielgaCards.decklist.push(ColinWielgaCards.AhlosainDeck);
 
 
 //Card.getCard = function (id) {

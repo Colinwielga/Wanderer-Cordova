@@ -2,6 +2,7 @@
 <div class="card-buttons-container">
     <center>
         ﻿       <button data-ng-click="module.draw()"> draw </button>
+        <label class="label-button" for="setting-hide">modify deck</label>
     </center>
 </div>
 <div class="card-cards-container">
@@ -11,9 +12,13 @@
         </div>
     </center>
 </div>
-<div class="deck-container">
-    <div data-ng-repeat="cardID in module.possibleCards()" class="card-container card-in-deck-{{module.inDeck(cardID)}}" data-ng-init="card = module.getCard(cardID)" data-ng-click="module.toggleCardActive(cardID)">
-        {{card.name}}
+<input type="checkbox" class="hide-check" id="setting-hide" checked/>
+<div class="deck-container-outer">
+    <div class="rules-divider"></div>
+    <div class="deck-container">
+        <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-init="card = module.getCard(cardID)" data-ng-click="module.toggleCardActive(cardID)">
+            {{card.name}}
+        </div>
     </div>
 </div>
 

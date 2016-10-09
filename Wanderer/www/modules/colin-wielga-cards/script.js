@@ -9,38 +9,36 @@
     }
     this.OnNewCharacter = function () {
         this.hand = [];
-        this.activeCards = [];
+        this.activeDeck = [];
         this.selectedDeck = ColinWielgaCards.decklist[0];
     }
     this.OnSave = function () {
         this.communicator.write("hand", this.hand);
-        this.communicator.write("activeCards", this.activeCards);
+        this.communicator.write("activeDeck", this.activeDeck);
         this.communicator.write("selectedDeck", this.selectedDeck.id);
     }
     this.OnLoad = function () {
-        var version =this.communicator.lastVersion();
+        var version = this.communicator.lastVersion();
+        this.OnNewCharacter();
         if (version === -1 || version === 1.1) {
-            this.OnNewCharacter();
             if (this.communicator.canRead("cards")) {
                 this.hand = JSON.parse(this.communicator.read("cards"));
             }
-            this.activeCards = this.startingDeck();
+            this.activeDeck = this.startingDeck();
             this.selectedDeck = ColinWielgaCards.decklist[0];
         } else if (version === 1.2) {
-            this.OnNewCharacter();
             if (this.communicator.canRead("cards")){
                 this.hand = this.communicator.read("cards");
             }
             if (this.communicator.canRead("deck")) {
-                this.activeCards = this.communicator.read("deck");
+                this.activeDeck = this.communicator.read("deck");
             }
         } else if (version === 1.3) {
-            this.OnNewCharacter();
             if (this.communicator.canRead("hand")) {
                 this.hand = this.communicator.read("hand");
             }
-            if (this.communicator.canRead("activeCards")) {
-                this.activeCards = this.communicator.read("activeCards");
+            if (this.communicator.canRead("activeDeck")) {
+                this.activeDeck = this.communicator.read("activeDeck");
             }
             if (this.communicator.canRead("selectedDeck")) {
                 var deckId = this.communicator.read("selectedDeck");
@@ -54,8 +52,6 @@
                 if (this.selectedDeck === null) {
                     this.selectedDeck = ColinWielgaCards.decklist[0];
                 }
-            } else {
-                this.OnNewCharacter();
             }
         }
     }
@@ -86,16 +82,16 @@
     }
 
     this.toggleCardActive = function (id) {
-        var at = this.activeCards.indexOf(id);
+        var at = this.activeDeck.indexOf(id);
         if (at == -1) {
-            this.activeCards.push(id);
+            this.activeDeck.push(id);
         } else {
-            this.activeCards.splice(at, 1);
+            this.activeDeck.splice(at, 1);
         }
     }
 
     this.inDeck = function (id) {
-        return this.activeCards.indexOf(id)!== -1;
+        return (this.activeDeck.indexOf(id) !== -1);
     }
 
     this.possibleCards = function () {
@@ -114,11 +110,11 @@
     }
 
     this.draw = function () {
-        if (this.hand.length < this.activeCards.length) {
+        if (this.hand.length < this.activeDeck.length) {
             var num = -1;
             var fail = false;
             while (num === -1 || fail) {
-                num = this.activeCards[Math.floor(Math.random() * this.activeCards.length)];
+                num = this.activeDeck[Math.floor(Math.random() * this.activeDeck.length)];
                 fail = false;
                 for (var i = 0; i < this.hand.length; i++) {
                     if (this.hand[i] === num) {

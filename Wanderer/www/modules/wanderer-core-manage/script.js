@@ -3,7 +3,7 @@
 
     //window.localStorage.clear();
     var that = this;
-    that.VERSIION = "VERSION"
+    that.VERSION = "VERSION"
     that.META = "META"
     // we load the character
     that.characterList = [];
