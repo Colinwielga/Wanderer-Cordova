@@ -61,6 +61,9 @@ ColinWielgaCards.AhlosainDeck ={
     name: "Ahlos Deck",
 }
 
+//ColinWielgaCards.AhlosainDeck.prototype.toString = function () {
+//    return this.name;
+//}
 
 ColinWielgaCards.AhlosainDeck.allCards={
     0: new ColinWielgaCards.AhlosainCard("THE FOOL", "play at anytime to make someone make a mistake, 8 if you are drunk","0",ColinWielgaCards.AhlosainDeck),// I hate this card

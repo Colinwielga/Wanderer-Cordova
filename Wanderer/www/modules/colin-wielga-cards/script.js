@@ -1,5 +1,5 @@
 ﻿ColinWielgaCards.component = function () {
-
+    this.decklist = ColinWielgaCards.decklist;
     this.getId = function () {
         return "colin-wielga-cards"
     }

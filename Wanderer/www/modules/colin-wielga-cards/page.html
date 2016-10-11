@@ -7,8 +7,8 @@
 </div>
 <div class="card-cards-container">
     <center>
-        <div data-ng-repeat="cardID in module.hand" class="card-container" data-ng-init="card = module.getCard(cardID)">
-            <div data-ng-include="card.getHtml()"></div>
+        <div data-ng-repeat="cardID in module.hand" class="card-container">
+            <div data-ng-include="module.getCard(cardID).getHtml()"></div>
         </div>
     </center>
 </div>
@@ -16,8 +16,15 @@
 <div class="deck-container-outer">
     <div class="rules-divider"></div>
     <div class="deck-container">
-        <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-init="card = module.getCard(cardID)" data-ng-click="module.toggleCardActive(cardID)">
-            {{card.name}}
+        <label for="decks"> Repeat select: </label>
+        
+            <select id="decks" ng-options="deck as d for deck in module.decklist"
+                    data-ng-model="module.selectedDeck"
+                    ></select>
+            <!--<select name="repeatSelect"  data-ng-model="module.selectedDeck"><option data-ng-repeat="deck in module.decklist" data-ng-value="deck.name">{{deck.name}}</option>
+        </select>-->
+        <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-click="module.toggleCardActive(cardID)">
+            {{module.getCard(cardID).name}}
         </div>
     </div>
 </div>
