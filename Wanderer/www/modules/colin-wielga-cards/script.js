@@ -77,6 +77,12 @@
         }
     }
 
+    this.DeckSelected = function () {
+        this.hand = [];
+        // TODO
+        this.activeDeck = this.selectedDeck.defaultActive();
+    }
+
     this.getCard=function (id) {
         return this.selectedDeck.allCards[id];
     }

@@ -18,8 +18,8 @@
     <div class="deck-container">
         <label for="decks"> Repeat select: </label>
         
-            <select id="decks" ng-options="deck as d for deck in module.decklist"
-                    data-ng-model="module.selectedDeck"
+            <select id="decks" data-ng-options="deck as deck.name for deck in module.decklist"
+                    data-ng-model="module.selectedDeck" data-nb-change="module.deckSelected()"
                     ></select>
             <!--<select name="repeatSelect"  data-ng-model="module.selectedDeck"><option data-ng-repeat="deck in module.decklist" data-ng-value="deck.name">{{deck.name}}</option>
         </select>-->
