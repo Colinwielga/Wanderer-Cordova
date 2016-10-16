@@ -79,7 +79,6 @@
 
     this.DeckSelected = function () {
         this.hand = [];
-        // TODO
         this.activeDeck = this.selectedDeck.defaultActive();
     }
 
