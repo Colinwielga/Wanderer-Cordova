@@ -180,7 +180,7 @@ var cardList =[
 
 ColinWielgaCards.AhlosainDeck = new ColinWielgaCards.Deck("{53799C64-1547-4FF7-9C00-E8D9AE22C6CE}", "Ahlos Deck", cardList);
 
-ColinWielgaCards.decklist.push(ColinWielgaCards.AhlosainDeck,true);
+ColinWielgaCards.decklist.push(ColinWielgaCards.AhlosainDeck);
 
 
 //Card.getCard = function (id) {

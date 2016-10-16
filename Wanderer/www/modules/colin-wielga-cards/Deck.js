@@ -2,9 +2,10 @@
     this.name = name;
     this.guid = guid;
     this.allCards = {};
-    this.listOfCards.forEach(function(card) {
+    var that = this;
+    listOfCards.forEach(function(card) {
         card.deck = this;
-        this.allCards[card.guid] = card;
+        that.allCards[card.guid] = card;
     })
     this.defaultActive = function () {
         var res = [];
