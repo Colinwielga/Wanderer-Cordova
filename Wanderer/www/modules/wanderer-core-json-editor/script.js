@@ -45,7 +45,7 @@ var component = function () {
     this.getTitle = function () {
         return "JSON Editor";
     }
-    this.saveJSON = function () {
+    this.saveJson = function () {
         that.manage.saveJson(that.saveAs, that.json);
     }
     this.refreshJSON = function () {

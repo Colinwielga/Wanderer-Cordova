@@ -90,9 +90,10 @@
         }
     }
 
-    this.DeckSelected = function () {
+    this.deckSelected = function () {
         this.hand = [];
-        this.activeDeck = this.selectedDeck.defaultActive();
+        this.activeDeck=
+        this.selectedDeck.defaultActive();
     }
 
     this.getCard=function (id) {
