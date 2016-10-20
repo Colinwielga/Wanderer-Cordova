@@ -5,7 +5,9 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://dynamodb.us-east-1.amazonaws.com/ ">
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -19,8 +21,7 @@
     <!-- externals -->
     <script src="External/angular.min.js"></script>
     <script src="External/jquery-3.1.0.min.js"></script>
-
-
+    <script src="External/aws-sdk.js"></script>
 </head>
 <body data-ng-controller="wandererController">
     <div id="all">
@@ -90,6 +91,7 @@
         <script src="modules/tote-hughes-titanagon-cards/script.js"></script>
         <script src="modules/tote-hughes-questions/Questions.js"></script>
         <script src="modules/tote-hughes-questions/script.js"></script>
+        <script src="scripts/AWSConnector.js"></script>
 
         <!-- I think wandererController has to be down here, since it requires the UI to have loaded -->
         <script src="scripts/wandererController.js"></script>

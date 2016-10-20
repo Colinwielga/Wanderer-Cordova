@@ -47,8 +47,6 @@
 
 // todo make a deck constructor... 
 
-
-
 //ColinWielgaCards.AhlosainDeck.prototype.toString = function () {
 //    return this.name;
 //}
