@@ -53,6 +53,13 @@
         return "Manage";
     }
     that.getPublic = function () {
+        var comboKey = function (item, key) {
+            return item.getId() + "_" + key;
+        };
+        var versionComboKey = function (item, key) {
+            return "Version_" + item.getId() + "_" + key;
+        }
+
         return {
             getVersion: function () {
                 return 1;
@@ -61,14 +68,17 @@
                 return {
                     read: function (key) {
                         return that.charactor[item.getId()][key];
-                    }, canRead: function (key) {
+                    },
+                    canRead: function (key) {
                         return that.charactor[item.getId()] !== undefined && that.charactor[item.getId()][key] !== undefined;
-                    }, write: function (key, value) {
+                    },
+                    write: function (key, value) {
                         if (that.charactor[item.getId()] === undefined) {
                             that.charactor[item.getId()] = {};
                         }
                         that.charactor[item.getId()][key] = value;
-                    }, lastVersion: function () {
+                    },
+                    lastVersion: function () {
                         if (that.charactor[item.getId()] === undefined) {
                             return -1;
                         }
@@ -79,6 +89,18 @@
                             return -1;
                         }
                         return that.charactor[item.getId()][that.META][that.VERSION];
+                    },
+                    readNotCharacter: function (key) {
+                        return window.localStorage.getItem(comboKey(item,key));
+                    },
+                    readNotCharacterVersion: function (key) {
+                        return window.localStorage.getItem(versionComboKey(item, key));
+                    },
+                    canReadNotCharacter: function (key) {
+                        return window.localStorage.getItem(comboKey(item, key)) !== undefined;
+                    }, writeNotCharacter: function (key, value) {
+                        window.localStorage.setItem(comboKey(item, key), value);
+                        window.localStorage.setItem(versionComboKey(item, key), item.getPublic().getVersion());
                     }
                 };
             },

@@ -40,23 +40,41 @@ ColinWielgaDyanmo.component = function () {
 
     this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
-        this.manage = dependencies[0]
+        this.manage = dependencies[0];
+        this.default();
+        if (this.communicator.canReadNotCharacter("gameName")) {
+            this.gameName = this.communicator.readNotCharacter("gameName");
+        }
+        if (this.communicator.canReadNotCharacter("gamePassword")) {
+            this.gamePassword = this.communicator.readNotCharacter("gamePassword");
+        }
+        if (this.communicator.canReadNotCharacter("name")) {
+            this.name = this.communicator.readNotCharacter("name");
+        }
+
     }
-    this.OnNewCharacter = function () {
+    this.default = function () {
         this.gameName = "";
         this.gamePassword = "";
         this.list = [];
         this.state = ColinWielgaDyanmo.States.ENTER_GAME;
         this.name = ""
     }
+
+    this.OnNewCharacter = function () {
+
+    }
     this.OnSave = function () {
         this.communicator.write("gameName", this.gameName);
         this.communicator.write("gamePassword", this.gamePassword);
         this.communicator.write("name", this.name);
         this.communicator.write("state", this.state);
+        this.communicator.writeNotCharacter("gameName", this.gameName);
+        this.communicator.writeNotCharacter("gamePassword", this.gamePassword);
+        this.communicator.writeNotCharacter("name", this.name);
     }
     this.OnLoad = function () {
-        this.OnNewCharacter()
+        this.OnNewCharacter();
         if (this.communicator.canRead("gameName")) {
             this.gameName = this.communicator.read("gameName");
         } 
@@ -69,6 +87,30 @@ ColinWielgaDyanmo.component = function () {
         if (this.communicator.canRead("state")) {
             this.state = this.communicator.read("state");
         }
+        if (this.state === ColinWielgaDyanmo.States.WORKING) {
+            this.state = ColinWielgaDyanmo.States.ENTER_GAME;
+            this.connect();
+        } else if (this.state === ColinWielgaDyanmo.States.LIST) {
+            this.connect();
+        } else if (this.state === ColinWielgaDyanmo.States.NEW) {
+            var that = this;
+            ColinWielgaDyanmo.getCharacters(this.gameName, this.gamePassword,
+                function (data) {
+                    that.injected.timeout(function () {
+                        that.list = [];
+                        for (var i = 0; i < data.Items.length; i++) {
+                            that.list.push(data.Items[i].Name.S)
+                        }
+                        that.state = ColinWielgaDyanmo.States.NE;
+                    });
+                }, function () {
+                    that.injected.timeout(function () { that.state = ColinWielgaDyanmo.States.ENTER_GAME; })
+                }, function () {
+                    that.injected.timeout(function () { that.state = ColinWielgaDyanmo.States.ENTER_GAME; })
+                });
+        }
+        
+
     }
     this.OnUpdate = function () { }
     this.getRequires = function () {
@@ -85,14 +127,36 @@ ColinWielgaDyanmo.component = function () {
     }
 
     this.getPublic = function () {
+        
         return {
             getVersion: function () {
                 return 1;
             },
-            updateJson: function (newJson) {
-                that.json = newJson;
+            loadLastCharacter: function () {
+                var that = this;
+                that.state = ColinWielgaDyanmo.States.WORKING;
+                if (that.name != null && that.name != undefined && that.gameName != null && that.gameName != undefined && that.gamePassword != null && that.gamePassword != undefined) {
+                    ColinWielgaDyanmo.GetCharacter(that.name, that.gameName, that.gamePassword,
+                    function (data) {
+                        that.manage.loadJSON(JSON.parse(data.Item.JSON.S), name);
+                        that.injected.timeout(function () {
+                            that.state = ColinWielgaDyanmo.States.NEW;
+                            that.name = name;
+                        })
+                    }, function () {
+                        that.injected.timeout(function () {
+                            this.state = ColinWielgaDyanmo.States.ENTER_GAME;
+                        });
+                    }, function () {
+                        that.injected.timeout(function () {
+                            this.state = ColinWielgaDyanmo.States.ENTER_GAME;
+                        });
+                    })
+                } else {
+                    this.state = ColinWielgaDyanmo.States.ENTER_GAME;
             }
         }
+    }
     }
 
     // a component should be able to provide some infomation

@@ -1,6 +1,7 @@
 ﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
     var managePublic = g.ComponentManager.getComponent("wanderer-core-manage")
     var manageModules = g.ComponentManager.getComponent("wanderer-core-modules")
+    var awsPublic = g.ComponentManager.getComponent("colin-wielga-dynamo-save")
     var logger = g.ComponentManager.getComponent("wanderer-core-logger")
 
     $scope.onUpdate = function () {
@@ -47,7 +48,7 @@
             }
         }
     });
-    managePublic.loadLastCharacter();
+    awsPublic.loadLastCharacter();
 
     $scope.modules = manageModules.activeComponents;
 

@@ -32,6 +32,8 @@ var component = function () {
     this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
+
+
     }
     this.OnNewCharacter = function () {}
     this.OnSave = function () {
