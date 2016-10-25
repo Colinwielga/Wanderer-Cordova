@@ -117,8 +117,28 @@
                     }
                 }
             },
+            loadJSON: function (json,charName) {
+                //TODO handle bad names
+
+                that.saveAs = charName;
+
+                that.charactor = json;
+
+                g.ComponentManager.components.forEach(function (item) {
+                    if (item.OnLoad !== undefined) {
+                        try {
+                            item.OnLoad();
+                        } catch (e) {
+                            if (that.logger != undefined && that.logger.writeToLog != undefined) {
+                                that.logger.writeToLog(e);
+                            }
+                        }
+                    }
+                });
+            },
             getJSON: function () {
-                return JSON.stringify(that.charactor);
+                that.updateJSON();
+                return that.charactor;
             }
         }
     }
@@ -205,16 +225,15 @@
         that.newCharacter();
     }
 
-    that.save = function () {
-
+    that.updateJSON = function () {
         g.ComponentManager.components.forEach(function (item) {
             if (item.OnSave !== undefined) {
                 try {
                     item.OnSave();
-                    if (that.charactor[item.getId()]== undefined) {
+                    if (that.charactor[item.getId()] == undefined) {
                         that.charactor[item.getId()] = {};
                     }
-                    if (that.charactor[item.getId()][that.META]== undefined) {
+                    if (that.charactor[item.getId()][that.META] == undefined) {
                         that.charactor[item.getId()][that.META] = {};
                     }
                     that.charactor[item.getId()][that.META][that.VERSION] = item.getPublic().getVersion();
@@ -225,6 +244,11 @@
                 }
             }
         });
+    }
+
+    that.save = function () {
+
+        that.updateJSON();
 
         //we make sure your character is at the end of the charactorlist
         var charactorListString = window.localStorage.getItem("charactorlist");

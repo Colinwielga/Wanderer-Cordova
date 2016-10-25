@@ -1,4 +1,4 @@
-﻿App.controller('wandererController', ['$scope', function ($scope) {
+﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
     var managePublic = g.ComponentManager.getComponent("wanderer-core-manage")
     var manageModules = g.ComponentManager.getComponent("wanderer-core-modules")
     var logger = g.ComponentManager.getComponent("wanderer-core-logger")
@@ -35,6 +35,10 @@
                         dependencies.push(manageModules.getComponent(lookingFors[i]));
                     }
                 }
+                // we inject some stuff
+                item.injected = {};
+                item.injected.timeout = $timeout;
+                // we start.
                 item.OnStart(communicator, dependencies);
             } catch (e) {
                 if (logger != undefined && logger.writeToLog != undefined) {

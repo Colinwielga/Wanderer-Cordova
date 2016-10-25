@@ -3,6 +3,7 @@
 AWS.config.accessKeyId = 'AKIAIBOCO3LYQUXHSUAQ';
 AWS.config.secretAccessKey = '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';
 AWS.config.region = 'us-east-1';
+AWS.config.dynamoDbCrc32 = false;
 
 ColinWielgaDyanmo.dynamodb = new AWS.DynamoDB();
 
@@ -47,7 +48,7 @@ ColinWielgaDyanmo.SaveCharacter = function (name, adventure, password, json, goo
             "TableName": ColinWielgaDyanmo.WandererCharacters
         };
 
-        ColinWielgaDyanmo.dynamodb.putItem(itemParams, function (err, data, good, bad) {
+        ColinWielgaDyanmo.dynamodb.putItem(itemParams, function (err, data) {
             if (err) {
                 bad(err);
             } else {
@@ -65,7 +66,7 @@ ColinWielgaDyanmo.SaveCharacter = function (name, adventure, password, json, goo
 ColinWielgaDyanmo.GetCharacter = function (name, adventure, password, good,gameDoesNotExist, bad) {
     var actullyGetCharacter = function ()
     {
-        var hash = hashFnv32a(adventure, password);
+        var hash = ColinWielgaDyanmo.superHash(adventure, password);
 
     var itemParams = {
         "Key": {
@@ -110,7 +111,7 @@ ColinWielgaDyanmo.getCharacters = function (adventure, password, good,gameDoesNo
 }
 
 ColinWielgaDyanmo.CheckGameExists = function (adventure, password, does,doesnot, bad) {
-    var hash = hashFnv32a(adventure, password);
+    var hash = ColinWielgaDyanmo.superHash(adventure, password);
 
     var itemParams = {
         "Key": {
@@ -122,12 +123,16 @@ ColinWielgaDyanmo.CheckGameExists = function (adventure, password, does,doesnot,
         if (err) {
             //TODO
         } else {
-            good(data);
+            if (data.Item === undefined) {
+                doesnot(data);
+            } else {
+                does(data)
+            }
         }
     });
 }
 
-ColinWielgaDyanmo.MakeGame = function (adventure, password, json, good, gameTaken,bad) {
+ColinWielgaDyanmo.MakeGame = function (adventure, password, good, gameTaken,bad) {
     var actullyMakeGame =function(data){
         var itemParams = {
             Item: {
@@ -138,7 +143,7 @@ ColinWielgaDyanmo.MakeGame = function (adventure, password, json, good, gameTake
             "TableName": ColinWielgaDyanmo.WandererAdventures
         };
 
-        ColinWielgaDyanmo.dynamodb.putItem(itemParams, function (err, data, good, bad) {
+        ColinWielgaDyanmo.dynamodb.putItem(itemParams, function (err, data) {
             if (err) {
                 bad(err);
             } else {
@@ -148,5 +153,13 @@ ColinWielgaDyanmo.MakeGame = function (adventure, password, json, good, gameTake
     }
     ColinWielgaDyanmo.CheckGameExists(adventure, password, gameTaken, actullyMakeGame, bad);
 }
+
+//ColinWielgaDyanmo.MakeGame("Colin.Test", "303", function () {
+
+//}, function () {
+
+//}, function() {
+
+//})
 
 //getCharacters("TestAdventure", "303")

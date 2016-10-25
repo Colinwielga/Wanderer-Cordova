@@ -4,7 +4,7 @@
 
 var component = function () {
     var that = this;
-    that.json = {};
+    that.json = "";
     that.saveAs = "";
 
     this.getId = function () {
@@ -48,8 +48,8 @@ var component = function () {
     this.saveJson = function () {
         that.manage.saveJson(that.saveAs, that.json);
     }
-    this.refreshJSON = function () {
-        that.getPublic().updateJson(that.manage.getJSON());
+    this.refreshJson= function () {
+        that.getPublic().updateJson(JSON.stringify(that.manage.getJSON()));
     }
 }
 
