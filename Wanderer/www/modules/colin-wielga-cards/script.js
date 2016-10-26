@@ -79,7 +79,7 @@
         return "Hand";
     }
     this.getRequires = function () {
-        return ["colin-wielga-gods"];
+        return [];//"colin-wielga-gods"
     }
 
     this.getPublic = function () {
