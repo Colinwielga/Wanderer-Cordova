@@ -6,14 +6,15 @@
     <div data-ng-repeat="char in module.list">
         <input type="button" value="{{char}}"  data-ng-click="module.load(char)"/>
     </div>
-    <input type="button" name="name" value="new character" data-ng-click="module.goToNew()" />
+    <div class="rules-divider"></div>
     <input type="button" name="name" value="change game" data-ng-click="module.goToEnterGame()" />
 </div>
 <div data-ng-show="module.isNew()">
     <h3>Save</h3>
     <input type="text" name="name" data-ng-model="module.name" />
     <input type="button" name="name" value="Save" data-ng-click="module.save()" />
-    <input type="button" name="name" value="back to List" data-ng-click="module.goToList()" />
+    <div class="rules-divider"></div>
+    <input type="button" name="name" value="List" data-ng-click="module.goToList()" />
 </div>
 <div data-ng-show="module.isEnterGame()">
     <h3>Enter game</h3>
