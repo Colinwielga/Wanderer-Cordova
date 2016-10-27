@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <!-- module css -->
     <!--<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />-->
-    <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
+    <link rel="stylesheet" type="text/css" href="css/newStyle.css">
     <title>Wanderer</title>
 
     <!-- externals -->
@@ -37,6 +37,7 @@
             <div data-ng-repeat="module in modules()">
                 <div id="{{module.getId()}}" class="drag section">
                     <div class="section-header">
+                        <label class="hide-button" data-ng-click="Remove(module)">x</label>
                         <label class="hide-button" for="{{module.getId()}}-hide">-</label>
                         <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
                         <h2 class="section-title">{{module.getTitle()}}</h2>

@@ -50,7 +50,11 @@
     });
     awsPublic.loadLastCharacter();
 
-    $scope.modules = manageModules.activeComponents;
+    $scope.modules = manageModules.getActiveComponents;
+
+    $scope.Remove = function (module) {
+        manageModules.toggle(module);
+    }
 
 }]);
 
