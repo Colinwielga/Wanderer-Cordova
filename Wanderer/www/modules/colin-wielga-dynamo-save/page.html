@@ -1,0 +1,24 @@
+﻿<div data-ng-show="module.isWorking()" >
+    working...
+</div>
+<div data-ng-show="module.isList()">
+    <h3>Character List</h3>
+    <div data-ng-repeat="char in module.list">
+        <input type="button" value="{{char}}"  data-ng-click="module.load(char)"/>
+    </div>
+    <div class="rules-divider"></div>
+    <input type="button" name="name" value="change game" data-ng-click="module.goToEnterGame()" />
+</div>
+<div data-ng-show="module.isNew()">
+    <h3>Save</h3>
+    <input type="text" name="name" data-ng-model="module.name" />
+    <input type="button" name="name" value="Save" data-ng-click="module.save()" />
+    <div class="rules-divider"></div>
+    <input type="button" name="name" value="List" data-ng-click="module.goToList()" />
+</div>
+<div data-ng-show="module.isEnterGame()">
+    <h3>Enter game</h3>
+    name: <input type="text" data-ng-model="module.gameName" />
+    password: <input type="password" data-ng-model="module.gamePassword" />
+    <input type="button" value="Connect" data-ng-click="module.connect()"/>
+</div>

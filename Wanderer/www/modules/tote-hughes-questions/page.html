@@ -1,0 +1,26 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/tote-hughes-questions/stylesheet.css">
+<div id="questions-container">
+	<div class="questions-button-container">
+		<button data-ng-click="module.getNewQuestion()">Get asked</button>
+	</div>
+	<div class="question-container" data-ng-repeat="question in module.questions">
+		<div class="ask-container">
+<!--			<span class="ask">{{question.ask}}</span>-->
+			<span class="ask">{{question["ask"]}}</span>
+		</div>
+		<div class="answer-container">
+<!--			<span class="ask">{{question.answer}}</span>-->
+			<span class="answer" ng-if="question['answer']">{{question["answer"]}}</span>
+			<textarea class="answer-box" ng-if="!question['answer']" placeholder="Answer the question!" ng-model="question['suggestion']"></textarea>
+			<button ng-if="question['answer']" data-ng-click="module.editQuestion(question['id'])">Edit</button>
+			<button ng-if="!question['answer']" data-ng-click="module.saveQuestion(question['id'])">Save</button>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<!--<input type="text" name="name" value="" data-ng-model="module.name" placeholder="name"/>-->
+<!--<textarea  data-ng-model="module.description" placeholder="Description" class="char-text auto-resize"></textarea>-->

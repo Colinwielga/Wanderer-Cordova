@@ -1,8 +1,30 @@
-﻿<div>
-    HP:<input type="number" value="" data-ng-model="module.hp" />
-    Encounter HP:<input type="number" value="" data-ng-model="module.encounterHP" />
-    <button data-ng-click="module.hit()">hit</button><button data-ng-click="module.heal()">heal</button><button data-ng-click="module.recoverEncounterHP()">End Scene</button>
+﻿<link rel="stylesheet" type="text/css" href="modules/colin-wielga-counters/stylesheet.css">
+<div id="hps-container">
+    <div id="hp-container" class="stat-container">
+        <input value="" data-ng-model="module.hp" />
+        <span class="descriptor">hp</span>
+    </div>
+    <div id="encounterhp-container" class="stat-container">
+        <input value="" data-ng-model="module.encounterHP" />
+        <span class="descriptor">encounter hp</span>
+    </div>
+    <div id="hps-button-container" class="stat-button-container">
+        <button data-ng-click="module.hit()">take hit</button>
+        <button data-ng-click="module.heal()">recover hit</button>
+        <button data-ng-click="module.recoverEncounterHP()">End Scene</button>
+    </div>
 </div>
-<div>
-    Facts:<input type="number" value="" data-ng-model="module.facts" /><button data-ng-click="module.facts=module.facts+1">+</button><button data-ng-click="module.facts=module.facts-1">-</button>
+<div id="facts-container" class="stat-container">
+    <input value="" data-ng-model="module.facts" />
+    <span class="descriptor">facts</span>
+</div>
+<div id="facts-button-container" class="stat-button-container">
+    <button data-ng-click="module.facts=module.facts+1">+</button>
+    <button data-ng-click="module.facts=module.facts-1">-</button>
+</div>
+<div id="coin-container">
+	<div id="coin" data-ng-click="module.flipCoin()">
+		<span id="coin-text" data-ng-bind="module.coinState"></span>
+	</div>
+	<span class="descriptor">a coin</span>
 </div>

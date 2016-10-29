@@ -25,6 +25,7 @@ App.config(['$compileProvider',
     }]);
 
 var component = function () {
+    var that = this;
     this.getId = function () {
         return "wanderer-core-modules"
     }
@@ -32,6 +33,8 @@ var component = function () {
     this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
+
+
     }
     this.OnNewCharacter = function () {}
     this.OnSave = function () {
@@ -51,9 +54,6 @@ var component = function () {
     this.getPublic = function () {
         var that = this;
         return {
-            getDescription: function () {
-                return "This is a unimplemented componet";
-            },
             getVersion: function () {
                 return 1;
             },
@@ -76,7 +76,7 @@ var component = function () {
                 }
                 throw { message: "could not find id: " + lookingFor };
             },
-            activeComponents:
+            getActiveComponents:
                 function () {
                     var res = [];
                     for (var i = 0; i < that.activeComponents.length; i++) {
@@ -91,22 +91,26 @@ var component = function () {
 
                     return res;
                 },
-            components: that.components
+            components: that.components,
+            toggle: that.toggle
         }
     }
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
+    }
     this.getTitle = function () {
         return "modules";
     }
     this.toggle = function (mod) {
-        if (mod != this) {
-            var i = this.activeComponents.indexOf(mod.getId());
+        if (mod != that) {
+            var i = that.activeComponents.indexOf(mod.getId());
             if (i == -1) {
-                this.activeComponents.push(mod.getId());
+                that.activeComponents.push(mod.getId());
             } else {
-                this.activeComponents.splice(i, 1);
+                that.activeComponents.splice(i, 1);
             }
         }
     }
@@ -121,12 +125,9 @@ var component = function () {
     }
 
     this.show = function (mod) {
-        if (mod != this) { 
-            return true;
-        } else {
-            return false;
-        }
+        return this.activeComponents.indexOf(mod.getId()) == -1;
     }
+
     this.activeComponents = [this.getId()];
     this.components = [this];
 }

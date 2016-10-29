@@ -1,6 +1,7 @@
-﻿App.controller('wandererController', ['$scope', function ($scope) {
+﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
     var managePublic = g.ComponentManager.getComponent("wanderer-core-manage")
     var manageModules = g.ComponentManager.getComponent("wanderer-core-modules")
+    var awsPublic = g.ComponentManager.getComponent("colin-wielga-dynamo-save")
     var logger = g.ComponentManager.getComponent("wanderer-core-logger")
 
     $scope.onUpdate = function () {
@@ -35,6 +36,10 @@
                         dependencies.push(manageModules.getComponent(lookingFors[i]));
                     }
                 }
+                // we inject some stuff
+                item.injected = {};
+                item.injected.timeout = $timeout;
+                // we start.
                 item.OnStart(communicator, dependencies);
             } catch (e) {
                 if (logger != undefined && logger.writeToLog != undefined) {
@@ -43,9 +48,13 @@
             }
         }
     });
-    managePublic.loadLastCharacter();
+    awsPublic.loadLastCharacter();
 
-    $scope.modules = manageModules.activeComponents;
+    $scope.modules = manageModules.getActiveComponents;
+
+    $scope.Remove = function (module) {
+        manageModules.toggle(module);
+    }
 
 }]);
 

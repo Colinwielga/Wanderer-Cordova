@@ -3,7 +3,7 @@
 
     //window.localStorage.clear();
     var that = this;
-    that.VERSIION = "VERSION"
+    that.VERSION = "VERSION"
     that.META = "META"
     // we load the character
     that.characterList = [];
@@ -46,14 +46,21 @@
     that.getHmtl = function () {
         return "modules/" + that.getId() + "/page.html"
     }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
+    }
     that.getTitle = function () {
         return "Manage";
     }
     that.getPublic = function () {
+        var comboKey = function (item, key) {
+            return item.getId() + "_" + key;
+        };
+        var versionComboKey = function (item, key) {
+            return "Version_" + item.getId() + "_" + key;
+        }
+
         return {
-            getDescription: function () {
-                return "This is a unimplemented componet";
-            },
             getVersion: function () {
                 return 1;
             },
@@ -61,14 +68,17 @@
                 return {
                     read: function (key) {
                         return that.charactor[item.getId()][key];
-                    }, canRead: function (key) {
+                    },
+                    canRead: function (key) {
                         return that.charactor[item.getId()] !== undefined && that.charactor[item.getId()][key] !== undefined;
-                    }, write: function (key, value) {
+                    },
+                    write: function (key, value) {
                         if (that.charactor[item.getId()] === undefined) {
                             that.charactor[item.getId()] = {};
                         }
                         that.charactor[item.getId()][key] = value;
-                    }, lastVersion: function () {
+                    },
+                    lastVersion: function () {
                         if (that.charactor[item.getId()] === undefined) {
                             return -1;
                         }
@@ -79,6 +89,18 @@
                             return -1;
                         }
                         return that.charactor[item.getId()][that.META][that.VERSION];
+                    },
+                    readNotCharacter: function (key) {
+                        return window.localStorage.getItem(comboKey(item,key));
+                    },
+                    readNotCharacterVersion: function (key) {
+                        return window.localStorage.getItem(versionComboKey(item, key));
+                    },
+                    canReadNotCharacter: function (key) {
+                        return window.localStorage.getItem(comboKey(item, key)) !== undefined;
+                    }, writeNotCharacter: function (key, value) {
+                        window.localStorage.setItem(comboKey(item, key), value);
+                        window.localStorage.setItem(versionComboKey(item, key), item.getPublic().getVersion());
                     }
                 };
             },
@@ -117,8 +139,28 @@
                     }
                 }
             },
+            loadJSON: function (json,charName) {
+                //TODO handle bad names
+
+                that.saveAs = charName;
+
+                that.charactor = json;
+
+                g.ComponentManager.components.forEach(function (item) {
+                    if (item.OnLoad !== undefined) {
+                        try {
+                            item.OnLoad();
+                        } catch (e) {
+                            if (that.logger != undefined && that.logger.writeToLog != undefined) {
+                                that.logger.writeToLog(e);
+                            }
+                        }
+                    }
+                });
+            },
             getJSON: function () {
-                return JSON.stringify(that.charactor);
+                that.updateJSON();
+                return that.charactor;
             }
         }
     }
@@ -205,16 +247,15 @@
         that.newCharacter();
     }
 
-    that.save = function () {
-
+    that.updateJSON = function () {
         g.ComponentManager.components.forEach(function (item) {
             if (item.OnSave !== undefined) {
                 try {
                     item.OnSave();
-                    if (that.charactor[item.getId()]== undefined) {
+                    if (that.charactor[item.getId()] == undefined) {
                         that.charactor[item.getId()] = {};
                     }
-                    if (that.charactor[item.getId()][that.META]) {
+                    if (that.charactor[item.getId()][that.META] == undefined) {
                         that.charactor[item.getId()][that.META] = {};
                     }
                     that.charactor[item.getId()][that.META][that.VERSION] = item.getPublic().getVersion();
@@ -225,6 +266,11 @@
                 }
             }
         });
+    }
+
+    that.save = function () {
+
+        that.updateJSON();
 
         //we make sure your character is at the end of the charactorlist
         var charactorListString = window.localStorage.getItem("charactorlist");

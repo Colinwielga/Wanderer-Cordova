@@ -2,15 +2,17 @@
 
 
 /*﻿Rules area*/
-div.card-rules-container{
-	margin: 0 -8px;
-	padding: 0px 8px 10px 8px;
+.rules-divider{
+	/*margin: 0 -8px;
+	padding: 0px 8px 10px 8px;*/
 	border: 0;
-	border-bottom: solid #333333 1px;
-	border-style: dashed;
-	text-align: justify;
+    margin-top:10px;
+    margin-bottom:10px;
+	border-bottom: dashed #333333 1px;
+	/*border-style: dashed;*/
+	/*text-align: justify;*/
 }
-span.card-rules{
+.rules-text{
 	font-style: italic;
 }
 
@@ -256,19 +258,43 @@ body {
     -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
     -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
     transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
-    max-height: 2000px;
+    max-height: 20000px;
     transform: translateY(0%);
-    overflow: hidden;
+    overflow-y:hidden;
 }
 
 /*transform:translateY(-100%);*/
 .hide-check:checked ~ .section-body {
     max-height: 0px;
+    overflow-y: hidden;
     -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
 }
+
+
+.hide-help-check ~ .rules-container {
+    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
+    transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    max-height: 20000px;
+    transform: translateY(0%);
+    overflow-y:hidden;
+}
+
+/*transform:translateY(-100%);*/
+/*border-bottom: 0px;*/
+.hide-help-check:checked ~ .rules-container {
+    max-height: 0px;
+    overflow-y: hidden;
+    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+}
+
 
 /*animation:slideUp 1s linear;*/
 
@@ -276,7 +302,7 @@ body {
     float: right;
 }
 
-.hide-check {
+.hide-check, .hide-help-check {
     display: none;
 }
 
@@ -286,7 +312,7 @@ body {
 	padding: 0px 10px;
 }*/
 
-button, label.hide-button, input[type=button] {
+button, label.hide-button, input[type=button], label.label-button{
     outline: none;
     text-transform: lowercase;
     cursor: pointer;

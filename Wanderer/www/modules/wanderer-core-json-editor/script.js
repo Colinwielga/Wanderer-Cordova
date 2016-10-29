@@ -4,7 +4,7 @@
 
 var component = function () {
     var that = this;
-    that.json = {};
+    that.json = "";
     that.saveAs = "";
 
     this.getId = function () {
@@ -26,9 +26,6 @@ var component = function () {
 
     this.getPublic = function () {
         return {
-            getDescription: function () {
-                return "This is a unimplemented componet";
-            },
             getVersion: function () {
                 return 1;
             },
@@ -42,14 +39,17 @@ var component = function () {
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
+    }
     this.getTitle = function () {
         return "JSON Editor";
     }
-    this.saveJSON = function () {
+    this.saveJson = function () {
         that.manage.saveJson(that.saveAs, that.json);
     }
-    this.refreshJSON = function () {
-        that.getPublic().updateJson(that.manage.getJSON());
+    this.refreshJson= function () {
+        that.getPublic().updateJson(JSON.stringify(that.manage.getJSON()));
     }
 }
 

@@ -29,6 +29,9 @@
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
+    }
     this.getTitle = function () {
         return "Description";
     }
@@ -39,9 +42,6 @@
     this.getPublic = function () {
         var that = this;
         return {
-            getDescription: function () {
-                return "This is a unimplemented componet";
-            },
             getVersion: function () {
                 return 1;
             },

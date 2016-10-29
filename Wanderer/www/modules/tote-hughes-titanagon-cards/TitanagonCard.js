@@ -6,7 +6,11 @@
     this.value = value;
     this.adjective = adjective;
     this.ability = ability;
-    this.color = Math.floor(this.id/56);
+    this.color = Math.floor(this.id / 56);
+    this.getHtml = function () {
+        //return "modules/colin-wielga-cards/card.html"
+        return "modules/tote-hughes-titanagon-cards/card.html"
+    }
 };
 
 TitanagonCard.array = [

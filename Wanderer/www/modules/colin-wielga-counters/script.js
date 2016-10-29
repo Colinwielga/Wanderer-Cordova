@@ -9,11 +9,13 @@
         this.hp = 8;
         this.encounterHP = 4;
         this.facts = 3;
+        this.coinState = "H";
     }
     this.OnSave = function () {
         this.communicator.write("hp", this.hp);
         this.communicator.write("encounterHP", this.encounterHP);
         this.communicator.write("facts", this.facts);
+        this.communicator.write("coinState", this.coinState);
     }
     this.OnLoad = function () {
         if (this.communicator.canRead("hp")) {
@@ -31,9 +33,17 @@
         } else {
             this.facts = 3;
         }
+        if (this.communicator.canRead("coinState")) {
+            this.coinState = this.communicator.read("coinState");
+        } else {
+            this.coinState = "H";
+        }
     }
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
+    }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
     }
     this.getTitle = function () {
         return "Counters";
@@ -43,9 +53,6 @@
     }
     this.getPublic = function () {
         return {
-            getDescription: function () {
-                return "This is a unimplemented componet";
-            },
             getVersion: function () {
                 return 1;
             }
@@ -78,8 +85,17 @@
     this.recoverEncounterHP = function () {
         this.encounterHP = 4;
     }
+    
+    this.flipCoin = function () {
+        $('#coin-text').stop(true);             // Stop all queued animations for this element (allows rapid clicking).
+        $('#coin-text').css({'opacity': 0});
+        this.coinState = ["H", "T"][Math.floor(Math.random()*2)];
+        $('#coin-text').animate({'opacity': 0}, 200);
+        $('#coin-text').animate({'opacity': 1}, 400);
+    }
 
     this.OnNewCharacter();
+    
 }
 
 g.ComponentManager.register(component);

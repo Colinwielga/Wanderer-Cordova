@@ -5,7 +5,9 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://dynamodb.us-east-1.amazonaws.com/ ">
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -13,15 +15,13 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <!-- module css -->
     <!--<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />-->
-    
-    <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
+    <link rel="stylesheet" type="text/css" href="css/newStyle.css">
     <title>Wanderer</title>
 
     <!-- externals -->
     <script src="External/angular.min.js"></script>
     <script src="External/jquery-3.1.0.min.js"></script>
-    
-
+    <script src="External/aws-sdk.js"></script>
 </head>
 <body data-ng-controller="wandererController">
     <div id="all">
@@ -31,19 +31,30 @@
         </div>
 
         <!--<div id="settings" ></div>-->
-        
+
         <div id="content">
             <!--draggable="true"-->
             <div data-ng-repeat="module in modules()">
-                <div id="{{module.getId()}}"   class="drag section">
-                    <div class="section-header" >
+                <div id="{{module.getId()}}" class="drag section">
+                    <div class="section-header">
+                        <label class="hide-button" data-ng-click="Remove(module)">x</label>
                         <label class="hide-button" for="{{module.getId()}}-hide">-</label>
+                        <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
                         <h2 class="section-title">{{module.getTitle()}}</h2>
                     </div>
-                    <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
-                    <div class="section-body fixed-content" >
-                        <div class="pad-me" id="{{module.getId()}}">
-                            <div data-ng-include="module.getHmtl()"></div>
+                    <div id="{{module.getId()}}">
+                        <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
+                        <div class="section-body fixed-content">
+                            <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked/>
+                            <div class="rules-container">
+                                <div class="pad-me">
+                                    <div data-ng-include="module.getRulesHtml()"></div>
+                                </div>
+                                <div class="rules-divider" ></div>
+                            </div>
+                            <div class="pad-me">
+                                <div data-ng-include="module.getHmtl()"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,18 +76,25 @@
         <script src="modules/wanderer-core-manage/script.js"></script>
         <script src="modules/wanderer-core-logger/script.js"></script>
         <script src="modules/dc-pbta-moves/script.js"></script>
-        <script src="modules/colin-wielga-gods/Gods.js"></script>
-        <script src="modules/colin-wielga-gods/script.js"></script>
+        <!--<script src="modules/colin-wielga-gods/Gods.js"></script>
+        <script src="modules/colin-wielga-gods/script.js"></script>-->
+        <script src="modules/colin-wielga-cards/namespace.js"></script>
+        <script src="modules/colin-wielga-cards/Deck.js"></script>
         <script src="modules/colin-wielga-cards/Card.js"></script>
+        <script src="modules/colin-wielga-cards/TitanagonCard.js"></script> 
         <script src="modules/colin-wielga-cards/script.js"></script>
-        <script src="modules/tote-hughes-titanagon-cards/TitanagonCard.js"></script>
-        <script src="modules/tote-hughes-titanagon-cards/script.js"></script>
         <script src="modules/colin-wielga-description/script.js"></script>
         <script src="modules/colin-wielga-counters/script.js"></script>
         <script src="modules/colin-wielga-notes/script.js"></script>
         <script src="modules/colin-wielga-roll/roll.js"></script>
-         <script src="modules/colin-wielga-roll/script.js"></script>
+        <script src="modules/colin-wielga-roll/script.js"></script>
         <script src="modules/colin-wielga-tools/script.js"></script>
+        <script src="modules/colin-wielga-dynamo-save/namespace.js"></script>
+        <script src="modules/colin-wielga-dynamo-save/script.js"></script>
+        <script src="modules/tote-hughes-titanagon-cards/TitanagonCard.js"></script>
+        <script src="modules/tote-hughes-titanagon-cards/script.js"></script>
+        <script src="modules/tote-hughes-questions/Questions.js"></script>
+        <script src="modules/tote-hughes-questions/script.js"></script>
 
         <!-- I think wandererController has to be down here, since it requires the UI to have loaded -->
         <script src="scripts/wandererController.js"></script>

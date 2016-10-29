@@ -1,34 +1,13 @@
 <link rel="stylesheet" type="text/css" href="modules/tote-hughes-titanagon-cards/stylesheet.css">
-<div class="card-rules-container">
-    <span class="card-rules">Characters begin with three cards. Each time you're asked to play a card, draw a card first. There's no maximum hand size. Cards with the "hold" condition are active as long as they remain in your hand.</span>
-</div>
 <div class="card-buttons-container">
     <center>
-﻿    <button data-ng-click="module.draw()"> draw </button>
+﻿       <button data-ng-click="module.draw()"> draw </button>
     </center>
 </div>
 <div class="card-cards-container">
     <center>
-    <div data-ng-repeat="cardID in module.cards" class="card-container">
-        <div class="card card-color-{{module.getCardColor(cardID)}}" data-ng-click="module.discard(cardID)" >
-            <div class="card-border">
-                <div class="card-name-container">
-                    <span class="card-name">{{module.getCardName(cardID)}}</span>
-                    <span class="card-adjective">{{module.getCardAdjective(cardID)}}</span>
-                </div>
-                <div class="card-poly-container">
-                    <span class="positioner"></span>
-                    <svg class="card-poly poly-{{module.getCardPolyID(cardID)}}">
-                        <!-- ng-attr-point is ugly. Here is a bit about why it exists: https://docs.angularjs.org/guide/interpolation  -->
-                        <polygon ng-attr-points="{{module.getCardPolyPoints(cardID)}}" ></polygon> 
-                    </svg>
-                </div>
-                <div class="card-number-container">
-                    <span class="card-number">{{module.getCardValue(cardID)}}</span>
-                    <span class="card-ability">{{module.getCardAbility(cardID)}}</span>
-                </div>
-            </div>
-        </div>
+    <div data-ng-repeat="cardID in module.cards" class="card-container" data-ng-init="card = module.getCard(cardID)">
+        <div data-ng-include="card.getHtml()"></div>
     </div>
     </center>
 </div>

@@ -20,12 +20,10 @@ var component = function () {
         return [];
     }
 
+
     this.getPublic = function () {
         var that = this;
         return {
-            getDescription: function () {
-                return "Handles logging";
-            },
             getVersion: function () {
                 return 1;
             },
@@ -38,6 +36,9 @@ var component = function () {
     // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
+    }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
     }
     this.getTitle = function () {
         return "Log";
