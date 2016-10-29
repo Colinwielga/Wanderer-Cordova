@@ -14,7 +14,6 @@ var component = function () {
     this.OnNewCharacter = function () {}
     this.OnSave = function () {}
     this.OnLoad = function () {}
-    this.OnUpdate = function () {}
 
     this.getRequires = function () {
         return [];

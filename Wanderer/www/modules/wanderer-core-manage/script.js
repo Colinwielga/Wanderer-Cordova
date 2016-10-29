@@ -35,9 +35,7 @@
             that.saveAs = "untitled " + d.getDate();
         }
     }
-    that.OnUpdate = function () {
-        //that.save();
-    }
+
 
     this.getRequires = function () {
         return ["wanderer-core-logger"];//["wanderer-core-json-editor"];

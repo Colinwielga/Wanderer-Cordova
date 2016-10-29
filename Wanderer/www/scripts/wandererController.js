@@ -5,17 +5,6 @@
     var logger = g.ComponentManager.getComponent("wanderer-core-logger")
 
     $scope.onUpdate = function () {
-        manageModules.components.forEach(function (item) {
-            if (item.OnUpdate !== undefined) {
-                try {
-                    item.OnUpdate();
-                } catch (e) {
-                    if (logger != undefined && logger.writeToLog != undefined) {
-                        logger.writeToLog(e);
-                    }
-                }
-            }
-        });
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {
             var target = toRezie[i];

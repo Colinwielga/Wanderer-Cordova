@@ -47,7 +47,6 @@ var component = function () {
             this.activeComponents = [this.getId()];
         }
     }
-    this.OnUpdate = function () { }
     this.getRequires = function () {
         return [];
     }
