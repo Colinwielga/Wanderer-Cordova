@@ -1,11 +1,10 @@
-﻿g.Character = function ($timeout, name) {
+﻿g.Character = function ($timeout) {
 
     // ok so what we need to do is mint a bunch of modules
     // we can just mint a module manager
     // and it will mint the rest 
     var comps = {};
     var compsList = [];
-    this.displayName = name;
 
     g.ComponetRegistry.componentFactories.forEach(function (item) {
         var tem = new item();
@@ -16,6 +15,16 @@
     var modulesPublic = comps["wanderer-core-modules"].getPublic();
     var managePublic = comps["wanderer-core-manage"].getPublic();
     var logger = comps["wanderer-core-logger"].getPublic();
+    var save = comps["colin-wielga-dynamo-save"].getPublic();
+
+    this.displayName = function () {
+        var name = save.getName();
+        if (name === null || name === undefined || name === "") {
+            return "untilted";
+        } else {
+            return name;
+        }
+    };
 
     modulesPublic.injectComponents(compsList);
 
