@@ -5,8 +5,14 @@
 Wanderer/AppPackages/*
 Wanderer/bin/*
 Wanderer/bld/*
+/Wanderer/AppPackages/*
+/Wanderer/bin/*
+/Wanderer/bld/*
+Wanderer\AppPackages\*
+Wanderer\bin\*
+Wanderer\bld\*
+\Wanderer\AppPackages\*
+\Wanderer\bin\*
+\Wanderer\bld\*
 
 Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
-Wanderer/AppPackages/CordovaApp.Windows_1.0.0.1_anycpu_debug.appxupload
-*.appxupload
-Wanderer/bin/Windows-AnyCPU/Release/resources.pri
