@@ -1,7 +1,6 @@
 ﻿var ColinWielgaDyanmo = {};
 
-AWS.config.accessKeyId = '-';
-AWS.config.secretAccessKey = '-';
+
 AWS.config.region = '-';
 AWS.config.dynamoDbCrc32 = false;
 

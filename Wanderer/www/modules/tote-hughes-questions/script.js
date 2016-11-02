@@ -89,4 +89,4 @@
     
     this.OnNewCharacter();
 }
-g.ComponentManager.register(component);
+g.ComponetRegistry.register(component);

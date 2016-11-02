@@ -131,6 +131,9 @@ ColinWielgaDyanmo.component = function () {
             getVersion: function () {
                 return 1;
             },
+            getName:function () {
+                return that.name;
+            },
             loadLastCharacter: function () {
                 
                 that.state = ColinWielgaDyanmo.States.WORKING;
@@ -227,4 +230,4 @@ ColinWielgaDyanmo.component = function () {
     }
 }
 
-g.ComponentManager.register(ColinWielgaDyanmo.component);
+g.ComponetRegistry.register(ColinWielgaDyanmo.component);
