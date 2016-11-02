@@ -14,7 +14,7 @@
 
     var modulesPublic = comps["wanderer-core-modules"].getPublic();
     var managePublic = comps["wanderer-core-manage"].getPublic();
-    var logger = comps["wanderer-core-logger"].getPublic();
+    //var logger = comps["wanderer-core-logger"].getPublic();
     var save = comps["colin-wielga-dynamo-save"].getPublic();
 
     this.displayName = function () {
