@@ -1,7 +1,7 @@
 ﻿var ColinWielgaDyanmo = {};
 
 
-AWS.config.region = '-';
+AWS.config.region = 'us-east-1';
 AWS.config.dynamoDbCrc32 = false;
 
 ColinWielgaDyanmo.dynamodb = new AWS.DynamoDB();

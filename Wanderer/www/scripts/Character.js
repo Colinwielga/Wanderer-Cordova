@@ -14,7 +14,7 @@
 
     var modulesPublic = comps["wanderer-core-modules"].getPublic();
     var managePublic = comps["wanderer-core-manage"].getPublic();
-    //var logger = comps["wanderer-core-logger"].getPublic();
+    var logger = comps["wanderer-core-logger"].getPublic();
     var save = comps["colin-wielga-dynamo-save"].getPublic();
 
     this.displayName = function () {
@@ -32,6 +32,9 @@
         var communicator = managePublic.comFactory(item);
         if (item.OnStart !== undefined) {
             try {
+                item.injected = {};
+                item.injected.timeout = $timeout;
+
                 var dependencies = [];
                 if (item.getRequires !== undefined) {
                     var lookingFors = item.getRequires();
@@ -40,8 +43,7 @@
                     }
                 }
                 // we inject some stuff
-                item.injected = {};
-                item.injected.timeout = $timeout;
+
                 // we start.
                 item.OnStart(communicator, dependencies);
             } catch (e) {

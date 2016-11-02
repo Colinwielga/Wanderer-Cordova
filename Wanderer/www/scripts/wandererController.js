@@ -10,7 +10,7 @@
         return "on update";
     }
 
-    $scope.Characters = [new g.Character($scope, "unnamed")];
+    $scope.Characters = [new g.Character($timeout)];
 
     $scope.Select = function (char) {
         $scope.activeCharacter = char;
@@ -21,7 +21,7 @@
     }
 
     $scope.Add = function () {
-        $scope.Characters.push(new g.Character($scope, "unnamed"));
+        $scope.Characters.push(new g.Character($timeout));
         $scope.activeCharacter = $scope.Characters[$scope.Characters.length-1];
     }
 
