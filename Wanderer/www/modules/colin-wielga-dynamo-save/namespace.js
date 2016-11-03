@@ -109,7 +109,7 @@ ColinWielgaDyanmo.awsProvider.getCharacters = function (adventure, password, goo
                     list.push(data.Items[i].Name.S)
                 }
 
-                good(data);
+                good(list);
             }
         });
     };
