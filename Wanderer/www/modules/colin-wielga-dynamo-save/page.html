@@ -7,18 +7,31 @@
         <input type="button" value="{{char}}"  data-ng-click="module.load(char)"/>
     </div>
     <div class="rules-divider"></div>
-    <input type="button" name="name" value="change game" data-ng-click="module.goToEnterGame()" />
+    <input type="button" name="name" value="Enter game" data-ng-click="module.goToEnterGame()" />
 </div>
 <div data-ng-show="module.isNew()">
     <h3>Save</h3>
     <input type="text" name="name" data-ng-model="module.name" />
     <input type="button" name="name" value="Save" data-ng-click="module.save()" />
     <div class="rules-divider"></div>
-    <input type="button" name="name" value="List" data-ng-click="module.goToList()" />
+    <input type="button" name="name" value="Character List" data-ng-click="module.goToList()" />
 </div>
 <div data-ng-show="module.isEnterGame()">
     <h3>Enter game</h3>
     name: <input type="text" data-ng-model="module.gameName" />
     password: <input type="password" data-ng-model="module.gamePassword" />
     <input type="button" value="Connect" data-ng-click="module.connect()"/>
+    <input type="button" value="Local" data-ng-click="module.Local()" />
+    <div class="rules-divider"></div>
+    <input type="button" value="JSON" data-ng-click="module.goToJSON()" />
+    <!--<input type="button" value="Json" data-ng-click="module.Json()" />-->
+</div>
+<div data-ng-show="module.isJSON()">
+    <h3>JSON</h3>
+    <textarea data-ng-model="module.json" placeholder="character json" class="char-text auto-resize"></textarea>
+    <input type="button" value="read json in" data-ng-click="module.saveJson()" />
+    <input type="button" value="print json out" data-ng-click="module.refreshJSON()" />
+    <!--<input type="button" value="Json" data-ng-click="module.Json()" />-->
+    <div class="rules-divider"></div>
+    <input type="button" name="name" value="Enter game" data-ng-click="module.goToEnterGame()" />
 </div>

@@ -31,7 +31,11 @@ ColinWielgaDyanmo.superHash= function(adventure, password) {
     return hash1 + "-" + hash2 + "-" + hash3;
 }
 
-ColinWielgaDyanmo.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
+// AWS provider
+
+ColinWielgaDyanmo.awsProvider = {};
+
+ColinWielgaDyanmo.awsProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
 
     var actullySaveCharacter = function () {
 
@@ -60,9 +64,7 @@ ColinWielgaDyanmo.SaveCharacter = function (name, adventure, password, json, goo
 }
 
 
-//SaveCharacter("Mr Lee", "TestAdventure","303", JSON.stringify({}))
-
-ColinWielgaDyanmo.GetCharacter = function (name, adventure, password, good,gameDoesNotExist, bad) {
+ColinWielgaDyanmo.awsProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, bad) {
     var actullyGetCharacter = function ()
     {
         var hash = ColinWielgaDyanmo.superHash(adventure, password);
@@ -79,16 +81,16 @@ ColinWielgaDyanmo.GetCharacter = function (name, adventure, password, good,gameD
         if (err) {
             bad(err);
         } else {
-            good(data);
+            good(JSON.parse(data.Item.JSON.S));
         }
     });
 };
-ColinWielgaDyanmo.CheckGameExists(adventure, password, actullyGetCharacter, gameDoesNotExist, bad);
+    ColinWielgaDyanmo.awsProvider.CheckGameExists(adventure, password, actullyGetCharacter, gameDoesNotExist, bad);
 }
 
 //GetCharacter("Mr Lee", "TestAdventure","303")
 
-ColinWielgaDyanmo.getCharacters = function (adventure, password, good,gameDoesNotExist, bad) {
+ColinWielgaDyanmo.awsProvider.getCharacters = function (adventure, password, good, gameDoesNotExist, bad) {
     //TODO tell them if the game does not exist?
     var actullyGetCharacters = function () {
         var itemParams = {
@@ -102,14 +104,19 @@ ColinWielgaDyanmo.getCharacters = function (adventure, password, good,gameDoesNo
             if (err) {
                 bad(err);
             } else {
+                var list = [];
+                for (var i = 0; i < data.Items.length; i++) {
+                    list.push(data.Items[i].Name.S)
+                }
+
                 good(data);
             }
         });
     };
-    ColinWielgaDyanmo.CheckGameExists(adventure, password, actullyGetCharacters, gameDoesNotExist, bad);
+    ColinWielgaDyanmo.awsProvider.CheckGameExists(adventure, password, actullyGetCharacters, gameDoesNotExist, bad);
 }
 
-ColinWielgaDyanmo.CheckGameExists = function (adventure, password, does,doesnot, bad) {
+ColinWielgaDyanmo.awsProvider.CheckGameExists = function (adventure, password, does, doesnot, bad) {
     var hash = ColinWielgaDyanmo.superHash(adventure, password);
 
     var itemParams = {
@@ -131,7 +138,7 @@ ColinWielgaDyanmo.CheckGameExists = function (adventure, password, does,doesnot,
     });
 }
 
-ColinWielgaDyanmo.MakeGame = function (adventure, password, good, gameTaken,bad) {
+ColinWielgaDyanmo.awsProvider.MakeGame = function (adventure, password, good, gameTaken, bad) {
     var actullyMakeGame =function(data){
         var itemParams = {
             Item: {
@@ -150,15 +157,82 @@ ColinWielgaDyanmo.MakeGame = function (adventure, password, good, gameTaken,bad)
             }
         });
     }
-    ColinWielgaDyanmo.CheckGameExists(adventure, password, gameTaken, actullyMakeGame, bad);
+    ColinWielgaDyanmo.awsProvider.CheckGameExists(adventure, password, gameTaken, actullyMakeGame, bad);
 }
 
-//ColinWielgaDyanmo.MakeGame("Colin.Test", "303", function () {
+// local provider
 
-//}, function () {
 
-//}, function() {
+ColinWielgaDyanmo.localProvider = {};
 
-//})
+ColinWielgaDyanmo.localProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
+    var characterList = [];
+    var charactorListString = window.localStorage.getItem("charactorlist");
+    if (charactorListString != undefined) {
+        characterList = JSON.parse(charactorListString);
+    } 
 
-//getCharacters("TestAdventure", "303")
+    var characterIndex = characterList.indexOf(name);
+    if (characterIndex !== -1) {
+        characterList.splice(characterIndex, 1);
+    }
+    characterList.push(name);
+    charactorListString = JSON.stringify(characterList);
+    window.localStorage.setItem("charactorlist", charactorListString);
+
+    // update json:
+    //that.JSONEditor.updateJson(that.getPublic().getJSON())
+
+    // save your character
+    window.localStorage.setItem(name, json);
+    good();
+}
+
+
+ColinWielgaDyanmo.localProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, bad) {
+
+
+    // we load the last character used
+    var last = window.localStorage.getItem(name);//undefined;//
+    var tempChar = {};
+    if (last !== undefined && last !== null) {
+        tempChar = JSON.parse(last);
+        good(tempChar);
+    } else {
+        bad({message:"character not found"});
+    }
+
+}
+
+ColinWielgaDyanmo.localProvider.getCharacters = function (adventure, password, good, gameDoesNotExist, bad) {
+    var characterList = [];
+    var charactorListString = window.localStorage.getItem("charactorlist");
+    if (charactorListString != undefined) {
+        characterList = JSON.parse(charactorListString);
+    }
+    good(characterList);
+
+}
+
+//ColinWielgaDyanmo.localProvider.CheckGameExists = function (adventure, password, does, doesnot, bad){
+   
+//}
+
+//ColinWielgaDyanmo.awsProvider.MakeGame = function (adventure, password, good, gameTaken, bad) {
+   
+//}
+
+// JSON provider... TODO
+
+ColinWielgaDyanmo.jsonProvider = {};
+
+ColinWielgaDyanmo.jsonProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
+
+}
+
+
+ColinWielgaDyanmo.jsonProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, bad) {
+
+}
+
+

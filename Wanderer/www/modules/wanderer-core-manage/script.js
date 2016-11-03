@@ -144,17 +144,7 @@
 
                 that.charactor = json;
 
-                g.ComponentManager.components.forEach(function (item) {
-                    if (item.OnLoad !== undefined) {
-                        try {
-                            item.OnLoad();
-                        } catch (e) {
-                            if (that.logger != undefined && that.logger.writeToLog != undefined) {
-                                that.logger.writeToLog(e);
-                            }
-                        }
-                    }
-                });
+                that.injected.OnLoad();
             },
             getJSON: function () {
                 that.updateJSON();
