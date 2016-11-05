@@ -2,8 +2,8 @@
     <div>
         <input type="button" value="??" data-ng-click="skill.active = !skill.active" />
         <span>{{skill.name}}</span>
-        <input data-ng-show="!edit" type="button" value="edit..." data-ng-click="edit = true" />
-        <input data-ng-show="edit" type="button" value="done editing" data-ng-click="edit = false" />
+        <span class="clickable-text" data-ng-show="!edit" data-ng-click="edit = true">edit...</span>
+        <span class="clickable-text" data-ng-show="edit" data-ng-click="edit = false" >done editing</span>
         <input data-ng-show="edit" type="button" value="x" data-ng-click="module.remove(skill)" />
     </div>
     <div data-ng-show="edit">
@@ -16,13 +16,13 @@
         <div>
             helps:
             <span data-ng-repeat="subskill in module.subskills(skill.name)">
-                <input type="button" value="{{subskill}}" data-ng-click="module.unconnect(skill.name,subskill)"/>
+                <span class="clickable-text" data-ng-click="module.unconnect(skill.name,subskill)" >{{subskill}}</span>
             </span>   
         </div>
         <div>
             could help:
-            <span data-ng-repeat="couldAdd in module.couldAdd(skill.name)">
-                <input type="button" value="{{couldAdd}}" data-ng-click="module.connect(skill.name,couldAdd)" />
+            <span class="clickable-text" data-ng-repeat="couldAdd in module.couldAdd(skill.name)">
+                <span data-ng-click="module.connect(skill.name,couldAdd)" >{{couldAdd}}</span>
             </span>  
         </div>
     </div>

@@ -601,3 +601,12 @@ table {
             transform:translateY(-100%) scaleY(0);
     }
 }*/
+
+
+.clickable-text {
+
+}
+
+    .clickable-text:hover {
+            text-decoration:underline;
+    }
