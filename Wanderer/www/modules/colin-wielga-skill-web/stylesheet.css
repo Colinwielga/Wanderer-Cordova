@@ -1,1 +1,8 @@
-﻿
+﻿#colin-wielga-skill-web .switch-on {
+    background:pink;
+} 
+
+#colin-wielga-skill-web .switch-off {
+    background:gray;
+}
+
