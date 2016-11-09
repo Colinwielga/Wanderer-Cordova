@@ -1,7 +1,7 @@
 ﻿<link href="modules/colin-wielga-skill-web/stylesheet.css" rel="stylesheet"  type="text/css" />
 <div data-ng-repeat="skill in module.network.skills" data-ng-init="edit = false" >
     <div>
-        <input type="button" value="??" data-ng-class="{'switch-on':skill.active, 'switch-off':!skill.active}" data-ng-click="skill.active = !skill.active" />
+        <input type="button" value="{{module.getText(skill)}}" data-ng-class="{'switch-on':skill.active, 'switch-off':!skill.active}" data-ng-click="skill.active = !skill.active" />
         <span>{{skill.name}}</span>
         <span class="clickable-text" data-ng-show="!edit" data-ng-click="edit = true">edit...</span>
         <span class="clickable-text" data-ng-show="edit" data-ng-click="edit = false" >done editing</span>
@@ -29,5 +29,6 @@
     </div>
 
 </div>
+{{module.bonusProvided()}}
 <input type="text" data-ng-model="module.newSkill" />
 <input type="button" value="add" data-ng-click="module.add(module.newSkill)"/>

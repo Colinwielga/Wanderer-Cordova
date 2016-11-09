@@ -13,6 +13,7 @@ ColinWielgaSkillWeb.MakeSkill = function (name,specificity, rank) {
 }
 
 ColinWielgaSkillWeb.component = function () {
+    var that = this;
     this.getId = function () {
         return "colin-wielga-skill-web"
     }
@@ -43,7 +44,8 @@ ColinWielgaSkillWeb.component = function () {
         return {
             getVersion: function () {
                 return 1;
-            }
+            },
+            bonusProvided: that.bonusProvided
         }
     }
 
@@ -112,6 +114,84 @@ ColinWielgaSkillWeb.component = function () {
             }
         })
         this.network.connections = newConnects;
+    }
+
+    this.bonusProvided = function () {
+        var total = 0;
+        var that = this;
+        this.network.skills.forEach(function (skill) {
+            if (skill.active) {
+                total += that.skillBonus(skill);
+            }
+        });
+        return total;
+    }
+
+    //returns a list of names
+    this.getHelpers = function (skillname) {
+        var res = [];
+
+        this.network.connections.forEach(function (conn) {
+            if (conn.to == skillname) {
+                res.push(conn.from);
+            }
+        });
+
+        return res;
+    }
+
+    this.getSkillByName = function (skillname) {
+        var res = null;
+        this.network.skills.forEach(function (skill) {
+            if (skillname == skill.name) {
+                res= skill;
+            }
+        });
+
+        if (res == null) {
+            throw { message: "skill not found" };
+        }
+
+        return res;
+
+    }
+
+    this.skillBonus = function (skill) {
+        var sum = skill.rank;
+        var distance = 1;
+        // list of nodes
+        var blackList = [];
+        // list of connections
+        var current = this.getHelpers(skill.name);
+
+        while (current.length != 0) {
+            distance++;
+            var nextCurrent = [];
+            current.forEach(function (helper) {
+                blackList.push(helper);
+                sum += that.levelLoss(distance) * that.getSkillByName(helper).rank;
+                that.getHelpers(helper).forEach(function (helpedByConnection) {
+                    if (blackList.indexOf(helpedByConnection) == -1 && nextCurrent.indexOf(helpedByConnection) == -1) {
+                        nextCurrent.push(helpedByConnection);
+                    }
+                });
+            });
+            current = nextCurrent;
+        }
+        return this.scaleLoss(sum)*skill.specificity;
+    }
+
+    this.levelLoss = function (distance) {
+        return 1.0 / Math.pow(2.0, distance);
+    }
+
+    this.scaleLoss = function (sum) {
+        return sum;
+        //return (Math.pow(2 * Math.abs(sum) + 1, .5) - (Math.pow(3, .5) - 1)) * (sum==0?0:Math.abs(sum)/sum)/* Math.sign apparent not a thing */;
+    }
+
+    this.getText = function (skill) {
+        return skill.active ? "relevant" : "-";
     }
 
     this.unconnect = function (from,to) {

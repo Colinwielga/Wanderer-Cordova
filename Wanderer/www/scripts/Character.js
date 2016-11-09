@@ -114,6 +114,17 @@
         }
     };
 
+    this.getBonus = function () {
+        var res = 0;
+        compsList.forEach(function (comp) {
+            var pub = comp.getPublic();
+            if (pub.bonusProvided != undefined) {
+                res += pub.bonusProvided();
+            }
+        })
+        return res;
+    }
+
     modulesPublic.injectComponents(compsList);
 
     compsList.forEach(function (item) {
@@ -124,6 +135,7 @@
                 item.injected.timeout = $timeout;
                 item.injected.load = load;
                 item.injected.getJSON = getJSON;
+                item.injected.getBonus = this.getBonus;
 
                 var dependencies = [];
                 if (item.getRequires !== undefined) {
