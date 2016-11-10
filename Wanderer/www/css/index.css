@@ -18,7 +18,7 @@
 
 /*Buttons area*/
 .card-buttons-container{
-	margin: 0 -8px;
+	/*margin: 0 -8px;*/
 	padding: 8px 8px 8px 8px;
 	border: 0;
 /*	border-bottom: solid #333333 1px;*/
@@ -263,6 +263,10 @@ body {
     overflow-y:hidden;
 }
 
+.rules-container {
+    background-color: #B2B2B2;
+}
+
 /*transform:translateY(-100%);*/
 .hide-check:checked ~ .section-body {
     max-height: 0px;
@@ -396,6 +400,10 @@ select {
     border-top: 0px;
     border-left: 0px;*/
     -webkit-transition: all 0.3s ease;
+}
+
+.highlight-section {
+    background-color: #B2B2B2;
 }
 
 .pad-me {

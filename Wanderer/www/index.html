@@ -13,7 +13,8 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <!-- module css -->
+    <link href="External/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+     <!-- module css -->
     <!--<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />-->
     <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
     <title>Wanderer</title>
@@ -59,14 +60,12 @@
                         <div class="section-body fixed-content">
                             <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked/>
                             <div class="rules-container">
-                                <div class="pad-me">
-                                    <div data-ng-include="module.getRulesHtml()"></div>
-                                </div>
-                                <div class="rules-divider" ></div>
+
+                                    <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
+
                             </div>
-                            <div class="pad-me">
+  
                                 <div data-ng-include="module.getHmtl()"></div>
-                            </div>
                         </div>
                     </div>
                 </div>

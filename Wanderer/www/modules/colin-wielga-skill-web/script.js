@@ -194,6 +194,21 @@ ColinWielgaSkillWeb.component = function () {
         return skill.active ? "relevant" : "-";
     }
 
+    this.isNameOk = function (skillname) {
+        if (skillname == "" || skillname == null || skillname == undefined) {
+            return false;
+        }
+
+        var res = null;
+        this.network.skills.forEach(function (skill) {
+            if (skillname == skill.name) {
+                res = skill;
+            }
+        });
+
+        return res!=null;
+    }
+
     this.unconnect = function (from,to) {
         var newConnects = [];
         this.network.connections.forEach(function (someConnection) {

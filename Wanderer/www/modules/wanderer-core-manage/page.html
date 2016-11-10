@@ -1,9 +1,10 @@
-﻿<div data-ng-repeat="charId in module.characterList">
+﻿<div data-ng-repeat="charId in module.characterList" class="pad-me">
     {{module.getCharName(charId)}}
     <input type="button" value="load" data-ng-click="module.Load(charId)" />
     <input type="button" value="delete" data-ng-click="module.Delete(charId)" />
 </div>
-<input id="addButton" type="button" name="new" value="New" data-ng-click="module.newCharacter()" />
-<input type="text" placeholder="untitled" data-ng-model="module.saveAs" />
-<input type="button" name="new" value="Save" data-ng-click="module.save()" />
-
+<div class="pad-me">
+    <input id="addButton" type="button" name="new" value="New" data-ng-click="module.newCharacter()" />
+    <input type="text" placeholder="untitled" data-ng-model="module.saveAs" />
+    <input type="button" name="new" value="Save" data-ng-click="module.save()" />
+</div>
