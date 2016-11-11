@@ -1,11 +1,12 @@
 ﻿<!-- add tooltips -->
 <div class="pad-me">
-    <button data-ng-click="module.roll(14)"> 14 </button>
-    <button data-ng-click="module.roll(12)"> 12 </button>
-    <button data-ng-click="module.roll(9)"> 9 </button>
-    <button data-ng-click="module.roll(7)"> 7 </button>
-    <button data-ng-click="module.roll(5)"> 5 </button>
-    <button data-ng-click="module.roll(2)"> 3 </button>
+    <div>
+        Bonus: {{module.getBonus()}}
+    </div>
+    <div>
+        DC: <input type="number" data-ng-model="module.dc" />
+        <input type="button"  value="roll" data-ng-click="module.rollDC()" data-ng-diable="module.disableRoll()" />
+    </div>
 </div>
 <div class="pad-me">
     <h3>public</h3>

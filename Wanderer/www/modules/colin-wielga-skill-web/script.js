@@ -116,10 +116,10 @@ ColinWielgaSkillWeb.component = function () {
         this.network.connections = newConnects;
     }
 
+    var that = this;
     this.bonusProvided = function () {
         var total = 0;
-        var that = this;
-        this.network.skills.forEach(function (skill) {
+        that.network.skills.forEach(function (skill) {
             if (skill.active) {
                 total += that.skillBonus(skill);
             }

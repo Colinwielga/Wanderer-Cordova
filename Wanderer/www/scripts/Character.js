@@ -127,6 +127,8 @@
 
     modulesPublic.injectComponents(compsList);
 
+    var that = this;
+
     compsList.forEach(function (item) {
         var communicator = comFactory(item);
         if (item.OnStart !== undefined) {
@@ -135,7 +137,7 @@
                 item.injected.timeout = $timeout;
                 item.injected.load = load;
                 item.injected.getJSON = getJSON;
-                item.injected.getBonus = this.getBonus;
+                item.injected.getBonus = that.getBonus;
 
                 var dependencies = [];
                 if (item.getRequires !== undefined) {
