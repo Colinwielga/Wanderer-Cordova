@@ -60,12 +60,18 @@
                         <div class="section-body fixed-content">
                             <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked/>
                             <div class="rules-container">
-
-                                    <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
-
+                                <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
                             </div>
-  
-                                <div data-ng-include="module.getHmtl()"></div>
+                            <div class="loggin-container">
+                                <div data-ng-repeat="log in module.injected.logger.displayLogs()">
+                                    {{log.message}}
+                                    <input type="button" value="x" data-ng-click="log.closed = true" />
+                                </div>
+                            </div>
+                            <div class="rules-container">
+                                <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
+                            </div>
+                            <div data-ng-include="module.getHmtl()"></div>
                         </div>
                     </div>
                 </div>

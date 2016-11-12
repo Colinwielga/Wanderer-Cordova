@@ -59,16 +59,8 @@
     width: 100px;
     height: 100px;
     background: #888888;
-    border: 5px solid #333333;﻿
+    border: 5px solid #333;
     margin: 0 auto;
-    margin: 0 auto;     /*I have no idea why I need to write this twice (but I do) ...*/
-}
-
-#coin:hover{
-    cursor: pointer;
-    box-shadow: 5px 5px 10px #666666;
-    margin-left: -10px;
-    margin-top: 0px;
 }
 
 #coin-text {
@@ -78,4 +70,14 @@
     line-height: 100px;
     font-size: 65px;
     font-weight: bold;
+}
+
+#coin:hover{
+    border-color: #903;
+    cursor: pointer;
+
+}
+
+#coin:hover #coin-text{
+    color: #903;
 }

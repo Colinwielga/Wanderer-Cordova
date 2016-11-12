@@ -56,7 +56,7 @@
                 if (DCh === DCl) {
                     return DCh;
                 } else {
-                    return DCh + " - " + DCl;
+                    return DCh + " to " + DCl;
                 }
             }
         };

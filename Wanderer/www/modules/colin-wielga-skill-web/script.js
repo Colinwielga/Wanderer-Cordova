@@ -95,7 +95,8 @@ ColinWielgaSkillWeb.component = function () {
     }
 
     this.add = function (newSkill) {
-        this.network.skills.push(ColinWielgaSkillWeb.MakeSkill(newSkill, 1,1));
+        this.network.skills.push(ColinWielgaSkillWeb.MakeSkill(newSkill, 1, 1));
+        this.injected.logger.debug("testing logging");
     }
 
     this.remove = function (skill) {
@@ -155,6 +156,31 @@ ColinWielgaSkillWeb.component = function () {
         return res;
 
     }
+    
+    this.setSuperAbility = function (skill) {
+        skill.specificity = .25;
+    }
+    this.setAbility = function (skill) {
+        skill.specificity = .5;
+    }
+    this.setSkill = function (skill) {
+        skill.specificity = 1;
+    }
+    this.setSubSkill = function (skill) {
+        skill.specificity = 2;
+    }
+    this.isSuperAbility = function (skill) {
+        return skill.specificity == .25;
+    }
+    this.isAbility = function (skill) {
+        return skill.specificity == .5;
+    }
+    this.isSkill = function (skill) {
+        return skill.specificity == 1;
+    }
+    this.isSubSkill = function (skill) {
+        return skill.specificity == 2;
+    }
 
     this.skillBonus = function (skill) {
         var sum = skill.rank;
@@ -196,7 +222,7 @@ ColinWielgaSkillWeb.component = function () {
 
     this.isNameOk = function (skillname) {
         if (skillname == "" || skillname == null || skillname == undefined) {
-            return false;
+            return ture;
         }
 
         var res = null;

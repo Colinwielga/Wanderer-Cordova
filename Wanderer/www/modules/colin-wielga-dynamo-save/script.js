@@ -60,9 +60,6 @@ ColinWielgaDyanmo.component = function () {
         if (this.communicator.canReadNotCharacter("gamePassword")) {
             this.gamePassword = this.communicator.readNotCharacter("gamePassword");
         }
-        if (this.communicator.canReadNotCharacter("name")) {
-            this.name = this.communicator.readNotCharacter("name");
-        }
         if (this.communicator.canReadNotCharacter("provider")) {
             this.provider = this.communicator.readNotCharacter("provider") == ColinWielgaDyanmo.Providers.LOCAL ? ColinWielgaDyanmo.localProvider : ColinWielgaDyanmo.awsProvider;
         }
@@ -88,7 +85,7 @@ ColinWielgaDyanmo.component = function () {
         this.communicator.write("provider", ColinWielgaDyanmo.localProvider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
         this.communicator.writeNotCharacter("gameName", this.gameName);
         this.communicator.writeNotCharacter("gamePassword", this.gamePassword);
-        this.communicator.writeNotCharacter("name", this.name);
+        //this.communicator.writeNotCharacter("name", this.name);
         this.communicator.writeNotCharacter("provider", ColinWielgaDyanmo.localProvider ?ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
     }
     this.OnLoad = function () {

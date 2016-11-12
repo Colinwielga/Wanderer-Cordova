@@ -14,7 +14,11 @@
     </div>
     <div data-ng-show="edit" class="edit-area highlight-section pad-me">
         <div>
-            specificity: <input type="number" data-ng-model="skill.specificity" />
+            specificity: 
+            <input type="button" value="super ability" data-ng-click="module.setSuperAbility(skill)" data-ng-disabled="module.isSuperAbility(skill)"/>
+            <input type="button" value="ability"  data-ng-click="module.setAbility(skill)" data-ng-disabled="module.isAbility(skill)"/>
+            <input type="button" value="skill"  data-ng-click="module.setSkill(skill)" data-ng-disabled="module.isSkill(skill)"/>
+            <input type="button" value="sub skill"  data-ng-click="module.setSubSkill(skill)" data-ng-disabled="module.isSubSkill(skill)"/>
         </div>
         <div>
             rank: <input type="number" data-ng-model="skill.rank" />

@@ -95,6 +95,61 @@
         };
     }
 
+
+
+    var logFactory = function () {
+        // why are these flags?
+        var TypeEnum = {
+            VERBOSE:1,
+            DEBUG: 2,
+            INFO: 3,
+            WARN: 4,
+            ERROR: 5,
+            WTF: 6,
+        }
+        // logging constants
+
+        var logTimeout = 1000 * 60;
+        var logLevel = TypeEnum.VERBOSE;
+
+        return {
+            logs: [],
+            displayLogs: function () {
+                var now = new Date().getTime();
+                var res = [];
+                this.logs.forEach(function (log) {
+                    if (log.type > logLevel && now - logTimeout < log.timeStamp && !log.closed) {
+                        res.push(log);
+                    }
+                });
+                return res;
+            },
+            log: function (message, type) {
+                this.logs.push({
+                    message: message,
+                    type: type,
+                    closed: false,
+                    timeStamp: new Date().getTime()
+                });
+            },
+            debug: function (message) {
+                this.log(message, TypeEnum.DEBUG);
+            },
+            info: function (messagae) {
+                this.log(message, TypeEnum.INFO);
+            },
+            warn: function (message) {
+                this.log(message, TypeEnum.WARN);
+            },
+            error: function (message) {
+                this.log(message, TypeEnum.ERROR);
+            },
+            wtf: function (message) {
+                this.log(message, TypeEnum.WTF);
+            }
+        }
+    }
+
     g.ComponetRegistry.componentFactories.forEach(function (item) {
         var tem = new item();
         comps[tem.getId()] = tem;
@@ -136,6 +191,7 @@
                 item.injected = {};
                 item.injected.timeout = $timeout;
                 item.injected.load = load;
+                item.injected.logger = logFactory();
                 item.injected.getJSON = getJSON;
                 item.injected.getBonus = that.getBonus;
 
