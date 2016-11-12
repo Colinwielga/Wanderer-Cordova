@@ -96,7 +96,6 @@ ColinWielgaSkillWeb.component = function () {
 
     this.add = function (newSkill) {
         this.network.skills.push(ColinWielgaSkillWeb.MakeSkill(newSkill, 1, 1));
-        this.injected.logger.debug("testing logging");
     }
 
     this.remove = function (skill) {
