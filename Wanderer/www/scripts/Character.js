@@ -1,4 +1,5 @@
 ﻿g.Character = function ($timeout) {
+    var that = this;
 
     // ok so what we need to do is mint a bunch of modules
     // we can just mint a module manager
@@ -10,11 +11,14 @@
     var VERSION = "VERSION"
     var META = "META"
 
+
     var load = function (json) {
         charactor = json;
+        that.lastLoaded = json;
         compsList.forEach(function (item) {
             if (item.OnLoad !== undefined) {
                 try {
+
                     item.OnLoad();
                 } catch (e) {
                     if (logger != undefined && logger.writeToLog != undefined) {
@@ -95,8 +99,6 @@
         };
     }
 
-
-
     var logFactory = function () {
         // why are these flags?
         var TypeEnum = {
@@ -169,6 +171,32 @@
         }
     };
 
+    this.mergeConflicts = function (mod) {
+
+        throw { message: "I need more code!" }
+
+        // TODO if the module has merge conflicts handle it
+        return null;
+    }
+
+    this.compareWithLastLoaded = function (json) {
+        //TODO!
+
+        throw {message:"I need more code!"}
+
+        that.lastLoaded = json;
+        return false;
+    }
+
+    this.getModSet = function (mod) {
+        var res = [mod];
+        var conflicts = this.mergeConflicts(mod);
+        if (conflicts != null) {
+            res.push(conflicts);
+        }
+        return res;
+    }
+
     this.getBonus = function () {
         var res = 0;
         compsList.forEach(function (comp) {
@@ -182,8 +210,6 @@
 
     modulesPublic.injectComponents(compsList);
 
-    var that = this;
-
     compsList.forEach(function (item) {
         var communicator = comFactory(item);
         if (item.OnStart !== undefined) {
@@ -194,6 +220,8 @@
                 item.injected.logger = logFactory();
                 item.injected.getJSON = getJSON;
                 item.injected.getBonus = that.getBonus;
+                item.injected.isMerge = function () { return true; };
+                item.injected.compareWithLastLoaded = that.compareWithLastLoaded;
 
                 var dependencies = [];
                 if (item.getRequires !== undefined) {

@@ -111,7 +111,6 @@ ColinWielgaDyanmo.component = function () {
         //} else if (this.state === ColinWielgaDyanmo.States.LIST) {
         //    this.connect();
          if (this.state !== ColinWielgaDyanmo.States.JSON) {
-            var that = this;
             that.provider.getCharacters(this.gameName, this.gamePassword,
                 function (list) {
                     that.injected.timeout(function () {
@@ -134,7 +133,6 @@ ColinWielgaDyanmo.component = function () {
     }
 
     this.getPublic = function () {
-        var that = this;
         return {
             getVersion: function () {
                 return 1;
@@ -187,7 +185,6 @@ ColinWielgaDyanmo.component = function () {
         this.json = JSON.stringify(this.injected.getJSON());
     }
     this.connectCommon = function () {
-        var that = this;
         that.provider.getCharacters(this.gameName, this.gamePassword,
             function (list) {
                 that.injected.timeout(function () {
@@ -200,8 +197,9 @@ ColinWielgaDyanmo.component = function () {
 
             })
     }
+
+
     this.load = function (name) {
-        var that = this;
         that.state = ColinWielgaDyanmo.States.WORKING;
         that.provider.GetCharacter(name, this.gameName, this.gamePassword,
             function (json) {
@@ -214,23 +212,48 @@ ColinWielgaDyanmo.component = function () {
 
             }, function () {
 
-            })
-    }
-    this.save = function () {
-        var that = this;
-        that.state = ColinWielgaDyanmo.States.WORKING;
-        that.provider.SaveCharacter(this.name, this.gameName, this.gamePassword, JSON.stringify(that.injected.getJSON()),
-            function (data) {
-                //actuly if it works it does nothing
-                that.injected.timeout(function () {
-                    that.state = ColinWielgaDyanmo.States.NEW;
-                })
-            },
-            function () {
-
             }, function () {
 
             })
+    }
+    this.save = function () {
+        that.state = ColinWielgaDyanmo.States.WORKING;
+        // we download the current state
+
+        that.provider.GetCharacter(this.name, this.gameName, this.gamePassword, function (json) {
+            
+            var ok = that.inject.compareWithLastLoaded(json);
+            
+            if (ok) {
+                that.provider.SaveCharacter(this.name, this.gameName, this.gamePassword, JSON.stringify(that.injected.getJSON()),
+        function (data) {
+            //actuly if it works it does nothing
+            that.injected.timeout(function () {
+                that.state = ColinWielgaDyanmo.States.NEW;
+            })
+        },
+        function () {
+
+        }, function () {
+
+        })
+            } else {
+                // we have merge conflicts tell the use
+                item.injected.logger.warn("");
+            }
+
+
+        }, function () {
+
+        }, function () {
+
+        }, function () {
+
+        })
+
+
+
+
     }
     this.Local = function () {
         this.provider = ColinWielgaDyanmo.localProvider;

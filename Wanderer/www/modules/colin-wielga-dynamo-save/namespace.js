@@ -63,8 +63,7 @@ ColinWielgaDyanmo.awsProvider.SaveCharacter = function (name, adventure, passwor
     ColinWielgaDyanmo.CheckGameExists(adventure, password, actullySaveCharacter,gameMissing, bad);
 }
 
-
-ColinWielgaDyanmo.awsProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, bad) {
+ColinWielgaDyanmo.awsProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, characterDoesNotExist, bad) {
     var actullyGetCharacter = function ()
     {
         var hash = ColinWielgaDyanmo.superHash(adventure, password);
@@ -79,6 +78,8 @@ ColinWielgaDyanmo.awsProvider.GetCharacter = function (name, adventure, password
     ColinWielgaDyanmo.dynamodb.getItem(itemParams, function (err, data) {
         //data.Item.JSON;
         if (err) {
+            //TODO maybe call characterDoesNotExist
+
             bad(err);
         } else {
             good(JSON.parse(data.Item.JSON.S));
@@ -189,7 +190,7 @@ ColinWielgaDyanmo.localProvider.SaveCharacter = function (name, adventure, passw
 }
 
 
-ColinWielgaDyanmo.localProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, bad) {
+ColinWielgaDyanmo.localProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist,characterDoesNotExist, bad) {
 
 
     // we load the last character used
@@ -199,7 +200,7 @@ ColinWielgaDyanmo.localProvider.GetCharacter = function (name, adventure, passwo
         tempChar = JSON.parse(last);
         good(tempChar);
     } else {
-        bad({message:"character not found"});
+        characterDoesNotExist();
     }
 
 }
@@ -226,13 +227,13 @@ ColinWielgaDyanmo.localProvider.getCharacters = function (adventure, password, g
 
 ColinWielgaDyanmo.jsonProvider = {};
 
-ColinWielgaDyanmo.jsonProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
-
+ColinWielgaDyanmo.jsonProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad){
+    //TODO uhhhh?
 }
 
-
-ColinWielgaDyanmo.jsonProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, bad) {
-
+// are these even used?
+ColinWielgaDyanmo.jsonProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist,characterDoesNotExist, bad) {
+    characterDoesNotExist()
 }
 
 
