@@ -1,55 +1,10 @@
 ﻿g.Character = function ($timeout) {
     var that = this;
 
-    // ok so what we need to do is mint a bunch of modules
-    // we can just mint a module manager
-    // and it will mint the rest 
-    var comps = {};
-    var charactor = {};
-    var compsList = [];
+    var charactorJson = {};
 
     var VERSION = "VERSION"
     var META = "META"
-
-
-    var load = function (json) {
-        charactor = json;
-        that.lastLoaded = json;
-        compsList.forEach(function (item) {
-            if (item.OnLoad !== undefined) {
-                try {
-
-                    item.OnLoad();
-                } catch (e) {
-                    if (logger != undefined && logger.writeToLog != undefined) {
-                        logger.writeToLog(e);
-                    }
-                }
-            }
-        });
-    }
-
-    var getJSON = function () {
-        compsList.forEach(function (item) {
-            if (item.OnSave !== undefined) {
-                try {
-                    item.OnSave();
-                    if (charactor[item.getId()] == undefined) {
-                        charactor[item.getId()] = {};
-                    }
-                    if (charactor[item.getId()][META] == undefined) {
-                        charactor[item.getId()][META] = {};
-                    }
-                    charactor[item.getId()][META][VERSION] = item.getPublic().getVersion();
-                } catch (e) {
-                    if (logger != undefined && logger.writeToLog != undefined) {
-                        logger.writeToLog(e);
-                    }
-                }
-            }
-        });
-        return charactor;
-    }
 
     var comboKey = function (item, key) {
         return item.getId() + "_" + key;
@@ -57,35 +12,34 @@
     var versionComboKey = function (item, key) {
         return "Version_" + item.getId() + "_" + key;
     }
-
-    var comFactory = function (item) {
+    var comFactory = function (source) {
         return {
             read: function (key) {
-                return charactor[item.getId()][key];
+                return source[key];
             },
             canRead: function (key) {
-                return charactor[item.getId()] !== undefined && charactor[item.getId()][key] !== undefined;
+                return source !== undefined && source[key] !== undefined;
             },
             write: function (key, value) {
-                if (charactor[item.getId()] === undefined) {
-                    charactor[item.getId()] = {};
+                if (source === undefined) {
+                    source = {};
                 }
-                charactor[item.getId()][key] = value;
+                source[key] = value;
             },
             lastVersion: function () {
-                if (charactor[item.getId()] === undefined) {
+                if (source === undefined) {
                     return -1;
                 }
-                if (charactor[item.getId()][META] === undefined) {
+                if (source[META] === undefined) {
                     return -1;
                 }
-                if (charactor[item.getId()][META][VERSION] === undefined) {
+                if (source[META][VERSION] === undefined) {
                     return -1;
                 }
-                return charactor[item.getId()][META][VERSION];
+                return source[META][VERSION];
             },
             readNotCharacter: function (key) {
-                return window.localStorage.getItem(comboKey(item,key));
+                return window.localStorage.getItem(comboKey(item, key));
             },
             readNotCharacterVersion: function (key) {
                 return window.localStorage.getItem(versionComboKey(item, key));
@@ -98,11 +52,10 @@
             }
         };
     }
-
     var logFactory = function () {
         // why are these flags?
         var TypeEnum = {
-            VERBOSE:1,
+            VERBOSE: 1,
             DEBUG: 2,
             INFO: 3,
             WARN: 4,
@@ -151,17 +104,6 @@
             }
         }
     }
-
-    g.ComponetRegistry.componentFactories.forEach(function (item) {
-        var tem = new item();
-        comps[tem.getId()] = tem;
-        compsList.push(tem);
-    });
-
-    var modulesPublic = comps["wanderer-core-modules"].getPublic();
-    var logger = comps["wanderer-core-logger"].getPublic();
-    var save = comps["colin-wielga-dynamo-save"].getPublic();
-
     this.displayName = function () {
         var name = save.getName();
         if (name === null || name === undefined || name === "") {
@@ -170,24 +112,38 @@
             return name;
         }
     };
-
     this.mergeConflicts = function (mod) {
-
-        throw { message: "I need more code!" }
-
-        // TODO if the module has merge conflicts handle it
-        return null;
+        return that.moduleMap[mod.getId()];
     }
-
     this.compareWithLastLoaded = function (json) {
-        //TODO!
+        that.moduleMap = {};
+        var sourceMap = {};
+        var genList = [];
+        for (var property in json) {
+            if (json.hasOwnProperty(property)) {
+                if (JSON.stringify(json[property]) == JSON.stringify(that.lastLoaded[property])) {
+                } else {
+                    sourceMap[property] = json[property];
+                    genList.push(that.comps[property].injected.multiply);
 
-        throw {message:"I need more code!"}
+                }
+            }
+        }
+
+        var res = that.mintModules(
+            genList,
+            function (key) {
+                return sourceMap[key];
+            },
+            that.getModulPublic);
+
+        res.modules().forEach(function (mod) {
+            that.moduleMap[mod.getId()] = mod;
+        })
 
         that.lastLoaded = json;
-        return false;
+        return res.modules().length ==0 ;
     }
-
     this.getModSet = function (mod) {
         var res = [mod];
         var conflicts = this.mergeConflicts(mod);
@@ -196,7 +152,6 @@
         }
         return res;
     }
-
     this.getBonus = function () {
         var res = 0;
         compsList.forEach(function (comp) {
@@ -208,43 +163,114 @@
         return res;
     }
 
-    modulesPublic.injectComponents(compsList);
+    this.mintModules = function (componentFactoriesList,sourceGen,getDependencyBackUp) {
+        var comps = {};
+        var compsList = [];
 
-    compsList.forEach(function (item) {
-        var communicator = comFactory(item);
-        if (item.OnStart !== undefined) {
-            try {
-                item.injected = {};
-                item.injected.timeout = $timeout;
-                item.injected.load = load;
-                item.injected.logger = logFactory();
-                item.injected.getJSON = getJSON;
-                item.injected.getBonus = that.getBonus;
-                item.injected.isMerge = function () { return true; };
-                item.injected.compareWithLastLoaded = that.compareWithLastLoaded;
+        componentFactoriesList.forEach(function (item) {
+            var tem = new item();
+            tem.injected = {};
+            tem.injected.multiply = item;
+            comps[tem.getId()] = tem;
+            compsList.push(tem);
+        });
 
-                var dependencies = [];
-                if (item.getRequires !== undefined) {
-                    var lookingFors = item.getRequires();
-                    for (var i = 0; i < lookingFors.length; i++) {
-                        dependencies.push(modulesPublic.getComponent(lookingFors[i]));
+        var modulesPublic = comps["wanderer-core-modules"].getPublic();
+        var logger = comps["wanderer-core-logger"].getPublic();
+        var save = comps["colin-wielga-dynamo-save"].getPublic();
+
+        modulesPublic.injectComponents(compsList);
+
+        compsList.forEach(function (item) {
+            var communicator = comFactory(sourceGen(item.getId()));
+            if (item.OnStart !== undefined) {
+                try {
+                    item.injected.timeout = $timeout;
+                    item.injected.load = function (json) {
+                        charactorJson = json;
+                        that.lastLoaded = json;
+                        compsList.forEach(function (item) {
+                            if (item.OnLoad !== undefined) {
+                                try {
+
+                                    item.OnLoad();
+                                } catch (e) {
+                                    if (logger != undefined && logger.writeToLog != undefined) {
+                                        logger.writeToLog(e);
+                                    }
+                                }
+                            }
+                        });
+                    };
+                    item.injected.logger = logFactory();
+                    item.injected.getJSON = function () {
+                        compsList.forEach(function (item) {
+                            if (item.OnSave !== undefined) {
+                                try {
+                                    item.OnSave();
+                                    if (source == undefined) {
+                                        source = {};
+                                    }
+                                    if (source[META] == undefined) {
+                                        source[META] = {};
+                                    }
+                                    source[META][VERSION] = item.getPublic().getVersion();
+                                } catch (e) {
+                                    if (logger != undefined && logger.writeToLog != undefined) {
+                                        logger.writeToLog(e);
+                                    }
+                                }
+                            }
+                        });
+                        return charactorJson;
+                    }
+                    item.injected.getBonus = that.getBonus;
+                    item.injected.isMerge = function () { return true; };
+                    item.injected.compareWithLastLoaded = that.compareWithLastLoaded;
+
+                    var dependencies = [];
+                    if (item.getRequires !== undefined) {
+                        var lookingFors = item.getRequires();
+                        for (var i = 0; i < lookingFors.length; i++) {
+                            var pimary = modulesPublic.getComponent(lookingFors[i])
+                            if (pimary != null) {
+                                dependencies.push(pimary);
+                            }else{
+                                var backup = getDependencyBackUp(lookingFors[i]);
+                                if (backup != null) {
+                                    dependencies.push(backup);
+                                }
+                            }
+                        }
+                    }
+                    // we inject some stuff
+
+                    // we start.
+                    item.OnStart(communicator, dependencies);
+                } catch (e) {
+                    if (logger != undefined && logger.writeToLog != undefined) {
+                        logger.writeToLog(e);
                     }
                 }
-                // we inject some stuff
-
-                // we start.
-                item.OnStart(communicator, dependencies);
-            } catch (e) {
-                if (logger != undefined && logger.writeToLog != undefined) {
-                    logger.writeToLog(e);
-                }
             }
-        }
+        });
+
+        return {
+            modules: modulesPublic.getActiveComponents,
+            remove: function (module) {
+                modulesPublic.toggle(module);
+            },
+            getModulPublic: modulesPublic.getComponent
+        };
+    }
+
+    var mods = this.mintModuleManagement(g.ComponetRegistry.componentFactories, function (key) {
+        return charactorJson[key];
+    }, function (key) {
+        return null;
     });
 
-    this.modules = modulesPublic.getActiveComponents;
-
-    this.Remove = function (module) {
-        modulesPublic.toggle(module);
-    }
+    this.modules = mods.moules;
+    this.Remove = mods.remove;
+    this.getModulPublic = mods.getModulPublic;
 }
