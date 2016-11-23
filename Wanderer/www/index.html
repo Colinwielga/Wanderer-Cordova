@@ -46,32 +46,32 @@
 
         <div id="content">
             <!--draggable="true"-->
-            <div data-ng-repeat="mod in activeCharacter.modules()">
-                <div id="{{mod.getId()}}" class="drag section">
+            <div data-ng-repeat="module in activeCharacter.modules()">
+                <div id="{{module.getId()}}" class="drag section">
                     <div class="section-header">
-                        <label class="hide-button" data-ng-click="activeCharacter.Remove(mod)">x</label>
-                        <label class="hide-button" for="{{mod.getId()}}-hide">-</label>
-                        <label class="hide-button" for="{{mod.getId()}}-help-hide">?</label>
-                        <h2 class="section-title">{{mod.getTitle()}}</h2>
+                        <label class="hide-button" data-ng-click="activeCharacter.Remove(module)">x</label>
+                        <label class="hide-button" for="{{module.getId()}}-hide">-</label>
+                        <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
+                        <h2 class="section-title">{{module.getTitle()}}</h2>
                     </div>
-                    <div id="{{mod.getId()}}">
-                        <input type="checkbox" class="hide-check" id="{{mod.getId()}}-hide" />
+                    <div id="{{module.getId()}}">
+                        <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
                         <div class="section-body fixed-content">
-                            <input type="checkbox" class="hide-help-check" id="{{mod.getId()}}-help-hide" checked/>
+                            <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked/>
                             <div class="rules-container">
-                                <div data-ng-include="mod.getRulesHtml()" class="pad-me"></div>
+                                <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
                             </div>
                             <div class="loggin-container">
-                                <div data-ng-repeat="log in mod.injected.logger.displayLogs()">
+                                <div data-ng-repeat="log in module.injected.logger.displayLogs()">
                                     {{log.message}}
                                     <input type="button" value="x" data-ng-click="log.closed = true" />
                                 </div>
                             </div>
-                            <div data-ng-repeat="module in activeCharacter.getModSet(mod)">
-                                <!-- TODO merge controls -->
-                                <div data-ng-show="mod.injected.isMerge()"> Merge controls!</div>
-                                <div data-ng-include="module.getHmtl()"></div>
+                            <div data-ng-show="module.injected.dataManager.remote != null"> 
+                                showing local:
+                                <input type="button" value="{{module.injected.dataManager.useLocal}}" data-ng-click="activeCharacter.swap(module)" />
                             </div>
+                            <div data-ng-include="module.getHmtl()"></div>
                         </div>
                     </div>
                 </div>
@@ -90,6 +90,7 @@
 
         <!-- some stuff the modules need -->
         <script src="scripts/g.js"></script>
+        <script src="scripts/constants.js"></script>
         <script src="scripts/ComponetRegistry.js"></script>
         <script src="scripts/Character.js"></script>
 

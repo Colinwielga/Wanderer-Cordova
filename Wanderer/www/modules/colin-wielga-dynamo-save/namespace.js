@@ -15,6 +15,11 @@ ColinWielgaDyanmo.hashFnv32a= function(str, seed) {
     var i, l,
         hval = (seed === undefined) ? 0x811c9dc5 : seed;
 
+    if (str == undefined) {
+        var db = "y??"
+    }
+
+
     for (i = 0, l = str.length; i < l; i++) {
         hval ^= str.charCodeAt(i);
         hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
@@ -60,7 +65,7 @@ ColinWielgaDyanmo.awsProvider.SaveCharacter = function (name, adventure, passwor
         });
     }
 
-    ColinWielgaDyanmo.CheckGameExists(adventure, password, actullySaveCharacter,gameMissing, bad);
+    ColinWielgaDyanmo.awsProvider.CheckGameExists(adventure, password, actullySaveCharacter, gameMissing, bad);
 }
 
 ColinWielgaDyanmo.awsProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, characterDoesNotExist, bad) {
@@ -82,7 +87,11 @@ ColinWielgaDyanmo.awsProvider.GetCharacter = function (name, adventure, password
 
             bad(err);
         } else {
-            good(JSON.parse(data.Item.JSON.S));
+            if (data.Item == null) {
+                characterDoesNotExist()
+            } else {
+                good(JSON.parse(data.Item.JSON.S));
+            }
         }
     });
 };

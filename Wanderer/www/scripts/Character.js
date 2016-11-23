@@ -1,56 +1,63 @@
 ﻿g.Character = function ($timeout) {
     var that = this;
 
-    var charactorJson = {};
-
-    var VERSION = "VERSION"
-    var META = "META"
-
-    var comboKey = function (item, key) {
-        return item.getId() + "_" + key;
+    var comboKey = function (id, key) {
+        return id + "_" + key;
     };
-    var versionComboKey = function (item, key) {
-        return "Version_" + item.getId() + "_" + key;
+    var versionComboKey = function (id, key) {
+        return "Version_" + id + "_" + key;
     }
-    var comFactory = function (source) {
+    var comFactory = function (getSaveJson, id, version) {
         return {
             read: function (key) {
-                return source[key];
+                return getSaveJson()[key];
             },
             canRead: function (key) {
-                return source !== undefined && source[key] !== undefined;
+                return getSaveJson() !== undefined && getSaveJson()[key] !== undefined;
             },
             write: function (key, value) {
-                if (source === undefined) {
-                    source = {};
+                if (getSaveJson() === undefined) {
+                    getSaveJson() = {};
                 }
-                source[key] = value;
+                getSaveJson()[key] = value;
             },
             lastVersion: function () {
-                if (source === undefined) {
+                if (getSaveJson() === undefined) {
                     return -1;
                 }
-                if (source[META] === undefined) {
+                if (getSaveJson()[g.constants.META] === undefined) {
                     return -1;
                 }
-                if (source[META][VERSION] === undefined) {
+                if (getSaveJson()[g.constants.META][g.constants.VERSION] === undefined) {
                     return -1;
                 }
-                return source[META][VERSION];
+                return getSaveJson()[g.constants.META][g.constants.VERSION];
             },
             readNotCharacter: function (key) {
-                return window.localStorage.getItem(comboKey(item, key));
+                return window.localStorage.getItem(comboKey(id, key));
             },
             readNotCharacterVersion: function (key) {
-                return window.localStorage.getItem(versionComboKey(item, key));
+                return window.localStorage.getItem(versionComboKey(id, key));
             },
             canReadNotCharacter: function (key) {
-                return window.localStorage.getItem(comboKey(item, key)) !== undefined;
+                return window.localStorage.getItem(comboKey(id, key)) !== undefined;
             }, writeNotCharacter: function (key, value) {
-                window.localStorage.setItem(comboKey(item, key), value);
-                window.localStorage.setItem(versionComboKey(item, key), item.getPublic().getVersion());
+                window.localStorage.setItem(comboKey(id, key), value);
+                window.localStorage.setItem(versionComboKey(id, key), version);
             }
         };
+    }
+    var dataManagerFactory = function (json) {
+        var res= {
+            useLocal:true,
+            local: json,
+            remote: null,
+        };
+        res.current = function () {
+            return res.useLocal ? res.local : res.remote;
+        };
+        return res;
+
     }
     var logFactory = function () {
         // why are these flags?
@@ -105,56 +112,59 @@
         }
     }
     this.displayName = function () {
-        var name = save.getName();
+        var name = that.getName();
         if (name === null || name === undefined || name === "") {
             return "untilted";
         } else {
             return name;
         }
     };
-    this.mergeConflicts = function (mod) {
-        return that.moduleMap[mod.getId()];
-    }
-    this.compareWithLastLoaded = function (json) {
-        that.moduleMap = {};
-        var sourceMap = {};
-        var genList = [];
-        for (var property in json) {
-            if (json.hasOwnProperty(property)) {
-                if (JSON.stringify(json[property]) == JSON.stringify(that.lastLoaded[property])) {
-                } else {
-                    sourceMap[property] = json[property];
-                    genList.push(that.comps[property].injected.multiply);
 
+    this.updateLastLoaded = function (json) {
+        that.lastLoaded = json;
+    }
+
+    this.compareWithLastLoaded = function (json) {
+        
+        for (var property in that.modMap) {
+            if (that.modMap.hasOwnProperty(property)) {
+                that.modMap[property].injected.dataManager.useLocal = true;
+                that.modMap[property].injected.dataManager.remote = null;
+            }
+        }
+        var theSame = true;
+        if (that.lastLoaded != null) {
+            for (var property in json) {
+                if (json.hasOwnProperty(property)) {
+                    if (JSON.stringify(json[property]) == JSON.stringify(that.lastLoaded[property])) {
+                    } else {
+                        theSame = false;
+                        that.modMap[property].injected.dataManager.useLocal = false;
+                        that.modMap[property].injected.dataManager.remote = json[property];
+                        that.modMap[property].OnLoad();
+                    }
                 }
             }
         }
 
-        var res = that.mintModules(
-            genList,
-            function (key) {
-                return sourceMap[key];
-            },
-            that.getModulPublic);
-
-        res.modules().forEach(function (mod) {
-            that.moduleMap[mod.getId()] = mod;
-        })
-
         that.lastLoaded = json;
-        return res.modules().length ==0 ;
+
+        // it might be a good idea to active the comps with conflicts 
+
+        return theSame;
     }
-    this.getModSet = function (mod) {
-        var res = [mod];
-        var conflicts = this.mergeConflicts(mod);
-        if (conflicts != null) {
-            res.push(conflicts);
-        }
-        return res;
-    }
+
+    this.swap = function (module) {
+        module.OnSave();
+        module.injected.dataManager.useLocal = !module.injected.dataManager.useLocal;
+        module.OnLoad()
+      }
+
+    // todo merge conflicts is not a good way story in injected along with some stat (which one to show)
+
     this.getBonus = function () {
         var res = 0;
-        compsList.forEach(function (comp) {
+        that.compsList.forEach(function (comp) {
             var pub = comp.getPublic();
             if (pub.bonusProvided != undefined) {
                 res += pub.bonusProvided();
@@ -163,36 +173,36 @@
         return res;
     }
 
-    this.mintModules = function (componentFactoriesList,sourceGen,getDependencyBackUp) {
-        var comps = {};
-        var compsList = [];
+    this.mintModules = function (componentFactoriesList, modMap) {
+        var modList = [];
 
         componentFactoriesList.forEach(function (item) {
             var tem = new item();
             tem.injected = {};
             tem.injected.multiply = item;
-            comps[tem.getId()] = tem;
-            compsList.push(tem);
+            modMap[tem.getId()] = tem;
+            modList.push(tem);
         });
 
-        var modulesPublic = comps["wanderer-core-modules"].getPublic();
-        var logger = comps["wanderer-core-logger"].getPublic();
-        var save = comps["colin-wielga-dynamo-save"].getPublic();
+        var modulesPublic = modMap["wanderer-core-modules"].getPublic();
+        var logger = modMap["wanderer-core-logger"].getPublic();
+        var save = modMap["colin-wielga-dynamo-save"].getPublic();
 
-        modulesPublic.injectComponents(compsList);
 
-        compsList.forEach(function (item) {
-            var communicator = comFactory(sourceGen(item.getId()));
-            if (item.OnStart !== undefined) {
-                try {
-                    item.injected.timeout = $timeout;
-                    item.injected.load = function (json) {
-                        charactorJson = json;
+            modulesPublic.injectComponents(modList);
+
+
+        modList.forEach(function (item) {
+            try {
+                // we inject a ton of stuff
+                item.injected={
+                    timeout: $timeout,
+                    load:function (json) {
                         that.lastLoaded = json;
-                        compsList.forEach(function (item) {
+                        modList.forEach(function (item) {
+                            item.injected.dataManager = dataManagerFactory(json[item.getId()]);
                             if (item.OnLoad !== undefined) {
                                 try {
-
                                     item.OnLoad();
                                 } catch (e) {
                                     if (logger != undefined && logger.writeToLog != undefined) {
@@ -201,20 +211,24 @@
                                 }
                             }
                         });
-                    };
-                    item.injected.logger = logFactory();
-                    item.injected.getJSON = function () {
-                        compsList.forEach(function (item) {
+                    },
+                    dataManager: dataManagerFactory({}),
+                    logger:logFactory(),
+                    getJSON:function () {
+                        var res = {};
+                        modList.forEach(function (item) {
                             if (item.OnSave !== undefined) {
                                 try {
                                     item.OnSave();
-                                    if (source == undefined) {
-                                        source = {};
+                                    var map = item.injected.dataManager.current();
+                                    if (map == undefined) {
+                                        map = {};
                                     }
-                                    if (source[META] == undefined) {
-                                        source[META] = {};
+                                    if (map[g.constants.META] == undefined) {
+                                        map[g.constants.META] = {};
                                     }
-                                    source[META][VERSION] = item.getPublic().getVersion();
+                                    map[g.constants.META][g.constants.VERSION] = item.getPublic().getVersion();
+                                    res[item.getId()] = map;
                                 } catch (e) {
                                     if (logger != undefined && logger.writeToLog != undefined) {
                                         logger.writeToLog(e);
@@ -222,55 +236,58 @@
                                 }
                             }
                         });
-                        return charactorJson;
-                    }
-                    item.injected.getBonus = that.getBonus;
-                    item.injected.isMerge = function () { return true; };
-                    item.injected.compareWithLastLoaded = that.compareWithLastLoaded;
+                        return res;
+                    },
+                    getBonus:that.getBonus,
+                    compareWithLastLoaded:that.compareWithLastLoaded,
+                    updateLastLoaded:that.updateLastLoaded
+                }
+
+                if (item.OnStart !== undefined) {
+
+                    var communicator = comFactory(function () { return item.injected.dataManager.current(); }, item.getId(), item.getPublic().getVersion());
 
                     var dependencies = [];
                     if (item.getRequires !== undefined) {
                         var lookingFors = item.getRequires();
                         for (var i = 0; i < lookingFors.length; i++) {
-                            var pimary = modulesPublic.getComponent(lookingFors[i])
+                            var pimary = modulesPublic.getComponent(lookingFors[i], isMerge)
                             if (pimary != null) {
-                                dependencies.push(pimary);
-                            }else{
-                                var backup = getDependencyBackUp(lookingFors[i]);
-                                if (backup != null) {
-                                    dependencies.push(backup);
-                                }
+                                dependencies.push(modulesPublic.getComponent(lookingFors[i], isMerge));
+                            } else {
+                                // is this an error case?
                             }
                         }
                     }
-                    // we inject some stuff
+
 
                     // we start.
                     item.OnStart(communicator, dependencies);
-                } catch (e) {
-                    if (logger != undefined && logger.writeToLog != undefined) {
-                        logger.writeToLog(e);
-                    }
+                }
+            } catch (e) {
+                if (logger != undefined && logger.writeToLog != undefined) {
+                    logger.writeToLog(e);
                 }
             }
+
         });
 
         return {
+            modMap: modMap,
+            modList: modList,
             modules: modulesPublic.getActiveComponents,
             remove: function (module) {
                 modulesPublic.toggle(module);
             },
-            getModulPublic: modulesPublic.getComponent
+            getName: save.getName
         };
     }
 
-    var mods = this.mintModuleManagement(g.ComponetRegistry.componentFactories, function (key) {
-        return charactorJson[key];
-    }, function (key) {
-        return null;
-    });
+    var mods = this.mintModules(g.ComponetRegistry.componentFactories, {});
 
-    this.modules = mods.moules;
+    this.modList = mods.modList;
+    this.modMap = mods.modMap;
+    this.modules = mods.modules;
     this.Remove = mods.remove;
-    this.getModulPublic = mods.getModulPublic;
+    this.getName = mods.getName;
 }

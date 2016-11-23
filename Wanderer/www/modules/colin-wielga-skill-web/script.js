@@ -221,7 +221,7 @@ ColinWielgaSkillWeb.component = function () {
 
     this.isNameOk = function (skillname) {
         if (skillname == "" || skillname == null || skillname == undefined) {
-            return ture;
+            return true;
         }
 
         var res = null;

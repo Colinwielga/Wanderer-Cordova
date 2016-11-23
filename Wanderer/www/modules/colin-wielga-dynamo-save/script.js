@@ -82,11 +82,11 @@ ColinWielgaDyanmo.component = function () {
         this.communicator.write("gameName", this.gameName);
         this.communicator.write("gamePassword", this.gamePassword);
         this.communicator.write("name", this.name);
-        this.communicator.write("provider", ColinWielgaDyanmo.localProvider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
+        this.communicator.write("provider", ColinWielgaDyanmo.localProvider === this.provider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
         this.communicator.writeNotCharacter("gameName", this.gameName);
         this.communicator.writeNotCharacter("gamePassword", this.gamePassword);
         //this.communicator.writeNotCharacter("name", this.name);
-        this.communicator.writeNotCharacter("provider", ColinWielgaDyanmo.localProvider ?ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
+        this.communicator.writeNotCharacter("provider", ColinWielgaDyanmo.localProvider === this.provider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
     }
     this.OnLoad = function () {
         this.OnNewCharacter();
@@ -220,35 +220,40 @@ ColinWielgaDyanmo.component = function () {
         that.state = ColinWielgaDyanmo.States.WORKING;
         // we download the current state
 
-        that.provider.GetCharacter(this.name, this.gameName, this.gamePassword, function (json) {
-            
-            var ok = that.inject.compareWithLastLoaded(json);
-            
+        var reallySave = function () {
+            that.provider.SaveCharacter(that.name, that.gameName, that.gamePassword, JSON.stringify(that.injected.getJSON()),
+function (data) {
+    //actuly if it works it does nothing
+    that.injected.timeout(function () {
+        that.state = ColinWielgaDyanmo.States.NEW;
+    })
+},
+function () {
+
+}, function () {
+
+})
+        }
+
+        // todo bring this to other ways of saving
+        that.provider.GetCharacter(this.name, this.gameName, this.gamePassword, function (json) {   
+            var ok = that.injected.compareWithLastLoaded(json);
             if (ok) {
-                that.provider.SaveCharacter(this.name, this.gameName, this.gamePassword, JSON.stringify(that.injected.getJSON()),
-        function (data) {
-            //actuly if it works it does nothing
-            that.injected.timeout(function () {
-                that.state = ColinWielgaDyanmo.States.NEW;
-            })
-        },
-        function () {
-
-        }, function () {
-
-        })
+                reallySave();
+                var ok = that.injected.updateLastLoaded(json);
             } else {
                 // we have merge conflicts tell the use
-                item.injected.logger.warn("");
+                that.injected.logger.warn("merge conflicts!");
+                that.injected.timeout(function () {
+                    that.state = ColinWielgaDyanmo.States.NEW;
+                });
             }
-
-
         }, function () {
-
+            that.injected.logger.warn("game does not exist");
         }, function () {
-
+            reallySave()
         }, function () {
-
+            that.injected.logger.warn("bad!");
         })
 
 

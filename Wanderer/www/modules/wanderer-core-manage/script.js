@@ -3,8 +3,7 @@
 
     //window.localStorage.clear();
     var that = this;
-    that.VERSION = "VERSION"
-    that.META = "META"
+
     // we load the character
     that.characterList = [];
     var charactorListString = window.localStorage.getItem("charactorlist");
@@ -80,13 +79,13 @@
                         if (that.charactor[item.getId()] === undefined) {
                             return -1;
                         }
-                        if (that.charactor[item.getId()][that.META] === undefined) {
+                        if (that.charactor[item.getId()][[g.constants.META] ] === undefined) {
                             return -1;
                         }
-                        if (that.charactor[item.getId()][that.META][that.VERSION] === undefined) {
+                        if (that.charactor[item.getId()][g.constants.META][g.constants.VERSION] === undefined) {
                             return -1;
                         }
-                        return that.charactor[item.getId()][that.META][that.VERSION];
+                        return that.charactor[item.getId()][g.constants.META][g.constants.VERSION];
                     },
                     readNotCharacter: function (key) {
                         return window.localStorage.getItem(comboKey(item,key));
@@ -243,10 +242,10 @@
                     if (that.charactor[item.getId()] == undefined) {
                         that.charactor[item.getId()] = {};
                     }
-                    if (that.charactor[item.getId()][that.META] == undefined) {
-                        that.charactor[item.getId()][that.META] = {};
+                    if (that.charactor[item.getId()][g.constants.META] == undefined) {
+                        that.charactor[item.getId()][g.constants.META] = {};
                     }
-                    that.charactor[item.getId()][that.META][that.VERSION] = item.getPublic().getVersion();
+                    that.charactor[item.getId()][g.constants.META][g.constants.VERSION] = item.getPublic().getVersion();
                 } catch (e) {
                     if (that.logger != undefined && that.logger.writeToLog != undefined) {
                         that.logger.writeToLog(e);
