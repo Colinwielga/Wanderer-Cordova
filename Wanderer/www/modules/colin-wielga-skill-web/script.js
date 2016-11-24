@@ -30,8 +30,8 @@ ColinWielgaSkillWeb.component = function () {
     }
     this.OnLoad = function () {
         this.network = ColinWielgaSkillWeb.makeNetwork();
-        if (this.communicator.canRead("tools")) {
-            this.tools = this.communicator.read("tools");
+        if (this.communicator.canRead("network")) {
+            this.network = this.communicator.read("network");
         }
     }
     this.OnUpdate = function () {
@@ -204,6 +204,17 @@ ColinWielgaSkillWeb.component = function () {
             current = nextCurrent;
         }
         return this.scaleLoss(sum)*skill.specificity;
+    }
+
+    this.skillBonusNormalized = function (skill) {
+        var totalBonus = 0.0;
+        var targetBonus = 0.0;
+        that.network.skills.forEach(function (skl) {
+            totalBonus += that.skillBonus(skl);
+            targetBonus += skl.rank;
+        });
+        var notNormalized = this.skillBonus(skl);
+        return (notNormalized * targetBonus) / (totalBonus);
     }
 
     this.levelLoss = function (distance) {

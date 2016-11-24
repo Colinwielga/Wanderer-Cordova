@@ -7,6 +7,7 @@
   <access origin="*" />
   <vs:features />
   <preference name="SplashScreen" value="screen" />
+  <preference name="SplashScreenBackgroundColor" value="#ffffff" />
   <preference name="windows-target-version" value="8.1" />
   <!-- Support for Cordova 5.0.0 plugin system -->
   <plugin name="cordova-plugin-whitelist" version="1" />
@@ -99,7 +100,7 @@
     <splash src="res/screens/ios/screen-iphone-landscape-736h.png" width="2208" height="1242" />
   </platform>
   <platform name="windows">
-    <splash src="res/screens/windows/SplashScreen.scale-100.png" width="620" height="300" />
+    <splash src="res/screens/windows/SplashScreenTwo.scale-100.png" width="620" height="300" />
     <splash src="res/screens/windows/SplashScreen.scale-240.png" width="1152" height="1920" />
     <splash src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" height="1920" />
   </platform>
