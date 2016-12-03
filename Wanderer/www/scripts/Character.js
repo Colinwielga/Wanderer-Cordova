@@ -250,9 +250,9 @@
                     if (item.getRequires !== undefined) {
                         var lookingFors = item.getRequires();
                         for (var i = 0; i < lookingFors.length; i++) {
-                            var pimary = modulesPublic.getComponent(lookingFors[i], isMerge)
+                            var pimary = modulesPublic.getComponent(lookingFors[i])
                             if (pimary != null) {
-                                dependencies.push(modulesPublic.getComponent(lookingFors[i], isMerge));
+                                dependencies.push(modulesPublic.getComponent(lookingFors[i]));
                             } else {
                                 // is this an error case?
                             }
