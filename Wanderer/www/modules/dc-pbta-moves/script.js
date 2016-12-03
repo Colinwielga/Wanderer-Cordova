@@ -115,4 +115,4 @@ var component = function () {
 
 }
 
-g.ComponentManager.register(component);
+g.ComponetRegistry.register(component);
