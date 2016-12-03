@@ -21,17 +21,15 @@ var component = function () {
     this.OnNewCharacter = function () {
         this.moveslist = [{
             title: "Go Aggro",
-            leadin: "When you",
-            conditions: "go aggro on someone,",
-            prelist: "roll +hard. On a 10+, they have to choose: \
-                Force your hand and suck it up, or cave and do what you want. \
-                On a 7-9, they can instead choose 1: ",
-            list: ["get the hell out of your way",
-                "barricade themselves securely in",
-                "give you something they think you want",
-                "back off calmly, hands where you can see",
-                "tell you what you want to know (or what you want to hear)"],
-            postlist: ""
+            body: markdown.toHTML("When you **go aggro on someone**, \
+            roll +hard. On a 10+, they have to choose: \
+            Force your hand and suck it up, or cave and do what you want. \
+            On a 7-9, they can instead choose 1: \
+            \n\n* get the hell out of your way \
+            \n* barricade themselves securely in \
+            \n* give you something they think you want \
+            \n* back off calmly, hands where you can see \
+            \n* tell you what you want to know (or what you want to hear)")
         }];
         this.showNewMovePanel = false
         // this.newmove = {
@@ -46,24 +44,25 @@ var component = function () {
         // }
         this.newmove = {
         title:"[New Move]",
-        leadin:"",
-        conditions:"[you act and/or circumstances dictate]",
-        prelist:"[Say what you do/what happens and maybe roll + some stat. On a 10+, \
-            something specific happens that's probably what you wanted, \
-            and maybe you pick enough options from a list to get a good outcome. \
-            On a 7-9, something specific happens that's probably only some of what you wanted, \
-            or what you wanted but with strings attached, and maybe you pick enough options \
-            from a list to have to make a hard choice between important things. \
-            On a 6 or less, the MC makes a hard move, but this move might offer some \
-            choices or suggestions.",
-        list:["The thing you're trying to do fundamentally works",
-            "You don't suffer the side-effects",
-            "You avoid some negative consequence that you'd otherwise have to deal with",
-            "You get some extra benefit or way in which you are effective"],
-        postlist:"Overall, the move can affect the fiction, the mechanics, or both, it can \
-            have a temporary or permanent effect, it can trigger another move, it can \
-            change the way another move works when you use it, or anything else you \
-            might think of.]"
+            body:""
+        // leadin:"",
+        // conditions:"[you act and/or circumstances dictate]",
+        // prelist:"[Say what you do/what happens and maybe roll + some stat. On a 10+, \
+        //     something specific happens that's probably what you wanted, \
+        //     and maybe you pick enough options from a list to get a good outcome. \
+        //     On a 7-9, something specific happens that's probably only some of what you wanted, \
+        //     or what you wanted but with strings attached, and maybe you pick enough options \
+        //     from a list to have to make a hard choice between important things. \
+        //     On a 6 or less, the MC makes a hard move, but this move might offer some \
+        //     choices or suggestions.",
+        // list:["The thing you're trying to do fundamentally works",
+        //     "You don't suffer the side-effects",
+        //     "You avoid some negative consequence that you'd otherwise have to deal with",
+        //     "You get some extra benefit or way in which you are effective"],
+        // postlist:"Overall, the move can affect the fiction, the mechanics, or both, it can \
+        //     have a temporary or permanent effect, it can trigger another move, it can \
+        //     change the way another move works when you use it, or anything else you \
+        //     might think of.]"
             }
     }
     // called when a character is saved

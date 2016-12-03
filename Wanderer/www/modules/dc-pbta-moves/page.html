@@ -1,23 +1,20 @@
-﻿<button data-ng-click="module.showNewMovePanel = !module.showNewMovePanel">+</button>
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta_modules/stylesheet.css">
+<button data-ng-click="module.showNewMovePanel = !module.showNewMovePanel">+</button>
 <div data-ng-show="module.showNewMovePanel">
     Title:<input type="text" data-ng-model="module.newmove.title"></input>
     </br>
-    When <input type="text" data-ng-model="module.newmove.conditions"></input>...
-    </br>
-    <input type="textarea" data-ng-model="module.newmove.prelist"></input>
-    <div data-ng-repeat="item in module.newmove.list">
-            <input type="text" data-ng-model="item"></input>
-    </div>
-    <input type="textarea" data-ng-model="module.newmove.postlist"></input>
+    <!-- When <input type="text" data-ng-model="module.newmove.conditions"></input>... -->
+    <!-- </br> -->
+    <!-- <input type="textarea" data-ng-model="module.newmove.prelist"></input> -->
+    <!-- <div data-ng-repeat="item in module.newmove.list"> -->
+    <!--         <input type="text" data-ng-model="item"></input> -->
+    <!-- </div> -->
+    <!-- <input type="textarea" data-ng-model="module.newmove.postlist"></input> -->
     <button data-ng-click="module.addNewMove()">Add</button>
 </div>
 <div>
     <div data-ng-repeat="move in module.moveslist">
         <h3>{{move.title}}</h3>
-        {{move.leadin}} <b>{{move.conditions}}</b> {{move.prelist}}
-        <ul>
-            <li data-ng-repeat="item in move.list">{{item}}</li>
-        </ul>
-        {{move.postlist}}
+        <div data-ng-bind-html="move.body"></div>
     </div>
 </div>
