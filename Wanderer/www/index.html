@@ -25,6 +25,7 @@
     <script src="External/aws-sdk.js"></script>
 </head>
 <body data-ng-controller="wandererController">
+    <p data-ng-bind-html="'<b>This is some HTML!</b>'"></p>
     <div id="all">
         <div id="page-header" class="pad-me">
             <input 
@@ -36,48 +37,53 @@
             <input data-ng-click="Add()"
                    type="button"
                    value="+" />
+            <input data-ng-click="Map()"
+                   type="button"
+                   value="map" />
+            <input data-ng-click="Conivance()"
+                   type="button"
+                   value="connivance" />
             <!--<h1>Wanderer</h1>-->
             <!--<input type="checkbox" id="show-settings" name="show settings" value="show settings" />-->
         </div>
 
-        <div></div>
-        <!--<div id="settings" ></div>-->
+        <div id="character" data-ng-show="IsMap()"></div>
+        <div id="character" data-ng-show="IsConivance()"></div>
 
-
-        <div id="content">
-            <!--draggable="true"-->
-            <div data-ng-repeat="module in activeCharacter.modules()" >
-                <div id="{{module.getId()}}" class="drag section">
-                    <div class="section-header">
-                        <label class="hide-button" data-ng-click="activeCharacter.Remove(module)">x</label>
-                        <label class="hide-button" for="{{module.getId()}}-hide">-</label>
-                        <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
-                        <h2 class="section-title">{{module.getTitle()}}</h2>
-                    </div>
-                    <div id="{{module.getId()}}">
-                        <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
-                        <div class="section-body fixed-content">
-                            <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked/>
-                            <div class="rules-container">
-                                <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
-                            </div>
-                            <div class="loggin-container">
-                                <div data-ng-repeat="log in module.injected.logger.displayLogs()">
-                                    {{log.message}}
-                                    <input type="button" value="x" data-ng-click="log.closed = true" />
+            <div id="character" data-ng-show="IsCharacter()">
+                <!--draggable="true"-->
+                <div data-ng-repeat="module in activeCharacter.modules()">
+                    <div id="{{module.getId()}}" class="drag section">
+                        <div class="section-header">
+                            <label class="hide-button" data-ng-click="activeCharacter.Remove(module)">x</label>
+                            <label class="hide-button" for="{{module.getId()}}-hide">-</label>
+                            <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
+                            <h2 class="section-title">{{module.getTitle()}}</h2>
+                        </div>
+                        <div id="{{module.getId()}}">
+                            <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
+                            <div class="section-body fixed-content">
+                                <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked />
+                                <div class="rules-container">
+                                    <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
                                 </div>
+                                <div class="loggin-container">
+                                    <div data-ng-repeat="log in module.injected.logger.displayLogs()">
+                                        {{log.message}}
+                                        <input type="button" value="x" data-ng-click="log.closed = true" />
+                                    </div>
+                                </div>
+                                <div data-ng-show="module.injected.dataManager.remote != null">
+                                    showing local:
+                                    <input type="button" value="{{module.injected.dataManager.useLocal}}" data-ng-click="activeCharacter.swap(module)" />
+                                </div>
+                                <div data-ng-include="module.getHmtl()"></div>
                             </div>
-                            <div data-ng-show="module.injected.dataManager.remote != null"> 
-                                showing local:
-                                <input type="button" value="{{module.injected.dataManager.useLocal}}" data-ng-click="activeCharacter.swap(module)" />
-                            </div>
-                            <div data-ng-include="module.getHmtl()"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- hack? atleast very ugly -->
     <p style="visibility:hidden">{{onUpdate()}}</p>
