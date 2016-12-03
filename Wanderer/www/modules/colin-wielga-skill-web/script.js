@@ -45,7 +45,8 @@ ColinWielgaSkillWeb.component = function () {
             getVersion: function () {
                 return 1;
             },
-            bonusProvided: that.bonusProvided
+            bonusProvided: that.bonusProvided,
+            getSkillsJSON: that.getSkillsJSON
         }
     }
 
@@ -253,6 +254,22 @@ ColinWielgaSkillWeb.component = function () {
             }
         })
         this.network.connections = newConnects;
+    }
+    
+    this.getSkillsJSON = function() {
+        var json = {
+            "nodes": [],
+            "links": [],
+        };
+        that.network.skills.forEach(function (skill) {
+            json["nodes"].push({"id": skill.name, "group": skill.specificity, "rank": skill.rank});
+        });
+        that.network.connections.forEach(function (connection) {
+            json["links"].push({"source": connection.from, "target": connection.to});
+        });
+        return json;
+        
+//        return that.network.skills;
     }
 
     this.OnNewCharacter();

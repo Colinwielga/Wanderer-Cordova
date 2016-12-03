@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {"id": "jump", "group": 1},
+    {"id": "swim", "group": 1},
+    {"id": "whatever", "group": 1}
+  ],
+  "links": [
+    {"source": "swim", "target": "jump"},
+    {"source": "whatever", "target": "swim"},
+    {"source": "swim", "target": "whatever"}
+  ]
+}
