@@ -4,6 +4,19 @@ ColinWielgaSkillWeb.makeNetwork = function () {
     return { skills: [], connections: [] };
 }
 
+ColinWielgaSkillWeb.isSuperAbility = function (skill) {
+    return skill.specificity == .25;
+}
+ColinWielgaSkillWeb.isAbility = function (skill) {
+    return skill.specificity == .5;
+}
+ColinWielgaSkillWeb.isSkill = function (skill) {
+    return skill.specificity == 1;
+}
+ColinWielgaSkillWeb.isSubSkill = function (skill) {
+    return skill.specificity == 2;
+}
+
 ColinWielgaSkillWeb.MakeConnection = function (from, to) {
     return { to: to, from: from };
 }
@@ -170,16 +183,16 @@ ColinWielgaSkillWeb.component = function () {
         skill.specificity = 2;
     }
     this.isSuperAbility = function (skill) {
-        return skill.specificity == .25;
+        return ColinWielgaSkillWeb.isSuperAbility(skill);
     }
     this.isAbility = function (skill) {
-        return skill.specificity == .5;
+        return ColinWielgaSkillWeb.isAbility(skill);
     }
     this.isSkill = function (skill) {
-        return skill.specificity == 1;
+        return sColinWielgaSkillWeb.isSkill(skill);
     }
     this.isSubSkill = function (skill) {
-        return skill.specificity == 2;
+        return ColinWielgaSkillWeb.isSubSkill(skill);
     }
 
     this.skillBonus = function (skill) {
