@@ -14,7 +14,6 @@ var component = function () {
     this.OnNewCharacter = function () {}
     this.OnSave = function () {}
     this.OnLoad = function () {}
-    this.OnUpdate = function () {}
 
     this.getRequires = function () {
         return [];
@@ -47,4 +46,4 @@ var component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponentManager.register(component);
+g.ComponetRegistry.register(component);

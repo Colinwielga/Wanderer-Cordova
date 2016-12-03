@@ -1,4 +1,6 @@
-﻿var component = function () {
+﻿var ColinWielgaTemplate = {};
+
+ColinWielgaTemplate.component = function () {
 
     // all component need a unique ID
     this.getId = function () {
@@ -67,4 +69,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponentManager.register(component);
+g.ComponetRegistry.register(component);

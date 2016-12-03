@@ -13,9 +13,10 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <!-- module css -->
+    <link href="External/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+     <!-- module css -->
     <!--<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />-->
-    <link rel="stylesheet" type="text/css" href="css/newStyle.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
     <title>Wanderer</title>
 
     <!-- externals -->
@@ -26,18 +27,29 @@
 <body data-ng-controller="wandererController">
     <div id="all">
         <div id="page-header" class="pad-me">
+            <input 
+                   data-ng-disabled="Selected(character)"
+                   data-ng-click="Select(character)"
+                   data-ng-repeat="character in Characters"
+                   type="button"
+                   value="{{character.displayName()}}" />
+            <input data-ng-click="Add()"
+                   type="button"
+                   value="+" />
             <!--<h1>Wanderer</h1>-->
             <!--<input type="checkbox" id="show-settings" name="show settings" value="show settings" />-->
         </div>
 
+        <div></div>
         <!--<div id="settings" ></div>-->
+
 
         <div id="content">
             <!--draggable="true"-->
-            <div data-ng-repeat="module in modules()">
+            <div data-ng-repeat="module in activeCharacter.modules()" >
                 <div id="{{module.getId()}}" class="drag section">
                     <div class="section-header">
-                        <label class="hide-button" data-ng-click="Remove(module)">x</label>
+                        <label class="hide-button" data-ng-click="activeCharacter.Remove(module)">x</label>
                         <label class="hide-button" for="{{module.getId()}}-hide">-</label>
                         <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
                         <h2 class="section-title">{{module.getTitle()}}</h2>
@@ -47,14 +59,19 @@
                         <div class="section-body fixed-content">
                             <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked/>
                             <div class="rules-container">
-                                <div class="pad-me">
-                                    <div data-ng-include="module.getRulesHtml()"></div>
+                                <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
+                            </div>
+                            <div class="loggin-container">
+                                <div data-ng-repeat="log in module.injected.logger.displayLogs()">
+                                    {{log.message}}
+                                    <input type="button" value="x" data-ng-click="log.closed = true" />
                                 </div>
-                                <div class="rules-divider" ></div>
                             </div>
-                            <div class="pad-me">
-                                <div data-ng-include="module.getHmtl()"></div>
+                            <div data-ng-show="module.injected.dataManager.remote != null"> 
+                                showing local:
+                                <input type="button" value="{{module.injected.dataManager.useLocal}}" data-ng-click="activeCharacter.swap(module)" />
                             </div>
+                            <div data-ng-include="module.getHmtl()"></div>
                         </div>
                     </div>
                 </div>
@@ -66,18 +83,27 @@
     <p style="visibility:hidden">{{onUpdate()}}</p>
 
     <scripts>
+        <!-- cordova stuff goes first -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
         <script type="text/javascript" src="scripts/appBundle.js"></script>
 
+        <!-- some stuff the modules need -->
         <script src="scripts/g.js"></script>
+        <script src="scripts/constants.js"></script>
+        <script src="scripts/ComponetRegistry.js"></script>
+        <script src="scripts/Character.js"></script>
 
-        <script src="modules/wanderer-core-json-editor/script.js"></script>
-        <script src="modules/wanderer-core-manage/script.js"></script>
+        <!--old modules-->
         <script src="modules/wanderer-core-logger/script.js"></script>
         <script src="modules/dc-pbta-moves/script.js"></script>
         <!--<script src="modules/colin-wielga-gods/Gods.js"></script>
-        <script src="modules/colin-wielga-gods/script.js"></script>-->
+    <script src="modules/colin-wielga-gods/script.js"></script>-->
+        <script src="modules/colin-wielga-skill-web/script.js"></script>
+        <!-- modules -->
+        <!--<script src="modules/wanderer-core-json-editor/script.js"></script>-->
+        <!--<script src="modules/wanderer-core-manage/script.js"></script>-->
+        <script src="modules/wanderer-core-modules/script.js"></script> 
         <script src="modules/colin-wielga-cards/namespace.js"></script>
         <script src="modules/colin-wielga-cards/Deck.js"></script>
         <script src="modules/colin-wielga-cards/Card.js"></script>
@@ -89,6 +115,7 @@
         <script src="modules/colin-wielga-roll/roll.js"></script>
         <script src="modules/colin-wielga-roll/script.js"></script>
         <script src="modules/colin-wielga-tools/script.js"></script>
+        <script src="modules/colin-wielga-dynamo-save/AWSConnector.js"></script>
         <script src="modules/colin-wielga-dynamo-save/namespace.js"></script>
         <script src="modules/colin-wielga-dynamo-save/script.js"></script>
         <script src="modules/tote-hughes-titanagon-cards/TitanagonCard.js"></script>
@@ -96,7 +123,7 @@
         <script src="modules/tote-hughes-questions/Questions.js"></script>
         <script src="modules/tote-hughes-questions/script.js"></script>
 
-        <!-- I think wandererController has to be down here, since it requires the UI to have loaded -->
+        <!-- stuff that goes after the modules -->
         <script src="scripts/wandererController.js"></script>
     </scripts>
 

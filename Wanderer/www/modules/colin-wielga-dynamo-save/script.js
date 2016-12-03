@@ -3,6 +3,12 @@
     LIST: "LIST",
     NEW: "NEW",
     ENTER_GAME: "ENTER_GAME",
+    JSON: "JSON",
+}
+
+ColinWielgaDyanmo.Providers = {
+    AWS: "AWS",
+    LOCAL: "LOCAL"
 }
 
 ColinWielgaDyanmo.component = function () {
@@ -19,10 +25,17 @@ ColinWielgaDyanmo.component = function () {
     this.isEnterGame = function () {
         return that.state == ColinWielgaDyanmo.States.ENTER_GAME;
     }
+    this.isJSON = function () {
+        return that.state == ColinWielgaDyanmo.States.JSON;
+    }
     
 
     this.goToNew = function () {
         that.state = ColinWielgaDyanmo.States.NEW;
+    }
+    this.goToJSON = function () {
+        that.state = ColinWielgaDyanmo.States.JSON;
+
     }
     this.goToEnterGame = function () {
         that.state = ColinWielgaDyanmo.States.ENTER_GAME;
@@ -40,7 +53,6 @@ ColinWielgaDyanmo.component = function () {
 
     this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator
-        this.manage = dependencies[0];
         this.default();
         if (this.communicator.canReadNotCharacter("gameName")) {
             this.gameName = this.communicator.readNotCharacter("gameName");
@@ -48,9 +60,10 @@ ColinWielgaDyanmo.component = function () {
         if (this.communicator.canReadNotCharacter("gamePassword")) {
             this.gamePassword = this.communicator.readNotCharacter("gamePassword");
         }
-        if (this.communicator.canReadNotCharacter("name")) {
-            this.name = this.communicator.readNotCharacter("name");
+        if (this.communicator.canReadNotCharacter("provider")) {
+            this.provider = this.communicator.readNotCharacter("provider") == ColinWielgaDyanmo.Providers.LOCAL ? ColinWielgaDyanmo.localProvider : ColinWielgaDyanmo.awsProvider;
         }
+
 
     }
     this.default = function () {
@@ -58,6 +71,7 @@ ColinWielgaDyanmo.component = function () {
         this.gamePassword = "";
         this.list = [];
         this.state = ColinWielgaDyanmo.States.ENTER_GAME;
+        this.provider = ColinWielgaDyanmo.awsProvider;
         this.name = ""
     }
 
@@ -68,9 +82,11 @@ ColinWielgaDyanmo.component = function () {
         this.communicator.write("gameName", this.gameName);
         this.communicator.write("gamePassword", this.gamePassword);
         this.communicator.write("name", this.name);
+        this.communicator.write("provider", ColinWielgaDyanmo.localProvider === this.provider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
         this.communicator.writeNotCharacter("gameName", this.gameName);
         this.communicator.writeNotCharacter("gamePassword", this.gamePassword);
-        this.communicator.writeNotCharacter("name", this.name);
+        //this.communicator.writeNotCharacter("name", this.name);
+        this.communicator.writeNotCharacter("provider", ColinWielgaDyanmo.localProvider === this.provider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
     }
     this.OnLoad = function () {
         this.OnNewCharacter();
@@ -86,20 +102,19 @@ ColinWielgaDyanmo.component = function () {
         if (this.communicator.canRead("state")) {
             this.state = this.communicator.read("state");
         }
+        if (this.communicator.canRead("provider")) {
+            this.provider = this.communicator.read("provider") == ColinWielgaDyanmo.Providers.LOCAL ? ColinWielgaDyanmo.localProvider : ColinWielgaDyanmo.awsProvider;
+        }
         //if (this.state === ColinWielgaDyanmo.States.WORKING) {
         //    this.state = ColinWielgaDyanmo.States.ENTER_GAME;
         //    this.connect();
         //} else if (this.state === ColinWielgaDyanmo.States.LIST) {
         //    this.connect();
-        //} else if (this.state === ColinWielgaDyanmo.States.NEW) {
-            var that = this;
-            ColinWielgaDyanmo.getCharacters(this.gameName, this.gamePassword,
-                function (data) {
+         if (this.state !== ColinWielgaDyanmo.States.JSON) {
+            that.provider.getCharacters(this.gameName, this.gamePassword,
+                function (list) {
                     that.injected.timeout(function () {
-                        that.list = [];
-                        for (var i = 0; i < data.Items.length; i++) {
-                            that.list.push(data.Items[i].Name.S)
-                        }
+                        that.list = list;
                         that.state = ColinWielgaDyanmo.States.NEW;
                     });
                 }, function () {
@@ -107,29 +122,23 @@ ColinWielgaDyanmo.component = function () {
                 }, function () {
                     that.injected.timeout(function () { that.state = ColinWielgaDyanmo.States.ENTER_GAME; })
                 });
-        //}
-        
-
+        }
     }
     this.OnUpdate = function () { }
     this.getRequires = function () {
-        return ["wanderer-core-manage"];
+        return [];
     }
 
     this.OnUpdate = function () {
     }
 
-    // hmm is it really safe for this to be a function?
-    // we use functions so no one can edit
-    this.getRequires = function () {
-        return ["wanderer-core-manage"];
-    }
-
     this.getPublic = function () {
-        var that = this;
         return {
             getVersion: function () {
                 return 1;
+            },
+            getName:function () {
+                return that.name;
             },
             loadLastCharacter: function () {
                 
@@ -137,7 +146,7 @@ ColinWielgaDyanmo.component = function () {
                 if (that.name != null && that.name != undefined && that.gameName != null && that.gameName != undefined && that.gamePassword != null && that.gamePassword != undefined) {
                     ColinWielgaDyanmo.GetCharacter(that.name, that.gameName, that.gamePassword,
                     function (data) {
-                        that.manage.loadJSON(JSON.parse(data.Item.JSON.S), that.name);
+                        that.injected.load(JSON.parse(data.Item.JSON.S), that.name);
                         that.injected.timeout(function () {
                             that.state = ColinWielgaDyanmo.States.NEW;
                         })
@@ -170,21 +179,16 @@ ColinWielgaDyanmo.component = function () {
         return "AWS storage";
     }
     this.saveJson = function () {
-        that.manage.saveJson(that.saveAs, that.json);
+        this.injected.load(JSON.parse(this.json));
     }
     this.refreshJSON = function () {
-        that.getPublic().updateJson(that.manage.getJSON());
+        this.json = JSON.stringify(this.injected.getJSON());
     }
-    this.connect = function () {
-        var that = this;
-        ColinWielgaDyanmo.getCharacters(this.gameName, this.gamePassword,
-            function (data) {
+    this.connectCommon = function () {
+        that.provider.getCharacters(this.gameName, this.gamePassword,
+            function (list) {
                 that.injected.timeout(function () {
-
-                    that.list = [];
-                    for (var i = 0; i < data.Items.length; i++) {
-                        that.list.push(data.Items[i].Name.S)
-                    }
+                    that.list = list
                     that.state = ColinWielgaDyanmo.States.LIST;
                 });
             }, function () {
@@ -193,12 +197,13 @@ ColinWielgaDyanmo.component = function () {
 
             })
     }
+
+
     this.load = function (name) {
-        var that = this;
         that.state = ColinWielgaDyanmo.States.WORKING;
-        ColinWielgaDyanmo.GetCharacter(name, this.gameName, this.gamePassword,
-            function (data) {
-                that.manage.loadJSON(JSON.parse(data.Item.JSON.S),name);
+        that.provider.GetCharacter(name, this.gameName, this.gamePassword,
+            function (json) {
+                that.injected.load(json);
                 that.injected.timeout(function () {
                     that.state = ColinWielgaDyanmo.States.NEW;
                     that.name = name;
@@ -207,24 +212,62 @@ ColinWielgaDyanmo.component = function () {
 
             }, function () {
 
-            })
-    }
-    this.save = function () {
-        var that = this;
-        that.state = ColinWielgaDyanmo.States.WORKING;
-        ColinWielgaDyanmo.SaveCharacter(this.name, this.gameName, this.gamePassword, JSON.stringify(that.manage.getJSON()),
-            function (data) {
-                //actuly if it works it does nothing
-                that.injected.timeout(function () {
-                    that.state = ColinWielgaDyanmo.States.NEW;
-                })
-            },
-            function () {
-
             }, function () {
 
             })
     }
+    this.save = function () {
+        that.state = ColinWielgaDyanmo.States.WORKING;
+        // we download the current state
+
+        var reallySave = function () {
+            that.provider.SaveCharacter(that.name, that.gameName, that.gamePassword, JSON.stringify(that.injected.getJSON()),
+function (data) {
+    //actuly if it works it does nothing
+    that.injected.timeout(function () {
+        that.state = ColinWielgaDyanmo.States.NEW;
+    })
+},
+function () {
+
+}, function () {
+
+})
+        }
+
+        // todo bring this to other ways of saving
+        that.provider.GetCharacter(this.name, this.gameName, this.gamePassword, function (json) {   
+            var ok = that.injected.compareWithLastLoaded(json);
+            if (ok) {
+                reallySave();
+                var ok = that.injected.updateLastLoaded(json);
+            } else {
+                // we have merge conflicts tell the use
+                that.injected.logger.warn("merge conflicts!");
+                that.injected.timeout(function () {
+                    that.state = ColinWielgaDyanmo.States.NEW;
+                });
+            }
+        }, function () {
+            that.injected.logger.warn("game does not exist");
+        }, function () {
+            reallySave()
+        }, function () {
+            that.injected.logger.warn("bad!");
+        })
+
+
+
+
+    }
+    this.Local = function () {
+        this.provider = ColinWielgaDyanmo.localProvider;
+        this.connectCommon();
+    }
+    this.connect = function () {
+        this.provider = ColinWielgaDyanmo.awsProvider;
+        this.connectCommon();
+    }
 }
 
-g.ComponentManager.register(ColinWielgaDyanmo.component);
+g.ComponetRegistry.register(ColinWielgaDyanmo.component);

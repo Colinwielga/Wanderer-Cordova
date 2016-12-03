@@ -155,4 +155,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponentManager.register(ColinWielgaCards.component);
+g.ComponetRegistry.register(ColinWielgaCards.component);

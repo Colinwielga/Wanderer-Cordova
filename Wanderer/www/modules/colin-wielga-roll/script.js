@@ -1,4 +1,6 @@
 ﻿var component = function () {
+    this.dc = 8;
+
     this.getId = function () {
         return "colin-wielga-roll"
     }
@@ -29,10 +31,20 @@
             }
         }
     }
+
+    this.disableRoll = function () {
+        return this.dc != undefined;
+    }
+
+    this.rollDC = function () {
+        return this.roll(this.dc- this.getBonus());
+    }
+
     // TODO
     // you should be able to get pass with hard choice
     // I think I want to add indeterminate and roll it in with fail with some gain and pass with some loss
     this.roll = function (center) {
+
         var publicOutcomes = [];
         var privateOutcomes = [];
 
@@ -44,10 +56,14 @@
                 if (DCh === DCl) {
                     return DCh;
                 } else {
-                    return DCh + " - " + DCl;
+                    return DCh + " to " + DCl;
                 }
             }
         };
+
+        var move = function (moveBy) {
+            return Math.round(moveBy + Roll.roll(Math.sqrt(moveBy)));
+        }
 
         var flip = function (x) {
             if (x === undefined) x = .5;
@@ -74,7 +90,11 @@
         var includeCriticalPass = flip(.3);
         var showCriticalPass = flip();
         var showPass = flip(.75) || showCriticalPass || includeHardChoice;
-        var DC = center + Math.round(Roll.roll(2.5)) + (includeHardChoice ? Math.floor(Math.abs(Roll.roll(5))) : 0);
+        var includeMixed = (!includeHardChoice && showPass) ? flip(.3): false; 
+        var DC = center +
+            Math.round(Roll.roll(1.5)) +
+            (includeHardChoice ? move(1) : 0) +
+            (includeMixed ? move(1) : 0);
 
 
         var publicAbove = "";
@@ -82,7 +102,7 @@
 
         // sometime place critical pass
         if (includeCriticalPass) {
-            var DCCriticalPass = DC + Math.ceil(Math.abs(Roll.roll(10)));
+            var DCCriticalPass = DC + move(7);
             // if it's bigger than 16 who cares
             if (DCCriticalPass < 16) {
                 if (showCriticalPass) {
@@ -110,27 +130,27 @@
         }
 
         if (includeHardChoice) {
-            var DCHardChoice = includePass ? privateAbove - Math.floor(Math.abs(Roll.roll(5))) : DC;
+            var DCHardChoice = includePass ? privateAbove - move(2) : DC;
             publicOutcomes.push(new rollLevel(publicAbove,
                 DCHardChoice,
                 "hard choice"));
             publicAbove = DCHardChoice - 1;
             privateAbove = DCHardChoice - 1;
-        } else {
-            if (flip(.3) && showPass) {
-                var DCPassAtACost = privateAbove - Math.floor(Math.abs(Roll.roll(4)));
-                publicOutcomes.push(new rollLevel(publicAbove,
-                    DCPassAtACost,
-                    "mixed or undetermine"));
-                publicAbove = DCPassAtACost - 1;
-                privateAbove = DCPassAtACost - 1;
-            }
+        } 
+
+        if (includeMixed) {
+            var DCPassAtACost = privateAbove - move(2);
+            publicOutcomes.push(new rollLevel(publicAbove,
+            DCPassAtACost,
+            "mixed or undetermine or escalation"));
+            publicAbove = DCPassAtACost - 1;
+            privateAbove = DCPassAtACost - 1;
         }
 
         //what remains is fail and cirtical fail
         // fail just takes up the remaining space so the first thing we need to know is if there will be a critical fail
         if (flip(.3)) {
-            var DCCriticalFail = privateAbove - 1 - Math.floor(Math.abs(Roll.roll(10)));
+            var DCCriticalFail = privateAbove - 1 - move(7);
 
             if (DCCriticalFail >= 0) {
 
@@ -158,7 +178,13 @@
         this.privateLastRoll = privateOutcomes;
     }
 
+
+    this.getBonus = function () {
+        return this.injected.getBonus();
+    }
+
+
     this.OnNewCharacter();
 }
 
-g.ComponentManager.register(component);
+g.ComponetRegistry.register(component);

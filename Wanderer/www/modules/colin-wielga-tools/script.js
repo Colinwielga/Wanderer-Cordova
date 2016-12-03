@@ -14,10 +14,9 @@
         this.communicator.write("tools", this.tools);
     }
     this.OnLoad = function () {
+        this.tools = "";
         if (this.communicator.canRead("tools")) {
             this.tools = this.communicator.read("tools");
-        } else {
-            this.tools = 8;
         }
     }
     this.getHmtl = function () {
@@ -45,4 +44,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponentManager.register(component);
+g.ComponetRegistry.register(component);

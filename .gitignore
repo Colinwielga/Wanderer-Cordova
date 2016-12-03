@@ -5,4 +5,15 @@
 Wanderer/AppPackages/*
 Wanderer/bin/*
 Wanderer/bld/*
+/Wanderer/AppPackages/*
+/Wanderer/bin/*
+/Wanderer/bld/*
+Wanderer\AppPackages\*
+Wanderer\bin\*
+Wanderer\bld\*
+\Wanderer\AppPackages\*
+\Wanderer\bin\*
+\Wanderer\bld\*
 
+Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
+Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js

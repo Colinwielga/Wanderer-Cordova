@@ -1,30 +1,32 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/colin-wielga-counters/stylesheet.css">
-<div id="hps-container">
-    <div id="hp-container" class="stat-container">
-        <input value="" data-ng-model="module.hp" />
-        <span class="descriptor">hp</span>
+<div class="pad-me">
+    <div id="hps-container">
+        <div id="hp-container" class="stat-container">
+            <input value="" data-ng-model="module.hp" />
+            <span class="descriptor">hp</span>
+        </div>
+        <div id="encounterhp-container" class="stat-container">
+            <input value="" data-ng-model="module.encounterHP" />
+            <span class="descriptor">encounter hp</span>
+        </div>
+        <div id="hps-button-container" class="stat-button-container">
+            <button data-ng-click="module.hit()">take hit</button>
+            <button data-ng-click="module.heal()">recover hit</button>
+            <button data-ng-click="module.recoverEncounterHP()">End Scene</button>
+        </div>
     </div>
-    <div id="encounterhp-container" class="stat-container">
-        <input value="" data-ng-model="module.encounterHP" />
-        <span class="descriptor">encounter hp</span>
+    <div id="facts-container" class="stat-container">
+        <input value="" data-ng-model="module.facts" />
+        <span class="descriptor">facts</span>
     </div>
-    <div id="hps-button-container" class="stat-button-container">
-        <button data-ng-click="module.hit()">take hit</button>
-        <button data-ng-click="module.heal()">recover hit</button>
-        <button data-ng-click="module.recoverEncounterHP()">End Scene</button>
+    <div id="facts-button-container" class="stat-button-container">
+        <button data-ng-click="module.facts=module.facts+1">+</button>
+        <button data-ng-click="module.facts=module.facts-1">-</button>
     </div>
-</div>
-<div id="facts-container" class="stat-container">
-    <input value="" data-ng-model="module.facts" />
-    <span class="descriptor">facts</span>
-</div>
-<div id="facts-button-container" class="stat-button-container">
-    <button data-ng-click="module.facts=module.facts+1">+</button>
-    <button data-ng-click="module.facts=module.facts-1">-</button>
-</div>
-<div id="coin-container">
-	<div id="coin" data-ng-click="module.flipCoin()">
-		<span id="coin-text" data-ng-bind="module.coinState"></span>
-	</div>
-	<span class="descriptor">a coin</span>
+    <div id="coin-container">
+        <div id="coin" data-ng-click="module.flipCoin()">
+            <span id="coin-text" data-ng-bind="module.coinState"></span>
+        </div>
+        <span class="descriptor">a coin</span>
+    </div>
 </div>

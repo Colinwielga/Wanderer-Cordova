@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappbef696" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" windows-packageVersion="1.0.1.9">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappbef696" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" windows-packageVersion="1.0.1.10">
   <name>Wanderer</name>
   <description>A blank project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, Windows, and Windows Phone.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Apache Cordova Team</author>
@@ -7,6 +7,7 @@
   <access origin="*" />
   <vs:features />
   <preference name="SplashScreen" value="screen" />
+  <preference name="SplashScreenBackgroundColor" value="#ffffff" />
   <preference name="windows-target-version" value="8.1" />
   <!-- Support for Cordova 5.0.0 plugin system -->
   <plugin name="cordova-plugin-whitelist" version="1" />
@@ -99,7 +100,7 @@
     <splash src="res/screens/ios/screen-iphone-landscape-736h.png" width="2208" height="1242" />
   </platform>
   <platform name="windows">
-    <splash src="res/screens/windows/SplashScreen.scale-100.png" width="620" height="300" />
+    <splash src="res/screens/windows/SplashScreenTwo.scale-100.png" width="620" height="300" />
     <splash src="res/screens/windows/SplashScreen.scale-240.png" width="1152" height="1920" />
     <splash src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" height="1920" />
   </platform>
