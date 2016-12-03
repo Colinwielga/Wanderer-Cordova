@@ -164,7 +164,7 @@
 
     this.getBonus = function () {
         var res = 0;
-        that.compsList.forEach(function (comp) {
+        that.modList.forEach(function (comp) {
             var pub = comp.getPublic();
             if (pub.bonusProvided != undefined) {
                 res += pub.bonusProvided();
@@ -193,7 +193,6 @@
 
 
         modList.forEach(function (item) {
-            try {
                 // we inject a ton of stuff
                 item.injected={
                     timeout: $timeout,
@@ -264,12 +263,6 @@
                     // we start.
                     item.OnStart(communicator, dependencies);
                 }
-            } catch (e) {
-                if (logger != undefined && logger.writeToLog != undefined) {
-                    logger.writeToLog(e);
-                }
-            }
-
         });
 
         return {
