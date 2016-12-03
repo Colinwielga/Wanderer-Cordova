@@ -254,6 +254,7 @@
                             if (pimary != null) {
                                 dependencies.push(modulesPublic.getComponent(lookingFors[i]));
                             } else {
+                                throw { message: "component: " + lookingFors[i] };
                                 // is this an error case?
                             }
                         }
