@@ -2,6 +2,8 @@
 *.suo
 *.appxrecipe
 *.ps1
+*.swp
+*.swo
 Wanderer/AppPackages/*
 Wanderer/bin/*
 Wanderer/bld/*
