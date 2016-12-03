@@ -3,7 +3,7 @@
 
 var g = {};
 
-var App = angular.module("wandererApp", []);
+var App = angular.module("wandererApp", ['ngSanitize']);
 
 
 // source:
