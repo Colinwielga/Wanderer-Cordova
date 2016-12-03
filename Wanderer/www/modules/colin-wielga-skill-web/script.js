@@ -80,6 +80,32 @@ ColinWielgaSkillWeb.component = function () {
         return res;
     }
 
+    this.normalize = settings.makeSetting(
+        "Normalize",
+        "Normalize",
+        settings.Types.bool,
+        false);
+    this.mulitSelect = settings.makeSetting(
+        "Select Multiple",
+        "mulitSelect",
+        settings.Types.bool,
+        true);
+    this.allowConnects = settings.makeSetting(
+        "Allow Connects",
+        "allowConnects",
+        settings.Types.bool,
+        true);
+
+    this.settings = [
+        this.normalize,
+        this.mulitSelect,
+        this.allowConnects
+    ];
+
+    this.getSetting = function () {
+        return this.settings;
+    }
+
     this.subskills = function (skill) {
         var res = [];
         this.network.connections.forEach(function (connection) {

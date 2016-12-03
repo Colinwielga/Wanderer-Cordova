@@ -52,6 +52,7 @@
                         <label class="hide-button" data-ng-click="activeCharacter.Remove(module)">x</label>
                         <label class="hide-button" for="{{module.getId()}}-hide">-</label>
                         <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
+                        <label class="hide-button fa fa-cog" for="{{module.getId()}}-settings-hide" aria-hidden="true"></label>
                         <h2 class="section-title">{{module.getTitle()}}</h2>
                     </div>
                     <div id="{{module.getId()}}">
@@ -93,6 +94,7 @@
         <script src="scripts/constants.js"></script>
         <script src="scripts/ComponetRegistry.js"></script>
         <script src="scripts/Character.js"></script>
+        <script src="scripts/setting.js"></script>
 
         <!--old modules-->
         <script src="modules/wanderer-core-logger/script.js"></script>
