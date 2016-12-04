@@ -172,7 +172,6 @@ ColinWielgaDyanmo.awsProvider.MakeGame = function (adventure, password, good, ga
 
 // local provider
 
-
 ColinWielgaDyanmo.localProvider = {};
 
 ColinWielgaDyanmo.localProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
