@@ -1,0 +1,15 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/tote-hughes-skill-web-graph/stylesheet.css">
+<div id="graph-container">
+	<div class="graph-button-container">
+		<button data-ng-click="module.drawSkillGraph()">Redraw</button>
+	</div>
+	
+	<svg id="graph-canvas" width="500" height="500">
+		<defs>
+			<marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+				<polyline points="0,2 5,5 0,8" stroke="#333333" stroke-width="1px" fill="none"/>
+			</marker>
+		</defs>
+	</svg>
+<!--	{{module.getSkillGraphJSON()}}-->
+</div>
