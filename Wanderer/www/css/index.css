@@ -175,7 +175,7 @@ body {
     this next section we do stuff with the columns
 */
 
-#content {
+#character {
     -moz-column-width: 500px;
     -webkit-column-width: 500px;
     column-width: 500px;
