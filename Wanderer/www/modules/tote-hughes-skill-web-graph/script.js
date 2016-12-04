@@ -7,7 +7,6 @@ ToteHughesSkillWebGraph.component = function () {
     this.OnStart = function (communicator, dependencies) {
         this.communicator = communicator;
         this.skillWeb = dependencies[0];
-        console.log("start");
     }
     this.OnNewCharacter = function () {
 //        this.questions = [];
@@ -57,8 +56,6 @@ ToteHughesSkillWebGraph.component = function () {
         var svg = d3.select("svg"),
             width = +svg.attr("width"),
             height = +svg.attr("height");
-
-        var color = d3.scaleOrdinal(d3.schemeCategory20);
 
         var simulation = d3.forceSimulation()
             .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(100))
@@ -113,54 +110,7 @@ ToteHughesSkillWebGraph.component = function () {
 	        node.selectAll("text.name").attr("dx", 15).attr("dy", 5).attr("fill", "#333333");//.attr("fill", "none").attr("stroke", "#333333").attr("stroke-width", "1px");
 	        node.selectAll("text.rank").attr("dx", -4).attr("dy", 5).attr("fill", "#333333");
           }
-//        });
-        
-        
     }
-//    this.getNewQuestion = function() {
-//        var alreadyAskedIDs = [];
-//        for (var i = 0; i < this.questions.length; i++) {
-//            alreadyAskedIDs.push(this.questions[i]["id"]);
-//        }
-//        var newDict = Questions.getNewQuestion(alreadyAskedIDs); //{"id": 2, "ask": "What's going on?", "answer": "I have no idea."};
-//        this.questions.push(newDict);
-////        this.questions.push(Questions.Questioned(1, "What makes me content?", ""));
-////        this.questions.push(Questions.getNewQuestion());
-////        return this.questions[this.questions.length - 1];
-//    }
-//    
-//    this.getQuestionIndex = function(questionID) {
-//        for (var i = 0; i < this.questions.length; i++) {
-//            if (this.questions[i]["id"] == questionID) {
-//                return i;
-//            }
-//        }
-//    }
-//    
-//    this.editQuestion = function(questionID) {
-//        var qi = this.getQuestionIndex(questionID);
-//        this.questions[qi]["answer"] = "";
-//    }
-//    
-//    this.saveQuestion = function(questionID) {
-//        var qi = this.getQuestionIndex(questionID);
-//        this.questions[qi]["answer"] = this.questions[qi]["suggestion"];
-////        this.orderQuestions();
-//    }
-//    
-//    this.orderQuestions = function() {
-//        var answered = [];
-//        var unanswered = [];
-//        for (var i = 0; i < this.questions.length; i++) {
-//            if (this.questions[i]["answer"]) {
-//                answered.push(this.questions[i]);
-//            }
-//            else {
-//                unanswered.push(this.questions[i]);
-//            }
-//        }
-//        this.questions = unanswered.concat(answered);
-//    }
     
     this.OnNewCharacter();
 }
