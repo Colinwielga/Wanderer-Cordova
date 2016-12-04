@@ -152,10 +152,13 @@ ColinWielgaDyanmo.component = function () {
                         })
                     }, function () {
                         that.injected.timeout(function () {
+
+                            that.injected.logger.warn("game name or password is incorrect");
                             this.state = ColinWielgaDyanmo.States.ENTER_GAME;
                         });
                     }, function () {
                         that.injected.timeout(function () {
+                            that.injected.logger.warn("failed to connect");
                             this.state = ColinWielgaDyanmo.States.ENTER_GAME;
                         });
                     })
