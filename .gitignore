@@ -4,6 +4,7 @@
 *.ps1
 *.swp
 *.swo
+*.orig
 Wanderer/AppPackages/*
 Wanderer/bin/*
 Wanderer/bld/*
@@ -19,3 +20,7 @@ Wanderer\bld\*
 
 Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
 Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
+
+Wanderer/plugins/browser.json
+Wanderer/www/npm-debug.log
+
