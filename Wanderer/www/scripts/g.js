@@ -3,7 +3,7 @@
 
 var g = {};
 
-var App = angular.module("wandererApp", ['ngSanitize']);
+var App = angular.module("wandererApp", ['ngSanitize', 'textAngular']);
 
 
 // source:
