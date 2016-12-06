@@ -4,17 +4,24 @@ ColinWielgaSkillWeb.makeNetwork = function () {
     return { skills: [], connections: [] };
 }
 
+ColinWielgaSkillWeb.SkillLevel = {
+    SuperAbility: .25,
+    Ability: .5,
+    Skill: 1,
+    SubSkill: 2
+}
+
 ColinWielgaSkillWeb.isSuperAbility = function (skill) {
-    return skill.specificity == .25;
+    return skill.specificity == ColinWielgaSkillWeb.SkillLevel.SuperAbility;
 }
 ColinWielgaSkillWeb.isAbility = function (skill) {
-    return skill.specificity == .5;
+    return skill.specificity == ColinWielgaSkillWeb.SkillLevel.Ability;
 }
 ColinWielgaSkillWeb.isSkill = function (skill) {
-    return skill.specificity == 1;
+    return skill.specificity == ColinWielgaSkillWeb.SkillLevel.Skill;
 }
 ColinWielgaSkillWeb.isSubSkill = function (skill) {
-    return skill.specificity == 2;
+    return skill.specificity == ColinWielgaSkillWeb.SkillLevel.SubSkill;
 }
 
 ColinWielgaSkillWeb.MakeConnection = function (from, to) {
@@ -171,16 +178,16 @@ ColinWielgaSkillWeb.component = function () {
     }
     
     this.setSuperAbility = function (skill) {
-        skill.specificity = .25;
+        skill.specificity = ColinWielgaSkillWeb.SkillLevel.SuperAbility;;
     }
     this.setAbility = function (skill) {
-        skill.specificity = .5;
+        skill.specificity = ColinWielgaSkillWeb.SkillLevel.Ability;;
     }
     this.setSkill = function (skill) {
-        skill.specificity = 1;
+        skill.specificity = ColinWielgaSkillWeb.SkillLevel.Skill;
     }
     this.setSubSkill = function (skill) {
-        skill.specificity = 2;
+        skill.specificity = ColinWielgaSkillWeb.SkillLevel.SubSkill;
     }
     this.isSuperAbility = function (skill) {
         return ColinWielgaSkillWeb.isSuperAbility(skill);
@@ -189,7 +196,7 @@ ColinWielgaSkillWeb.component = function () {
         return ColinWielgaSkillWeb.isAbility(skill);
     }
     this.isSkill = function (skill) {
-        return sColinWielgaSkillWeb.isSkill(skill);
+        return ColinWielgaSkillWeb.isSkill(skill);
     }
     this.isSubSkill = function (skill) {
         return ColinWielgaSkillWeb.isSubSkill(skill);
