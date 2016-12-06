@@ -79,10 +79,10 @@ ColinWielgaDyanmo.component = function () {
 
     }
     this.OnSave = function () {
-        this.communicator.write("gameName", this.gameName);
-        this.communicator.write("gamePassword", this.gamePassword);
-        this.communicator.write("name", this.name);
-        this.communicator.write("provider", ColinWielgaDyanmo.localProvider === this.provider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
+        //this.communicator.write("gameName", this.gameName);
+        //this.communicator.write("gamePassword", this.gamePassword);
+        //this.communicator.write("name", this.name);
+        //this.communicator.write("provider", ColinWielgaDyanmo.localProvider === this.provider ? ColinWielgaDyanmo.Providers.LOCAL : ColinWielgaDyanmo.Providers.AWS);
         this.communicator.writeNotCharacter("gameName", this.gameName);
         this.communicator.writeNotCharacter("gamePassword", this.gamePassword);
         //this.communicator.writeNotCharacter("name", this.name);
@@ -90,21 +90,21 @@ ColinWielgaDyanmo.component = function () {
     }
     this.OnLoad = function () {
         this.OnNewCharacter();
-        if (this.communicator.canRead("gameName")) {
-            this.gameName = this.communicator.read("gameName");
-        } 
-        if (this.communicator.canRead("gamePassword")) {
-            this.gamePassword = this.communicator.read("gamePassword");
-        }
-        if (this.communicator.canRead("name")) {
-            this.name = this.communicator.read("name");
-        }
-        if (this.communicator.canRead("state")) {
-            this.state = this.communicator.read("state");
-        }
-        if (this.communicator.canRead("provider")) {
-            this.provider = this.communicator.read("provider") == ColinWielgaDyanmo.Providers.LOCAL ? ColinWielgaDyanmo.localProvider : ColinWielgaDyanmo.awsProvider;
-        }
+        //if (this.communicator.canRead("gameName")) {
+        //    this.gameName = this.communicator.read("gameName");
+        //} 
+        //if (this.communicator.canRead("gamePassword")) {
+        //    this.gamePassword = this.communicator.read("gamePassword");
+        //}
+        //if (this.communicator.canRead("name")) {
+        //    this.name = this.communicator.read("name");
+        //}
+        //if (this.communicator.canRead("state")) {
+        //    this.state = this.communicator.read("state");
+        //}
+        //if (this.communicator.canRead("provider")) {
+        //    this.provider = this.communicator.read("provider") == ColinWielgaDyanmo.Providers.LOCAL ? ColinWielgaDyanmo.localProvider : ColinWielgaDyanmo.awsProvider;
+        //}
         //if (this.state === ColinWielgaDyanmo.States.WORKING) {
         //    this.state = ColinWielgaDyanmo.States.ENTER_GAME;
         //    this.connect();
