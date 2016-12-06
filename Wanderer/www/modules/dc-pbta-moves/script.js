@@ -3,6 +3,26 @@
 var component = function () {
     //A component for storing Powered By The Apocalypse-style moves.
 
+    //Module-specific components
+    this.addNewMove = function(){
+        addmove = {
+            title: this.newmove.title,
+            leadin: this.newmove.leadin,
+            trigger: this.newmove.trigger,
+            effect: this.newmove.effect
+        };
+        console.log(addmove);
+        this.moveslist.push(addmove);
+        this.resetNewMove();
+    };
+
+    this.resetNewMove = function(){
+        this.newmove.title = "";
+        this.newmove.leadin = "When you";
+        this.newmove.trigger = "";
+        this.newmove.effect = "";
+    };
+
     this.getId = function () {
         return "dc-pbta-moves"
     }
@@ -21,49 +41,24 @@ var component = function () {
     this.OnNewCharacter = function () {
         this.moveslist = [{
             title: "Go Aggro",
-            body: markdown.toHTML("When you **go aggro on someone**, \
-            roll +hard. On a 10+, they have to choose: \
-            Force your hand and suck it up, or cave and do what you want. \
-            On a 7-9, they can instead choose 1: \
-            \n\n* get the hell out of your way \
-            \n* barricade themselves securely in \
-            \n* give you something they think you want \
-            \n* back off calmly, hands where you can see \
-            \n* tell you what you want to know (or what you want to hear)")
+            leadin: "When you",
+            trigger: "go aggro on someone,",
+            effect: "roll +hard. On a 10+, they have to \
+            choose: Force your hand and suck it up, or cave \
+            and do what you want. On a 7-9, they can instead \
+            choose 1: \
+            <ul> \
+            <li>get the hell out of your way</li> \
+            <li>barricade themselves securely in</li> \
+            <li>give you something they think you want</li> \
+            <li>back off calmly, hands where you can see</li> \
+            <li>tell you what you want to know (or what you want to hear)</li> \
+            </ul>"
         }];
         this.showNewMovePanel = false
-        // this.newmove = {
-        //     title:"",
-        //     leadin:"",
-        //     conditions:"",
-        //     prelist:"",
-        //     list:["",
-        //         "",
-        //         ""],
-        //     postlist:""
-        // }
-        this.newmove = {
-        title:"[New Move]",
-            body:""
-        // leadin:"",
-        // conditions:"[you act and/or circumstances dictate]",
-        // prelist:"[Say what you do/what happens and maybe roll + some stat. On a 10+, \
-        //     something specific happens that's probably what you wanted, \
-        //     and maybe you pick enough options from a list to get a good outcome. \
-        //     On a 7-9, something specific happens that's probably only some of what you wanted, \
-        //     or what you wanted but with strings attached, and maybe you pick enough options \
-        //     from a list to have to make a hard choice between important things. \
-        //     On a 6 or less, the MC makes a hard move, but this move might offer some \
-        //     choices or suggestions.",
-        // list:["The thing you're trying to do fundamentally works",
-        //     "You don't suffer the side-effects",
-        //     "You avoid some negative consequence that you'd otherwise have to deal with",
-        //     "You get some extra benefit or way in which you are effective"],
-        // postlist:"Overall, the move can affect the fiction, the mechanics, or both, it can \
-        //     have a temporary or permanent effect, it can trigger another move, it can \
-        //     change the way another move works when you use it, or anything else you \
-        //     might think of.]"
-            }
+
+        this.newmove = {};
+        this.resetNewMove();
     }
     // called when a character is saved
     this.OnSave = function () {
@@ -107,10 +102,6 @@ var component = function () {
 
     this.OnNewCharacter();
 
-    //Module-specific components
-    this.addNewMove = function(){
-        this.moveslist.push(this.newmove); 
-    }
 
 }
 
