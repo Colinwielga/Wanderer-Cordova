@@ -48,7 +48,7 @@ var component = function () {
         that.manage.saveJson(that.saveAs, that.json);
     }
     this.refreshJson= function () {
-        that.getPublic().updateJson(JSON.stringify(that.manage.getJSON()));
+        that.getPublic().updateJson(angular.toJson(that.manage.getJSON()));
     }
 }
 

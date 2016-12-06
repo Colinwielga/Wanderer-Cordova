@@ -185,7 +185,7 @@ ColinWielgaDyanmo.component = function () {
         this.injected.load(JSON.parse(this.json));
     }
     this.refreshJSON = function () {
-        this.json = JSON.stringify(this.injected.getJSON());
+        this.json = angular.toJson(this.injected.getJSON());
     }
     this.connectCommon = function () {
         that.provider.getCharacters(this.gameName, this.gamePassword,
@@ -224,7 +224,7 @@ ColinWielgaDyanmo.component = function () {
         // we download the current state
 
         var reallySave = function () {
-            that.provider.SaveCharacter(that.name, that.gameName, that.gamePassword, JSON.stringify(that.injected.getJSON()),
+            that.provider.SaveCharacter(that.name, that.gameName, that.gamePassword, angular.toJson(that.injected.getJSON()),
 function (data) {
     //actuly if it works it does nothing
     that.injected.timeout(function () {
