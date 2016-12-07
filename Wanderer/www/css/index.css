@@ -356,20 +356,21 @@ button, label.hide-button, input[type=button], label.label-button{
 
    button:disabled, label.hide-button:disabled, input[type=button]:disabled , label.label-button:disabled{
         background-color: transparent;
-        border-color: transparent;
+/*        border-color: transparent;*/
         color: #333;
+        cursor: default;
         /*text-transform: lowercase;*/
-        /*		border: 1px solid #903;*/
+        border: 2px solid #333;
     }
 
-input[type=text], textarea {
+input[type=text], input[type=password], textarea {
     outline: none;
     border: 2px solid #222;
     border-radius: 3px;
     margin:2px;
 }
 
-    input[type=text]:focus, textarea:focus {
+    input[type=text]:focus, input[type=password]:focus, textarea:focus {
         border-color: #903;
     }
 

@@ -1,13 +1,13 @@
-﻿#graph-container{
+#tote-hughes-skill-web-graph ﻿#graph-container{
 	padding: 0;
 }
-#graph-canvas {
+#tote-hughes-skill-web-graph #graph-canvas {
 	position: relative;
 	z-index: -1;
 	width: 100%;
 	background-color: #e0e0e0;
 }
-.graph-button-container{
+#tote-hughes-skill-web-graph .graph-button-container{
 /*	margin: 0 -8px;*/
 	padding: 8px 8px 8px 8px;
 	border: 0;
@@ -15,31 +15,31 @@
 	text-align: center;     /* Aligns buttons */
 }
 
-.links line {
+#tote-hughes-skill-web-graph .links line {
 	stroke: #333333;
 	stroke-opacity: 0.5;
 	stroke-width: 2px;
 }
 
-.nodes circle {
+#tote-hughes-skill-web-graph .nodes circle {
 	stroke: #333333;
 	stroke-width: 2px;
 	fill: #e0e0e0;
 }
-.nodes circle.specificity3 {
+#tote-hughes-skill-web-graph .nodes circle.specificity3 {
 	fill: #a4f7bb;
 }
-.nodes circle.specificity2 {
+#tote-hughes-skill-web-graph .nodes circle.specificity2 {
 	fill: #9fb3d8;
 }
-.nodes circle.specificity1 {
+#tote-hughes-skill-web-graph .nodes circle.specificity1 {
 	fill: #d89fca;
 }
-.nodes circle.specificity0 {
+#tote-hughes-skill-web-graph .nodes circle.specificity0 {
 	fill: #f7a4a4;
 }
 
-.nodes text {
+#tote-hughes-skill-web-graph .nodes text {
 	pointer-events: none;
 	font: 14px sans-serif;
 /*	font-weight: bold;*/

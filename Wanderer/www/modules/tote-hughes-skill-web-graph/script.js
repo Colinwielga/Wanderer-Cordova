@@ -53,12 +53,12 @@ ToteHughesSkillWebGraph.component = function () {
         $("g").remove();
         var graph = this.getSkillGraphJSON();
         
-        var svg = d3.select("svg"),
+        var svg = d3.select("svg#graph-canvas"),
             width = +svg.attr("width"),
             height = +svg.attr("height");
 
         var simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(100))
+            .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(width / 2, height / 2));
 //        console.log(json);
