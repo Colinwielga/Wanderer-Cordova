@@ -29,7 +29,7 @@ ColinWielgaSkillWeb.MakeConnection = function (from, to) {
 }
 
 ColinWielgaSkillWeb.MakeSkill = function (name,specificity, rank) {
-    return {name:name, specificity: specificity, rank: rank, active: false };
+    return {name:name, specificity: specificity, rank: rank, active: false , description:"" };
 }
 
 ColinWielgaSkillWeb.component = function () {
@@ -80,7 +80,12 @@ ColinWielgaSkillWeb.component = function () {
     }
 
     this.getTitle = function () {
-        return "Skills";
+        var totalBonus = 0;
+        this.network.skills.forEach(function (skl) {
+            totalBonus += skl.rank;
+        })
+
+        return "Skills (" + totalBonus + ")";
     }
 
     this.couldAdd = function (skillname) {
@@ -160,6 +165,27 @@ ColinWielgaSkillWeb.component = function () {
 
         return res;
     }
+
+    this.couldBeHelpedBy = function (skillname) {
+        var res = [];
+        // get all the skills (except 'skill')
+        this.network.skills.forEach(function (otherSkill) {
+            if (otherSkill.name !== skillname) {
+                res.push(otherSkill.name);
+            }
+        })
+        // remove the ones we are that already help us 
+        this.network.connections.forEach(function (conn) {
+            if (conn.to == skillname) {
+                var at =res.indexOf(conn.from);
+                if (at > -1) {
+                    res.splice(at, 1);
+                }
+            }
+        })
+        return res;
+    }
+
 
     this.getSkillByName = function (skillname) {
         var res = null;
