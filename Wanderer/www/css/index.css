@@ -346,6 +346,23 @@ button, label.hide-button, input[type=button], label.label-button{
     margin: 2px;
     text-decoration: none;
 }
+button.left-part, 
+label.hide-button.left-part, 
+input[type=button].left-part, 
+label.label-button.left-part{
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+    margin-right:0;
+}
+
+button.right-part, 
+label.hide-button.right-part, 
+input[type=button].right-part, 
+label.label-button.right-part{
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+    margin-left:0;
+}
 
     button:hover, label.hide-button:hover, input[type=button]:hover , label.label-button:hover{
         background-color: #903;

@@ -20,6 +20,13 @@
         return $scope.activeCharacter == char;
     }
 
+    $scope.Close = function (char) {
+        var at = $scope.Characters.indexOf(char);
+        if (at >= 0) {
+            $scope.Characters.splice(at, 1);
+        }
+    }
+
     $scope.Add = function () {
         $scope.Characters.push(new g.Character($timeout));
         $scope.activeCharacter = $scope.Characters[$scope.Characters.length-1];
