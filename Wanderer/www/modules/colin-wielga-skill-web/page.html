@@ -20,19 +20,20 @@
             <input type="button" value="skill"  data-ng-click="module.setSkill(skill)" data-ng-disabled="module.isSkill(skill)"/>
             <input type="button" value="sub skill"  data-ng-click="module.setSubSkill(skill)" data-ng-disabled="module.isSubSkill(skill)"/>
         </div>
+            Description:<textarea class="char-text auto-resize" placeholder="Description" data-ng-model="skill.description" ></textarea>
         <div>
-            rank: <input type="number" data-ng-model="skill.rank" />
+            Rank: <input type="number" data-ng-model="skill.rank" />
         </div>
         <div>
-            helps:
-            <span data-ng-repeat="subskill in module.subskills(skill.name)">
-                <span class="clickable-text" data-ng-click="module.unconnect(skill.name,subskill)" >{{subskill}}</span>
+            Helped By:
+            <span data-ng-repeat="subskill in module.getHelpers(skill.name)">
+                <span class="clickable-text" data-ng-click="module.unconnect(subskill,skill.name)" >{{subskill}}</span>
             </span>   
         </div>
         <div>
-            could help:
-            <span class="clickable-text" data-ng-repeat="couldAdd in module.couldAdd(skill.name)">
-                <span data-ng-click="module.connect(skill.name,couldAdd)" >{{couldAdd}}</span>
+            Could be helped by:
+            <span class="clickable-text" data-ng-repeat="couldAdd in module.couldBeHelpedBy(skill.name)">
+                <span data-ng-click="module.connect(couldAdd,skill.name)" >{{couldAdd}}</span>
             </span>  
         </div>
         <div>

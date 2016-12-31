@@ -1,46 +1,46 @@
+#colin-wielga-skill-web .switch-off,
+#colin-wielga-skill-web .switch-hide-off,
+#colin-wielga-skill-web .switch-on,
+#colin-wielga-skill-web .switch-hide-on {
+    cursor: pointer;
+}
+
 ﻿#colin-wielga-skill-web i.switch-on,#colin-wielga-skill-web .switch-on i{
-    cursor:pointer;
     color:#903;
-} 
+}
 
 #colin-wielga-skill-web i.switch-off:hover,#colin-wielga-skill-web .switch-off:hover i{
     color:#333;
     opacity:1;
-    cursor:pointer;
 }
 
 #colin-wielga-skill-web i.switch-off,#colin-wielga-skill-web .switch-off i{
     color:#333;
     opacity:.3;
-    cursor:pointer;
 }
 
 
 #colin-wielga-skill-web .show-row i.switch-hide-on,
 #colin-wielga-skill-web .show-row .switch-hide-on i{
     color:#903;
-        cursor:pointer;
 } 
 
 #colin-wielga-skill-web .show-row:hover i.switch-hide-off,
 #colin-wielga-skill-web .show-row:hover .switch-hide-off i{
     color:#333;
     opacity:.3;
-        cursor:pointer;
 }
 
 #colin-wielga-skill-web .show-row i.switch-hide-off:hover,
 #colin-wielga-skill-web .show-row .switch-hide-off i:hover{
     color:#333;
     opacity:1;
-        cursor:pointer;
 }
 
 #colin-wielga-skill-web .show-row i.switch-hide-off,
 #colin-wielga-skill-web .show-row .switch-hide-off i{
     color:#333;
     opacity:0;
-        cursor:pointer;
 }
 
 #colin-wielga-skill-web .edit-area {
