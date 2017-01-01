@@ -18,22 +18,16 @@
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
     }
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("humours", this.humours);
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        if(this.communicator.canRead("humours")){
+            this.humours = this.communicator.read("humours");
+        }
     }
     this.OnUpdate = function () {
     }
@@ -84,7 +78,7 @@
             name: "Phlegm",
             value: "Balanced"
         }
-    ]
+    ];
 }
 
 g.ComponetRegistry.register(component);
