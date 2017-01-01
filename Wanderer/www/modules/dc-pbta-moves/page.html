@@ -7,7 +7,10 @@
     </br>
     <input type="text" data-ng-model="module.newmove.trigger"></input>
     </br>
-    <div text-angular data-ng-model="module.newmove.effect"></div>
+    <div text-angular 
+        ta-toolbar="[['p', 'bold', 'italics', 'underline', 'ul', 'ol', 'undo', 'redo']]" 
+        data-ng-model="module.newmove.effect">
+    </div>
     <button data-ng-click="module.addNewMove()">Add</button>
 </div>
 <div>
