@@ -1,1 +1,25 @@
-﻿
+﻿#dc-humours .radiocontainer{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    width: 50%;
+}
+
+#dc-humours .radiocontainer label{
+    padding: 3px;
+    flex: 1;    
+}
+
+#dc-humours .radiocontainer input[type='radio']{
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+    #dc-humours .radiocontainer input[type='radio']:checked ~ label{
+        border-style: solid;
+        padding: 0px;
+    }
+
+
