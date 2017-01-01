@@ -16,6 +16,10 @@
         margin: .5em;
     }
 
+#dc-humours span.humourname{
+    font-size: larger;
+}
+
 #dc-humours .radiocontainer{
     display: flex;
     flex-direction: row;
