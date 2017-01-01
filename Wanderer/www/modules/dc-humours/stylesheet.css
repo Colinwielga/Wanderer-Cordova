@@ -41,6 +41,9 @@
 #dc-humours .radiocontainer label.phlegm{
     background: hsl(130, 95%, 25%);
 }
+#dc-humours .radiocontainer label.blood{
+    background: hsl(0, 95%, 35%);
+}
 
 #dc-humours .radiocontainer label.Sated{
     border-radius: 50% 0% 0% 50%;

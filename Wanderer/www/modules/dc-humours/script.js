@@ -77,6 +77,11 @@
             id: "phlegm",
             name: "Phlegm",
             value: "Balanced"
+        },
+        {
+            id: "blood",
+            name: "Blood",
+            value: "Balanced"
         }
     ];
 }
