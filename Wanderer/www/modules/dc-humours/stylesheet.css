@@ -30,13 +30,44 @@
     border-radius: 50%;
     padding: 0.5em 1em;
     margin: 5px;
-    background: #FFFFFF;
+}
+
+#dc-humours .radiocontainer label.blackbile{
+    background: hsl(270, 95%, 15%);
+}
+#dc-humours .radiocontainer label.yellowbile{
+    background: hsl(45, 95%, 30%);
+}
+#dc-humours .radiocontainer label.phlegm{
+    background: hsl(130, 95%, 25%);
+}
+
+#dc-humours .radiocontainer label.Sated{
+    border-radius: 50% 0% 0% 50%;
+    padding-right: 0.5em;
+}
+#dc-humours .radiocontainer label.Waxing{
+    filter: saturate(50%);
+}
+#dc-humours .radiocontainer label.Balanced{
+    filter: saturate(10%);
+}
+#dc-humours .radiocontainer label.Waning{
+    filter: saturate(10%);
+}
+#dc-humours .radiocontainer label.Dry{
+    border-radius: 0% 50% 50% 0%;
+    padding-left: 0.5em;
+    filter: saturate(0%);
 }
 
 #dc-humours .radiocontainer input[type='radio']{
     display: none;
 }
     #dc-humours .radiocontainer input[type='radio']:checked ~ label{
+        border-style: solid;
+        border-color: #FFF;
+        margin: 2px;
     }
 
 
