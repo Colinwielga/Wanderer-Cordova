@@ -34,12 +34,17 @@
 <body data-ng-controller="wandererController">
     <div id="all">
         <div id="page-header" class="pad-me">
-            <input 
-                   data-ng-disabled="Selected(character)"
-                   data-ng-click="Select(character)"
-                   data-ng-repeat="character in Characters"
-                   type="button"
-                   value="{{character.displayName()}}" />
+            <span data-ng-repeat="character in Characters">
+                <input                      
+                    class="left-part"                   
+                    data-ng-disabled="Selected(character)"
+                    data-ng-click="Select(character)"
+                    value="{{character.displayName()}}" 
+                    type="button" /><input data-ng-click="Close(character)"
+                       class="right-part"    
+                       value="x"
+                       type="button" />
+            </span>
             <input data-ng-click="Add()"
                    type="button"
                    value="+" />
@@ -101,14 +106,14 @@
         <script src="scripts/ComponetRegistry.js"></script>
         <script src="scripts/Character.js"></script>
 
-        <!--old modules-->
         <script src="modules/wanderer-core-logger/script.js"></script>
         <!--<script src="modules/colin-wielga-gods/Gods.js"></script>
-        <script src="modules/colin-wielga-gods/script.js"></script>-->
-        <!-- <script src="modules/colin-wielga-skill-web/script.js"></script> -->
+    <script src="modules/colin-wielga-gods/script.js"></script>-->
+        <script src="modules/colin-wielga-skill-web/script.js"></script>
         <!-- modules -->
         <!--<script src="modules/wanderer-core-json-editor/script.js"></script>-->
         <!--<script src="modules/wanderer-core-manage/script.js"></script>-->
+        <script src="modules/colin-wielga-skill-web/script.js"></script>
         <script src="modules/wanderer-core-modules/script.js"></script> 
         <script src="modules/dc-pbta-moves/script.js"></script>
         <!-- <script src="modules/colin-wielga-gods/script.js"></script> -->

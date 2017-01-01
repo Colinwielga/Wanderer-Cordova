@@ -136,7 +136,7 @@
         if (that.lastLoaded != null) {
             for (var property in json) {
                 if (json.hasOwnProperty(property)) {
-                    if (JSON.stringify(json[property]) == JSON.stringify(that.lastLoaded[property])) {
+                    if (angular.toJson(json[property]) == angular.toJson(that.lastLoaded[property])) {
                     } else {
                         theSame = false;
                         that.modMap[property].injected.dataManager.useLocal = false;
@@ -179,7 +179,6 @@
         componentFactoriesList.forEach(function (item) {
             var tem = new item();
             tem.injected = {};
-            tem.injected.multiply = item;
             modMap[tem.getId()] = tem;
             modList.push(tem);
         });
