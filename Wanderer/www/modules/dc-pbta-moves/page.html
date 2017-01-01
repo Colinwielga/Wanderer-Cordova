@@ -3,20 +3,15 @@
 <div data-ng-show="module.showNewMovePanel">
     Title:<input type="text" data-ng-model="module.newmove.title"></input>
     </br>
-    <input type="text" data-ng-model="module.newmove.leadin"></input>
-    </br>
-    <input type="text" data-ng-model="module.newmove.trigger"></input>
-    </br>
     <div text-angular 
         ta-toolbar="[['p', 'bold', 'italics', 'underline', 'ul', 'ol', 'undo', 'redo']]" 
-        data-ng-model="module.newmove.effect">
+        data-ng-model="module.newmove.body">
     </div>
     <button data-ng-click="module.addNewMove()">Add</button>
 </div>
 <div>
     <div data-ng-repeat="move in module.moveslist">
         <h3>{{move.title}}</h3>
-        {{move.leadin}} <b>{{move.trigger}}</b> 
-        <span data-ng-bind-html="move.effect"> </span>
+        <span data-ng-bind-html="move.body"> </span>
     </div>
 </div>
