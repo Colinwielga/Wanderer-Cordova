@@ -1,14 +1,17 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-humours/stylesheet.css">
-<div data-ng-repeat="humour in module.humours">
-    <span>{{humour.name}}</span>
-    <div class="radiocontainer">
-        <div data-ng-repeat="level in module.humour_levels">
-            <input type="radio"
-                   id="{{::'humour'+humour.id+'radio'+level}}"
-                   data-ng-model="humour.value"
-                   value="{{level}}">
-            <label for="{{::'humour'+humour.id+'radio'+level}}">{{level}}</label>
+<div class="module_body">
+    <div data-ng-repeat="humour in module.humours">
+        <span>{{humour.name}}</span>
+        <div class="radiocontainer">
+            <div data-ng-repeat="level in module.humour_levels">
+                <input type="radio"
+                       id="{{::'humour'+humour.id+'radio'+level}}"
+                       data-ng-model="humour.value"
+                       value="{{level}}">
+                <label for="{{::'humour'+humour.id+'radio'+level}}">
+                </label>
+            </div>
         </div>
+        <span>{{humour.value}}</span>
     </div>
-    <span>{{humour.value}}</span>
 </div>
