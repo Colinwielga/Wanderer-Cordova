@@ -3,7 +3,7 @@
 
     // all component need a unique ID
     this.getId = function () {
-        return "dc-humours"
+        return "dc-humours-sliders"
     }
 
     // A component should know how to handle some events
