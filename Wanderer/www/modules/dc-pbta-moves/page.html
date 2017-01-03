@@ -1,16 +1,16 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta-moves/stylesheet.css">
-<button data-ng-click="module.showNewMovePanel = !module.showNewMovePanel">+</button>
-<div data-ng-show="module.showNewMovePanel">
-    Title:<input type="text" data-ng-model="module.newmove.title"></input>
-    </br>
-    <span>
-        <input id="leadin-input" type="text" data-ng-model="module.newmove.leadin"></input><input id="trigger-input" type="text" data-ng-model="module.newmove.trigger"></input>
-    </span>
-    <div text-angular 
-        ta-toolbar="[['p', 'bold', 'italics', 'underline', 'ul', 'ol', 'undo', 'redo']]" 
-        data-ng-model="module.newmove.effect">
+<div id="add-move-section">
+    <button id="add-move-button" data-ng-click="module.showNewMovePanel = !module.showNewMovePanel">New Move</button>
+    <div id="add-move-panel" data-ng-show="module.showNewMovePanel">
+        <span id="title-span">Title:</span><input id="title-input" type="text" data-ng-model="module.newmove.title"></input>
+        </br>
+        <div id="small-inputs">
+            <input id="leadin-input" type="text" data-ng-model="module.newmove.leadin"></input><input id="trigger-input" type="text" data-ng-model="module.newmove.trigger"></input>
+        </div>
+        <div id="effect-input" text-angular ta-text-editor-class="effect-input-editarea" ta-toolbar="[['p', 'bold', 'italics', 'underline', 'ul', 'ol', 'undo', 'redo']]" data-ng-model="module.newmove.effect">
+        </div>
+        <button data-ng-click="module.addNewMove()">Add</button>
     </div>
-    <button data-ng-click="module.addNewMove()">Add</button>
 </div>
 <div id="all_moves">
     <div data-ng-repeat="move in module.moveslist">
