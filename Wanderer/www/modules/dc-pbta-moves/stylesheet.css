@@ -34,6 +34,12 @@
 }
 
 /* Add Moves Section Fields */
+#dc-pbta-moves .delete-confirmation-buttons span{
+    color: #FFF;
+    float: right;
+    margin: 3px;
+}
+
 #dc-pbta-moves .title-span,
 #dc-pbta-moves .title-input{
     font-size: 1.5em;

@@ -64,6 +64,20 @@ var component = function () {
         move.collapsed = false;
         event.stopImmediatePropogation();
     }
+    this.setDeleteMode = function(event, move){
+        move.deletemode = true;
+        event.stopImmediatePropogation();
+    }
+    this.cancelDeleteMode = function(event, move){
+        move.deletemode = false;
+        event.stopImmediatePropogation();
+    }
+    
+    this.deleteMove = function(event, move){
+        this.moveslist.splice(this.moveslist.indexOf(move), 1);
+        move.deletemode = true;
+        event.stopImmediatePropogation();
+    }
     //////////
 
 

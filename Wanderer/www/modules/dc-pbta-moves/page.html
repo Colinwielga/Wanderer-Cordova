@@ -16,7 +16,15 @@
             data-ng-bind-html="module.getMoveBody(move)"> </div>
         <!-- EDIT HEADER -->
         <div class="section-header" data-ng-show="move.edit">
-            <button class="edit-button" data-ng-click="module.endEdit($event, move)">Done</button>
+            <div class="regular-edit-buttons" data-ng-hide="move.deletemode">
+                <button class="edit-button" data-ng-click="module.endEdit($event, move)">Done</button>
+                <button class="edit-button" data-ng-click="module.setDeleteMode($event, move)">Delete</button>
+            </div>
+            <div class="delete-confirmation-buttons" data-ng-show="move.deletemode">
+                <button class="edit-button" data-ng-click="module.cancelDeleteMode($event, move)">No</button>
+                <button class="edit-button" data-ng-click="module.deleteMove($event, move)">Yes</button>
+                <span>Are you sure you want to delete?</span>
+            </div>
             <h3 class="section-title">Edit Move</h3>
         </div>
         <!-- EDIT PANEL -->
