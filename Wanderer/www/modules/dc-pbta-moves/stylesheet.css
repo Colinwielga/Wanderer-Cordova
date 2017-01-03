@@ -19,7 +19,7 @@
     opacity: 0.75;
 }
 
-#dc-pbta-moves .add-move-panel,
+#dc-pbta-moves .edit-move-panel,
 #dc-pbta-moves #all_moves .move-body{
     border-color: rgba(0, 0, 0, 0.15);
     border-style: solid;
