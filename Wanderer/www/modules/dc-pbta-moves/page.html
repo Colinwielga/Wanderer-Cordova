@@ -1,6 +1,6 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta-moves/stylesheet.css">
 <div id="all_moves">
-    <div data-ng-repeat="move in module.moveslist">
+    <div data-ng-repeat="move in module.getMoveslist()">
         <!-- MOVE HEADER -->
         <div class="section-header" data-ng-hide="move.edit" data-ng-click="module.toggleCollapse($event, move)">
             <button class="edit-button" 

@@ -5,6 +5,11 @@ var component = function () {
 
     //Module-specific fields
 
+    this.getMoveslist = function(tab_idx){
+        tab_idx = tab_idx || this.current_tab;
+        return this.movescatalogue[tab_idx].moveslist;
+    }
+
     this.addNewMove = function(){
         addmove = {
             title: this.newmove.title,
@@ -14,7 +19,7 @@ var component = function () {
             collapsed: this.newmove.collapsed,
             edit: true
         };
-        this.moveslist.push(addmove);
+        this.getMoveslist().push(addmove);
         this.resetNewMove();
     };
 
@@ -74,7 +79,7 @@ var component = function () {
     }
     
     this.deleteMove = function(event, move){
-        this.moveslist.splice(this.moveslist.indexOf(move), 1);
+        this.getMoveslist().splice(this.getMoveslist().indexOf(move), 1);
         move.deletemode = true;
         event.stopImmediatePropogation();
     }
@@ -98,23 +103,29 @@ var component = function () {
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        this.moveslist = [{
-            title: "Go Aggro",
-            leadin: "When you",
-            trigger: "go aggro on someone,",
-            effect: "roll +hard. On a 10+, they have to \
-            choose: Force your hand and suck it up, or cave \
-            and do what you want. On a 7-9, they can instead \
-            choose 1: \
-            <ul> \
-            <li>get the hell out of your way</li> \
-            <li>barricade themselves securely in</li> \
-            <li>give you something they think you want</li> \
-            <li>back off calmly, hands where you can see</li> \
-            <li>tell you what you want to know (or what you want to hear)</li> \
-            </ul>"
+        this.movescatalogue = [{
+            label: "Basic Moves",
+            moveslist: [
+                {
+                    title: "Go Aggro",
+                    leadin: "When you",
+                    trigger: "go aggro on someone,",
+                    effect: "roll +hard. On a 10+, they have to \
+                    choose: Force your hand and suck it up, or cave \
+                    and do what you want. On a 7-9, they can instead \
+                    choose 1: \
+                        <ul> \
+                        <li>get the hell out of your way</li> \
+                        <li>barricade themselves securely in</li> \
+                        <li>give you something they think you want</li> \
+                        <li>back off calmly, hands where you can see</li> \
+                        <li>tell you what you want to know (or what you want to hear)</li> \
+                        </ul>"
+                }
+            ]
         }];
 
+        this.current_tab = 0;
         this.newmove = {};
         this.resetNewMove();
     }
