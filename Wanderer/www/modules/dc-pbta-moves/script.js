@@ -9,7 +9,8 @@ var component = function () {
             title: this.newmove.title,
             leadin: this.newmove.leadin,
             trigger: this.newmove.trigger,
-            effect: this.newmove.effect
+            effect: this.newmove.effect,
+            collapsed: this.newmove.collapsed
         };
         console.log(addmove);
         this.moveslist.push(addmove);
@@ -21,6 +22,7 @@ var component = function () {
         this.newmove.leadin = "When you";
         this.newmove.trigger = "[act and/or circumstances dictate],";
         this.newmove.effect = "[mechanical and/or fictional effects occur.]";
+        this.newmove.collapsed = true;
     };
     
     this.getMoveBody = function(move){
@@ -32,6 +34,25 @@ var component = function () {
         }
         var trigger = "<b>" + move.trigger.trim() + "</b> ";
         return leadin + trigger + move.effect.trim();
+    }
+
+    this.getMoveHeader = function(move){
+        //Returns text for a possibly-collapsed move header
+        var header = "";
+        if(!move.collapsed){
+            header =  move.title || "";
+        } else {
+            if(move.title){
+                header += move.title.trim() + ": ";
+            }
+            var trigger = move.trigger;
+            if(move.trigger.trim().charAt(move.trigger.trim().length - 1) === ','){
+                trigger = move.trigger.trim().slice(0, -1);
+            }
+            header += move.leadin.trim() + " <b>" + trigger.trim() + "</b>..."; 
+        }
+        console.log(header);
+        return header;
     }
     //////////
 

@@ -14,9 +14,9 @@
 </div>
 <div id="all_moves">
     <div data-ng-repeat="move in module.moveslist">
-        <div class="section-header">
-            <h3 class="section-title">{{move.title}}</h3>
+        <div class="section-header" data-ng-click="move.collapsed = !move.collapsed">
+            <h3 class="section-title" data-ng-bind-html="module.getMoveHeader(move)"></h3>
         </div>
-        <div class="move-body" data-ng-bind-html="module.getMoveBody(move)"> </div>
+        <div class="move-body" data-ng-hide="move.collapsed" data-ng-bind-html="module.getMoveBody(move)"> </div>
     </div>
 </div>
