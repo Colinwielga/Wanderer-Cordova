@@ -39,20 +39,14 @@ var component = function () {
 
     this.getMoveHeader = function(move){
         //Returns text for a possibly-collapsed move header
-        var header = "";
-        if(!move.collapsed){
-            header =  move.title || "";
-        } else {
-            if(move.title){
-                header += move.title.trim() + ": ";
-            }
+        var header = move.title.trim() || "";
+        if(move.collapsed && !move.title){
             var trigger = move.trigger;
             if(move.trigger.trim().charAt(move.trigger.trim().length - 1) === ','){
                 trigger = move.trigger.trim().slice(0, -1);
             }
-            header += move.leadin.trim() + " <b>" + trigger.trim() + "</b>..."; 
+            header = move.leadin.trim() + " <b>" + trigger.trim() + "</b>..."; 
         }
-        console.log(header);
         return header;
     }
     
