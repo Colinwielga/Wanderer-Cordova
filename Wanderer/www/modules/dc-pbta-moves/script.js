@@ -7,7 +7,9 @@ var component = function () {
     this.addNewMove = function(){
         addmove = {
             title: this.newmove.title,
-            body: this.newmove.body
+            leadin: this.newmove.leadin,
+            trigger: this.newmove.trigger,
+            effect: this.newmove.effect
         };
         console.log(addmove);
         this.moveslist.push(addmove);
@@ -16,8 +18,9 @@ var component = function () {
 
     this.resetNewMove = function(){
         this.newmove.title = "";
-        this.newmove.body = "When you <b>[act and/or circumstances dictate]</b>, \
-            [mechanical and/or fictional effects occur.]";
+        this.newmove.leadin = "When you";
+        this.newmove.trigger = "[act and/or circumstances dictate],";
+        this.newmove.effect = "[mechanical and/or fictional effects occur.]";
     };
 
     this.getId = function () {
@@ -38,8 +41,9 @@ var component = function () {
     this.OnNewCharacter = function () {
         this.moveslist = [{
             title: "Go Aggro",
-            body: "When you <b>go aggro on someone</b>,\
-            roll +hard. On a 10+, they have to \
+            leadin: "When you",
+            trigger: "go aggro on someone,",
+            effect: "roll +hard. On a 10+, they have to \
             choose: Force your hand and suck it up, or cave \
             and do what you want. On a 7-9, they can instead \
             choose 1: \
@@ -98,7 +102,16 @@ var component = function () {
 
     this.OnNewCharacter();
 
-
+    this.getMoveBody = function(move){
+        //Returns the html-formatted full body of the move, including leadin, bolded trigger,
+        //and effect.
+        var leadin = "";
+        if(move.leadin){
+            leadin = move.leadin.trim() + " ";
+        }
+        var trigger = "<b>" + move.trigger.trim() + "</b> ";
+        return leadin + trigger + move.effect.trim();
+    }
 }
 
 g.ComponetRegistry.register(component);
