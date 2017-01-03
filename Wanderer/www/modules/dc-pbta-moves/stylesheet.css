@@ -10,3 +10,25 @@
     max-width: 75%;
     font-weight: bold;
 }
+
+#dc-pbta-moves #all_moves{
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+#dc-pbta-moves #all_moves > div{
+    margin: 0.5em;
+}
+
+#dc-pbta-moves #all_moves .section-header{
+    opacity: 0.75;
+}
+
+#dc-pbta-moves #all_moves .move-body{
+    border-color: rgba(0, 0, 0, 0.15);
+    border-left-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+
+    padding: 0.5em;
+}
