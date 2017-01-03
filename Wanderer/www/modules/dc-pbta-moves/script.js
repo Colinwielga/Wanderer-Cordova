@@ -83,6 +83,10 @@ var component = function () {
         move.deletemode = true;
         event.stopImmediatePropogation();
     }
+
+    this.changeTab = function(catalogue){
+        this.current_tab = this.movescatalogue.indexOf(catalogue);
+    }
     //////////
 
 
@@ -103,27 +107,33 @@ var component = function () {
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        this.movescatalogue = [{
-            label: "Basic Moves",
-            moveslist: [
-                {
-                    title: "Go Aggro",
-                    leadin: "When you",
-                    trigger: "go aggro on someone,",
-                    effect: "roll +hard. On a 10+, they have to \
-                    choose: Force your hand and suck it up, or cave \
-                    and do what you want. On a 7-9, they can instead \
-                    choose 1: \
-                        <ul> \
-                        <li>get the hell out of your way</li> \
-                        <li>barricade themselves securely in</li> \
-                        <li>give you something they think you want</li> \
-                        <li>back off calmly, hands where you can see</li> \
-                        <li>tell you what you want to know (or what you want to hear)</li> \
-                        </ul>"
-                }
-            ]
-        }];
+        this.movescatalogue = [
+            {
+                label: "Basic Moves",
+                moveslist: [
+                    {
+                        title: "Go Aggro",
+                        leadin: "When you",
+                        trigger: "go aggro on someone,",
+                        effect: "roll +hard. On a 10+, they have to \
+                        choose: Force your hand and suck it up, or cave \
+                        and do what you want. On a 7-9, they can instead \
+                        choose 1: \
+                            <ul> \
+                            <li>get the hell out of your way</li> \
+                            <li>barricade themselves securely in</li> \
+                            <li>give you something they think you want</li> \
+                            <li>back off calmly, hands where you can see</li> \
+                            <li>tell you what you want to know (or what you want to hear)</li> \
+                            </ul>"
+                    }
+                ]
+            },
+            {
+                label: "Special Moves",
+                moveslist:[]
+            }
+        ];
 
         this.current_tab = 0;
         this.newmove = {};
