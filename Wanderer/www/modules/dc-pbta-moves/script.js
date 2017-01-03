@@ -3,7 +3,7 @@
 var component = function () {
     //A component for storing Powered By The Apocalypse-style moves.
 
-    //Module-specific components
+    //Module-specific fields
     this.addNewMove = function(){
         addmove = {
             title: this.newmove.title,
@@ -22,6 +22,20 @@ var component = function () {
         this.newmove.trigger = "[act and/or circumstances dictate],";
         this.newmove.effect = "[mechanical and/or fictional effects occur.]";
     };
+    
+    this.getMoveBody = function(move){
+        //Returns the html-formatted full body of the move, including leadin, bolded trigger,
+        //and effect.
+        var leadin = "";
+        if(move.leadin){
+            leadin = move.leadin.trim() + " ";
+        }
+        var trigger = "<b>" + move.trigger.trim() + "</b> ";
+        return leadin + trigger + move.effect.trim();
+    }
+    //////////
+
+
 
     this.getId = function () {
         return "dc-pbta-moves"
@@ -101,17 +115,6 @@ var component = function () {
     }
 
     this.OnNewCharacter();
-
-    this.getMoveBody = function(move){
-        //Returns the html-formatted full body of the move, including leadin, bolded trigger,
-        //and effect.
-        var leadin = "";
-        if(move.leadin){
-            leadin = move.leadin.trim() + " ";
-        }
-        var trigger = "<b>" + move.trigger.trim() + "</b> ";
-        return leadin + trigger + move.effect.trim();
-    }
 }
 
 g.ComponetRegistry.register(component);
