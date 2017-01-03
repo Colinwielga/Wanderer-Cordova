@@ -4,6 +4,7 @@ var component = function () {
     //A component for storing Powered By The Apocalypse-style moves.
 
     //Module-specific fields
+
     this.addNewMove = function(){
         addmove = {
             title: this.newmove.title,
@@ -13,7 +14,6 @@ var component = function () {
             collapsed: this.newmove.collapsed,
             edit: true
         };
-        console.log(addmove);
         this.moveslist.push(addmove);
         this.resetNewMove();
     };
