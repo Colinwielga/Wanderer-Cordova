@@ -10,7 +10,8 @@ var component = function () {
             leadin: this.newmove.leadin,
             trigger: this.newmove.trigger,
             effect: this.newmove.effect,
-            collapsed: this.newmove.collapsed
+            collapsed: this.newmove.collapsed,
+            edit: true
         };
         console.log(addmove);
         this.moveslist.push(addmove);
@@ -54,6 +55,21 @@ var component = function () {
         console.log(header);
         return header;
     }
+    
+    this.toggleCollapse=function(event, move){
+        move.collapsed = !move.collapsed;
+        event.stopImmediatePropogation();
+    }
+    this.startEdit = function(event, move){
+        move.edit = true;
+        event.stopImmediatePropogation();
+    }
+    this.endEdit = function(event, move){
+        //TODO: Check to make sure there's either a title or leadin+trigger
+        move.edit = false;
+        move.collapsed = false;
+        event.stopImmediatePropogation();
+    }
     //////////
 
 
@@ -90,7 +106,6 @@ var component = function () {
             <li>tell you what you want to know (or what you want to hear)</li> \
             </ul>"
         }];
-        this.showNewMovePanel = false
 
         this.newmove = {};
         this.resetNewMove();
