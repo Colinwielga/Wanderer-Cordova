@@ -17,8 +17,8 @@
 }
 
 #dc-pbta-moves #all_moves{
-    /* display: flex; */
-    /* flex-direction: column; */
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 #dc-pbta-moves #all_moves > div,
