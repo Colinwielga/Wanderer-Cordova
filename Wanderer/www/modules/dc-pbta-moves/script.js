@@ -97,24 +97,7 @@ var component = function () {
     var default_move_catalogue = this.movescatalogue = [
         {
             label: "Basic Moves",
-            moveslist: [
-                {
-                    title: "Go Aggro",
-                    leadin: "When you",
-                    trigger: "go aggro on someone,",
-                    effect: "roll +hard. On a 10+, they have to \
-                    choose: Force your hand and suck it up, or cave \
-                    and do what you want. On a 7-9, they can instead \
-                    choose 1: \
-                        <ul> \
-                        <li>get the hell out of your way</li> \
-                        <li>barricade themselves securely in</li> \
-                        <li>give you something they think you want</li> \
-                        <li>back off calmly, hands where you can see</li> \
-                        <li>tell you what you want to know (or what you want to hear)</li> \
-                        </ul>"
-                }
-            ]
+            moveslist: []
         },
         {
             label: "Peripheral Moves",
