@@ -185,6 +185,9 @@ var component = function () {
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.getRulesHtml = function () {
+        return "modules/" + this.getId() + "/rules.html"
+    }
     this.getTitle = function () {
         return "Moves";
     }
