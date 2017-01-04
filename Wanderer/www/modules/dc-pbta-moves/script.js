@@ -39,7 +39,13 @@ var component = function () {
             leadin = move.leadin.trim() + " ";
         }
         var trigger = "<b>" + move.trigger.trim() + "</b> ";
-        return leadin + trigger + move.effect.trim();
+        var effect = move.effect.trim();
+        //Move initial paragraph tag to the beginning of the whole body
+        if(effect.slice(0, 3) === "<p>"){
+            effect = effect.slice(3);
+            leadin = "<p>" + leadin;
+        }
+        return leadin + trigger + effect;
     }
 
     this.getMoveHeader = function(move){
