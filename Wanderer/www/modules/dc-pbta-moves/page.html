@@ -1,6 +1,7 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta-moves/stylesheet.css">
 <div id="tabs_bar">
-    <div data-ng-repeat="catalogue in module.movescatalogue">
+    <div data-ng-repeat="catalogue in module.movescatalogue"
+         data-ng-class="{selected: module.movescatalogue.indexOf(catalogue) === module.current_tab}">
         <button data-ng-click="module.changeTab(catalogue)">{{catalogue.label}}</button>
     </div>
 </div>

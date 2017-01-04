@@ -2,6 +2,20 @@
     font-weight: bold;
 }
 
+/* Tabs Bar */
+#dc-pbta-moves #tabs_bar{
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: 0.5em;
+}
+
+#dc-pbta-moves #tabs_bar div.selected button{
+    background-color: #888;
+    border-style: solid; 
+}
+
 #dc-pbta-moves #all_moves{
     /* display: flex; */
     /* flex-direction: column; */
