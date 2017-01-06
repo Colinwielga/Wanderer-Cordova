@@ -45,6 +45,9 @@ var panel_number_ratios = {
                         { ratio: 1, humours: ["YELLOWBILE", "BLACKBILE"] },
                         { ratio: 1, humours: ["YELLOWBILE", "PHLEGM"] },
                         { ratio: 1, humours: ["BLACKBILE", "PHLEGM"] },
+                        { ratio: 1, humours: ["BLACKBILE", "YELLOWBILE"] },
+                        { ratio: 1, humours: ["PHLEGM", "YELLOWBILE"] },
+                        { ratio: 1, humours: ["PHLEGM", "BLACKBILE"] },
                     ]
                 } 
             ]
