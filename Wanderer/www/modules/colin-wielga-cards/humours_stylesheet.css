@@ -1,0 +1,16 @@
+#colin-wielga-cards .humours-card{
+    display: flex;
+}
+#colin-wielga-cards .humours-card div{
+    flex: 1;
+    border-style: solid;
+}
+#colin-wielga-cards .humours-card .yellowbile{
+    background: hsl(45, 95%, 30%);
+}
+#colin-wielga-cards .humours-card .blackbile{
+    background: hsl(270, 95%, 15%);
+}
+#colin-wielga-cards .humours-card .phlegm{
+    background: hsl(130, 95%, 25%);
+}
