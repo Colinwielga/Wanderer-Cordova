@@ -9,8 +9,8 @@
     }
     this.OnNewCharacter = function () {
         this.hand = [];
-        this.activeDeck = [];
         this.selectedDeck = ColinWielgaCards.decklist[0];
+        this.activeDeck = this.selectedDeck.defaultActive();
     }
     this.OnSave = function () {
         this.communicator.write("hand", this.hand);
@@ -92,8 +92,7 @@
 
     this.deckSelected = function () {
         this.hand = [];
-        this.activeDeck=
-        this.selectedDeck.defaultActive();
+        this.activeDeck = this.selectedDeck.defaultActive();
     }
 
     this.getCard=function (id) {
