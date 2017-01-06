@@ -1,0 +1,61 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta-moves/stylesheet.css">
+<div id="tabs_bar">
+    <div data-ng-repeat="catalogue in module.movescatalogue"
+         data-ng-class="{selected: module.movescatalogue.indexOf(catalogue) === module.current_tab}">
+        <button data-ng-click="module.changeTab(catalogue)">{{catalogue.label}}</button>
+    </div>
+</div>
+<div id="all_moves">
+    <div data-ng-repeat="move in module.getMoveslist()">
+        <!-- MOVE HEADER -->
+        <div class="section-header" data-ng-hide="move.edit" data-ng-click="module.toggleCollapse($event, move)">
+            <button class="edit-button" 
+                    data-ng-hide="move.collapsed"
+                    data-ng-click="module.startEdit($event, move)">
+                Edit
+            </button>
+            <h3 class="section-title" data-ng-bind-html="module.getMoveHeader(move)"></h3>
+        </div>
+        <!-- MOVE PANEL -->
+        <div class="move-body"
+            data-ng-hide="move.collapsed || move.edit"
+            data-ng-bind-html="module.getMoveBody(move)"> </div>
+        <!-- EDIT HEADER -->
+        <div class="section-header" data-ng-show="move.edit">
+            <div class="regular-edit-buttons" data-ng-hide="move.deletemode">
+                <button class="edit-button" data-ng-click="module.endEdit($event, move)">Done</button>
+                <button class="edit-button" data-ng-click="module.setDeleteMode($event, move)">Delete</button>
+            </div>
+            <div class="delete-confirmation-buttons" data-ng-show="move.deletemode">
+                <button class="edit-button" data-ng-click="module.cancelDeleteMode($event, move)">No</button>
+                <button class="edit-button" data-ng-click="module.deleteMove($event, move)">Yes</button>
+                <span>Are you sure you want to delete?</span>
+            </div>
+            <h3 class="section-title">Edit Move</h3>
+        </div>
+        <!-- EDIT PANEL -->
+        <div class="edit-move-panel" data-ng-show="move.edit">
+            <span class="title-span">Title:</span><input class="title-input"
+                                                        type="text"
+                                                        data-ng-model="move.title"></input>
+            </br>
+            <div class="small-inputs">
+                <input class="leadin-input"
+                    type="text"
+                    data-ng-model="move.leadin"></input>
+                <input class="trigger-input"
+                    type="text"
+                    data-ng-model="move.trigger"></input>
+            </div>
+            <div class="effect-input" 
+                text-angular
+                ta-text-editor-class="effect-input-editarea"
+                ta-toolbar="[['bold', 'italics', 'underline', 'ul', 'ol', 'undo', 'redo']]"
+                data-ng-model="move.effect">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="add-move-section">
+    <button id="add-move-button" data-ng-click="module.addNewMove()">Create New Move</button>
+</div>
