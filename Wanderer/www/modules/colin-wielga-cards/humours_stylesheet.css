@@ -1,16 +1,62 @@
 #colin-wielga-cards .humours-card{
     display: flex;
+    height: 200px;
 }
 #colin-wielga-cards .humours-card div{
     flex: 1;
-    border-style: solid;
+    border-style: none;
+    border-width: 3px;
+    border-color: #555;
 }
+
+#colin-wielga-cards .humours-card .first_panel{
+    border-radius: 10px;
+}
+#colin-wielga-cards .humours-card .second_panel{
+    border-right-style: solid;
+    border-radius: 10px 0 0 10px;
+    /* border-top-style: solid; */
+    /* transform: rotate(90deg) scaleX(2) scaleY(.5); */
+    /* border-radius: 0 0 10px 10px; */
+}
+#colin-wielga-cards .humours-card .second_panel ~ div{
+    border-left-style: solid;
+    border-radius: 0 10px 10px 0;
+    /* border-top-style: solid; */
+    /* transform: rotate(-90deg) scaleX(2) scaleY(.5); */
+    /* border-radius: 0 0 10px 10px; */
+}
+
 #colin-wielga-cards .humours-card .yellowbile{
-    background: hsl(45, 95%, 30%);
+    background-color: hsl(45, 95%, 30%);
+    /* background-image: linear-gradient(to left, */
+    /*                                  hsl(45, 95%, 5%) 5%, */
+    /*                                  hsl(45, 95%, 30%), */ 
+    /*                                  hsl(45, 95%, 30%), */ 
+    /*                                  hsl(45, 95%, 5%) 95%); */
+    /* background-image: radial-gradient(circle closest-side, */
+    /*                                  hsl(45, 95%, 30%) 50%, */
+    /*                                  hsl(45, 95%, 5%)); */
 }
 #colin-wielga-cards .humours-card .blackbile{
-    background: hsl(270, 95%, 15%);
+    background-color: hsl(270, 95%, 15%);
+    /* background-image: linear-gradient(to left, */
+    /*                                  hsl(270, 95%, 5%) 5%, */
+    /*                                  hsl(270, 95%, 15%), */ 
+    /*                                  hsl(270, 95%, 15%), */ 
+    /*                                  hsl(270, 95%, 5%) 95%); */
+    /* background-image: radial-gradient(circle closest-side, */
+    /*                                 hsl(270, 95%, 20%) 50%, */
+    /*                                  hsl(270, 95%, 5%)); */
 }
 #colin-wielga-cards .humours-card .phlegm{
-    background: hsl(130, 95%, 25%);
+    background-color: hsl(130, 95%, 25%);
+    /* background-image: linear-gradient(to left, */
+    /*                                  hsl(130, 95%, 5%) 5%, */
+    /*                                   hsl(130, 95%, 25%), */
+    /*                                   hsl(130, 95%, 25%), */
+    /*                                   hsl(130, 95%, 5%) 95%); */
+    /* background-image: radial-gradient(circle closest-side, */
+    /*                                   hsl(130, 95%, 25%) 50%, */
+    /*                                   hsl(130, 95%, 5%)); */
 }
