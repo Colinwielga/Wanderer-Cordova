@@ -175,14 +175,16 @@ body {
     this next section we do stuff with the columns
 */
 
-#content  {
-    -moz-column-width: 500px;
-    -webkit-column-width: 500px;
-    column-width: 500px;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-left: 5%;
-    margin-right: 5%;
+@media only screen and (min-width:530px) {
+    #content  {
+        -moz-column-width: 500px;
+        -webkit-column-width: 500px;
+        column-width: 500px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
 
 .column {

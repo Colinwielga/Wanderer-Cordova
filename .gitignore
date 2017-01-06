@@ -24,3 +24,5 @@ Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
 Wanderer/plugins/browser.json
 Wanderer/www/npm-debug.log
 
+Wanderer/build.json
+Wanderer/res/native/android/ant.properties
