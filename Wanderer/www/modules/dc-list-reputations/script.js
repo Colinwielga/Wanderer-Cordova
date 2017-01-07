@@ -59,7 +59,7 @@ DCListReputations.component = function () {
     }
 
     this.getTitle = function () {
-        return "title";
+        return "Reputations";
     }
 
     this.OnNewCharacter();
