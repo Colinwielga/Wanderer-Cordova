@@ -2,7 +2,6 @@
 
 DCListReputations.component = function () {
 
-    this.reputations = [];
     this.deleteReputation = function(reputation){
         this.reputations.splice(this.reputations.indexOf(reputation), 1);
     }
@@ -27,7 +26,7 @@ DCListReputations.component = function () {
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        this.reputations = [];
+        this.reputations = [""];
     }
     // called when a character is saved
     this.OnSave = function () {
@@ -35,7 +34,7 @@ DCListReputations.component = function () {
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.reputations = this.communicator.read("reputations") || [];
+        this.reputations = this.communicator.read("reputations") || [""];
     }
     this.OnUpdate = function () {
     }
