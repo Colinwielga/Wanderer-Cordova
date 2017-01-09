@@ -1,5 +1,24 @@
 ﻿var component = function () {
 
+    var defaultdebts = [
+        {
+            name: "",
+            debt: 0
+        },
+        {
+            name: "",
+            debt: 0
+        },
+        {
+            name: "",
+            debt: 0
+        },
+        {
+            name: "",
+            debt: 0
+        }
+    ];
+    
     // all component need a unique ID
     this.getId = function () {
         return "dc-pc-relationships-debt"
@@ -17,38 +36,15 @@
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        this.debts = [
-            {
-                name: "",
-                debt: 0
-            },
-            {
-                name: "",
-                debt: 0
-            },
-            {
-                name: "",
-                debt: 0
-            },
-            {
-                name: "",
-                debt: 0
-            }
-        ];
+        this.debts = defaultdebts;
     }
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("debts",this.debts);
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        this.debts = this.communicator.read("debts") || defaultdebts;
     }
     this.OnUpdate = function () {
     }
