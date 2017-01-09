@@ -65,4 +65,4 @@ DCListReputations.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(ColinWielgaTemplate.component);
+g.ComponetRegistry.register(DCListReputations.component);
