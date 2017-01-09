@@ -27,8 +27,7 @@ DCListReputations.component = function () {
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.reputations = [];
     }
     // called when a character is saved
     this.OnSave = function () {
