@@ -5,6 +5,7 @@
 }
 
 #dc-pc-relationships-debt .column-labels,
+#dc-pc-relationships-debt .button-centerer,
 #dc-pc-relationships-debt .pc-debt{
     display: flex;
     justify-content: center;
@@ -13,6 +14,7 @@
 
     #dc-pc-relationships-debt .column-labels .pc_name{
         text-align: center;
+        width: 10em;
     }
     #dc-pc-relationships-debt .column-labels .pc_debt{
         text-align: center;
@@ -25,3 +27,6 @@
         width: 2em;
     }
 
+#dc-pc-relationships-debt .button-centerer button{
+    width: 20em;
+}

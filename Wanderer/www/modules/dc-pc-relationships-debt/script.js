@@ -18,6 +18,12 @@
             debt: 0
         }
     ];
+    this.deleteCharacter = function(pc){
+        this.debts.splice(this.debts.indexOf(pc), 1);
+    }
+    this.addCharacter = function(){
+        this.debts.push({name:"", debt:0});
+    }
     
     // all component need a unique ID
     this.getId = function () {
