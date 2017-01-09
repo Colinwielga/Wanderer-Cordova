@@ -1,1 +1,27 @@
-﻿
+﻿#dc-pc-relationships-debt .whole_thing{
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em 1em;
+}
+
+#dc-pc-relationships-debt .column-labels,
+#dc-pc-relationships-debt .pc-debt{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+    #dc-pc-relationships-debt .column-labels .pc_name{
+        text-align: center;
+    }
+    #dc-pc-relationships-debt .column-labels .pc_debt{
+        text-align: center;
+    }
+    
+    #dc-pc-relationships-debt .pc_name{
+        width: 15em;
+    }
+    #dc-pc-relationships-debt .pc_debt{
+        width: 2em;
+    }
+

@@ -1,4 +1,10 @@
-﻿<div data-ng-repeat="pc in module.debts track by $index">
-    <input type="text" data-ng-model="module.debts[$index].name"></input>
-    <input type="text" data-ng-model="module.debts[$index].debt"></input>
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-pc-relationships-debt/stylesheet.css">
+<div class="whole_thing">
+    <div class="column-labels">
+        <span class="pc_name">Character:</span><span class="pc_debt">Debt:</span>
+    </div>
+    <div class="pc-debt" data-ng-repeat="pc in module.debts track by $index">
+        <input name="'pc_name' + $input" class="pc_name" type="text" data-ng-model="module.debts[$index].name"></input>
+        <input name="'pc_debt' + $input" class="pc_debt" type="text" data-ng-model="module.debts[$index].debt"></input>
+    </div>
 </div>
