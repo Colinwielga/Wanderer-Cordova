@@ -1,0 +1,17 @@
+﻿#dc-list-reputations #whole_thing{
+    display: flex;
+    flex-direction: column;
+    margin: 0 1em;
+}
+
+#dc-list-reputations .reputation{
+    display: flex;
+    justify-content: center;
+}
+    #dc-list-reputations .reputation input{
+        flex: 2;
+    }
+
+#dc-list-reputations #whole_thing > button{
+    flex: 1;
+}
