@@ -17,8 +17,24 @@
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.debts = [
+            {
+                name: "",
+                debt: 0
+            },
+            {
+                name: "",
+                debt: 0
+            },
+            {
+                name: "",
+                debt: 0
+            },
+            {
+                name: "",
+                debt: 0
+            }
+        ];
     }
     // called when a character is saved
     this.OnSave = function () {

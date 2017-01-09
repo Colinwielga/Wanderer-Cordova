@@ -1,1 +1,4 @@
-﻿
+﻿<div data-ng-repeat="pc in module.debts track by $index">
+    <input type="text" data-ng-model="module.debts[$index].name"></input>
+    <input type="text" data-ng-model="module.debts[$index].debt"></input>
+</div>
