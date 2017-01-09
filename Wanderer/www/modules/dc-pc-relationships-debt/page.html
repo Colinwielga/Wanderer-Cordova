@@ -6,7 +6,7 @@
     <div class="pc-debt" data-ng-repeat="pc in module.debts track by $index">
         <input name="'pc_name' + $input" class="pc_name" type="text" data-ng-model="module.debts[$index].name"></input>
         <input name="'pc_debt' + $input" class="pc_debt" type="text" data-ng-model="module.debts[$index].debt"></input>
-        <button data-ng-click="module.deleteCharacter(pc)">X</button>
+        <button class="delete-button" data-ng-click="module.deleteCharacter(pc)">X</button>
     </div>
     <div class="button-centerer">
         <button data-ng-click="module.addCharacter()">+</button>

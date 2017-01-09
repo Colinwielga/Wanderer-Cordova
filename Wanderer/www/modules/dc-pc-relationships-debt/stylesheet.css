@@ -27,6 +27,10 @@
         width: 2em;
     }
 
+    #dc-pc-relationships-debt .delete-button{
+       padding: 0; 
+    }
+
 #dc-pc-relationships-debt .button-centerer button{
     width: 20em;
 }
