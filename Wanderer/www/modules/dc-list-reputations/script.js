@@ -3,6 +3,9 @@
 DCListReputations.component = function () {
 
     this.reputations = [];
+    this.deleteReputation = function(reputation){
+        this.reputations.splice(this.reputations.indexOf(reputation), 1);
+    }
 
     // all component need a unique ID
     this.getId = function () {
