@@ -1,5 +1,5 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-list-reputations/stylesheet.css">
-<div data-ng-repeat="reputation in module.reputations">
-    <input type="text" data-ng-model="reputation"></input>
+<div data-ng-repeat="reputation in module.reputations track by $index">
+    <input type="text" data-ng-model="module.reputations[$index]"></input>
     <button data-ng-click="module.deleteReputation(reputation)">X</button>
 </div>
