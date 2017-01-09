@@ -83,8 +83,6 @@ var addCard = function(){
 //child.n = child.ratio * the product of all other childrens' sizes.
 //node.size = the sum of (child.size * child.n) over all children.
 var calcNAndSize = function(node){
-    console.log("calcNAndSize");
-    console.log(node);
     if(node.hasOwnProperty("humours")){
         node.size = 1;
         return;
@@ -111,7 +109,6 @@ var calcNAndSize = function(node){
 }
 
 var recurseDeckbuild = function(node){
-    console.log("recurseDeckbuild: " + node);
     for(var i = 0; i < node.n; i++){
         if(node.hasOwnProperty("humours")){
             addCard(node.humours);
