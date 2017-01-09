@@ -1,7 +1,13 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-list-reputations/stylesheet.css">
 <div id="whole_thing">
     <div class="reputation" data-ng-repeat="reputation in module.reputations track by $index">
-        <input type="text" data-ng-model="module.reputations[$index]"></input>
+        <input type="text" data-ng-model="module.reputations[$index]"
+                           data-ng-model-options="{updateOn: 'blur default',
+                                                   debounce: {
+                                                      'default': 500,
+                                                      'blur': 0  
+                                                       }
+                                                   }"></input>
         <button data-ng-click="module.deleteReputation(reputation)">X</button>
     </div>
     <button data-ng-click="module.addReputation()">+</button>
