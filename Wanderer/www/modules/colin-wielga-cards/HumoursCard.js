@@ -12,6 +12,9 @@ ColinWielgaCards.HumoursCard = function (guid, name, first_humour, second_humour
 
 //This big, gangling object describes the ratios of the different card types in the deck.
 //I recursively descend through the tree a couple of times to generate the deck.
+//"ratio" is across same depth levels, so if Singles has ratio = 1 and Doubles has
+//ratio = 2, there will be twice as many Doubles cards in the deck than Singles, regardless
+//of the Doubles inner ratios. 
 var panel_number_ratios = {
     n: 1,
     ratio: 1,
@@ -57,6 +60,9 @@ var panel_number_ratios = {
 
 var cardList = [];
 
+//Creates a new Humour card and adds it to the deck.
+//Arguments: An array with two elements that are the names of humours.
+//Second element can be null for a one-humour card.
 var addCard = function(){
     var id_counters = {};
     var getIdSuffix = function(id){
@@ -114,6 +120,8 @@ var calcNAndSize = function(node){
     }
 }
 
+//Recurses through the tree of card definitions/ratios
+//and adds n copies of each node's cards to the deck.
 var recurseDeckbuild = function(node){
     for(var i = 0; i < node.n; i++){
         if(node.hasOwnProperty("humours")){
