@@ -58,15 +58,21 @@ var panel_number_ratios = {
 var cardList = [];
 
 var addCard = function(){
-    var id = 0;
+    var id_counters = {};
+    var getIdSuffix = function(id){
+        if(!id_counters.hasOwnProperty(id)){
+            id_counters[id] = 0;
+        }
+        return id_counters[id]++;
+    }
     return function(humourpair){
-        var guid = id++;
         var first_humour = humourpair[0];
         var second_humour = humourpair[1]; 
         var name = first_humour;
         if(second_humour){
             name += "_" + second_humour;
         }
+        var guid = name + "#" + getIdSuffix(name);
         cardList.push(new ColinWielgaCards.HumoursCard(guid, name, first_humour, second_humour));
     }
 }();
