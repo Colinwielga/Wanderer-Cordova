@@ -2,6 +2,48 @@
 
 DCHumoursAdvancements.component = function () {
 
+    this.advancements = [
+        {
+            label: "Sanguine Advancements",
+            pc_advs: [
+                {
+                    text: "Get a nice back massage",
+                    taken: false
+                },
+                {
+                    text: "See three seconds into the future",
+                    taken: false
+                }
+            ],
+            mc_advs: [
+                {
+                    text: "The player gets his forehead slammed with a brick",
+                    taken: false
+                },
+                {
+                    text: "Everyone stares judgementally at the player for thirty-seven seconds",
+                    taken: false
+                }
+            ]
+        },
+        {
+            label: "Choleric Advancements",
+            pc_advs: [],
+            mc_advs: []
+        },
+        {
+            label: "Melancholic Advancements",
+            pc_advs: [],
+            mc_advs: []
+        },
+        {
+            label: "Phlegmatic Advancements",
+            pc_advs: [],
+            mc_advs: []
+        }
+    ];
+    /////////////////
+
     // all component need a unique ID
     this.getId = function () {
         return "dc-humours-advancements"
