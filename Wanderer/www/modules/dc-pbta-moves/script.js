@@ -10,6 +10,13 @@ var component = function () {
         return this.movescatalogue[tab_idx].moveslist;
     }
 
+    //Returns true if the player should be prevented from adding
+    //or editing moves
+    this.lockEdits = function(tab_idx){
+        tab_idx = tab_idx || this.current_tab;
+        return !this.movescatalogue[tab_idx].custom;
+    }
+
     this.addNewMove = function(){
         addmove = {
             title: this.newmove.title,
