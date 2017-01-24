@@ -94,7 +94,8 @@ var component = function () {
         this.current_tab = this.movescatalogue.indexOf(catalogue);
     }
 
-    var default_move_catalogue = this.movescatalogue = [
+    //This is the catalogue of moves that are built into the system
+    var default_move_catalogue = [
         {
             label: "Basic Moves",
             moveslist: []
@@ -102,7 +103,11 @@ var component = function () {
         {
             label: "Peripheral Moves",
             moveslist:[]
-        },
+        }
+    ];
+
+    //This is the catalogue of moves that are specific to this player
+    var custom_move_catalogue = [
         {
             label: "Player Moves",
             moveslist:[]
