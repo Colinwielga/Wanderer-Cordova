@@ -63,7 +63,7 @@ DCHumoursAdvancements.component = function () {
     }
 
     this.getTitle = function () {
-        return "title";
+        return "Advancements";
     }
 
     this.OnNewCharacter();
