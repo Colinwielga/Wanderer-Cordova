@@ -1,5 +1,8 @@
-﻿#dc-humours-advancements span.selected{
+﻿#dc-humours-advancements span{
+    cursor: default;
+}
+
+#dc-humours-advancements span.selected{
     color: rgba(0,0,0,0.5); 
     text-decoration: line-through;
-    cursor: pointer;
 }
