@@ -95,22 +95,18 @@ var component = function () {
     }
 
     //This is the catalogue of moves that are built into the system
+    //The final moves catalogue takes this and appends categories 
+    //customizable by the player.
     var default_move_catalogue = [
         {
             label: "Basic Moves",
-            moveslist: []
+            moveslist: [],
+            custom: false
         },
         {
             label: "Peripheral Moves",
-            moveslist:[]
-        }
-    ];
-
-    //This is the catalogue of moves that are specific to this player
-    var custom_move_catalogue = [
-        {
-            label: "Player Moves",
-            moveslist:[]
+            moveslist:[],
+            custom: false
         }
     ];
 
@@ -135,20 +131,30 @@ var component = function () {
     // called when a new character is created
     this.OnNewCharacter = function () {
         this.movescatalogue = default_move_catalogue;
+        this.movescatalogue.push({
+            label: "Player Moves",
+            moveslist:[],
+            custom: true
+        });
         this.current_tab = 0;
         this.newmove = {};
         this.resetNewMove();
     }
     // called when a character is saved
     this.OnSave = function () {
-        this.communicator.write("movescatalogue", this.movescatalogue);
+        var custom_moves = [];
+        this.movescatalogue.forEach(function(movecategory){
+            if(movecategory.custom){
+                custom_moves.push(movecategory);
+            }
+        });
+        this.communicator.write("custommoves", custom_moves);
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        if (this.communicator.canRead("movescatalogue")){
-            this.movescatalogue = this.communicator.read("movescatalogue");
-        }else{
-            this.movescatalogue = default_move_catalogue;
+        this.movescatalogue = default_move_catalogue;
+        if (this.communicator.canRead("custommoves")){
+            this.movescatalogue.concat(this.communicator.read("custommoves"));
         }
     }
     this.OnUpdate = function () {
