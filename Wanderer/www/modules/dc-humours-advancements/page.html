@@ -3,10 +3,18 @@
     <h3>{{humour.label}}</h3>
     <h4>PC Advancements:</h4>
     <div data-ng-repeat="adv in humour.pc_advs">
-        <span>{{adv.text}}</span>
+        <span 
+            data-ng-click="adv.taken = !adv.taken"
+            data-ng-class="{selected: adv.taken}">
+            {{adv.text}}
+        </span>
     </div>
     <h4>MC Advancements:</h4>
     <div data-ng-repeat="adv in humour.mc_advs">
-        <span>{{adv.text}}</span>
+        <span 
+            data-ng-click="adv.taken = !adv.taken"
+            data-ng-class="{selected: adv.taken}">
+            {{adv.text}}
+        </span>
     </div>
 </div>
