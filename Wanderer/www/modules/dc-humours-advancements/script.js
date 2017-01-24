@@ -5,43 +5,47 @@ DCHumoursAdvancements.component = function () {
     this.advancements = [
         {
             label: "Sanguine Advancements",
-            pc_advs: [
-                {
-                    text: "Get a nice back massage",
-                    taken: false
-                },
-                {
-                    text: "See three seconds into the future",
-                    taken: false
-                }
-            ],
-            mc_advs: [
-                {
-                    text: "The player gets his forehead slammed with a brick",
-                    taken: false
-                },
-                {
-                    text: "Everyone stares judgementally at the player for thirty-seven seconds",
-                    taken: false
-                }
-            ]
+            pc_advs: {
+                "Get a nice back massage": false,
+                "See three seconds into the future": false
+            },
+            mc_advs: {
+                "The player gets his forehead slammed with a brick": false,
+                "Everyone stares judgementally at the player for thirty-seven seconds": false
+            }
         },
         {
             label: "Choleric Advancements",
-            pc_advs: [],
-            mc_advs: []
+            pc_advs: {},
+            mc_advs: {}
         },
         {
             label: "Melancholic Advancements",
-            pc_advs: [],
-            mc_advs: []
+            pc_advs: {},
+            mc_advs: {}
         },
         {
             label: "Phlegmatic Advancements",
-            pc_advs: [],
-            mc_advs: []
+            pc_advs: {},
+            mc_advs: {}
         }
     ];
+    
+    //Returns the names of the advancements for a single category
+    this.getAdvs = function(adv_dict){
+        var advs = [];
+        for(adv in adv_dict){
+            if(adv_dict.hasOwnProperty(adv)){
+                advs.push(adv);
+            }
+        }
+        return advs;
+    };
+
+    this.toggleTaken = function(adv_dict, adv){
+        adv_dict[adv] = !adv_dict[adv];
+    }
+
     /////////////////
 
     // all component need a unique ID
