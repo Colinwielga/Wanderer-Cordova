@@ -10,7 +10,7 @@
         <!-- MOVE HEADER -->
         <div class="section-header" data-ng-hide="move.edit" data-ng-click="module.toggleCollapse($event, move)">
             <button class="edit-button" 
-                    data-ng-hide="move.collapsed"
+                    data-ng-hide="move.collapsed || module.lockEdits()"
                     data-ng-click="module.startEdit($event, move)">
                 Edit
             </button>
@@ -57,5 +57,5 @@
     </div>
 </div>
 <div id="add-move-section">
-    <button id="add-move-button" data-ng-click="module.addNewMove()">Create New Move</button>
+    <button id="add-move-button" data-ng-hide="module.lockEdits()" data-ng-click="module.addNewMove()">Create New Move</button>
 </div>
