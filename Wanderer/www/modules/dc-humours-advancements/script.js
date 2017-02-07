@@ -6,6 +6,7 @@ DCHumoursAdvancements.component = function () {
         {
             humour: "blood",
             label: "Sanguine Advancements",
+            expanded: false,
             pc_advs: {
                 "Get a nice back massage": false,
                 "See three seconds into the future": false
@@ -18,18 +19,21 @@ DCHumoursAdvancements.component = function () {
         {
             humour: "yellowbile",
             label: "Choleric Advancements",
+            expanded: false,
             pc_advs: {},
             mc_advs: {}
         },
         {
             humour: "blackbile",
             label: "Melancholic Advancements",
+            expanded: false,
             pc_advs: {},
             mc_advs: {}
         },
         {
             humour: "phlegm",
             label: "Phlegmatic Advancements",
+            expanded: false,
             pc_advs: {},
             mc_advs: {}
         }
@@ -49,6 +53,12 @@ DCHumoursAdvancements.component = function () {
     this.toggleTaken = function(adv_dict, adv){
         adv_dict[adv] = !adv_dict[adv];
     }
+
+    //Expands or collapses the list in the view
+    this.toggleCollapse = function($event, humour){
+        humour.expanded = !humour.expanded; 
+        event.stopImmediatePropogation();
+    };
 
     /////////////////
 
