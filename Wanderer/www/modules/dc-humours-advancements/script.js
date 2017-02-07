@@ -105,6 +105,16 @@ DCHumoursAdvancements.component = function () {
         event.stopImmediatePropogation();
     };
 
+    //Returns the humour object with the given name, or undefined
+    this.getHumour = function(humourname){
+        this.advancements.forEach(function(humour_obj){
+            if(humour_obj.humour === humourname){
+                return humour_obj;    
+            }
+        });
+        return undefined;
+    };
+
     /////////////////
 
     // all component need a unique ID
@@ -124,22 +134,48 @@ DCHumoursAdvancements.component = function () {
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
     }
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        var taken_advancements = [];
+        this.advancements.forEach(function(humour_obj){
+             var obj = {
+                 humour: humour_obj.humour,
+                 pc_advs_taken: humour_obj.pc_advs.taken,
+                 mc_advs_taken: humour_obj.mc_advs.taken
+             }
+            taken_advancements.push(obj);
+        });
+        this.communicator.write("taken_advancements", taken_advancements);
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        if (this.communicator.canRead("taken_advancements")){
+            var taken_advancements = this.communicator.read("taken_advancements");
+            taken_advancements.forEach(function(loaded_humour){
+                var adv_humour = this.getHumour(loaded_humour.humour);
+
+                if(adv_humour){
+                    //First put the PC's loaded taken advancements into the "taken" list
+                    adv_humour.pc_advs.taken = loaded_humour.pc_advs_taken; 
+                    //Then remove those advancements from the "untaken" list, if they're in it
+                    loaded_humour.pc_advs_taken.forEach(function(adv){
+                        var untaken_index = adv_humour.pc_advs.untaken.indexOf(adv);
+                        if(untaken_index > -1){
+                            adv_humour.pc_advs.untaken.splice(untaken_index, 1);
+                        }
+                    });
+                    //And again for the MC moves. (Oy, maybe I should restructure this...)
+                    adv_humour.mc_advs.taken = loaded_humour.mc_advs_taken; 
+                    loaded_humour.mc_advs_taken.forEach(function(adv){
+                        var untaken_index = adv_humour.mc_advs.untaken.indexOf(adv);
+                        if(untaken_index > -1){
+                            adv_humour.mc_advs.untaken.splice(untaken_index, 1);
+                        }
+                    });
+                }
+            });
+        }
     }
     this.OnUpdate = function () {
     }
