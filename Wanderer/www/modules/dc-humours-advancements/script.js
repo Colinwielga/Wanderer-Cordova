@@ -15,7 +15,8 @@ DCHumoursAdvancements.component = function () {
                 ],
                 untaken: [
                     {
-                        text: "The player feels calm and at peace"
+                        text: "The player feels calm and at peace",
+                        retakable: true
                     },
                     {
                         text: "The player gets a 20% discount at Costco"
@@ -91,12 +92,24 @@ DCHumoursAdvancements.component = function () {
     };
 
     this.take = function(adv_dict, adv){
-        adv_dict.untaken.splice(adv_dict.untaken.indexOf(adv), 1);
-        adv_dict.taken.push(adv);
+        if(!adv.retakable){
+            adv_dict.untaken.splice(adv_dict.untaken.indexOf(adv), 1);
+            adv_dict.taken.push(adv);
+        }else{
+            //This is terrible and JavaScript is stupid.
+            adv_dict.taken.push(
+                {
+                    text: adv.text,
+                    retakable: adv.retakable
+                }
+            );
+        }
     }
     this.untake = function(adv_dict, adv){
         adv_dict.taken.splice(adv_dict.taken.indexOf(adv), 1);
-        adv_dict.untaken.push(adv);
+        if(!adv.retakable){
+            adv_dict.untaken.push(adv);
+        }
     }
 
     //Expands or collapses the list in the view
@@ -161,7 +174,7 @@ DCHumoursAdvancements.component = function () {
                     //Then remove those advancements from the "untaken" list, if they're in it
                     loaded_humour.pc_advs_taken.forEach(function(adv){
                         var untaken_index = adv_humour.pc_advs.untaken.indexOf(adv);
-                        if(untaken_index > -1){
+                        if(untaken_index > -1 && !adv.retakable){
                             adv_humour.pc_advs.untaken.splice(untaken_index, 1);
                         }
                     });
@@ -169,7 +182,7 @@ DCHumoursAdvancements.component = function () {
                     adv_humour.mc_advs.taken = loaded_humour.mc_advs_taken; 
                     loaded_humour.mc_advs_taken.forEach(function(adv){
                         var untaken_index = adv_humour.mc_advs.untaken.indexOf(adv);
-                        if(untaken_index > -1){
+                        if(untaken_index > -1 && !adv.retakable){
                             adv_humour.mc_advs.untaken.splice(untaken_index, 1);
                         }
                     });
