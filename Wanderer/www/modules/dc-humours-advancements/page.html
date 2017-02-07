@@ -10,21 +10,25 @@
         <!-- ADVANCEMENT LIST -->
         <div data-ng-show="humour.expanded">
             <h4>PC Advancements:</h4>
-            <div data-ng-repeat="adv in module.getAdvs(humour.pc_advs)">
-                <span 
-                 data-ng-click="module.toggleTaken(humour.pc_advs, adv)"
-                 data-ng-class="{selected: humour.pc_advs[adv]}">
-                    {{adv}}
-                </span>
-            </div>
+            <ul>
+                <li data-ng-repeat="adv in module.getAdvs(humour.pc_advs)">
+                    <span 
+                    data-ng-click="module.toggleTaken(humour.pc_advs, adv)"
+                    data-ng-class="{selected: humour.pc_advs[adv]}">
+                        {{adv}}
+                    </span>
+                </li>
+            </ul>
             <h4>MC Advancements:</h4>
-            <div data-ng-repeat="adv in module.getAdvs(humour.mc_advs)">
-                <span 
-                 data-ng-click="module.toggleTaken(humour.mc_advs, adv)"
-                 data-ng-class="{selected: humour.mc_advs[adv]}">
-                    {{adv}}
-                </span>
-            </div>
+            <ul>
+                <li data-ng-repeat="adv in module.getAdvs(humour.mc_advs)">
+                    <span 
+                    data-ng-click="module.toggleTaken(humour.mc_advs, adv)"
+                    data-ng-class="{selected: humour.mc_advs[adv]}">
+                        {{adv}}
+                    </span>
+                </li>
+            </ul>
         </div>
 
     </div>

@@ -23,6 +23,10 @@
 }
 
 /* Humour Section List Contents */
+#dc-humours-advancements li{
+    list-style-type: none;
+}
+
 #dc-humours-advancements span{
     color: rgba(0,0,0,1); 
     cursor: default;
