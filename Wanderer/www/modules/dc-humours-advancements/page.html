@@ -1,29 +1,31 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-humours-advancements/stylesheet.css">
-<div data-ng-repeat="humour in module.advancements">
+<div class="all-humours-container">
+    <div data-ng-repeat="humour in module.advancements">
 
-    <!-- HUMOUR TITLE -->
-    <h3 data-ng-class="humour.humour" data-ng-click="module.toggleCollapse($event, humour)">
-        {{humour.label}}
-    </h3>
+        <!-- HUMOUR TITLE -->
+        <h3 class="humour-section-title" data-ng-class="humour.humour" data-ng-click="module.toggleCollapse($event, humour)">
+            {{humour.label}}
+        </h3>
 
-    <!-- ADVANCEMENT LIST -->
-    <div data-ng-show="humour.expanded">
-        <h4>PC Advancements:</h4>
-        <div data-ng-repeat="adv in module.getAdvs(humour.pc_advs)">
-            <span 
-             data-ng-click="module.toggleTaken(humour.pc_advs, adv)"
-             data-ng-class="{selected: humour.pc_advs[adv]}">
-                {{adv}}
-            </span>
+        <!-- ADVANCEMENT LIST -->
+        <div data-ng-show="humour.expanded">
+            <h4>PC Advancements:</h4>
+            <div data-ng-repeat="adv in module.getAdvs(humour.pc_advs)">
+                <span 
+                 data-ng-click="module.toggleTaken(humour.pc_advs, adv)"
+                 data-ng-class="{selected: humour.pc_advs[adv]}">
+                    {{adv}}
+                </span>
+            </div>
+            <h4>MC Advancements:</h4>
+            <div data-ng-repeat="adv in module.getAdvs(humour.mc_advs)">
+                <span 
+                 data-ng-click="module.toggleTaken(humour.mc_advs, adv)"
+                 data-ng-class="{selected: humour.mc_advs[adv]}">
+                    {{adv}}
+                </span>
+            </div>
         </div>
-        <h4>MC Advancements:</h4>
-        <div data-ng-repeat="adv in module.getAdvs(humour.mc_advs)">
-            <span 
-             data-ng-click="module.toggleTaken(humour.mc_advs, adv)"
-             data-ng-class="{selected: humour.mc_advs[adv]}">
-                {{adv}}
-            </span>
-        </div>
+
     </div>
-
 </div>

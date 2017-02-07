@@ -1,4 +1,8 @@
-﻿#dc-humours-advancements span{
+﻿#dc-humours-advancements .all-humours-container{
+    margin: 15px;
+}
+
+#dc-humours-advancements span{
     color: rgba(0,0,0,1); 
     cursor: default;
 }
@@ -16,6 +20,12 @@
     /* z-index: -1; */
 }
 
+#dc-humours-advancements .humour-section-title{
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.25);
+    text-align: center;
+    padding: 10px;
+}
 #dc-humours-advancements .blood{
     color: hsl(0, 95%, 35%);
 }
