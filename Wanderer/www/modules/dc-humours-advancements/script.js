@@ -7,14 +7,8 @@ DCHumoursAdvancements.component = function () {
             humour: "blood",
             label: "Sanguine Advancements",
             expanded: false,
-            pc_advs: {
-                "Get a nice back massage": false,
-                "See three seconds into the future": false
-            },
-            mc_advs: {
-                "The player gets his forehead slammed with a brick": false,
-                "Everyone stares judgementally at the player for thirty-seven seconds": false
-            }
+            pc_advs: {},
+            mc_advs: {}
         },
         {
             humour: "yellowbile",
