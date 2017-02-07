@@ -1,6 +1,6 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-humours-advancements/stylesheet.css">
 <div data-ng-repeat="humour in module.advancements">
-    <h3>{{humour.label}}</h3>
+    <h3 data-ng-class="humour.humour">{{humour.label}}</h3>
     <h4>PC Advancements:</h4>
     <div data-ng-repeat="adv in module.getAdvs(humour.pc_advs)">
         <span 

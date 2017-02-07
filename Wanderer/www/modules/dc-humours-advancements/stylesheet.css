@@ -15,3 +15,16 @@
     /* position: absolute; */
     /* z-index: -1; */
 }
+
+#dc-humours-advancements .blood{
+    color: hsl(0, 95%, 35%);
+}
+#dc-humours-advancements .yellowbile{
+    color: hsl(45, 95%, 30%);
+}
+#dc-humours-advancements .blackbile{
+    color: hsl(270, 95%, 15%);
+}
+#dc-humours-advancements .phlegm{
+    color: hsl(130, 95%, 25%);
+}

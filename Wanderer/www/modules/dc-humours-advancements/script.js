@@ -4,6 +4,7 @@ DCHumoursAdvancements.component = function () {
 
     this.advancements = [
         {
+            humour: "blood",
             label: "Sanguine Advancements",
             pc_advs: {
                 "Get a nice back massage": false,
@@ -15,16 +16,19 @@ DCHumoursAdvancements.component = function () {
             }
         },
         {
+            humour: "yellowbile",
             label: "Choleric Advancements",
             pc_advs: {},
             mc_advs: {}
         },
         {
+            humour: "blackbile",
             label: "Melancholic Advancements",
             pc_advs: {},
             mc_advs: {}
         },
         {
+            humour: "phlegm",
             label: "Phlegmatic Advancements",
             pc_advs: {},
             mc_advs: {}
