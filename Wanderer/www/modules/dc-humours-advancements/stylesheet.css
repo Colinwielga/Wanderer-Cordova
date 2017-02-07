@@ -2,24 +2,7 @@
     margin: 15px;
 }
 
-#dc-humours-advancements span{
-    color: rgba(0,0,0,1); 
-    cursor: default;
-}
-
-#dc-humours-advancements span.selected{
-    color: rgba(0,0,0,0.5);
-    text-decoration: line-through;
-}
-#dc-humours-advancements span.selected:before{
-    /* content: ""; */
-    /* background-image: linear-gradient(to right, rgba(50, 100, 50, 0.5), rgba(255,255,255,0)); */
-    /* width: 100%; */
-    /* height: 1em; */
-    /* position: absolute; */
-    /* z-index: -1; */
-}
-
+/* Humour Section Title Box */
 #dc-humours-advancements .humour-section-title{
     border-style: solid;
     border-color: rgba(0, 0, 0, 0.25);
@@ -37,4 +20,15 @@
 }
 #dc-humours-advancements .phlegm{
     color: hsl(130, 95%, 25%);
+}
+
+/* Humour Section List Contents */
+#dc-humours-advancements span{
+    color: rgba(0,0,0,1); 
+    cursor: default;
+}
+
+#dc-humours-advancements span.selected{
+    color: rgba(0,0,0,0.5);
+    text-decoration: line-through;
 }
