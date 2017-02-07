@@ -8,35 +8,12 @@ DCHumoursAdvancements.component = function () {
             label: "Sanguine Advancements",
             expanded: false,
             pc_advs: {
-                taken: [
-                    {
-                        text: "The player gets a lovely red canoe"
-                    }
-                ],
-                untaken: [
-                    {
-                        text: "The player feels calm and at peace",
-                        retakable: true
-                    },
-                    {
-                        text: "The player gets a 20% discount at Costco"
-                    }
-                ]
+                taken: [],
+                untaken: []
             },
             mc_advs: {
-                taken: [
-                    {
-                        text: "The player's favorite stuffed animal loses all of its stuffing"
-                    },
-                    {
-                        text: "The player is forced to take a bath"
-                    }
-                ],
-                untaken: [
-                    {
-                        text: "The player's luggage is sent to Belgium"
-                    }
-                ]
+                taken: [],
+                untaken: []
             }
         },
         {
