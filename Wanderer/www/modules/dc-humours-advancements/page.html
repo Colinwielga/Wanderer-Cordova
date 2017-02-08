@@ -1,0 +1,41 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-humours-advancements/stylesheet.css">
+<div class="all-humours-container">
+    <div data-ng-repeat="humour in module.advancements">
+
+        <!-- HUMOUR TITLE -->
+        <h3 class="humour-section-title" data-ng-class="humour.humour" data-ng-click="module.toggleCollapse($event, humour)">
+            {{humour.label}}
+        </h3>
+
+        <!-- ADVANCEMENT LIST -->
+        <div data-ng-show="humour.expanded">
+            <h4>PC Advancements:</h4>
+            <ul>
+                <li data-ng-repeat="adv in humour.pc_advs.taken">
+                    <span class="selected", data-ng-click="module.untake(humour.pc_advs, adv)">
+                        {{adv.text}}
+                    </span>
+                </li> 
+                <li data-ng-repeat="adv in humour.pc_advs.untaken">
+                    <span data-ng-click="module.take(humour.pc_advs, adv)">
+                        {{adv.text}}
+                    </span>
+                </li> 
+            </ul>
+            <h4>MC Advancements:</h4>
+            <ul>
+                <li data-ng-repeat="adv in humour.mc_advs.taken">
+                    <span class="selected", data-ng-click="module.untake(humour.mc_advs, adv)">
+                        {{adv.text}}
+                    </span>
+                </li> 
+                <li data-ng-repeat="adv in humour.mc_advs.untaken">
+                    <span data-ng-click="module.take(humour.mc_advs, adv)">
+                        {{adv.text}}
+                    </span>
+                </li> 
+            </ul>
+        </div>
+
+    </div>
+</div>
