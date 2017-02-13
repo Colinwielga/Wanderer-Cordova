@@ -19,15 +19,15 @@ var panel_number_ratios = {
     n: 1,
     ratio: 1,
     inner_ratios: [
-        {
-            //Singles
-            ratio: 1,
-            inner_ratios: [
-                { ratio: 1, humours: ["YELLOWBILE", null] },
-                { ratio: 1, humours: ["BLACKBILE", null] },
-                { ratio: 1, humours: ["PHLEGM", null] },
-            ]
-        },
+        // {
+        //     //Singles
+        //     ratio: 1,
+        //     inner_ratios: [
+        //         { ratio: 1, humours: ["YELLOWBILE", null] },
+        //         { ratio: 1, humours: ["BLACKBILE", null] },
+        //         { ratio: 1, humours: ["PHLEGM", null] },
+        //     ]
+        // },
         {
             //Doubles
             ratio: 1,
