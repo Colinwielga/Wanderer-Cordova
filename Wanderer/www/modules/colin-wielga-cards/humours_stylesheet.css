@@ -1,6 +1,7 @@
 #colin-wielga-cards .humours-card{
     display: flex;
     height: 200px;
+    position: relative;
 }
 
 /* PANELS */
@@ -32,6 +33,14 @@
     /* border-top-style: solid; */
     /* transform: rotate(-90deg) scaleX(2) scaleY(.5); */
     /* border-radius: 0 0 10px 10px; */
+}
+
+/* DECREASE ARROW */
+#colin-wielga-cards .humours-card .decrease-arrow{
+    position: absolute;
+    width: 25px;
+    height: 100%;
+    left: 87px;
 }
 
 /* HUMOUR COLORS */

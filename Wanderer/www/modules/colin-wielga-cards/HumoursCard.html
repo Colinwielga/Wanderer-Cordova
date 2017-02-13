@@ -1,5 +1,12 @@
 <div class="humours-card card" data-ng-click="module.discard(cardID)" data-ng-init="card = module.getCard(cardID)">
     <!-- Panels are backwards for CSS reasons. -->
+    <div class="decrease-arrow" data-ng-if="card.decrease_humour"
+                             data-ng-class="{
+                                                yellowbile: card.decrease_humour === 'YELLOWBILE',
+                                                blackbile: card.decrease_humour === 'BLACKBILE',
+                                                phlegm: card.decrease_humour === 'PHLEGM',
+                                            }">
+    </div>
     <div class="second_panel panel" data-ng-if="card.second_humour"
                              data-ng-class="{
                                                 yellowbile: card.second_humour === 'YELLOWBILE',
