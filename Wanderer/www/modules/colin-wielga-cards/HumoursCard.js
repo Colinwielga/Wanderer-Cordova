@@ -1,8 +1,9 @@
-ColinWielgaCards.HumoursCard = function (guid, name, first_humour, second_humour, inDefault) {
+ColinWielgaCards.HumoursCard = function (guid, name, first_humour, second_humour, decrease_humour, inDefault) {
     this.guid = guid;
     this.name = name;
     this.first_humour = first_humour;
     this.second_humour = second_humour; //Null for single-humoured card
+    this.decrease_humour = decrease_humour || null; //Only applies to doubles
     this.inDefault = inDefault || true;
 
     this.getHtml = function(){
@@ -36,9 +37,13 @@ var panel_number_ratios = {
                     //Same
                     ratio: 1,
                     inner_ratios: [
-                        { ratio: 1, humours: ["YELLOWBILE", "YELLOWBILE"] },
-                        { ratio: 1, humours: ["BLACKBILE", "BLACKBILE"] },
-                        { ratio: 1, humours: ["PHLEGM", "PHLEGM"] },
+                        { ratio: 1, humours: ["YELLOWBILE", "YELLOWBILE", "BLACKBILE"] },
+                        { ratio: 1, humours: ["YELLOWBILE", "YELLOWBILE", "PHLEGM"] },
+                        { ratio: 1, humours: ["BLACKBILE", "BLACKBILE", "YELLOWBILE"] },
+                        { ratio: 1, humours: ["BLACKBILE", "BLACKBILE", "PHLEGM"] },
+                        { ratio: 1, humours: ["PHLEGM", "PHLEGM", "YELLOWBILE"] },
+                        { ratio: 1, humours: ["PHLEGM", "PHLEGM", "BLACKBILE"] },
+                        // { ratio: 1, humours: ["ORGONE", "ORGONE"] },
                     ]
                 },
                 {
@@ -47,10 +52,16 @@ var panel_number_ratios = {
                     inner_ratios: [
                         { ratio: 1, humours: ["YELLOWBILE", "BLACKBILE"] },
                         { ratio: 1, humours: ["YELLOWBILE", "PHLEGM"] },
+                        // { ratio: 1, humours: ["YELLOWBILE", "ORGONE"] },
                         { ratio: 1, humours: ["BLACKBILE", "PHLEGM"] },
                         { ratio: 1, humours: ["BLACKBILE", "YELLOWBILE"] },
+                        // { ratio: 1, humours: ["BLACKBILE", "ORGONE"] },
                         { ratio: 1, humours: ["PHLEGM", "YELLOWBILE"] },
                         { ratio: 1, humours: ["PHLEGM", "BLACKBILE"] },
+                        // { ratio: 1, humours: ["PHLEGM", "ORGONE"] },
+                        // { ratio: 1, humours: ["ORGONE", "PHLEGM"] },
+                        // { ratio: 1, humours: ["ORGONE", "YELLOWBILE"] },
+                        // { ratio: 1, humours: ["ORGONE", "BLACKBILE"] },
                     ]
                 } 
             ]
@@ -61,8 +72,9 @@ var panel_number_ratios = {
 var cardList = [];
 
 //Creates a new Humour card and adds it to the deck.
-//Arguments: An array with two elements that are the names of humours.
+//Arguments: An array with two or three elements that are the names of humours.
 //Second element can be null for a one-humour card.
+//Third element can be null for a split but non-double card.
 var addCard = function(){
     var id_counters = {};
     var getIdSuffix = function(id){
@@ -74,12 +86,16 @@ var addCard = function(){
     return function(humourpair){
         var first_humour = humourpair[0];
         var second_humour = humourpair[1]; 
+        var decrease_humour = humourpair[2] || null;
         var name = first_humour;
         if(second_humour){
             name += "_" + second_humour;
         }
+        if(decrease_humour){
+            name += "_" + decrease_humour;
+        }
         var guid = name + "#" + getIdSuffix(name);
-        cardList.push(new ColinWielgaCards.HumoursCard(guid, name, first_humour, second_humour));
+        cardList.push(new ColinWielgaCards.HumoursCard(guid, name, first_humour, second_humour, decrease_humour));
     }
 }();
 
