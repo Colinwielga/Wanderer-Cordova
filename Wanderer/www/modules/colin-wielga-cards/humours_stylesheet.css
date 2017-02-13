@@ -2,6 +2,9 @@
     display: flex;
     height: 200px;
 }
+
+/* PANELS */
+/* Recognizes single-panel and split-panel cards. */
 #colin-wielga-cards .humours-card div{
     flex: 1;
     border-style: none;
@@ -9,9 +12,12 @@
     border-color: #555;
 }
 
+/* This applies to single-panel cards: */
 #colin-wielga-cards .humours-card .first_panel{
     border-radius: 10px;
 }
+
+/* These modify split-panel cards: */
 #colin-wielga-cards .humours-card .second_panel{
     border-right-style: solid;
     border-radius: 10px 0 0 10px;
@@ -19,6 +25,7 @@
     /* transform: rotate(90deg) scaleX(2) scaleY(.5); */
     /* border-radius: 0 0 10px 10px; */
 }
+
 #colin-wielga-cards .humours-card .second_panel ~ div{
     border-left-style: solid;
     border-radius: 0 10px 10px 0;
@@ -27,6 +34,7 @@
     /* border-radius: 0 0 10px 10px; */
 }
 
+/* HUMOUR COLORS */
 #colin-wielga-cards .humours-card .yellowbile{
     background-color: hsl(45, 95%, 30%);
     /* background-image: linear-gradient(to left, */
