@@ -93,26 +93,33 @@
 #colin-wielga-cards .humours-card .decrease-arrow.yellowbile{
     background-image: linear-gradient(to right,
                                         rgba(0,0,0,0) 25px,
-                                        hsl(45, 95%, 30%) 25px);
+                                        hsl(45, 0%, 30%) 25px,
+                                        hsl(45, 0%, 30%) 50px,
+                                        hsl(45, 95%, 30%));
 }
 #colin-wielga-cards .humours-card .decrease-arrow.yellowbile::after{
-    border-right-color: hsl(45, 95%, 30%);
+    border-right-color: hsl(45, 0%, 30%);
 }
 
 #colin-wielga-cards .humours-card .decrease-arrow.blackbile{
     background-image: linear-gradient(to right,
                                         rgba(0,0,0,0) 25px,
-                                        hsl(270, 95%, 15%) 25px);
+                                        hsl(270, 0%, 15%) 25px,
+                                        hsl(270, 0%, 15%) 50px,
+                                        hsl(270, 95%, 15%));
 }
 #colin-wielga-cards .humours-card .decrease-arrow.blackbile::after{
-    border-right-color: hsl(270, 95%, 15%);
+    border-right-color: hsl(270, 0%, 15%);
 
 }
 
 #colin-wielga-cards .humours-card .decrease-arrow.phlegm{
     background-image: linear-gradient(to right,
                                         rgba(0,0,0,0) 25px,
-                                        hsl(130, 95%, 25%) 25px);
+                                        hsl(130, 0%, 25%) 25px,
+                                        hsl(130, 0%, 25%) 50px,
+                                        hsl(130, 95%, 25%));
 }
 #colin-wielga-cards .humours-card .decrease-arrow.phlegm::after{
-    border-right-color: hsl(130, 95%, 25%);
+    border-right-color: hsl(130, 0%, 25%);
+}
