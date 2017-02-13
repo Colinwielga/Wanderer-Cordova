@@ -1,13 +1,13 @@
 <div class="humours-card card" data-ng-click="module.discard(cardID)" data-ng-init="card = module.getCard(cardID)">
     <!-- Panels are backwards for CSS reasons. -->
-    <div class="second_panel" data-ng-if="card.second_humour"
+    <div class="second_panel panel" data-ng-if="card.second_humour"
                              data-ng-class="{
                                                 yellowbile: card.second_humour === 'YELLOWBILE',
                                                 blackbile: card.second_humour === 'BLACKBILE',
                                                 phlegm: card.second_humour === 'PHLEGM',
                                             }">
     </div>
-    <div class="first_panel" data-ng-class="{
+    <div class="first_panel panel" data-ng-class="{
                                                 yellowbile: card.first_humour === 'YELLOWBILE',
                                                 blackbile: card.first_humour === 'BLACKBILE',
                                                 phlegm: card.first_humour === 'PHLEGM',

@@ -5,7 +5,7 @@
 
 /* PANELS */
 /* Recognizes single-panel and split-panel cards. */
-#colin-wielga-cards .humours-card div{
+#colin-wielga-cards .humours-card .panel{
     flex: 1;
     border-style: none;
     border-width: 3px;
