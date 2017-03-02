@@ -48,24 +48,27 @@
 #dc-humours-sliders .radiocontainer label.blood{
     background: hsl(0, 95%, 35%);
 }
+#dc-humours-sliders .radiocontainer label.orgone{
+    background: hsl(181, 30%, 90%);
+}
 
 #dc-humours-sliders .radiocontainer label.Sated{
     border-radius: 50% 0% 0% 50%;
     padding-right: 0.5em;
 }
 #dc-humours-sliders .radiocontainer label.Waxing{
-    filter: saturate(50%);
+    filter: saturate(50%) brightness(90%);
 }
 #dc-humours-sliders .radiocontainer label.Balanced{
-    filter: saturate(10%);
+    filter: saturate(10%) brightness(75%);
 }
 #dc-humours-sliders .radiocontainer label.Waning{
-    filter: saturate(10%);
+    filter: saturate(10%) brightness(75%);
 }
 #dc-humours-sliders .radiocontainer label.Dry{
     border-radius: 0% 50% 50% 0%;
     padding-left: 0.5em;
-    filter: saturate(0%);
+    filter: saturate(0%) brightness(60%);
 }
 
 #dc-humours-sliders .radiocontainer input[type='radio']{
