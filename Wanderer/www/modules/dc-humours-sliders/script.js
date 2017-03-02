@@ -64,6 +64,11 @@
     this.humour_levels = ["Dry", "Waning", "Balanced", "Waxing", "Sated"];
     this.humours = [
         {
+            id: "orgone",
+            name: "Orgone",
+            value: "Balanced"
+        },
+        {
             id: "yellowbile",
             name: "Yellow Bile",
             value: "Balanced"
@@ -76,11 +81,6 @@
         {
             id: "phlegm",
             name: "Phlegm",
-            value: "Balanced"
-        },
-        {
-            id: "orgone",
-            name: "Orgone",
             value: "Balanced"
         },
         {
