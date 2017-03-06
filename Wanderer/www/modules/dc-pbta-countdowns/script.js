@@ -12,7 +12,7 @@ DCPbtACountdowns.component = function () {
             description: "",
             boxlist: []
         };
-        for(i in num_boxes){
+        for(i = 0; i < num_boxes; i++){
             countdown.boxlist.push({
                 description: "",
                 checked: false
