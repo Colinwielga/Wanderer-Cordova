@@ -39,11 +39,16 @@ var panel_number_ratios = {
                     inner_ratios: [
                         { ratio: 1, humours: ["YELLOWBILE", "YELLOWBILE", "BLACKBILE"] },
                         { ratio: 1, humours: ["YELLOWBILE", "YELLOWBILE", "PHLEGM"] },
+                        { ratio: 1, humours: ["YELLOWBILE", "YELLOWBILE", "ORGONE"] },
                         { ratio: 1, humours: ["BLACKBILE", "BLACKBILE", "YELLOWBILE"] },
                         { ratio: 1, humours: ["BLACKBILE", "BLACKBILE", "PHLEGM"] },
+                        { ratio: 1, humours: ["BLACKBILE", "BLACKBILE", "ORGONE"] },
                         { ratio: 1, humours: ["PHLEGM", "PHLEGM", "YELLOWBILE"] },
                         { ratio: 1, humours: ["PHLEGM", "PHLEGM", "BLACKBILE"] },
-                        // { ratio: 1, humours: ["ORGONE", "ORGONE"] },
+                        { ratio: 1, humours: ["PHLEGM", "PHLEGM", "ORGONE"] },
+                        { ratio: 1, humours: ["ORGONE", "ORGONE", "YELLOWBILE"] },
+                        { ratio: 1, humours: ["ORGONE", "ORGONE", "BLACKBILE"] },
+                        { ratio: 1, humours: ["ORGONE", "ORGONE", "PHLEGM"] },
                     ]
                 },
                 {
@@ -52,16 +57,16 @@ var panel_number_ratios = {
                     inner_ratios: [
                         { ratio: 1, humours: ["YELLOWBILE", "BLACKBILE"] },
                         { ratio: 1, humours: ["YELLOWBILE", "PHLEGM"] },
-                        // { ratio: 1, humours: ["YELLOWBILE", "ORGONE"] },
+                        { ratio: 1, humours: ["YELLOWBILE", "ORGONE"] },
                         { ratio: 1, humours: ["BLACKBILE", "PHLEGM"] },
                         { ratio: 1, humours: ["BLACKBILE", "YELLOWBILE"] },
-                        // { ratio: 1, humours: ["BLACKBILE", "ORGONE"] },
+                        { ratio: 1, humours: ["BLACKBILE", "ORGONE"] },
                         { ratio: 1, humours: ["PHLEGM", "YELLOWBILE"] },
                         { ratio: 1, humours: ["PHLEGM", "BLACKBILE"] },
-                        // { ratio: 1, humours: ["PHLEGM", "ORGONE"] },
-                        // { ratio: 1, humours: ["ORGONE", "PHLEGM"] },
-                        // { ratio: 1, humours: ["ORGONE", "YELLOWBILE"] },
-                        // { ratio: 1, humours: ["ORGONE", "BLACKBILE"] },
+                        { ratio: 1, humours: ["PHLEGM", "ORGONE"] },
+                        { ratio: 1, humours: ["ORGONE", "PHLEGM"] },
+                        { ratio: 1, humours: ["ORGONE", "YELLOWBILE"] },
+                        { ratio: 1, humours: ["ORGONE", "BLACKBILE"] },
                     ]
                 } 
             ]
