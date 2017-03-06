@@ -5,6 +5,22 @@ DCPbtACountdowns.component = function () {
     //with a description attached. In-game circumstances will trigger the boxes being filled.
     //When the last one is filled, something will happen.
 
+    this.countdown_list = [];
+
+    this.addCountdown = function(num_boxes){
+        countdown = {
+            description: "",
+            boxlist: []
+        };
+        for(i in num_boxes){
+            countdown.boxlist.push({
+                description: "",
+                checked: false
+            }); 
+        }
+        this.countdown_list.push(countdown);
+    };
+
     // all component need a unique ID
     this.getId = function () {
         return "dc-pbta-countdowns"
