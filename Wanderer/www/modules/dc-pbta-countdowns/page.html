@@ -1,1 +1,9 @@
-﻿
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta-countdowns/stylesheet.css">
+
+<div data-ng-repeat="countdown in module.countdown_list track by $index">
+    <input type="text" data-ng-model="module.countdown_list[$index].description"></input>
+    <input data-ng-repeat="box in module.countdown_list[$index].boxlist" type="checkbox" data-ng-checked="box.checked"></input>
+</div>
+<button data-ng-click="module.addCountdown(6)">
+    Add a Countdown
+</button>
