@@ -2,6 +2,37 @@
 
 DCHumoursPlayerQuestions.component = function () {
 
+    this.questionlist = {
+        sections: [
+            {
+                name: "Yourself",
+                questions: [
+                    {
+                        q: "What is your name?",
+                        a: ""
+                    },
+                    {
+                        q: "What is your favorite color?",
+                        a: ""
+                    },
+                    {
+                        q: "What is the capital of Assyria?",
+                        a: ""
+                    }
+                ]
+            },
+            {
+                name: "Other",
+                questions: [
+                    {
+                        q: "This is a question",
+                        a: "Is this an answer?"
+                    }
+                ]
+            }
+        ]
+    }
+
     // all component need a unique ID
     this.getId = function () {
         return "dc-humours-player-questions"
