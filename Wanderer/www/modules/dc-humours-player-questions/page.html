@@ -7,6 +7,6 @@
 <div id="all_questions">
     <div data-ng-repeat="question in module.getQuestionlistForTab()">
         <p data-ng-bind="question.q"></p>
-        <input type="textarea" data-ng-bind="question.a"></input>
+        <input type="textarea" data-ng-model="question.a"></input>
     </div>
 </div>
