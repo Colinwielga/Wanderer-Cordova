@@ -1,1 +1,7 @@
-﻿
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-humours-player-questions/stylesheet.css">
+<div id="all_questions">
+    <div data-ng-repeat="question in module.questionlist.sections[0].questions">
+        <p data-ng-bind="question.q"></p>
+        <input type="textarea" data-ng-bind="question.a"></input>
+    </div>
+</div>
