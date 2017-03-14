@@ -1,6 +1,11 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-humours-player-questions/stylesheet.css">
+<div id="tabs_bar">
+    <div data-ng-repeat="section in module.questionlist">
+        <button data-ng-click="module.changeTab(section)"> {{section.name}} </button>
+    </div>
+</div>
 <div id="all_questions">
-    <div data-ng-repeat="question in module.questionlist.sections[0].questions">
+    <div data-ng-repeat="question in module.getQuestionlistForTab()">
         <p data-ng-bind="question.q"></p>
         <input type="textarea" data-ng-bind="question.a"></input>
     </div>

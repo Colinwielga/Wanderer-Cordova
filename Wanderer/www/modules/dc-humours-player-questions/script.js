@@ -2,36 +2,47 @@
 
 DCHumoursPlayerQuestions.component = function () {
 
-    this.questionlist = {
-        sections: [
-            {
-                name: "Yourself",
-                questions: [
-                    {
-                        q: "What is your name?",
-                        a: ""
-                    },
-                    {
-                        q: "What is your favorite color?",
-                        a: ""
-                    },
-                    {
-                        q: "What is the capital of Assyria?",
-                        a: ""
-                    }
-                ]
-            },
-            {
-                name: "Other",
-                questions: [
-                    {
-                        q: "This is a question",
-                        a: "Is this an answer?"
-                    }
-                ]
-            }
-        ]
+    //Returns the list of questions for tab at index tab_idx, defaulting to 
+    //the currently selected tab.
+    this.getQuestionlistForTab = function(tab_idx){
+        tab_idx = tab_idx || this.current_tab;
+        return this.questionlist[tab_idx].questions;
     }
+
+    //Changes the currently selected question section.
+    this.changeTab = function(section){
+        this.current_tab = this.questionlist.indexOf(section);
+    }
+
+    this.questionlist = [
+        {
+            name: "Yourself",
+            questions: [
+                {
+                    q: "What is your name?",
+                    a: ""
+                },
+                {
+                    q: "What is your favorite color?",
+                    a: ""
+                },
+                {
+                    q: "What is the capital of Assyria?",
+                    a: ""
+                }
+            ]
+        },
+        {
+            name: "Other",
+            questions: [
+                {
+                    q: "This is a question",
+                    a: "Is this an answer?"
+                }
+            ]
+        }
+
+    ]
 
     // all component need a unique ID
     this.getId = function () {
@@ -50,8 +61,7 @@ DCHumoursPlayerQuestions.component = function () {
     }
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.current_tab = 0;
     }
     // called when a character is saved
     this.OnSave = function () {
