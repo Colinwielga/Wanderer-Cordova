@@ -1,1 +1,13 @@
-﻿
+﻿/* Tabs Bar */
+#dc-humours-player-questions #tabs_bar{
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: 0.5em;
+}
+
+#dc-humours-player-questions #tabs_bar div.selected button{
+    background-color: #888;
+    border-style: solid; 
+}

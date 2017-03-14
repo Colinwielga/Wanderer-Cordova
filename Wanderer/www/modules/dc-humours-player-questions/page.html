@@ -1,6 +1,7 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-humours-player-questions/stylesheet.css">
 <div id="tabs_bar">
-    <div data-ng-repeat="section in module.questionlist">
+    <div data-ng-repeat="section in module.questionlist"
+         data-ng-class="{selected: module.questionlist.indexOf(section) === module.current_tab}">
         <button data-ng-click="module.changeTab(section)"> {{section.name}} </button>
     </div>
 </div>
