@@ -11,3 +11,31 @@
     background-color: #888;
     border-style: solid; 
 }
+
+/* Questions and Answers */
+#dc-humours-player-questions #all_questions{
+    margin: 0.5em;
+}
+
+#dc-humours-player-questions #all_questions > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5em 0.5em 1.5em;
+}
+
+#dc-humours-player-questions #all_questions .question{
+    font-weight: bold;
+}
+
+#dc-humours-player-questions #all_questions .question,
+#dc-humours-player-questions #all_questions .question_details{
+    width: 75%; 
+    margin: 0.25em;
+}
+
+#dc-humours-player-questions #all_questions textarea{
+    resize: none;
+    height: 6em;
+    width: 30em;
+}
