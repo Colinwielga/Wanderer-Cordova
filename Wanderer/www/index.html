@@ -72,7 +72,7 @@
                                 <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
                             </div>
                             <div class="loggin-container">
-                                <div data-ng-repeat="log in module.injected.logger.displayLogs()">
+                                <div class="notification notification-{{log.displayType}}" data-ng-repeat="log in module.injected.logger.displayLogs()">
                                     {{log.message}}
                                     <input type="button" value="x" data-ng-click="log.closed = true" />
                                 </div>

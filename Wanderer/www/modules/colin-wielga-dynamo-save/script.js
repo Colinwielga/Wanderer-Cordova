@@ -39,7 +39,6 @@ ColinWielgaDyanmo.component = function () {
     }
     this.goToEnterGame = function () {
         that.state = ColinWielgaDyanmo.States.ENTER_GAME;
-
     }
     this.goToList = function () {
         that.state = ColinWielgaDyanmo.States.LIST;
@@ -152,7 +151,6 @@ ColinWielgaDyanmo.component = function () {
                         })
                     }, function () {
                         that.injected.timeout(function () {
-
                             that.injected.logger.warn("game name or password is incorrect");
                             this.state = ColinWielgaDyanmo.States.ENTER_GAME;
                         });
@@ -187,6 +185,22 @@ ColinWielgaDyanmo.component = function () {
     this.refreshJSON = function () {
         this.json = angular.toJson(this.injected.getJSON());
     }
+    this.CouldNotFindGame = function () {
+        that.injected.timeout(function () {
+            that.injected.logger.warn("Could not find game");
+        });
+    }
+    this.Error = function (err) {
+        that.injected.timeout(function () {
+            that.injected.logger.warn("Error: " + err);
+        });
+    }
+    this.CouldNotFindCharacter = function () {
+        that.injected.timeout(function () {
+            that.injected.logger.warn("Could not find character");
+        });
+    }
+
     this.connectCommon = function () {
         that.provider.getCharacters(this.gameName, this.gamePassword,
             function (list) {
@@ -194,11 +208,7 @@ ColinWielgaDyanmo.component = function () {
                     that.list = list
                     that.state = ColinWielgaDyanmo.States.LIST;
                 });
-            }, function () {
-
-            }, function () {
-
-            })
+            }, that.CouldNotFindGame, that.Error)
     }
 
 
@@ -211,13 +221,10 @@ ColinWielgaDyanmo.component = function () {
                     that.state = ColinWielgaDyanmo.States.NEW;
                     that.name = name;
                 })
-            }, function () {
-
-            }, function () {
-
-            }, function () {
-
-            })
+            }, that.CouldNotFindGame
+            , that.CouldNotFindCharacter,
+            that.Error
+        )
     }
     this.save = function () {
         that.state = ColinWielgaDyanmo.States.WORKING;
@@ -225,18 +232,13 @@ ColinWielgaDyanmo.component = function () {
 
         var reallySave = function () {
             that.provider.SaveCharacter(that.name, that.gameName, that.gamePassword, angular.toJson(that.injected.getJSON()),
-function (data) {
-    //actuly if it works it does nothing
-    that.injected.timeout(function () {
-        that.state = ColinWielgaDyanmo.States.NEW;
-    })
-},
-function () {
-
-}, function () {
-
-})
-        }
+                function (data) {
+                    that.injected.timeout(function () {
+                    that.state = ColinWielgaDyanmo.States.NEW;
+                    })
+                },
+                that.CouldNotFindGame,
+                that.Error)};
 
         // todo bring this to other ways of saving
         that.provider.GetCharacter(this.name, this.gameName, this.gamePassword, function (json) {   
@@ -251,13 +253,9 @@ function () {
                     that.state = ColinWielgaDyanmo.States.NEW;
                 });
             }
-        }, function () {
-            that.injected.logger.warn("game does not exist");
-        }, function () {
-            reallySave()
-        }, function () {
-            that.injected.logger.warn("bad!");
-        })
+        }, that.CouldNotFindGame,
+        that.CouldNotFindCharacter,
+        that.Error)
 
 
 

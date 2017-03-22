@@ -12,8 +12,12 @@ ColinWielgaDyanmo.WandererAdventures = 'WandererAdventures';
 ColinWielgaDyanmo.hashFnv32a= function(str, seed) {
 
     /*jshint bitwise:false */
-    var i, l,
-        hval = (seed === undefined) ? 0x811c9dc5 : seed;
+    var i, l,hval;
+    if (seed === undefined) {
+        hval = 0x811c9dc5
+    } else {
+        hval = seed;
+    } 
 
     for (i = 0, l = str.length; i < l; i++) {
         hval ^= str.charCodeAt(i);
@@ -82,7 +86,7 @@ ColinWielgaDyanmo.awsProvider.GetCharacter = function (name, adventure, password
 
             bad(err);
         } else {
-            if (data.Item == null) {
+            if (data.Item === null) {
                 characterDoesNotExist()
             } else {
                 good(JSON.parse(data.Item.JSON.S));
@@ -172,7 +176,7 @@ ColinWielgaDyanmo.localProvider = {};
 ColinWielgaDyanmo.localProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
     var characterList = [];
     var charactorListString = window.localStorage.getItem("charactorlist");
-    if (charactorListString != undefined) {
+    if (charactorListString !== undefined) {
         characterList = JSON.parse(charactorListString);
     } 
 
@@ -211,7 +215,7 @@ ColinWielgaDyanmo.localProvider.GetCharacter = function (name, adventure, passwo
 ColinWielgaDyanmo.localProvider.getCharacters = function (adventure, password, good, gameDoesNotExist, bad) {
     var characterList = [];
     var charactorListString = window.localStorage.getItem("charactorlist");
-    if (charactorListString != undefined) {
+    if (charactorListString !== undefined) {
         characterList = JSON.parse(charactorListString);
     }
     good(characterList);

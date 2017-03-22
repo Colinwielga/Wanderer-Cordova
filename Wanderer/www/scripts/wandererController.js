@@ -17,7 +17,7 @@
     }
 
     $scope.Selected = function (char) {
-        return $scope.activeCharacter == char;
+        return $scope.activeCharacter === char;
     }
 
     $scope.Close = function (char) {

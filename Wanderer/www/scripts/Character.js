@@ -60,7 +60,6 @@
 
     }
     var logFactory = function () {
-        // why are these flags?
         var TypeEnum = {
             VERBOSE: 1,
             DEBUG: 2,
@@ -69,7 +68,14 @@
             ERROR: 5,
             WTF: 6,
         }
-        // logging constants
+
+        var displayTypeMap = {};
+        displayTypeMap[TypeEnum.VERBOSE] = "Verbose";
+        displayTypeMap[TypeEnum.DEBUG] = "Debug";
+        displayTypeMap[TypeEnum.INFO] = "Info";
+        displayTypeMap[TypeEnum.WARN] = "Warn";
+        displayTypeMap[TypeEnum.ERROR] = "Error";
+        displayTypeMap[TypeEnum.WTF] = "WTF";
 
         var logTimeout = 1000 * 60;
         var logLevel = TypeEnum.VERBOSE;
@@ -90,6 +96,7 @@
                 this.logs.push({
                     message: message,
                     type: type,
+                    displayType: displayTypeMap[type],
                     closed: false,
                     timeStamp: new Date().getTime()
                 });
