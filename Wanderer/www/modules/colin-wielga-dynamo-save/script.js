@@ -256,10 +256,6 @@ ColinWielgaDyanmo.component = function () {
         }, that.CouldNotFindGame,
         that.CouldNotFindCharacter,
         that.Error)
-
-
-
-
     }
     this.Local = function () {
         this.provider = ColinWielgaDyanmo.localProvider;

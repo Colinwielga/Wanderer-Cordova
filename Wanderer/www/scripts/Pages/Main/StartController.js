@@ -1,0 +1,3 @@
+﻿g.getStartController = function () {
+    return {};
+}

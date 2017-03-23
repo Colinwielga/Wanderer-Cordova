@@ -10,33 +10,32 @@
         return "on update";
     }
 
-    $scope.Characters = [new g.Character($timeout)];
+    $scope.Pages = [
+        g.MainPageFactory(g.getStartController()),
+        g.CharacterPageFactory(new g.Character($timeout))
+    ];
 
-    $scope.Select = function (char) {
-        $scope.activeCharacter = char;
+    $scope.Select = function (page) {
+        $scope.activePage = page;
     }
 
-    $scope.Selected = function (char) {
-        return $scope.activeCharacter === char;
+    $scope.Selected = function (page) {
+        return $scope.activePage === page;
     }
 
-    $scope.Close = function (char) {
-        var at = $scope.Characters.indexOf(char);
+    $scope.Close = function (page) {
+        var at = $scope.Pages.indexOf(page);
         if (at >= 0) {
-            $scope.Characters.splice(at, 1);
+            $scope.Pages.splice(at, 1);
         }
     }
 
     $scope.Add = function () {
-        $scope.Characters.push(new g.Character($timeout));
-        $scope.activeCharacter = $scope.Characters[$scope.Characters.length-1];
+        $scope.Pages.push(new g.Character($timeout));
+        $scope.activePage = $scope.Pages[$scope.Pages.length - 1];
     }
 
-    $scope.activeCharacter = $scope.Characters[0];
-
-
-
-    //awsPublic.loadLastCharacter();
+    $scope.activePage = $scope.Pages[0];
 
 }]);
 
