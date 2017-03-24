@@ -2,6 +2,7 @@
 //declare var angular: any;
 
 var g = {};
+g.services = {};
 
 var App = angular.module("wandererApp", ['textAngular']);
 
