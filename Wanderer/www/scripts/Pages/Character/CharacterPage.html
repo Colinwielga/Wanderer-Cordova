@@ -1,29 +1,32 @@
-﻿<div data-ng-repeat="module in activePage.modules()">
-    <div class="drag section">
-        <div class="section-header">
-            <label class="hide-button" data-ng-click="activePage.Remove(module)">x</label>
-            <label class="hide-button" for="{{module.getId()}}-hide">-</label>
-            <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
-            <h2 class="section-title">{{module.getTitle()}}</h2>
-        </div>
-        <div id="{{module.getId()}}">
-            <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
-            <div class="section-body fixed-content">
-                <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked />
-                <div class="rules-container">
-                    <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
-                </div>
-                <div class="loggin-container">
-                    <div class="notification notification-{{log.displayType}}" data-ng-repeat="log in module.injected.logger.displayLogs()">
-                        {{log.message}}
-                        <input type="button" value="x" data-ng-click="log.closed = true" />
+﻿
+<div id="content">
+    <div data-ng-repeat="module in activePage.getController().modules()">
+        <div class="drag section">
+            <div class="section-header">
+                <label class="hide-button" data-ng-click="activePage.getController().Remove(module)">x</label>
+                <label class="hide-button" for="{{module.getId()}}-hide">-</label>
+                <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
+                <h2 class="section-title">{{module.getTitle()}}</h2>
+            </div>
+            <div id="{{module.getId()}}">
+                <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
+                <div class="section-body fixed-content">
+                    <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked />
+                    <div class="rules-container">
+                        <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
                     </div>
+                    <div class="loggin-container">
+                        <div class="notification notification-{{log.displayType}}" data-ng-repeat="log in module.injected.logger.displayLogs()">
+                            {{log.message}}
+                            <input type="button" value="x" data-ng-click="log.closed = true" />
+                        </div>
+                    </div>
+                    <div data-ng-show="module.injected.dataManager.remote != null">
+                        showing local:
+                        <input type="button" value="{{module.injected.dataManager.useLocal}}" data-ng-click="activePage.swap(module)" />
+                    </div>
+                    <div data-ng-include="module.getHmtl()"></div>
                 </div>
-                <div data-ng-show="module.injected.dataManager.remote != null">
-                    showing local:
-                    <input type="button" value="{{module.injected.dataManager.useLocal}}" data-ng-click="activePage.swap(module)" />
-                </div>
-                <div data-ng-include="module.getHmtl()"></div>
             </div>
         </div>
     </div>

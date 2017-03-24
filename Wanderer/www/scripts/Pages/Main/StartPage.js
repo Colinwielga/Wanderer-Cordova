@@ -4,7 +4,7 @@
             return controller;
         },
         getHmtl: function () {
-            return "scripts/Pages/Character/CharacterPage.html";//"scripts/Pages/Main/StartPage.html";
+            return "scripts/Pages/Main/StartPage.html";
         },
         displayName: function () {
             return "Start";

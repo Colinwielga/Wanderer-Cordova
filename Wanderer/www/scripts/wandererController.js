@@ -11,8 +11,8 @@
     }
 
     $scope.Pages = [
+        g.CharacterPageFactory(new g.Character($timeout)),
         g.MainPageFactory(g.getStartController()),
-        g.CharacterPageFactory(new g.Character($timeout))
     ];
 
     $scope.Select = function (page) {
