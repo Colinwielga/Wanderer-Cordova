@@ -31,7 +31,7 @@ g.services.AWSConnector.SaveCharacter = function (id, accessKey, json, good, bad
     g.services.AWSConnector.SaveThing(id, accessKey, g.services.AWSConnector.WandererCharacters, json, good, bad);
 }
 
-g.services.AWSConnector.saveAccount = function (id, accessKey, good, bad) {
+g.services.AWSConnector.saveAccount = function (id, accessKey,json, good, bad) {
     g.services.AWSConnector.SaveThing(id, accessKey, g.services.AWSConnector.WandererAccounts, json, good, bad);
 }
 
