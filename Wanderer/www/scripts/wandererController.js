@@ -1,5 +1,12 @@
 ﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
 
+    g.services.accountService.GetAccount(
+    function (result) {
+
+    }, function (error) {
+
+    });
+
     $scope.onUpdate = function () {
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {

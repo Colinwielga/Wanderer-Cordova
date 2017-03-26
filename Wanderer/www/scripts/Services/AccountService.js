@@ -1,27 +1,9 @@
-﻿// What a mess!
-// we I get an account do I have to get all it's characters?
-// I can probably get those when I try to load them?
-
-function makeid(n) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < n; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}
-
-g.services.accountService = {
+﻿g.services.accountService = {
     // pass takes an account object
     // fail takes an error
     GetAccount: function (pass, fail) {
 
-        var wrappedPass = function (result) {
-            // TODO transfrom
-            pass()
-        }
-        var notFound = function () {
+        var notFound = function (error) {
             // we need a common error type or something...
             fail()
         }
@@ -35,19 +17,25 @@ g.services.accountService = {
             g.services.AWSConnector.GetAccount(
                 accountName,
                 accountAccessKey,
-                wrappedPass,
+                function (result) {
+                    // TODO transfrom
+                    pass(result)
+                },
                 notFound,
                 fail);
         } else {
-            accountName = makeid(10);
-            accountAccessKey = makeid(10);
 
-            var json = {...}
+            var account = g.models.newAccount();
+
             g.services.AWSConnector.saveAccount(
-                accountName,
-                accountAccessKey,
-                json,
-                wrappedPass,
+                account.name,
+                account.accessKey,
+                JSON.stringify(account.json()),
+                function (result) {
+                    window.localStorage.setItem("accountName", account.name);
+                    window.localStorage.setItem("accountAccessKey", account.accessKey);
+                    pass(account)
+                },
                 fail)
         }
 
@@ -56,3 +44,4 @@ g.services.accountService = {
         //      put it in aws, return
     }
 };
+

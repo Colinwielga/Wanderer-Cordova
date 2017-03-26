@@ -1,15 +1,15 @@
-﻿// NOT SUPPORTED
+﻿//// NOT SUPPORTED
 
-// JSON provider... TODO
+//// JSON provider... TODO
 
-ColinWielgaDyanmo.jsonProvider = {};
+//ColinWielgaDyanmo.jsonProvider = {};
 
-ColinWielgaDyanmo.jsonProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
-    //TODO uhhhh?
-}
+//ColinWielgaDyanmo.jsonProvider.SaveCharacter = function (name, adventure, password, json, good, gameMissing, bad) {
+//    //TODO uhhhh?
+//}
 
-// are these even used?
-ColinWielgaDyanmo.jsonProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, characterDoesNotExist, bad) {
-    characterDoesNotExist()
-}
+//// are these even used?
+//ColinWielgaDyanmo.jsonProvider.GetCharacter = function (name, adventure, password, good, gameDoesNotExist, characterDoesNotExist, bad) {
+//    characterDoesNotExist()
+//}
 

@@ -3,6 +3,7 @@
 
 var g = {};
 g.services = {};
+g.models = {};
 
 var App = angular.module("wandererApp", ['textAngular']);
 

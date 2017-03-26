@@ -18,8 +18,7 @@ Wanderer\bld\*
 \Wanderer\bin\*
 \Wanderer\bld\*
 
-Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
-Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
+Wanderer/www/scripts/Services/AWSConnectorKeys.js
 
 Wanderer/plugins/browser.json
 Wanderer/www/npm-debug.log
