@@ -1,2 +1,2 @@
-﻿AWS.config.accessKeyId = 'AKIAJO7KD6M377ULUHOQ';
-AWS.config.secretAccessKey ='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';
+﻿AWS.config.accessKeyId = 'AKIAJW5HN4IWFNGSTYPQ';
+AWS.config.secretAccessKey = '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';
