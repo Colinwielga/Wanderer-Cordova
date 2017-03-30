@@ -164,7 +164,7 @@ ColinWielgaDyanmo.component = function () {
                     this.state = ColinWielgaDyanmo.States.ENTER_GAME;
             }
         }
-    }
+     }
     }
 
     // a component should be able to provide some infomation
