@@ -13,4 +13,5 @@ Wanderer/www/npm-debug.log
 Wanderer/build.json
 Wanderer/res/native/android/ant.properties
 Wanderer/www/scripts/Services/AWSConnectorKeys.js
-Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.jsWanderer/www/scripts/Services/AWSConnectorKeys.js
+Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
+Wanderer/www/scripts/Services/AWSConnectorKeys.js
