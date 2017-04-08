@@ -8,41 +8,24 @@ DCHumoursPlayerQuestions.component = function () {
         tab_idx = tab_idx || this.current_tab;
         return this.questionlist[tab_idx].questions;
     }
+    this.getNonQuestionlistForTab = function(tab_idx){
+        tab_idx = tab_idx || this.current_tab;
+        return this.questionlist[tab_idx].non_questions;
+    }
 
     //Changes the currently selected question section.
     this.changeTab = function(section){
         this.current_tab = this.questionlist.indexOf(section);
     }
 
-    this.questionlist = [
-        {
-            name: "Yourself",
-            questions: [
-                {
-                    q: "What is your name?",
-                    a: ""
-                },
-                {
-                    q: "What is your favorite color?",
-                    a: ""
-                },
-                {
-                    q: "What is the capital of Assyria?",
-                    a: ""
-                }
-            ]
-        },
-        {
-            name: "Other",
-            questions: [
-                {
-                    q: "This is a question",
-                    a: "Is this an answer?"
-                }
-            ]
-        }
+    //Changes the currently selected question choice.
+    this.selectChoice = function(question, choice){
+        question.choices.forEach(function(q_choice){
+            q_choice.chosen = (q_choice === choices);
+        });
+    }
 
-    ]
+    this.questionlist = []; 
 
     // all component need a unique ID
     this.getId = function () {
@@ -65,17 +48,11 @@ DCHumoursPlayerQuestions.component = function () {
     }
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("questionlist", this.questionlist);
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        this.questionlist = this.communicator.read("questionlist"); 
     }
     this.OnUpdate = function () {
     }

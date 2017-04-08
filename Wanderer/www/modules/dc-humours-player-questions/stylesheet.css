@@ -7,7 +7,12 @@
     margin-top: 0.5em;
 }
 
-#dc-humours-player-questions #tabs_bar div.selected button{
+#dc-humours-player-questions #tabs_bar button{
+    height: 100%; 
+}
+
+#dc-humours-player-questions #tabs_bar div.selected button,
+#dc-humours-player-questions .question_binary_choice button.selected{
     background-color: #888;
     border-style: solid; 
 }
@@ -34,8 +39,30 @@
     margin: 0.25em;
 }
 
+#dc-humours-player-questions .question_binary_choice{
+    display: flex;
+}
+#dc-humours-player-questions .question_binary_choice > span{
+    align-self: center;
+    margin: auto 0.5em;
+}
+
+#dc-humours-player-questions .question_choices ul{
+    list-style-type: none;
+}
+#dc-humours-player-questions .question_choices li{
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: small;
+}
+#dc-humours-player-questions .question_choices li.selected{
+    background-color: #888;
+}
+
 #dc-humours-player-questions #all_questions textarea{
     resize: none;
-    height: 6em;
+    height: 7em;
     width: 30em;
 }

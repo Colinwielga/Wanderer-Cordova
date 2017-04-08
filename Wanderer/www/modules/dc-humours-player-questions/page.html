@@ -6,9 +6,39 @@
     </div>
 </div>
 <div id="all_questions">
+    <div data-ng-show="module.getNonQuestionlistForTab()">
+        <ul>
+            <li 
+                data-ng-repeat="nonquestion in module.getNonQuestionlistForTab()"
+                data-ng-bind="nonquestion">
+            </li>
+        </ul>
+    </div>
     <div data-ng-repeat="question in module.getQuestionlistForTab()">
-        <p class="question" data-ng-bind="question.q"></p>
+        <p class="question" data-ng-show="question.q" data-ng-bind="question.q"></p>
         <p class="question_details" data-ng-show="question.q_details" data-ng-bind="question.q_details"></p>
-        <textarea data-ng-model="question.a"></textarea>
+        <div class="question_binary_choice" data-ng-show="question.c1 && question.c2">
+            <button data-ng-bind="question.c1" 
+                data-ng-click="question.chosen = 1"
+                data-ng-class="{selected: question.chosen === 1}"> </button>
+            <span>Or</span>
+            <button data-ng-bind="question.c2"
+                    data-ng-click="question.chosen = 2"
+                    data-ng-class="{selected: question.chosen === 2}"> </button>
+        </div>
+        <div class="question_choices" data-ng-show="question.choice_list">
+            <ul>
+                <li data-ng-repeat="option in question.choice_list"
+                    data-ng-bind="option"
+                    data-ng-click="question.list_choice = $index"
+                    data-ng-class="{selected: question.list_choice === $index}"></li> 
+            </ul>
+        </div>
+        <div class="player_name" data-ng-show="question.use_name">
+            <span>Name:</span>
+            <input type="text" data-ng-model="question.name"></input>
+        </div>
+        <textarea data-ng-show="!question.short_answer" data-ng-model="question.a"></textarea>
+        <input type="text" data-ng-show="question.short_answer" data-ng-model="question.a"></input>
     </div>
 </div>
