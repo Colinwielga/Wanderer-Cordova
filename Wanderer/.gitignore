@@ -1,4 +1,4 @@
-﻿# .gitignore
+# .gitignore
 [Pp]lugins/android.json
 [Pp]lugins/windows.json
 [Pp]lugins/wp8.json
