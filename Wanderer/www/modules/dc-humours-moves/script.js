@@ -109,6 +109,18 @@ var component = function () {
             label: "Humour Moves",
             moveslist: [
                 {
+                    title: "Rebalance Orgone",
+                    leadin: "When you",
+                    trigger: "cut to a flashback and describe a short scene from your character's past,",
+                    effect: "reset Orgone to balanced. If it is already balanced or higher, once the \
+                        scene is over, ask the other players if they think what you've revealed \
+                        fundamentally changes the way they see your character, or colors his/her actions \
+                        in a surprising new light. If they think so, the next time you follow up on that \
+                        revelation with your actions, take mill 1 forward to Orgone. (This \
+                        bonus does not stack.) ",
+                    collapsed: true,
+                },
+                {
                     title: "Start an Enterprise",
                     leadin: "When you",
                     trigger: "start a new project, venture, or business enterprise,",
@@ -189,7 +201,6 @@ var component = function () {
                             reasonably stimulating or thought-provoking. If so, take mill 1 forward to \
                             Yellow Bile. (This bonus does not stack.)",
                     collapsed: true,
-                    humour: "yellowbile"
                 },
                 {
                     title: "Size Up Danger",
@@ -267,7 +278,6 @@ var component = function () {
                         everyone's satisfaction, the next time something reminds you of that object, \
                         take mill 1 forward to Black Bile.",
                     collapsed: true,
-                    humour: "blackbile"
                 },
                 {
                     title: "Invite Trouble",
@@ -317,8 +327,9 @@ var component = function () {
                     title: "Have Something",
                     leadin: "When you",
                     trigger: "go through your pockets, purses or carrying bags",
-                    effect: "for something you might find useful right now, and it's not something \
-                        we already know you have, tell us what your need is and draw+discard Phlegm. \
+                    effect: "for something you might find useful right now, and it's something we \
+                        don't already know you have but that you justifiably might, \
+                        tell us what your need is and draw+discard Phlegm. \
                         On a Sated, you happen to be carrying just the thing - within reason. Tell us \
                         what it is. On a Waxing, you happen to be carrying something that might suffice. \
                         The MC will tell you what it is. Lower or no discard, cede intitiative to the MC.",
@@ -335,7 +346,6 @@ var component = function () {
                         yourself or face unnecessary risk. If they think you did, take mill 1 forward to Phlegm. \
                         (This bonus does not stack.)",
                     collapsed: true,
-                    humour: "phlegm"
                 },
                 {
                     title: "Attack an Enemy",
@@ -480,7 +490,6 @@ var component = function () {
                         committed and gain none back. \
                         <br />When your last humour reaches Dry, you have lost all connection to the mortal world.",
                     collapsed: true,
-                    humour: "blood"
                 },
                 {
                     title: "Rebalance Blood",
@@ -491,19 +500,181 @@ var component = function () {
                         forgiveness, and they also accept it in good faith, immediately choose a Blood \
                         advancement.",
                     collapsed: true,
-                    humour: "blood"
                 },
             ],
             custom: false
         },
         {
             label: "Peripheral Moves",
-            moveslist:[],
+            moveslist:[
+                {
+                    title: "Pay Back Debt",
+                    leadin: "When you",
+                    trigger: "try to restore balance of debt with someone",
+                    effect: "with whom you have negative debt balance, clarify what you've done to \
+                        pay them back (if necessary) and ask them if what you did counts as \
+                        <ul> \
+                            <li>Doing them a favor, even if unasked-for</li> \
+                            <li>Giving them a meaningful gift</li> \
+                            <li>Being honest to them when it hurts you to do so</li> \
+                            <li>Winning their approval</li> \
+                        </ul> \
+                        Their call if it counts as one of those, but remind them that if they're too \
+                        hard to please, you might have no reason to keep trying. If it does count, \
+                        shift the balance of debt one point in your favor.",
+                    collapsed: true,
+                },
+                {
+                    title: "Cash In Your Dues",
+                    leadin: "When you",
+                    trigger: "request a favor from someone,",
+                    effect: "say what you want them to do and spend up to 2 debt. If you spend \
+                        1, choose; if you spend 2, both: \
+                        <ul> \
+                            <li>If they do it, they draw a card</li> \
+                            <li>If they don't do it, they're inviting trouble</li>   \
+                        </ul> \
+                        Debt spent is shifted in their favor. Obviously, you can't spend more \
+                        debt in this way than you currently have, but if your debt is 0 or lower, \
+                        (or even if not,) you can still offer 1 debt to get someone to do something \
+                        for you. It's their call if they take the offer. <br />(You can use this move even \
+                        when your character isn't in the scene or can't act directly: We'll say you \
+                        told the other character what you wanted offscreen, or that they realize what \
+                        you'd want them to do in this situation even if you never said it explicitly. A \
+                        little weird, I know, but it gives everyone a good reason to pay attention to \
+                        each others' scenes.)",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "help or interfere with someone",
+                    effect: "who is making a draw + discard, describe how you're getting involved \
+                        and discard a single card of your own. They get +1 or -1 forward, your choice.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "meet someone new who you think might have heard of you,",
+                    effect: "pick one of your Reputations and tell the MC that this \
+                        person knows you by it. What exactly the character thinks about that \
+                        is the MC's choice. At their discretion, they might decide the \
+                        character also knows you by any of your other reputations",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "At the",
+                    trigger: "end of session,",
+                    effect: "if it seems right to do so, you may nominate a player character \
+                        for a new reputation. Discuss your reasoning briefly, and if the players - \
+                        including the MC, and not including the player of that character - can reach \
+                        consensus, award it.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "haggle over a price,",
+                    effect: "either monetary or otherwise, state your best offer and choose to \
+                        discard a single card, or no. If you discard, they have to choose: Take your \
+                        offer, or end the deal and throw you out. If you don't discard, they can \
+                        choose one of those two options, or instead one of these: \
+                        <ul> \
+                            <li>Ask you to throw in a little something extra</li> \
+                            <li>Give you only most of what you wanted</li> \
+                            <li>Pass you along to their superiors</li> \
+                            <li>Point you at someone else they know to be interested</li> \
+                            <li>Counter with something of comparable cost or value</li> \
+                        </ul>",
+                    collapsed: true,
+                },
+
+            ],
             custom: false
         },
         {
             label: "World Moves",
-            moveslist:[],
+            moveslist:[
+                {
+                    title: "",
+                    leadin: "If you",
+                    trigger: "have any humours at waxing,",
+                    effect: "demons can smell them on you, and it makes them hungry. If you have at \
+                        least two humours at waxing, take -1 ongoing to all draws that involve or \
+                        take place in the presence of demons. If you have three or more humours at waxing, the \
+                        demons will start to come looking for you. Tell the MC they have a new move they \
+                        can make when you cede initiative to them: <b>Introduce a demon</b>.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "go into The Embassy and offer payment to a demon,",
+                    effect: "tell them what you want and make the <b>haggle over a price</b> move. \
+                        Instead of the usual list, the demons can choose from these: \
+                        <ul> \
+                            <li>Ask you for a greater amount of your humour</li> \
+                            <li>Give you a warped version of what you wanted</li> \
+                            <li>Involve more demons in the arrangement</li> \
+                            <li>Counter with something of comparable cost or value</li> \
+                            <li>Counter with something unexpected or wildly irrelevant</li> \
+                        </ul>",
+                    collapsed: true,
+                },
+
+            ],
+            custom: false
+        },
+        {
+            label: "Card Moves",
+            moveslist:[
+                {
+                    title: "Draw + Discard",
+                    leadin: "When",
+                    trigger: "a move tells you to draw + discard,",
+                    effect: "immediately draw a card, then either choose a card from your hand and discard it. \
+                        if your card has one panel that shares a color with the humour specified by the move, \
+                        take your slider value for that humour and add one to it. If both of the card's panels \
+                        share a color with the humour specified by the move, take your slider value for that \
+                        humour and add two to it. If neither panel matches the color of the humour specified \
+                        by the move, take your slider value for the humour specified by the move and use it \
+                        unaltered. If you choose not to discard, take the 'no discard' result for the move.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "play a card for draw+discard that has a left-pointing arrow,",
+                    effect: "reduce the slider level of the slider corresponding to the arrow's humour \
+                        color by one notch. If your humour is reduced to Dry, immediately reset to Balanced \
+                        and tell the MC to choose an MC Advancement for you from the appropriate list.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "discard up to three cards containing at least one panel each of the same color,",
+                    effect: "increase the slider level of the humour that matches that color by one step. You may \
+                    not increase more than one humour at a time in this way. If your discard \
+                    reduces your hand to 0 cards, you may immediately draw 1. If your humour \
+                    advances to Sated, immediately reset to Balanced and choose a Player Advancement \
+                    from the appropriate list.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "draw for draw+discard and have mill,",
+                    effect: "choose: Keep the card you drew, or discard it to no effect and draw again. You \
+                        may make this choice as many times as you have mill. (Typically, only once - 'mill 1'.) \
+                        Note that if you have a bonus 'forward', it only applies to the next draw, whereas \
+                        if you have a bonus 'ongoing', it applies as long as the circumstances that grant it \
+                        are in effect.",
+                    collapsed: true,
+                },
+            ],
             custom: false
         }
     ];
