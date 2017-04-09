@@ -1,18 +1,17 @@
-﻿g.services.accountService = {
+﻿var accountId = "accountId";
+
+g.services.accountService = {
     // pass takes an account object
     // fail takes an error
     GetAccount: function (pass,notFound, fail) {
 
         // try to load from memory
-        var accountName = window.localStorage.getItem("accountName");
-        var accountAccessKey = window.localStorage.getItem("accountAccessKey");
-        if (accountName!= null &&
-            accountAccessKey != null
+        var id = window.localStorage.getItem(accountId);
+        if (id!= null
             && false
             ){
             g.services.AWSConnector.GetAccount(
-                accountName,
-                accountAccessKey,
+                id,
                 function (result) {
                     // TODO transfrom
                     pass(result)
@@ -24,12 +23,11 @@
             var account = g.models.newAccount();
 
             g.services.AWSConnector.saveAccount(
+                account.id,
                 account.name,
-                account.accessKey,
                 JSON.stringify(account.json()),
                 function (result) {
-                    window.localStorage.setItem("accountName", account.name);
-                    window.localStorage.setItem("accountAccessKey", account.accessKey);
+                    window.localStorage.setItem(accountId, account.id);
                     pass(account)
                 },
                 fail)

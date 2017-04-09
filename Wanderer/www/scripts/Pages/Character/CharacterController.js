@@ -1,4 +1,4 @@
-﻿g.Character = function ($timeout) {
+﻿g.Character = function ($timeout,name) {
     var that = this;
 
     var comboKey = function (id, key) {
@@ -192,11 +192,8 @@
 
         var modulesPublic = modMap["wanderer-core-modules"].getPublic();
         var logger = modMap["wanderer-core-logger"].getPublic();
-        var save = modMap["colin-wielga-dynamo-save"].getPublic();
-
-
-            modulesPublic.injectComponents(modList);
-
+        
+        modulesPublic.injectComponents(modList);
 
         modList.forEach(function (item) {
                 // we inject a ton of stuff
@@ -279,7 +276,7 @@
             remove: function (module) {
                 modulesPublic.toggle(module);
             },
-            getName: save.getName
+            getName: function () { return name;}
         };
     }
 

@@ -12,12 +12,17 @@
 
     var tempPage = g.LoadingPageFactory($timeout, "loading account...");
     $scope.Pages = [tempPage];
-    $scope.activePage = tempPage;
+    $scope.activeIndex = 0;
+
+    $scope.activePage = function () {
+        return $scope.Pages[$scope.activeIndex]
+    }
 
     g.services.accountService.GetAccount(function (account) {
         $timeout(function () {
             var at = $scope.Pages.indexOf(tempPage);
-            $scope.Pages[at] = g.MainPageFactory(g.getStartController($timeout, account));
+            var newPage = g.MainPageFactory(g.getStartController($timeout, account));
+            $scope.Pages[at] = newPage;
         });
     }, function (error) {
         $timeout(function () {
@@ -32,11 +37,11 @@
     });
 
     $scope.Select = function (page) {
-        $scope.activePage = page;
+        $scope.activeIndex = $scope.Pages.indexOf(page)
     }
 
     $scope.Selected = function (page) {
-        return $scope.activePage === page;
+        return $scope.Pages.indexOf(page) === $scope.activeIndex;
     }
 
     $scope.Close = function (page) {
@@ -47,15 +52,16 @@
     }
 
     $scope.Add = function () {
-        $scope.Pages.push(g.CharacterPageFactory(new g.Character($timeout)));
-        $scope.activePage = $scope.Pages[$scope.Pages.length - 1];
+        var newPage = g.CharacterPageFactory(new g.Character($timeout,"new character"));
+        $scope.Pages.push(newPage);
+        $scope.Select(newPage)
     }
 
     $scope.OpenCharacter = function (characterAccessor) {
         var tempPage = g.LoadingPageFactory($timeout, "loading " + characterAccessor.name);
         $scope.Pages.push(tempPage);
-        $scope.activePage = tempPage;
-        g.services.characterService.GetCharacter(characterAccessor.name, characterAccessor.accessKey, function (character) {
+        $scope.Select(tempPage);
+        g.services.characterService.GetCharacter(characterAccessor.id, function (character) {
             $timeout(function () {
                 var at = $scope.Pages.indexOf(tempPage);
                 $scope.Pages[at] = g.CharacterPageFactory(character);

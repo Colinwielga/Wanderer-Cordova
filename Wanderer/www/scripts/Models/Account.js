@@ -10,14 +10,14 @@
 
 var defaultLength 
 
-g.models.newAccount = function (accountName, accountAccessKey, characterAccessers) {
+g.models.newAccount = function (id,name, characterAccessers) {
     characterAccessers = (typeof characterAccessers !== 'undefined') ? characterAccessers : [];
-    accountName = (typeof accountName !== 'undefined') ? accountName: makeid(20);
-    accountAccessKey = (typeof accountAccessKey !== 'undefined') ?accountAccessKey: makeid(20);
-
+    name = (typeof name !== 'undefined') ?name: "unnammed";
+    id = (typeof id !== 'undefined') ? id: makeid(40);
+    
     return {
-        name: accountName,
-        accessKey: accountAccessKey,
+        id: id,
+        name: name,
         characterAccessers: characterAccessers,
         json: function () {
             return {
@@ -30,22 +30,22 @@ g.models.newAccount = function (accountName, accountAccessKey, characterAccesser
 g.models.accountFormJSONstring = function (json) {
     // TODO parse the JSON
     var parsed = JSON.parse(json);
-    var accountName = parsed["name"];
-    var accountAccessKey = parsed["accessKey"];
+    var id = parsed["id"];
+    var name = parsed["name"];
     var characterAccessers = [];
     var list = parsed["characterAccessers"];
     for (var i = 0; i < list.length; i++) {
-        var characterName = list[i]["name"];
-        var characterKey = list[i]["accessKey"];
-        characterAccessers.push(g.models.newCharacterAccesser(characterName, characterKey));
+        var charId = list[i]["id"];
+        var charName = list[i]["name"];
+        characterAccessers.push(g.models.newCharacterAccesser(charId, charName));
     }
-    return g.models.newAccount(accountName, accountAccessKey, characterAccessers);
+    return g.models.newAccount(accountName,name, characterAccessers);
 }
 
-g.models.newCharacterAccesser = function (charterName, charterAccessKey) {
+g.models.newCharacterAccesser = function (id, name) {
     return {
-        name: charterName,
-        accessKey: charterAccessKey
+        id: id,
+        name: name,
     }
 }
 

@@ -5,15 +5,15 @@ AWS.config.dynamoDbCrc32 = false;
 
 g.services.AWSConnector.dynamodb = new AWS.DynamoDB();
 
-g.services.AWSConnector.WandererCharacters = 'WandererCharacters';
+g.services.AWSConnector.WandererCharacters = 'WandererCharacters2';
 g.services.AWSConnector.WandererAccounts = 'WandererAccounts';
 
 // AWS provider
-g.services.AWSConnector.SaveThing = function (id, accessKey, table, json, good, bad) {
+g.services.AWSConnector.SaveThing = function (id, name, table, json, good, bad) {
     var itemParams = {
         Item: {
-            "Name": { "S": id },
-            "AccessKey": { "S": id+"-"+accessKey },
+            "id": { "S": id },
+            "name":{"S": name},
             "JSON": { "S": json },
         },
         "TableName": table
@@ -27,18 +27,18 @@ g.services.AWSConnector.SaveThing = function (id, accessKey, table, json, good, 
     });
 }
 
-g.services.AWSConnector.SaveCharacter = function (id, accessKey, json, good, bad) {
-    g.services.AWSConnector.SaveThing(id, accessKey, g.services.AWSConnector.WandererCharacters, json, good, bad);
+g.services.AWSConnector.SaveCharacter = function (id, name, json, good, bad) {
+    g.services.AWSConnector.SaveThing(id,name, g.services.AWSConnector.WandererCharacters, json, good, bad);
 }
 
-g.services.AWSConnector.saveAccount = function (id, accessKey,json, good, bad) {
-    g.services.AWSConnector.SaveThing(id, accessKey, g.services.AWSConnector.WandererAccounts, json, good, bad);
+g.services.AWSConnector.saveAccount = function (id, name, json, good, bad) {
+    g.services.AWSConnector.SaveThing(id, name, g.services.AWSConnector.WandererAccounts, json, good, bad);
 }
 
-g.services.AWSConnector.GetThing = function (name, accessKey, table, good, characterDoesNotExist, bad) {
+g.services.AWSConnector.GetThing = function (id,  table, good, characterDoesNotExist, bad) {
     var itemParams = {
         "Key": {
-            "Name": { "S": name+"-"+accessKey }
+            "id": { "S": id }
         },
         "TableName": table
     };
