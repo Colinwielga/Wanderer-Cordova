@@ -1,12 +1,5 @@
 ﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
 
-    g.services.accountService.GetAccount(
-    function (result) {
-
-    }, function (error) {
-
-    });
-
     $scope.onUpdate = function () {
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {
@@ -17,10 +10,26 @@
         return "on update";
     }
 
-    $scope.Pages = [
-        g.MainPageFactory(g.getStartController($timeout)),
-        g.CharacterPageFactory(new g.Character($timeout)),
-    ];
+    var tempPage = g.LoadingPageFactory($timeout, "loading account...");
+    $scope.Pages = [tempPage];
+    $scope.activePage = tempPage;
+
+    g.services.accountService.GetAccount(function (account) {
+        $timeout(function () {
+            var at = $scope.Pages.indexOf(tempPage);
+            $scope.Pages[at] = g.MainPageFactory(g.getStartController($timeout, account));
+        });
+    }, function (error) {
+        $timeout(function () {
+            var at = $scope.Pages.indexOf(tempPage);
+            $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Account not found"));
+        });
+    }, function (error) {
+        $timeout(function () {
+            var at = $scope.Pages.indexOf(tempPage);
+            $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Error: " + error));
+        });
+    });
 
     $scope.Select = function (page) {
         $scope.activePage = page;
@@ -38,11 +47,32 @@
     }
 
     $scope.Add = function () {
-        $scope.Pages.push(new g.Character($timeout));
+        $scope.Pages.push(g.CharacterPageFactory(new g.Character($timeout)));
         $scope.activePage = $scope.Pages[$scope.Pages.length - 1];
     }
 
-    $scope.activePage = $scope.Pages[0];
+    $scope.OpenCharacter = function (characterAccessor) {
+        var tempPage = g.LoadingPageFactory($timeout, "loading " + characterAccessor.name);
+        $scope.Pages.push(tempPage);
+        $scope.activePage = tempPage;
+        g.services.characterService.GetCharacter(characterAccessor.name, characterAccessor.accessKey, function (character) {
+            $timeout(function () {
+                var at = $scope.Pages.indexOf(tempPage);
+                $scope.Pages[at] = g.CharacterPageFactory(character);
+            });
+        }, function () {
+            $timeout(function () {
+                var at = $scope.Pages.indexOf(tempPage);
+                $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Character does not exist"));
+            });
+        }, function (err) {
+            $timeout(function () {
+                var at = $scope.Pages.indexOf(tempPage);
+                $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Error: " + err));
+            });
+        }
+        )
+    }
 
 }]);
 

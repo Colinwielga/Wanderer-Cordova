@@ -13,7 +13,7 @@ g.services.AWSConnector.SaveThing = function (id, accessKey, table, json, good, 
     var itemParams = {
         Item: {
             "Name": { "S": id },
-            "AccessKey": { "S": accessKey },
+            "AccessKey": { "S": id+"-"+accessKey },
             "JSON": { "S": json },
         },
         "TableName": table
@@ -38,8 +38,7 @@ g.services.AWSConnector.saveAccount = function (id, accessKey,json, good, bad) {
 g.services.AWSConnector.GetThing = function (name, accessKey, table, good, characterDoesNotExist, bad) {
     var itemParams = {
         "Key": {
-            "Name": { "S": name },
-            "AccessKey": { "S": accessKey },
+            "Name": { "S": name+"-"+accessKey }
         },
         "TableName": table
     };
@@ -61,5 +60,5 @@ g.services.AWSConnector.GetCharacter = function (name, accessKey, good, characte
 }
 
 g.services.AWSConnector.GetAccount = function (id, accessKey, good, accountDoesNotExist, bad) {
-    g.services.AWSConnector.GetThing(name, accessKey, g.services.AWSConnector.WandererAccounts, good, characterDoesNotExist, bad);
+    g.services.AWSConnector.GetThing(id, accessKey, g.services.AWSConnector.WandererAccounts, good, accountDoesNotExist, bad);
 }

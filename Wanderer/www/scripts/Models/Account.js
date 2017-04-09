@@ -1,5 +1,4 @@
-﻿
-function makeid(n) {
+﻿function makeid(n) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -46,7 +45,7 @@ g.models.accountFormJSONstring = function (json) {
 g.models.newCharacterAccesser = function (charterName, charterAccessKey) {
     return {
         name: charterName,
-        accessKey: charterName
+        accessKey: charterAccessKey
     }
 }
 

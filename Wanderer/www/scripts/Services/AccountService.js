@@ -1,18 +1,14 @@
 ﻿g.services.accountService = {
     // pass takes an account object
     // fail takes an error
-    GetAccount: function (pass, fail) {
-
-        var notFound = function (error) {
-            // we need a common error type or something...
-            fail()
-        }
+    GetAccount: function (pass,notFound, fail) {
 
         // try to load from memory
         var accountName = window.localStorage.getItem("accountName");
         var accountAccessKey = window.localStorage.getItem("accountAccessKey");
         if (accountName!= null &&
             accountAccessKey != null
+            && false
             ){
             g.services.AWSConnector.GetAccount(
                 accountName,
