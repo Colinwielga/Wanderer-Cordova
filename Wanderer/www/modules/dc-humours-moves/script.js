@@ -1,6 +1,4 @@
-﻿
-
-var component = function () {
+﻿var component = function () {
     //A component for storing Humours moves.
 
     //Module-specific fields
@@ -684,7 +682,7 @@ var component = function () {
 
 
     this.getId = function () {
-        return "dc-pbta-moves"
+        return "dc-humours-moves"
     }
 
     // A component should know how to handle some events
@@ -730,7 +728,7 @@ var component = function () {
     }
 
     this.getRequires = function () {
-        return ["dc-pbta-moves"];
+        return ["dc-humours-moves"];
     }
 
     this.getPublic = function () {
