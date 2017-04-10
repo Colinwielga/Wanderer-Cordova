@@ -32,6 +32,21 @@
 #dc-humours-moves #all_moves .section-header{
     opacity: 0.75;
 }
+#dc-humours-moves #all_moves .section-header.orgone{
+    background: hsl(181, 30%, 85%);
+}
+#dc-humours-moves #all_moves .section-header.yellowbile{
+    background: hsl(45, 95%, 30%);
+}
+#dc-humours-moves #all_moves .section-header.blackbile{
+    background: hsl(270, 95%, 15%);
+}
+#dc-humours-moves #all_moves .section-header.phlegm{
+    background: hsl(130, 95%, 25%);
+}
+#dc-humours-moves #all_moves .section-header.blood{
+    background: hsl(0, 95%, 35%);
+}
 
 #dc-humours-moves .edit-move-panel,
 #dc-humours-moves #all_moves .move-body{
