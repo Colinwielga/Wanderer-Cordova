@@ -5,7 +5,8 @@
 /* Tabs Bar */
 #dc-humours-moves #tabs_bar{
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: center;
     margin-left: 0.5em;
     margin-right: 0.5em;
     margin-top: 0.5em;

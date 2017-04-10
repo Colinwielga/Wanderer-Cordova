@@ -104,20 +104,8 @@
     //customizable by the player.
     var default_move_catalogue = [
         {
-            label: "Humour Moves",
+            label: "Basic Moves",
             moveslist: [
-                {
-                    title: "Rebalance Orgone",
-                    leadin: "When you",
-                    trigger: "cut to a flashback and describe a short scene from your character's past,",
-                    effect: "reset Orgone to balanced. If it is already balanced or higher, once the \
-                        scene is over, ask the other players if they think what you've revealed \
-                        fundamentally changes the way they see your character, or colors his/her actions \
-                        in a surprising new light. If they think so, the next time you follow up on that \
-                        revelation with your actions, take mill 1 forward to Orgone. (This \
-                        bonus does not stack.) ",
-                    collapsed: true,
-                },
                 {
                     title: "Start an Enterprise",
                     leadin: "When you",
@@ -190,17 +178,6 @@
                     humour: "yellowbile"
                 },
                 {
-                    title: "Rebalance Yellow Bile",
-                    leadin: "When you",
-                    trigger: "spend a scene in calm and reasonably friendly conversation with \
-                            a fellow player-character,",
-                    effect: "reset Yellow Bile to balanced. If it is already balanced or higher, \
-                            ask another player involved in the conversation if they found it to be \
-                            reasonably stimulating or thought-provoking. If so, take mill 1 forward to \
-                            Yellow Bile. (This bonus does not stack.)",
-                    collapsed: true,
-                },
-                {
                     title: "Size Up Danger",
                     leadin: "When you",
                     trigger: "size up a dangerous situation,",
@@ -267,17 +244,6 @@
                     humour: "blackbile"
                 },
                 {
-                    title: "Rebalance Black Bile",
-                    leadin: "When you",
-                    trigger: "spend a scene doing something peaceful in your personal home, haven or hidey-hole,",
-                    effect: "reset Black Bile to balanced. If it is already balanced or higher, you may \
-                        choose to describe an object of personal significance. If you've described it \
-                        before, you must reveal some significant new detail. If you describe it to \
-                        everyone's satisfaction, the next time something reminds you of that object, \
-                        take mill 1 forward to Black Bile.",
-                    collapsed: true,
-                },
-                {
                     title: "Invite Trouble",
                     leadin: "When you",
                     trigger: "do something reckless, foolhardy, or ill-conceived, or neglect something important,",
@@ -333,17 +299,6 @@
                         The MC will tell you what it is. Lower or no discard, cede intitiative to the MC.",
                     collapsed: true,
                     humour: "phlegm"
-                },
-                {
-                    title: "Rebalance Phlegm",
-                    leadin: "When you",
-                    trigger: "spend a scene deliberately doing something you find unnerving or outside \
-                        your comfort zone,",
-                    effect: "reset Phlegm to balanced. If it is already balanced or higher, once the \
-                        scene is over, ask the MC if they think you went out of your way to challenge \
-                        yourself or face unnecessary risk. If they think you did, take mill 1 forward to Phlegm. \
-                        (This bonus does not stack.)",
-                    collapsed: true,
                 },
                 {
                     title: "Attack an Enemy",
@@ -489,6 +444,61 @@
                         <br />When your last humour reaches Dry, you have lost all connection to the mortal world.",
                     collapsed: true,
                 },
+            ],
+            custom: false
+        },
+        {
+            label: "Rebalance Moves",
+            moveslist:[
+                {
+                    title: "Rebalance Orgone",
+                    leadin: "When you",
+                    trigger: "cut to a flashback and describe a short scene from your character's past,",
+                    effect: "reset Orgone to balanced. If it is already balanced or higher, once the \
+                        scene is over, ask the other players if they think what you've revealed \
+                        fundamentally changes the way they see your character, or colors his/her actions \
+                        in a surprising new light. If they think so, the next time you follow up on that \
+                        revelation with your actions, take mill 1 forward to Orgone. (This \
+                        bonus does not stack.) ",
+                    humour: "orgone",
+                    collapsed: true,
+                },
+                {
+                    title: "Rebalance Yellow Bile",
+                    leadin: "When you",
+                    trigger: "spend a scene in calm and reasonably friendly conversation with \
+                            a fellow player-character,",
+                    effect: "reset Yellow Bile to balanced. If it is already balanced or higher, \
+                            ask another player involved in the conversation if they found it to be \
+                            reasonably stimulating or thought-provoking. If so, take mill 1 forward to \
+                            Yellow Bile. (This bonus does not stack.)",
+                    humour: "yellowbile",
+                    collapsed: true,
+                },
+                {
+                    title: "Rebalance Black Bile",
+                    leadin: "When you",
+                    trigger: "spend a scene doing something peaceful in your personal home, haven or hidey-hole,",
+                    effect: "reset Black Bile to balanced. If it is already balanced or higher, you may \
+                        choose to describe an object of personal significance. If you've described it \
+                        before, you must reveal some significant new detail. If you describe it to \
+                        everyone's satisfaction, the next time something reminds you of that object, \
+                        take mill 1 forward to Black Bile.",
+                    humour: "blackbile",
+                    collapsed: true,
+                },
+                {
+                    title: "Rebalance Phlegm",
+                    leadin: "When you",
+                    trigger: "spend a scene deliberately doing something you find unnerving or outside \
+                        your comfort zone,",
+                    effect: "reset Phlegm to balanced. If it is already balanced or higher, once the \
+                        scene is over, ask the MC if they think you went out of your way to challenge \
+                        yourself or face unnecessary risk. If they think you did, take mill 1 forward to Phlegm. \
+                        (This bonus does not stack.)",
+                    humour: "phlegm",
+                    collapsed: true,
+                },
                 {
                     title: "Rebalance Blood",
                     leadin: "When you",
@@ -497,6 +507,7 @@
                         a tangible and costly gesture to your enemy in good faith to demonstrate your \
                         forgiveness, and they also accept it in good faith, immediately choose a Blood \
                         advancement.",
+                    humour: "blood",
                     collapsed: true,
                 },
             ],
