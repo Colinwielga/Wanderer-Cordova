@@ -54,7 +54,7 @@
     $scope.Add = function () {
         var newPage = g.CharacterPageFactory(new g.Character($timeout,"new character"));
         $scope.Pages.push(newPage);
-        $scope.Select(newPage)
+        $scope.Select(newPage);
     }
 
     $scope.OpenCharacter = function (characterAccessor) {
