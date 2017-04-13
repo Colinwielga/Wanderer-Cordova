@@ -10,16 +10,16 @@
         this.OnNewCharacter()
     }
     this.OnNewCharacter = function () {
-        this.name = "untitled";
+        that.injected.name = "untitled";
     }
     this.OnSave = function () {
-        this.communicator.write("name", this.name);
+        this.communicator.write("name", that.injected.name);
     }
     this.OnLoad = function () {
         if (this.communicator.canRead("name")) {
-            this.name = this.communicator.read("name");
+            that.injected.name = this.communicator.read("name");
         } else {
-            this.name = "untitled";
+            that.injected.name = "untitled";
         }
     }
     this.getRequires = function () {
@@ -47,38 +47,39 @@
     }
     this.save = function () {
         var reallySave = function () {
-            that.provider.SaveCharacter(that.name, that.gameName, that.gamePassword, angular.toJson(that.injected.getJSON()),
+            g.services.characterService.SaveCharacter(that.injected.accessKey, that.injected.name, angular.toJson(that.injected.getJSON()),
                 function (data) {
                     that.injected.timeout(function () {
-                        that.state = ColinWielgaDyanmo.States.NEW;
+                        that.injected.logger.info("save successful!");
                     })
                 },
-                that.CouldNotFindGame,
-                that.Error)
+                function (error) {
+                    that.injected.timeout(function () {
+                        that.injected.logger.error("save failed " + error);
+                    });
+                });
         };
-
-
-        // TODO you are here
-        // 1 - this.accessKey does not exist
-        // 2 - that.CouldNotFindCharacter  does not exist
-        // 3 - that.Error does not exist
-
-        // todo bring this to other ways of saving
-        g.services.characterService.GetCharacter(this.name, this.accessKey, function (json) {
+        g.services.characterService.GetCharacter( this.accessKey, function (json) {
             var ok = that.injected.compareWithLastLoaded(json);
             if (ok) {
                 reallySave();
                 var ok = that.injected.updateLastLoaded(json);
             } else {
-                // we have merge conflicts tell the use
-                that.injected.logger.warn("merge conflicts!");
                 that.injected.timeout(function () {
-                    that.state = ColinWielgaDyanmo.States.NEW;
+                    that.injected.logger.warn("save failed, merge conflicts!");
                 });
             }
         },
-        that.CouldNotFindCharacter,
-        that.Error)
+        function (error) {
+            that.injected.timeout(function () {
+                that.injected.logger.error("character could not be found: "+ error);
+            });
+        },
+        function (error) {
+            that.injected.timeout(function () {
+                that.injected.logger.error("error: " + error);
+            });
+        })
     }
 }
 

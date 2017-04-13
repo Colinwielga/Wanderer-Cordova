@@ -1,5 +1,7 @@
-﻿g.Character = function ($timeout,name) {
+﻿g.Character = function ($timeout,name,accessKey) {
     var that = this;
+    this._name = name;
+    this._accessKey = accessKey;
 
     var comboKey = function (id, key) {
         return id + "_" + key;
@@ -126,6 +128,7 @@
             return name;
         }
     };
+    this.getName = function () { return that._name; };
 
     this.updateLastLoaded = function (json) {
         that.lastLoaded = json;
@@ -276,7 +279,6 @@
             remove: function (module) {
                 modulesPublic.toggle(module);
             },
-            getName: function () { return name;}
         };
     }
 
@@ -286,5 +288,4 @@
     this.modMap = mods.modMap;
     this.modules = mods.modules;
     this.Remove = mods.remove;
-    this.getName = mods.getName;
 }

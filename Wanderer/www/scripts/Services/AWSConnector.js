@@ -35,7 +35,7 @@ g.services.AWSConnector.saveAccount = function (id, name, json, good, bad) {
     g.services.AWSConnector.SaveThing(id, name, g.services.AWSConnector.WandererAccounts, json, good, bad);
 }
 
-g.services.AWSConnector.GetThing = function (id,  table, good, characterDoesNotExist, bad) {
+g.services.AWSConnector.GetThing = function (id,  table, good, doesNotExist, bad) {
     var itemParams = {
         "Key": {
             "id": { "S": id }
@@ -47,7 +47,7 @@ g.services.AWSConnector.GetThing = function (id,  table, good, characterDoesNotE
             bad(err);
         } else {
             if (data.Item === null) {
-                characterDoesNotExist()
+                doesNotExist()
             } else {
                 good(JSON.parse(data.Item.JSON.S));
             }
@@ -55,10 +55,10 @@ g.services.AWSConnector.GetThing = function (id,  table, good, characterDoesNotE
     });
 }
 
-g.services.AWSConnector.GetCharacter = function (name, accessKey, good, characterDoesNotExist, bad) {
-    g.services.AWSConnector.GetThing(name, accessKey, g.services.AWSConnector.WandererCharacters, good, characterDoesNotExist, bad);
+g.services.AWSConnector.GetCharacter = function ( accessKey, good, characterDoesNotExist, bad) {
+    g.services.AWSConnector.GetThing(accessKey, g.services.AWSConnector.WandererCharacters, good, characterDoesNotExist, bad);
 }
 
-g.services.AWSConnector.GetAccount = function (id, accessKey, good, accountDoesNotExist, bad) {
-    g.services.AWSConnector.GetThing(id, accessKey, g.services.AWSConnector.WandererAccounts, good, accountDoesNotExist, bad);
+g.services.AWSConnector.GetAccount = function (accessKey, good, accountDoesNotExist, bad) {
+    g.services.AWSConnector.GetThing(accessKey, g.services.AWSConnector.WandererAccounts, good, accountDoesNotExist, bad);
 }
