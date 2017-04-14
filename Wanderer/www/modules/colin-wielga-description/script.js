@@ -7,22 +7,15 @@
     }
     this.OnNewCharacter = function () {
         this.description = "";
-        this.name = "Nameless";
     }
     this.OnSave = function () {
         this.communicator.write("description", this.description);
-        this.communicator.write("name", this.name);
     }
     this.OnLoad = function () {
         if (this.communicator.canRead("description")) {
             this.description = this.communicator.read("description");
         } else {
             this.description = "";
-        }
-        if (this.communicator.canRead("name")) {
-            this.name = this.communicator.read("name");
-        } else {
-            this.name = "";
         }
     }
 
@@ -47,9 +40,6 @@
             },
             getCharacterDescription: function () {
                 return that.description;
-            },
-            getCharacterName: function () {
-                return that.name;
             }
         }
     }
