@@ -1,7 +1,7 @@
 ﻿var component = function () {
     var that = this;
     this.getId = function () {
-        return "wanderer-core-modules"
+        return "wanderer-core-save"
     }
 
     this.OnStart = function (communicator, dependencies) {
@@ -10,16 +10,16 @@
         this.OnNewCharacter()
     }
     this.OnNewCharacter = function () {
-        that.injected.name = "untitled";
+        that.injected.nameAndKey.name = "untitled";
     }
     this.OnSave = function () {
-        this.communicator.write("name", that.injected.name);
+        this.communicator.write("name", that.injected.nameAndKey.name);
     }
     this.OnLoad = function () {
         if (this.communicator.canRead("name")) {
-            that.injected.name = this.communicator.read("name");
+            that.injected.nameAndKey.name = this.communicator.read("name");
         } else {
-            that.injected.name = "untitled";
+            that.injected.nameAndKey.name = "untitled";
         }
     }
     this.getRequires = function () {
@@ -47,7 +47,7 @@
     }
     this.save = function () {
         var reallySave = function () {
-            g.services.characterService.SaveCharacter(that.injected.accessKey, that.injected.name, angular.toJson(that.injected.getJSON()),
+            g.services.characterService.SaveCharacter(that.injected.nameAndKey.accessKey, that.injected.nameAndKey.name, angular.toJson(that.injected.getJSON()),
                 function (data) {
                     that.injected.timeout(function () {
                         that.injected.logger.info("save successful!");
@@ -59,7 +59,7 @@
                     });
                 });
         };
-        g.services.characterService.GetCharacter( this.accessKey, function (json) {
+        g.services.characterService.GetCharacter(that.injected.nameAndKey.accessKey, function (json) {
             var ok = that.injected.compareWithLastLoaded(json);
             if (ok) {
                 reallySave();

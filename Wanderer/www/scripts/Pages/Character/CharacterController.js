@@ -1,7 +1,5 @@
 ﻿g.Character = function ($timeout,name,accessKey) {
     var that = this;
-    this._name = name;
-    this._accessKey = accessKey;
 
     var comboKey = function (id, key) {
         return id + "_" + key;
@@ -128,7 +126,7 @@
             return name;
         }
     };
-    this.getName = function () { return that._name; };
+
 
     this.updateLastLoaded = function (json) {
         that.lastLoaded = json;
@@ -183,6 +181,11 @@
         return res;
     }
 
+    var nameAndKey = {
+        name: name,
+        accessKey: accessKey,
+    }
+
     this.mintModules = function (componentFactoriesList, modMap) {
         var modList = [];
 
@@ -200,7 +203,8 @@
 
         modList.forEach(function (item) {
                 // we inject a ton of stuff
-                item.injected={
+            item.injected = {
+                    nameAndKey:nameAndKey,
                     timeout: $timeout,
                     load:function (json) {
                         that.lastLoaded = json;
@@ -281,6 +285,9 @@
             },
         };
     }
+
+
+    this.getName = function () { return nameAndKey.name; };
 
     var mods = this.mintModules(g.ComponetRegistry.componentFactories, {});
 
