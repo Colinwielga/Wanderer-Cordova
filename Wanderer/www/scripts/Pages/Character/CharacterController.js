@@ -77,7 +77,7 @@
         displayTypeMap[TypeEnum.ERROR] = "Error";
         displayTypeMap[TypeEnum.WTF] = "WTF";
 
-        var logTimeout = 1000 * 60;
+        var logTimeout = 1000 * 20;
         var logLevel = TypeEnum.VERBOSE;
 
         return {
@@ -104,7 +104,7 @@
             debug: function (message) {
                 this.log(message, TypeEnum.DEBUG);
             },
-            info: function (messagae) {
+            info: function (message) {
                 this.log(message, TypeEnum.INFO);
             },
             warn: function (message) {

@@ -1,4 +1,7 @@
-﻿function makeid(n) {
+﻿//todo where should this live
+g.makeid = function (n) {
+    n = (typeof n !== 'undefined') ? n : 40;
+
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -13,7 +16,7 @@ var defaultLength
 g.models.newAccount = function (id,name, characterAccessers) {
     characterAccessers = (typeof characterAccessers !== 'undefined') ? characterAccessers : [];
     name = (typeof name !== 'undefined') ?name: "unnammed";
-    id = (typeof id !== 'undefined') ? id: makeid(40);
+    id = (typeof id !== 'undefined') ? id: g.makeid();
     
     return {
         id: id,

@@ -52,7 +52,7 @@
     }
 
     $scope.Add = function () {
-        var newPage = g.CharacterPageFactory(new g.Character($timeout,"new character"));
+        var newPage = g.CharacterPageFactory(new g.Character($timeout,"new character",g.makeid()));
         $scope.Pages.push(newPage);
         $scope.Select(newPage);
     }

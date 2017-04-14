@@ -52,6 +52,7 @@
                     that.injected.timeout(function () {
                         that.injected.logger.info("save successful!");
                     })
+                    //TODO update account
                 },
                 function (error) {
                     that.injected.timeout(function () {
@@ -71,9 +72,7 @@
             }
         },
         function (error) {
-            that.injected.timeout(function () {
-                that.injected.logger.error("character could not be found: "+ error);
-            });
+            reallySave();
         },
         function (error) {
             that.injected.timeout(function () {

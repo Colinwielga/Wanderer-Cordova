@@ -46,7 +46,7 @@ g.services.AWSConnector.GetThing = function (id,  table, good, doesNotExist, bad
         if (err) {
             bad(err);
         } else {
-            if (data.Item === null) {
+            if (data.Item == null) {
                 doesNotExist()
             } else {
                 good(JSON.parse(data.Item.JSON.S));
