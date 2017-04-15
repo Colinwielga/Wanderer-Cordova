@@ -1,0 +1,16 @@
+﻿<h1>Welcome to Wanderer</h1>
+<input type="button"
+       name="name" 
+       data-ng-repeat="character in activePage().getController().account.characterAccessers" 
+       value="{{character.name}}"
+       data-ng-click="OpenCharacter(character)" />
+
+<input data-ng-click="Add()"
+       type="button"
+       value="+" />
+
+<input type="text" data-ng-model="activePage().getController().toOpen" />
+
+<input data-ng-click="OpenCharacterById(activePage().getController().toOpen)"
+       type="button"
+       value="open" />

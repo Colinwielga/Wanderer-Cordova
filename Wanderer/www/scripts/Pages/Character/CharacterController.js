@@ -1,4 +1,4 @@
-﻿g.Character = function ($timeout) {
+﻿g.Character = function ($timeout,name,accessKey) {
     var that = this;
 
     var comboKey = function (id, key) {
@@ -77,7 +77,7 @@
         displayTypeMap[TypeEnum.ERROR] = "Error";
         displayTypeMap[TypeEnum.WTF] = "WTF";
 
-        var logTimeout = 1000 * 60;
+        var logTimeout = 1000 * 20;
         var logLevel = TypeEnum.VERBOSE;
 
         return {
@@ -104,7 +104,7 @@
             debug: function (message) {
                 this.log(message, TypeEnum.DEBUG);
             },
-            info: function (messagae) {
+            info: function (message) {
                 this.log(message, TypeEnum.INFO);
             },
             warn: function (message) {
@@ -126,6 +126,7 @@
             return name;
         }
     };
+
 
     this.updateLastLoaded = function (json) {
         that.lastLoaded = json;
@@ -180,6 +181,11 @@
         return res;
     }
 
+    var nameAndKey = {
+        name: name,
+        accessKey: accessKey,
+    }
+
     this.mintModules = function (componentFactoriesList, modMap) {
         var modList = [];
 
@@ -192,31 +198,32 @@
 
         var modulesPublic = modMap["wanderer-core-modules"].getPublic();
         var logger = modMap["wanderer-core-logger"].getPublic();
-        var save = modMap["colin-wielga-dynamo-save"].getPublic();
+        var load = function (json) {
+            nameAndKey.name = json["name"];
+            nameAndKey.accessKey = json["id"];
+            that.lastLoaded = json;
+            modList.forEach(function (item) {
+                item.injected.dataManager = dataManagerFactory(json[item.getId()]);
+                if (item.OnLoad !== undefined) {
+                    try {
+                        item.OnLoad();
+                    } catch (e) {
+                        if (logger != undefined && logger.writeToLog != undefined) {
+                            logger.writeToLog(e);
+                        }
+                    }
+                }
+            });
+        };
 
-
-            modulesPublic.injectComponents(modList);
-
+        modulesPublic.injectComponents(modList);
 
         modList.forEach(function (item) {
                 // we inject a ton of stuff
-                item.injected={
+            item.injected = {
+                    nameAndKey:nameAndKey,
                     timeout: $timeout,
-                    load:function (json) {
-                        that.lastLoaded = json;
-                        modList.forEach(function (item) {
-                            item.injected.dataManager = dataManagerFactory(json[item.getId()]);
-                            if (item.OnLoad !== undefined) {
-                                try {
-                                    item.OnLoad();
-                                } catch (e) {
-                                    if (logger != undefined && logger.writeToLog != undefined) {
-                                        logger.writeToLog(e);
-                                    }
-                                }
-                            }
-                        });
-                    },
+                    load:load,
                     dataManager: dataManagerFactory({}),
                     logger:logFactory(),
                     getJSON:function () {
@@ -279,15 +286,18 @@
             remove: function (module) {
                 modulesPublic.toggle(module);
             },
-            getName: save.getName
+            load: load
         };
     }
 
+
+    this.getName = function () { return nameAndKey.name; };
+
     var mods = this.mintModules(g.ComponetRegistry.componentFactories, {});
 
+    this.load = mods.load;
     this.modList = mods.modList;
     this.modMap = mods.modMap;
     this.modules = mods.modules;
     this.Remove = mods.remove;
-    this.getName = mods.getName;
 }

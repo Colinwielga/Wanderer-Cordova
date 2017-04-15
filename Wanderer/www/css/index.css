@@ -167,6 +167,13 @@ body {
     user-select: none;
 }
 
+.can-select {
+    -moz-user-select: text;
+    -ms-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
 
 .red {
     color: red;

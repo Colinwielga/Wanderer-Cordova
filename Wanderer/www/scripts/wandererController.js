@@ -10,33 +10,90 @@
         return "on update";
     }
 
-    $scope.Characters = [new g.Character($timeout)];
+    var tempPage = g.LoadingPageFactory($timeout, "loading account...");
+    $scope.Pages = [tempPage];
+    $scope.activeIndex = 0;
 
-    $scope.Select = function (char) {
-        $scope.activeCharacter = char;
+    $scope.activePage = function () {
+        return $scope.Pages[$scope.activeIndex]
     }
 
-    $scope.Selected = function (char) {
-        return $scope.activeCharacter === char;
+    g.services.accountService.GetAccount(function (account) {
+        $timeout(function () {
+            var at = $scope.Pages.indexOf(tempPage);
+            var newPage = g.MainPageFactory(g.getStartController($timeout, account));
+            $scope.Pages[at] = newPage;
+        });
+    }, function (error) {
+        $timeout(function () {
+            var at = $scope.Pages.indexOf(tempPage);
+            $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Account not found"));
+        });
+    }, function (error) {
+        $timeout(function () {
+            var at = $scope.Pages.indexOf(tempPage);
+            $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Error: " + error));
+        });
+    });
+
+    $scope.Select = function (page) {
+        $scope.activeIndex = $scope.Pages.indexOf(page)
     }
 
-    $scope.Close = function (char) {
-        var at = $scope.Characters.indexOf(char);
+    $scope.Selected = function (page) {
+        return $scope.Pages.indexOf(page) === $scope.activeIndex;
+    }
+
+    $scope.Close = function (page) {
+        var at = $scope.Pages.indexOf(page);
         if (at >= 0) {
-            $scope.Characters.splice(at, 1);
+            $scope.Pages.splice(at, 1);
         }
     }
 
     $scope.Add = function () {
-        $scope.Characters.push(new g.Character($timeout));
-        $scope.activeCharacter = $scope.Characters[$scope.Characters.length-1];
+        var newPage = g.CharacterPageFactory(new g.Character($timeout,"new character",g.makeid()));
+        $scope.Pages.push(newPage);
+        $scope.Select(newPage);
     }
 
-    $scope.activeCharacter = $scope.Characters[0];
+    $scope.OpenCharacterById = function (id) {
+        var tempPage = g.LoadingPageFactory($timeout, "loading " + id);
+        $scope.Pages.push(tempPage);
+        $scope.Select(tempPage);
+        g.services.characterService.GetCharacter(id, function (json) {
+            var at = $scope.Pages.indexOf(tempPage);
+            var character = new g.Character($timeout, json["name"], json["id"]);
+            character.load(json);
+            $timeout(function () {
+                $scope.Pages[at] = g.CharacterPageFactory(character);
+            });
+            // update the account
+            var accessor = g.models.newCharacterAccesser(json["id"], json["name"]);
+            var changed = g.services.accountService.currentAccount.addChatacterAccesser(accessor);
+            if (changed) {
+                g.services.accountService.saveAccount(function () { }, function () {
+                    throw { message: "save failed" }
+                })
+            }
 
+        }, function () {
+            $timeout(function () {
+                var at = $scope.Pages.indexOf(tempPage);
+                $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Character does not exist"));
+            });
+        }, function (err) {
+            $timeout(function () {
+                var at = $scope.Pages.indexOf(tempPage);
+                $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Error: " + err));
+            });
+        }
+        )
+    }
 
-
-    //awsPublic.loadLastCharacter();
+    $scope.OpenCharacter = function (characterAccessor) {
+        $scope.OpenCharacterById(characterAccessor.id);
+    }
 
 }]);
 

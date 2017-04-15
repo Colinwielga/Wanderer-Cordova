@@ -10,7 +10,7 @@
         this.OnNewCharacter()
     }
     this.OnNewCharacter = function () {
-        this.activeComponents = ["wanderer-core-modules", "colin-wielga-dynamo-save"];
+        this.activeComponents = ["wanderer-core-modules", "wanderer-core-save"];
     }
     this.OnSave = function () {
         this.communicator.write("activeComponents", this.activeComponents);
