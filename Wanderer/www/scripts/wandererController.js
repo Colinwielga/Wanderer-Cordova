@@ -57,11 +57,11 @@
         $scope.Select(newPage);
     }
 
-    $scope.OpenCharacter = function (characterAccessor) {
-        var tempPage = g.LoadingPageFactory($timeout, "loading " + characterAccessor.name);
+    $scope.OpenCharacterById = function (id) {
+        var tempPage = g.LoadingPageFactory($timeout, "loading " + id);
         $scope.Pages.push(tempPage);
         $scope.Select(tempPage);
-        g.services.characterService.GetCharacter(characterAccessor.id, function (json) {
+        g.services.characterService.GetCharacter(id, function (json) {
             var at = $scope.Pages.indexOf(tempPage);
             var character = new g.Character($timeout, json["name"], json["id"]);
             character.load(json);
@@ -82,6 +82,10 @@
             });
         }
         )
+    }
+
+    $scope.OpenCharacter = function (characterAccessor) {
+        $scope.OpenCharacterById(characterAccessor.id);
     }
 
 }]);

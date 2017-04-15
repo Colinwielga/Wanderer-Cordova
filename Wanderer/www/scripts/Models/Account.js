@@ -30,10 +30,10 @@ g.models.newAccount = function (id,name, characterAccessers) {
         addChatacterAccesser: function (accessor) {
             for (var i = 0; i < this.characterAccessers.length; i++) {
                 if (this.characterAccessers[i].id == accessor.id) {
-                    if (this.characterAccessers[i].id == accessor.id) {
+                    if (this.characterAccessers[i].name == accessor.name) {
                         return false;
                     } else {
-                        this.characterAccessers[i] = accessor.name;
+                        this.characterAccessers[i].name = accessor.name;
                         return true;
                     }
                 }
