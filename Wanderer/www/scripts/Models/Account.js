@@ -27,12 +27,26 @@ g.models.newAccount = function (id,name, characterAccessers) {
                 characterAccessers: characterAccessers
             };
         },
+        addChatacterAccesser: function (accessor) {
+            for (var i = 0; i < this.characterAccessers.length; i++) {
+                if (this.characterAccessers[i].id == accessor.id) {
+                    if (this.characterAccessers[i].id == accessor.id) {
+                        return false;
+                    } else {
+                        this.characterAccessers[i] = accessor.name;
+                        return true;
+                    }
+                }
+            }
+            this.characterAccessers.push(accessor);
+            return true;
+        }
     }
 }
 
 g.models.accountFormJSONstring = function (json) {
     // TODO parse the JSON
-    var parsed = JSON.parse(json);
+    var parsed = json;
     var id = parsed["id"];
     var name = parsed["name"];
     var characterAccessers = [];
@@ -42,7 +56,7 @@ g.models.accountFormJSONstring = function (json) {
         var charName = list[i]["name"];
         characterAccessers.push(g.models.newCharacterAccesser(charId, charName));
     }
-    return g.models.newAccount(accountName,name, characterAccessers);
+    return g.models.newAccount(id, name, characterAccessers);
 }
 
 g.models.newCharacterAccesser = function (id, name) {

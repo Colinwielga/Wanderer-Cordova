@@ -61,9 +61,13 @@
         var tempPage = g.LoadingPageFactory($timeout, "loading " + characterAccessor.name);
         $scope.Pages.push(tempPage);
         $scope.Select(tempPage);
-        g.services.characterService.GetCharacter(characterAccessor.id, function (character) {
+        g.services.characterService.GetCharacter(characterAccessor.id, function (json) {
+            var at = $scope.Pages.indexOf(tempPage);
+            var character = new g.Character($timeout, json["name"], json["id"]);
+            character.load(json);
+            // TODO upadate the name in the account
             $timeout(function () {
-                var at = $scope.Pages.indexOf(tempPage);
+
                 $scope.Pages[at] = g.CharacterPageFactory(character);
             });
         }, function () {

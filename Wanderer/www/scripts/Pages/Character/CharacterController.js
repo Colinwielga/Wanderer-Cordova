@@ -198,7 +198,24 @@
 
         var modulesPublic = modMap["wanderer-core-modules"].getPublic();
         var logger = modMap["wanderer-core-logger"].getPublic();
-        
+        var load = function (json) {
+            nameAndKey.name = json["name"];
+            nameAndKey.accessKey = json["id"];
+            that.lastLoaded = json;
+            modList.forEach(function (item) {
+                item.injected.dataManager = dataManagerFactory(json[item.getId()]);
+                if (item.OnLoad !== undefined) {
+                    try {
+                        item.OnLoad();
+                    } catch (e) {
+                        if (logger != undefined && logger.writeToLog != undefined) {
+                            logger.writeToLog(e);
+                        }
+                    }
+                }
+            });
+        };
+
         modulesPublic.injectComponents(modList);
 
         modList.forEach(function (item) {
@@ -206,21 +223,7 @@
             item.injected = {
                     nameAndKey:nameAndKey,
                     timeout: $timeout,
-                    load:function (json) {
-                        that.lastLoaded = json;
-                        modList.forEach(function (item) {
-                            item.injected.dataManager = dataManagerFactory(json[item.getId()]);
-                            if (item.OnLoad !== undefined) {
-                                try {
-                                    item.OnLoad();
-                                } catch (e) {
-                                    if (logger != undefined && logger.writeToLog != undefined) {
-                                        logger.writeToLog(e);
-                                    }
-                                }
-                            }
-                        });
-                    },
+                    load:load,
                     dataManager: dataManagerFactory({}),
                     logger:logFactory(),
                     getJSON:function () {
@@ -283,6 +286,7 @@
             remove: function (module) {
                 modulesPublic.toggle(module);
             },
+            load: load
         };
     }
 
@@ -291,6 +295,7 @@
 
     var mods = this.mintModules(g.ComponetRegistry.componentFactories, {});
 
+    this.load = mods.load;
     this.modList = mods.modList;
     this.modMap = mods.modMap;
     this.modules = mods.modules;

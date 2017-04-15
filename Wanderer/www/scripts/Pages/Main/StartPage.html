@@ -1,8 +1,8 @@
 ﻿<h1>Welcome to Wanderer</h1>
 <input type="button"
        name="name" 
-       data-ng-repeat="character in activePage.account.characterAccessers" 
-       value="character.charterName"
+       data-ng-repeat="character in activePage().getController().account.characterAccessers" 
+       value="{{character.name}}"
        data-ng-click="OpenCharacter(character)" />
 
 <input data-ng-click="Add()"

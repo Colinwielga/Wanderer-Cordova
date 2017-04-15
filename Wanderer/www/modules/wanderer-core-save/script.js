@@ -51,8 +51,13 @@
                 function (data) {
                     that.injected.timeout(function () {
                         that.injected.logger.info("save successful!");
-                    })
-                    //TODO update account
+                    });
+                    var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(that.injected.nameAndKey.accessKey, that.injected.nameAndKey.name));
+                    if (changed) {
+                        g.services.accountService.saveAccount(function () { }, function () {
+                            throw { message: "save failed" }
+                        })
+                    }
                 },
                 function (error) {
                     that.injected.timeout(function () {

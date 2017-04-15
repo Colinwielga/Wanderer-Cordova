@@ -49,7 +49,10 @@ g.services.AWSConnector.GetThing = function (id,  table, good, doesNotExist, bad
             if (data.Item == null) {
                 doesNotExist()
             } else {
-                good(JSON.parse(data.Item.JSON.S));
+                var obj = JSON.parse(data.Item.JSON.S);
+                obj["name"] = data.Item.name.S;
+                obj["id"] = data.Item.id.S;
+                good(obj);
             }
         }
     });
