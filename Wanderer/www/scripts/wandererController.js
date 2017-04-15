@@ -65,11 +65,18 @@
             var at = $scope.Pages.indexOf(tempPage);
             var character = new g.Character($timeout, json["name"], json["id"]);
             character.load(json);
-            // TODO upadate the name in the account
             $timeout(function () {
-
                 $scope.Pages[at] = g.CharacterPageFactory(character);
             });
+            // update the account
+            var accessor = g.models.newCharacterAccesser(json["id"], json["name"]);
+            var changed = g.services.accountService.currentAccount.addChatacterAccesser(accessor);
+            if (changed) {
+                g.services.accountService.saveAccount(function () { }, function () {
+                    throw { message: "save failed" }
+                })
+            }
+
         }, function () {
             $timeout(function () {
                 var at = $scope.Pages.indexOf(tempPage);
