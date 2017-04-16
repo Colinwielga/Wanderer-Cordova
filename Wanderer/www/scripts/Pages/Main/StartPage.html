@@ -1,16 +1,63 @@
-﻿<h1>Welcome to Wanderer</h1>
-<input type="button"
-       name="name" 
-       data-ng-repeat="character in activePage().getController().account.characterAccessers" 
-       value="{{character.name}}"
-       data-ng-click="OpenCharacter(character)" />
+﻿<div id="content">
+    <div class="drag section">
+        <div class="section-header">
+            <label class="hide-button" for="wanderer-core-recent-character-hide">-</label>
+            <h2 class="section-title">Recent Characters</h2>
+        </div>
+        <div id="wanderer-core-recent-character">
+            <input type="checkbox" class="hide-check" id="wanderer-core-recent-character-hide" />
 
-<input data-ng-click="Add()"
-       type="button"
-       value="+" />
+            <div class="section-body fixed-content">
+                <div class="pad-me">
+                    <input type="button"
+                           name="name"
+                           data-ng-repeat="character in activePage().getController().account.characterAccessers"
+                           value="{{character.name}}"
+                           data-ng-click="OpenCharacter(character)" />
+                    <input data-ng-click="Add()"
+                           type="button"
+                           value="+" />
+                </div>
+            </div>
+        </div>
+    </div>
 
-<input type="text" data-ng-model="activePage().getController().toOpen" />
+    <div class="drag section">
+        <div class="section-header">
+            <label class="hide-button" for="wanderer-core-open-existing-character-hide">-</label>
+            <h2 class="section-title">Open Existing Character</h2>
+        </div>
+        <div id="wanderer-core-open-existing-character">
+            <input type="checkbox" class="hide-check" id="wanderer-core-open-existing-character-hide" />
+            <div class="section-body fixed-content">
+                <input type="checkbox" class="hide-help-check" id="wanderer-core-open-existing-character-help-hide" checked />
+                <div class="pad-me">
+                    Character Id: <input type="text" data-ng-model="activePage().getController().toOpen" />
+                    <input data-ng-click="OpenCharacterById(activePage().getController().toOpen)"
+                           type="button"
+                           value="open" />
+                </div>
+            </div>
+        </div>
+    </div>
 
-<input data-ng-click="OpenCharacterById(activePage().getController().toOpen)"
-       type="button"
-       value="open" />
+    <!--<div class="drag section">
+        <div class="section-header">
+            <label class="hide-button" for="wanderer-core-switch-account-hide">-</label>
+            <h2 class="section-title">Switch Account</h2>
+        </div>
+        <div id="wanderer-core-switch-account">
+            <input type="checkbox" class="hide-check" id="wanderer-core-switch-account" />
+            <div class="section-body fixed-content">
+                <input type="checkbox" class="hide-help-check" id="wanderer-core-open-existing-character-help-hide" checked />
+                <div class="pad-me">
+                    Current account Id: {{}}
+                    Account Id: <input type="text" data-ng-model="activePage().getController().AccountToOpen" />
+                    <input data-ng-click="OpenAccount(activePage().getController().AccountToOpen)"
+                           type="button"
+                           value="open" />
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
