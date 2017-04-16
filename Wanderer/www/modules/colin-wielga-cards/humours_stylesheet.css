@@ -129,10 +129,10 @@
 #colin-wielga-cards .humours-card .decrease-arrow.orgone{
     background-image: linear-gradient(to right,
                                         rgba(0,0,0,0) 25px,
-                                        hsl(181, 0%, 5%) 25px,
-                                        hsl(181, 0%, 5%) 50px,
-                                        hsl(181, 30%, 25%));
+                                        hsl(181, 0%, 25%) 25px,
+                                        hsl(181, 0%, 25%) 50px,
+                                        hsl(181, 30%, 85%));
 }
 #colin-wielga-cards .humours-card .decrease-arrow.orgone::after{
-    border-right-color: hsl(181, 0%, 5%);
+    border-right-color: hsl(181, 0%, 25%);
 }
