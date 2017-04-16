@@ -46,6 +46,18 @@ g.services.accountService = {
                 JSON.stringify(g.services.accountService.currentAccount.json()),
                 pass,
                 fail)
+    },
+    SwitchAccount: function (id, pass, notFound, fail) {
+        g.services.AWSConnector.GetAccount(
+                id,
+                function (result) {
+                    // TODO transfrom
+                    transformed = g.models.accountFormJSONstring(result)
+                    g.services.accountService.currentAccount = transformed;
+                    pass(result)
+                },
+                notFound,
+                fail);
     }
 };
 

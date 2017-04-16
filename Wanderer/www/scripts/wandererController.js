@@ -95,5 +95,32 @@
         $scope.OpenCharacterById(characterAccessor.id);
     }
 
-}]);
+    
+    $scope.OpenAccount = function (id) {
+        var tempPage = g.LoadingPageFactory($timeout, "loading account...");
+        $timeout(function () {
+            $scope.Pages[0] = tempPage;
+        });
+        return g.services.accountService.SwitchAccount(
+            id,
+            function (account) {
+                $timeout(function () {
+                    var at = $scope.Pages.indexOf(tempPage);
+                    var newPage = g.MainPageFactory(g.getStartController($timeout, account));
+                    $scope.Pages[at] = newPage;
+                });
+            }, function (error) {
+                $timeout(function () {
+                    var at = $scope.Pages.indexOf(tempPage);
+                    $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Account not found"));
+                });
+            }, function (error) {
+                $timeout(function () {
+                    var at = $scope.Pages.indexOf(tempPage);
+                    $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Error: " + error));
+                });
+            });
+        }
+    }
+]);
 

@@ -11,7 +11,7 @@
                 <div class="pad-me">
                     <input type="button"
                            name="name"
-                           data-ng-repeat="character in activePage().getController().account.characterAccessers"
+                           data-ng-repeat="character in activePage().getController().getAccount().characterAccessers"
                            value="{{character.name}}"
                            data-ng-click="OpenCharacter(character)" />
                     <input data-ng-click="Add()"
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <!--<div class="drag section">
+    <div class="drag section">
         <div class="section-header">
             <label class="hide-button" for="wanderer-core-switch-account-hide">-</label>
             <h2 class="section-title">Switch Account</h2>
@@ -51,13 +51,15 @@
             <div class="section-body fixed-content">
                 <input type="checkbox" class="hide-help-check" id="wanderer-core-open-existing-character-help-hide" checked />
                 <div class="pad-me">
-                    Current account Id: {{}}
-                    Account Id: <input type="text" data-ng-model="activePage().getController().AccountToOpen" />
+                    <p class="can-select">
+                        {{activePage().getController().getAccount().id}}
+                    </p>
+                    <input type="text" data-ng-model="activePage().getController().AccountToOpen" />
                     <input data-ng-click="OpenAccount(activePage().getController().AccountToOpen)"
                            type="button"
                            value="open" />
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
 </div>

@@ -1,6 +1,8 @@
 ﻿g.getStartController = function ($timeout,account) {
     var toReturn = {
-        account: account
+        getAccount: function() {
+            return g.services.accountService.currentAccount;
+        }
     }
     return toReturn;
 }
