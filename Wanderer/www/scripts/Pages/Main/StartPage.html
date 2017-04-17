@@ -8,16 +8,7 @@
             <input type="checkbox" class="hide-check" id="wanderer-core-recent-character-hide" />
 
             <div class="section-body fixed-content">
-                <div class="pad-me">
-                    <input type="button"
-                           name="name"
-                           data-ng-repeat="character in activePage().getController().getAccount().characterAccessers"
-                           value="{{character.name}}"
-                           data-ng-click="OpenCharacter(character)" />
-                    <input data-ng-click="Add()"
-                           type="button"
-                           value="+" />
-                </div>
+
             </div>
         </div>
     </div>
@@ -31,12 +22,7 @@
             <input type="checkbox" class="hide-check" id="wanderer-core-open-existing-character-hide" />
             <div class="section-body fixed-content">
                 <input type="checkbox" class="hide-help-check" id="wanderer-core-open-existing-character-help-hide" checked />
-                <div class="pad-me">
-                    Character Id: <input type="text" data-ng-model="activePage().getController().toOpen" />
-                    <input data-ng-click="OpenCharacterById(activePage().getController().toOpen)"
-                           type="button"
-                           value="open" />
-                </div>
+
             </div>
         </div>
     </div>
@@ -50,15 +36,7 @@
             <input type="checkbox" class="hide-check" id="wanderer-core-switch-account" />
             <div class="section-body fixed-content">
                 <input type="checkbox" class="hide-help-check" id="wanderer-core-open-existing-character-help-hide" checked />
-                <div class="pad-me">
-                    <p class="can-select">
-                        {{activePage().getController().getAccount().id}}
-                    </p>
-                    <input type="text" data-ng-model="activePage().getController().AccountToOpen" />
-                    <input data-ng-click="OpenAccount(activePage().getController().AccountToOpen)"
-                           type="button"
-                           value="open" />
-                </div>
+
             </div>
         </div>
     </div>

@@ -91,4 +91,4 @@
     ];
 }
 
-g.ComponetRegistry.register(component);
+g.ComponetRegistry.registerCharacter(component);

@@ -69,4 +69,4 @@ DCListReputations.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(DCListReputations.component);
+g.ComponetRegistry.registerCharacter(DCListReputations.component);

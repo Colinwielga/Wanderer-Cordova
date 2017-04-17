@@ -69,4 +69,4 @@ ColinWielgaTemplate.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(ColinWielgaTemplate.component);
+g.ComponetRegistry.registerCharacter(ColinWielgaTemplate.component);

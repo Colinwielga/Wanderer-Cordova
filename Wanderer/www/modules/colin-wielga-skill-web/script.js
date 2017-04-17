@@ -321,4 +321,4 @@ ColinWielgaSkillWeb.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(ColinWielgaSkillWeb.component);
+g.ComponetRegistry.registerCharacter(ColinWielgaSkillWeb.component);

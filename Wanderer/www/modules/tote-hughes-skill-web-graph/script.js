@@ -114,4 +114,4 @@ ToteHughesSkillWebGraph.component = function () {
     
     this.OnNewCharacter();
 }
-g.ComponetRegistry.register(ToteHughesSkillWebGraph.component);
+g.ComponetRegistry.registerCharacter(ToteHughesSkillWebGraph.component);

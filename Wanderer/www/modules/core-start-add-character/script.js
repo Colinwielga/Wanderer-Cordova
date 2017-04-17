@@ -1,38 +1,32 @@
-﻿
+﻿var CoreStartAddCharacters = {};
 
-var component = function () {
-    this.log = [];
-
-
+CoreStartAddCharacters.component = function () {
+    var that = this;
     this.getId = function () {
-        return "wanderer-core-logger"
+        return "core-start-add-character"
     }
-
     this.OnStart = function (communicator,dependencies) {
         this.communicator = communicator
+        this.Dependencies = dependencies
     }
-    this.OnNewCharacter = function () {}
-    this.OnSave = function () {}
-    this.OnLoad = function () {}
-
+    this.OnNewCharacter = function () {
+    }
+    this.OnSave = function () {
+    }
+    this.OnLoad = function () {
+    }
+    this.OnUpdate = function () {
+    }
     this.getRequires = function () {
         return [];
     }
-
-
     this.getPublic = function () {
-        var that = this;
         return {
             getVersion: function () {
                 return 1;
-            },
-            writeToLog: function (str) {
-                that.log.push(str);
             }
         }
     }
-
-    // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
@@ -40,10 +34,12 @@ var component = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
     this.getTitle = function () {
-        return "Log";
+        return "title";
     }
-
     this.OnNewCharacter();
+    this.OpenCharacter = function () {
+        g.services.pageService.OpenCharacterById(that.toOpen);
+    }
 }
 
-g.ComponetRegistry.registerCharacter(component);
+g.ComponetRegistry.registerStart(CoreStartAddCharacters.component);

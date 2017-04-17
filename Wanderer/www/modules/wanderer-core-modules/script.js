@@ -100,4 +100,4 @@
     this.components = [this];
 }
 
-g.ComponetRegistry.register(component);
+g.ComponetRegistry.registerCharacter(component);

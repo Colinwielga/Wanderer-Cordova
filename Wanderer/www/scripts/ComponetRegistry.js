@@ -1,6 +1,11 @@
 ﻿g.ComponetRegistry = {};
-g.ComponetRegistry.componentFactories = [];
+g.ComponetRegistry.characterComponentFactories = [];
+g.ComponetRegistry.startComponentFactories = [];
 
-g.ComponetRegistry.register =function (componentFactory) {
-    g.ComponetRegistry.componentFactories.push(componentFactory);
+g.ComponetRegistry.registerCharacter =function (componentFactory) {
+    g.ComponetRegistry.characterComponentFactories.push(componentFactory);
+}
+
+g.ComponetRegistry.registerStart = function (componentFactory) {
+    g.ComponetRegistry.startComponentFactories.push(componentFactory);
 }

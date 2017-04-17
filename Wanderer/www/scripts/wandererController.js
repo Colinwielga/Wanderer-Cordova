@@ -10,18 +10,14 @@
         return "on update";
     }
 
+    // TODO this shares a lot of code with OpenAccount
     var tempPage = g.LoadingPageFactory($timeout, "loading account...");
     $scope.Pages = [tempPage];
     $scope.activeIndex = 0;
-
-    $scope.activePage = function () {
-        return $scope.Pages[$scope.activeIndex]
-    }
-
     g.services.accountService.GetAccount(function (account) {
         $timeout(function () {
             var at = $scope.Pages.indexOf(tempPage);
-            var newPage = g.MainPageFactory(g.getStartController($timeout, account));
+            var newPage = g.MainPageFactory(g.StartPage($timeout, account.id));
             $scope.Pages[at] = newPage;
         });
     }, function (error) {
@@ -35,6 +31,11 @@
             $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Error: " + error));
         });
     });
+
+    $scope.activePage = function () {
+        return $scope.Pages[$scope.activeIndex]
+    }
+
 
     $scope.Select = function (page) {
         $scope.activeIndex = $scope.Pages.indexOf(page)
@@ -51,13 +52,15 @@
         }
     }
 
-    $scope.Add = function () {
-        var newPage = g.CharacterPageFactory(new g.Character($timeout,"new character",g.makeid()));
+    // now we inject so stuff in to the page services
+
+    g.services.pageService.Add = function () {
+        var newPage = g.CharacterPageFactory(new g.Character($timeout, "new character", g.makeid()));
         $scope.Pages.push(newPage);
         $scope.Select(newPage);
     }
 
-    $scope.OpenCharacterById = function (id) {
+    g.services.pageService.OpenCharacterById = function (id) {
         var tempPage = g.LoadingPageFactory($timeout, "loading " + id);
         $scope.Pages.push(tempPage);
         $scope.Select(tempPage);
@@ -91,12 +94,11 @@
         )
     }
 
-    $scope.OpenCharacter = function (characterAccessor) {
-        $scope.OpenCharacterById(characterAccessor.id);
+    g.services.pageService.OpenCharacter = function (characterAccessor) {
+        g.services.accountService.OpenCharacterById(characterAccessor.id);
     }
 
-    
-    $scope.OpenAccount = function (id) {
+    g.services.pageService.OpenAccount = function (id) {
         var tempPage = g.LoadingPageFactory($timeout, "loading account...");
         $timeout(function () {
             $scope.Pages[0] = tempPage;
@@ -106,7 +108,7 @@
             function (account) {
                 $timeout(function () {
                     var at = $scope.Pages.indexOf(tempPage);
-                    var newPage = g.MainPageFactory(g.getStartController($timeout, account));
+                    var newPage = g.MainPageFactory(g.StartPage($timeout, account.id));
                     $scope.Pages[at] = newPage;
                 });
             }, function (error) {
@@ -120,7 +122,9 @@
                     $scope.Pages[at] = g.ErrorPageFactory(new g.getErrorController($timeout, "Error: " + error));
                 });
             });
-        }
-    }
+    };
+
+}
+
 ]);
 

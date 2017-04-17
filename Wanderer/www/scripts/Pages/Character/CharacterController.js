@@ -1,4 +1,12 @@
-﻿g.Character = function ($timeout,name,accessKey) {
+﻿g.Character = function ($timeout, name, accessKey) {
+    g.ModulesPage($timeout, name, accessKey, g.ComponetRegistry.characterComponentFactories)
+}
+
+g.StartPage = function ($timeout, accessKey) {
+    g.ModulesPage($timeout, "Start", accessKey, g.ComponetRegistry.startComponentFactories)
+}
+
+g.ModulesPage = function ($timeout, name, accessKey, componentFactories) {
     var that = this;
 
     var comboKey = function (id, key) {
@@ -293,7 +301,7 @@
 
     this.getName = function () { return nameAndKey.name; };
 
-    var mods = this.mintModules(g.ComponetRegistry.componentFactories, {});
+    var mods = this.mintModules(componentFactories, {});
 
     this.load = mods.load;
     this.modList = mods.modList;
