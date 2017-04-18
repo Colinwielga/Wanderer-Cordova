@@ -267,4 +267,4 @@ ColinWielgaDyanmo.component = function () {
     }
 }
 
-g.ComponetRegistry.registerCharacter(ColinWielgaDyanmo.component);
+g.services.componetService.registerCharacter(ColinWielgaDyanmo.component);

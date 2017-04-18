@@ -275,4 +275,4 @@ DCHumoursAdvancements.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.registerCharacter(DCHumoursAdvancements.component);
+g.services.componetService.registerCharacter(DCHumoursAdvancements.component);

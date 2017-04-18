@@ -244,4 +244,4 @@ DCHumoursPlayerQuestions.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.registerCharacter(DCHumoursPlayerQuestions.component);
+g.services.componetService.registerCharacter(DCHumoursPlayerQuestions.component);

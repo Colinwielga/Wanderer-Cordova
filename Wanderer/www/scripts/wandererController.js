@@ -17,7 +17,7 @@
     g.services.accountService.GetAccount(function (account) {
         $timeout(function () {
             var at = $scope.Pages.indexOf(tempPage);
-            var newPage = g.MainPageFactory(g.StartPage($timeout, account.id));
+            var newPage = g.MainPageFactory(g.StartPageController($timeout, account.id));
             $scope.Pages[at] = newPage;
         });
     }, function (error) {
@@ -108,7 +108,7 @@
             function (account) {
                 $timeout(function () {
                     var at = $scope.Pages.indexOf(tempPage);
-                    var newPage = g.MainPageFactory(g.StartPage($timeout, account.id));
+                    var newPage = g.MainPageFactory(g.StartPageController($timeout, account.id));
                     $scope.Pages[at] = newPage;
                 });
             }, function (error) {

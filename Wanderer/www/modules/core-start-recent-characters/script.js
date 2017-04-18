@@ -17,7 +17,7 @@ CoreStartRecentCharacters.component = function () {
     this.OnUpdate = function () {
     }
     this.getRequires = function () {
-        return ["colin-wielga-tools"];
+        return [];
     }
     this.getPublic = function () {
         return {
@@ -47,4 +47,4 @@ CoreStartRecentCharacters.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.registerStart(CoreStartRecentCharacters.component);
+g.services.componetService.registerStart(CoreStartRecentCharacters.component);

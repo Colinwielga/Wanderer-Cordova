@@ -42,4 +42,4 @@ CoreStartAddCharacters.component = function () {
     }
 }
 
-g.ComponetRegistry.registerStart(CoreStartAddCharacters.component);
+g.services.componetService.registerStart(CoreStartAddCharacters.component);

@@ -154,4 +154,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.registerCharacter(ColinWielgaCards.component);
+g.services.componetService.registerCharacter(ColinWielgaCards.component);

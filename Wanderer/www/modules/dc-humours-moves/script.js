@@ -767,4 +767,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.registerCharacter(component);
+g.services.componetService.registerCharacter(component);

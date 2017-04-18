@@ -36,7 +36,7 @@ CoreStartSwitchAccount.component = function () {
     this.getTitle = function () {
         return "Switch Account";
     }
-    this.getId = function () {
+    this.getAccountId = function () {
         return g.services.accountService.currentAccount.id;
     }
     this.OpenAccount = function(){
@@ -45,4 +45,4 @@ CoreStartSwitchAccount.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.registerStart(CoreStartSwitchAccount.component);
+g.services.componetService.registerStart(CoreStartSwitchAccount.component);

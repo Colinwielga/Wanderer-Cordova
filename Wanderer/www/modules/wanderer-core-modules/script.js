@@ -10,16 +10,19 @@
         this.OnNewCharacter()
     }
     this.OnNewCharacter = function () {
-        this.activeComponents = ["wanderer-core-modules", "wanderer-core-save"];
     }
     this.OnSave = function () {
-        this.communicator.write("activeComponents", this.activeComponents);
+        this.communicator.write("activeComponents", g.services.moduleService.getActiveComponents(that.injected.pageId));
     }
     this.OnLoad = function () {
+        var toActivate;
         if (this.communicator.canRead("activeComponents")) {
-            this.activeComponents = this.communicator.read("activeComponents");
+            toActivate = this.communicator.read("activeComponents");
         } else {
-            this.activeComponents = [this.getId()];
+            toActivate = [];
+        }
+        for (var id in toActivate) {
+            g.services.moduleService.activate(that.injected.pageId, id);
         }
     }
     this.getRequires = function () {
@@ -31,36 +34,6 @@
             getVersion: function () {
                 return 1;
             },
-            injectComponents: function (comps) {
-                that.components = comps;
-            },
-            //maybe this should be a dictonary
-            getComponent: function (lookingFor) {
-                for (var i = 0; i < that.components.length; i++) {
-                    var inner = that.components[i];
-                    if (lookingFor === inner.getId()) {
-                        return inner.getPublic();
-                    }
-                }
-                throw { message: "could not find id: " + lookingFor };
-            },
-            getActiveComponents:
-                function () {
-                    var res = [];
-                    for (var i = 0; i < that.activeComponents.length; i++) {
-                        var lookingFor = that.activeComponents[i];
-                        for (var j = 0; j < that.components.length; j++) {
-                            var inner = that.components[j];
-                            if (lookingFor === inner.getId()) {
-                                res.push(inner);
-                            }
-                        }
-                    }
-
-                    return res;
-                },
-            components: that.components,
-            toggle: that.toggle
         }
     }
     this.getHmtl = function () {
@@ -70,21 +43,14 @@
         return "modules/" + this.getId() + "/rules.html"
     }
     this.getTitle = function () {
-        return "modules";
+        return "Modules";
     }
     this.toggle = function (mod) {
-        if (mod != that) {
-            var i = that.activeComponents.indexOf(mod.getId());
-            if (i == -1) {
-                that.activeComponents.push(mod.getId());
-            } else {
-                that.activeComponents.splice(i, 1);
-            }
-        }
+        g.services.moduleService.toggle(that.injected.pageId, mod);
     }
 
     this.text = function (mod) {
-        var i = this.activeComponents.indexOf(mod.getId());
+        var i = g.services.moduleService.getActiveComponents(that.injected.pageId).indexOf(mod.getId());
         if (i == -1) {
             return "show";
         } else {
@@ -92,12 +58,13 @@
         }
     }
 
-    this.show = function (mod) {
-        return this.activeComponents.indexOf(mod.getId()) == -1;
+    this.components = function () {
+        return g.services.moduleService.getActiveComponents(that.injected.pageId);
     }
 
-    this.activeComponents = [this.getId()];
-    this.components = [this];
+    this.show = function (mod) {
+        return g.services.moduleService.getActiveComponents(that.injected.pageId).indexOf(mod.getId()) == -1;
+    }
 }
 
-g.ComponetRegistry.registerCharacter(component);
+g.services.componetService.registerCharacter(component);
