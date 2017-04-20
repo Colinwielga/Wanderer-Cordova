@@ -19,7 +19,9 @@
             this.notes = "";
         }
     }
-
+    this.canClose = function () {
+        return true;
+    }
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }

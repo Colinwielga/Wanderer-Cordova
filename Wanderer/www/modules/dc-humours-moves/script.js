@@ -742,6 +742,9 @@
         return ["dc-humours-moves"];
     }
 
+    this.canClose = function () {
+        return true;
+    }
     this.getPublic = function () {
         return {
             getDescription: function () {

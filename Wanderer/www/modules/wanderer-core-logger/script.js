@@ -36,6 +36,9 @@ var component = function () {
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.canClose = function () {
+        return true;
+    }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }

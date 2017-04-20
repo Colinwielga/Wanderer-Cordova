@@ -34,7 +34,11 @@ DCListReputations.component = function () {
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.reputations = this.communicator.read("reputations") || [""];
+        if(this.communicator.canRead("humours")){
+            this.reputations = this.communicator.read("reputations") 
+        }else{
+            this.reputations = [""];
+        }
     }
     this.OnUpdate = function () {
     }
@@ -53,6 +57,9 @@ DCListReputations.component = function () {
         }
     }
 
+    this.canClose = function () {
+        return true;
+    }
     // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"

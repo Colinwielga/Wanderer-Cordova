@@ -50,6 +50,9 @@
         if (at >= 0) {
             $scope.Pages.splice(at, 1);
         }
+        if ($scope.activeIndex >= $scope.Pages.length) {
+            $scope.activeIndex = $scope.activeIndex - 1;
+        }
     }
 
     // now we inject so stuff in to the page services
@@ -95,7 +98,7 @@
     }
 
     g.services.pageService.OpenCharacter = function (characterAccessor) {
-        g.services.accountService.OpenCharacterById(characterAccessor.id);
+        g.services.pageService.OpenCharacterById(characterAccessor.id);
     }
 
     g.services.pageService.OpenAccount = function (id) {

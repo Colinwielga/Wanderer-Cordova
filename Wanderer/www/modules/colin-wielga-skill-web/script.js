@@ -78,7 +78,9 @@ ColinWielgaSkillWeb.component = function () {
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
-
+    this.canClose = function () {
+        return true;
+    }
     this.getTitle = function () {
         var totalBonus = 0;
         this.network.skills.forEach(function (skl) {

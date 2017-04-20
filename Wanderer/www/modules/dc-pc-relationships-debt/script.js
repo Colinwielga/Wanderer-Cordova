@@ -50,7 +50,12 @@
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.debts = this.communicator.read("debts") || defaultdebts;
+        
+        if (this.communicator.canRead("humours")) {
+            this.debts = this.communicator.read("debts")
+        } else {
+            this.debts = defaultdebts;
+        }
     }
     this.OnUpdate = function () {
     }
@@ -72,6 +77,9 @@
     // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
+    }
+    this.canClose = function () {
+        return true;
     }
 
     this.getRulesHtml = function () {

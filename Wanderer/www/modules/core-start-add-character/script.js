@@ -30,11 +30,14 @@ CoreStartAddCharacters.component = function () {
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.canClose = function () {
+        return false;
+    }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
     this.getTitle = function () {
-        return "title";
+        return "Add Character";
     }
     this.OnNewCharacter();
     this.OpenCharacter = function () {

@@ -52,7 +52,10 @@ ColinWielgaTemplate.component = function () {
             }
         }
     }
-
+    // can your module be close?
+    this.canClose = function () {
+        return true;
+    }
     // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"

@@ -29,11 +29,14 @@ CoreStartRecentCharacters.component = function () {
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.canClose = function () {
+        return false;
+    }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
     this.getTitle = function () {
-        return "title";
+        return "Recent Characters";
     }
     this.getCharacterAccessers = function () {
         return g.services.accountService.currentAccount.characterAccessers;

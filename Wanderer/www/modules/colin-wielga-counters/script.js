@@ -45,6 +45,9 @@
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
+    this.canClose = function () {
+        return true;
+    }
     this.getTitle = function () {
         return "Counters";
     }

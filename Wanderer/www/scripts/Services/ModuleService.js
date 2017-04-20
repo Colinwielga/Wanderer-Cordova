@@ -1,4 +1,7 @@
 ﻿g.services.moduleService = {
+    clear: function (pageId) {
+        g.services.moduleService.private.activeComponentsIds[pageId] = [];
+    },
     injectComponents: function (pageId, modList, startingActiveComponentsIds) {
         g.services.moduleService.private.activeComponentsIds[pageId] = startingActiveComponentsIds;
         g.services.moduleService.private.components[pageId] = modList;
@@ -25,22 +28,25 @@
                 }
             }
             return res;
+        }, getComponents:
+        function (pageId) {
+            return g.services.moduleService.private.components[pageId];
         },
     getActiveComponentsIds: function (pageId) {
         return g.services.moduleService.private.activeComponentsIds[pageId];
     },
     toggle: function (pageId, module) {
-        var i = g.services.moduleService.private.activeComponentsIds[pageId].indexOf(mod.getId());
+        var i = g.services.moduleService.private.activeComponentsIds[pageId].indexOf(module.getId());
         if (i == -1) {
-            g.services.moduleService.private.activeComponentsIds[pageId].push(mod.getId());
+            g.services.moduleService.private.activeComponentsIds[pageId].push(module.getId());
         } else {
             g.services.moduleService.private.activeComponentsIds[pageId].splice(i, 1);
         }
     },
-    activate: function (pageId, module) {
-        var i = g.services.moduleService.private.activeComponentsIds[pageId].indexOf(mod.getId());
+    activate: function (pageId, moduleId) {
+        var i = g.services.moduleService.private.activeComponentsIds[pageId].indexOf(moduleId);
         if (i == -1) {
-            g.services.moduleService.private.activeComponentsIds[pageId].push(mod.getId());
+            g.services.moduleService.private.activeComponentsIds[pageId].push(moduleId);
         }
     }
 };

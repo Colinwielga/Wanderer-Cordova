@@ -1,7 +1,7 @@
 ﻿var DCHumoursAdvancements = {};
 
 DCHumoursAdvancements.component = function () {
-
+    var that = this;
     this.advancements = [
         {
             humour: "orgone",
@@ -218,7 +218,7 @@ DCHumoursAdvancements.component = function () {
         if (this.communicator.canRead("taken_advancements")){
             var taken_advancements = this.communicator.read("taken_advancements");
             taken_advancements.forEach(function(loaded_humour){
-                var adv_humour = this.getHumour(loaded_humour.humour);
+                var adv_humour = that.getHumour(loaded_humour.humour);
 
                 if(adv_humour){
                     //First put the PC's loaded taken advancements into the "taken" list
@@ -264,6 +264,9 @@ DCHumoursAdvancements.component = function () {
         return "modules/" + this.getId() + "/page.html"
     }
 
+    this.canClose = function () {
+        return true;
+    }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }

@@ -10,7 +10,9 @@
     this.OnNewCharacter = function () { }
     this.OnSave = function () { }
     this.OnLoad = function () { }
-
+    this.canClose = function () {
+        return true;
+    }
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }

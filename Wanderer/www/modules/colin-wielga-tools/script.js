@@ -19,6 +19,9 @@
             this.tools = this.communicator.read("tools");
         }
     }
+    this.canClose = function () {
+        return true;
+    }
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }

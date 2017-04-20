@@ -1,5 +1,5 @@
 ﻿g.Character = function ($timeout, name, accessKey) {
-    return new g.ModulesPage($timeout, name, accessKey, g.services.componetService.characterComponentFactories,["wanderer-core-modules","wander-core-save"])
+    return new g.ModulesPage($timeout, name, accessKey, g.services.componetService.characterComponentFactories,["wanderer-core-modules","wanderer-core-save"])
 }
 
 g.StartPageController = function ($timeout, accessKey) {
@@ -138,7 +138,7 @@ g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startin
 
 
     this.updateLastLoaded = function (json) {
-        that.lastLoaded = json;
+        that.lastLoaded = angular.fromJson(angular.toJson(json));
     }
 
     this.compareWithLastLoaded = function (json) {
@@ -149,26 +149,27 @@ g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startin
                 that.modMap[property].injected.dataManager.remote = null;
             }
         }
-        var theSame = true;
+        var toLoad = [];
         if (that.lastLoaded != null) {
             for (var property in json) {
                 if (json.hasOwnProperty(property)) {
                     if (angular.toJson(json[property]) == angular.toJson(that.lastLoaded[property])) {
                     } else {
-                        theSame = false;
-                        that.modMap[property].injected.dataManager.useLocal = false;
-                        that.modMap[property].injected.dataManager.remote = json[property];
-                        that.modMap[property].OnLoad();
+                        toLoad.push(property);
                     }
                 }
             }
         }
+        // we load after we finish the check incase 
+        toLoad.forEach(function (property) {
+            that.modMap[property].injected.dataManager.useLocal = false;
+            that.modMap[property].injected.dataManager.remote = json[property];
+            that.modMap[property].OnLoad();
+        })
 
-        that.lastLoaded = json;
+        that.updateLastLoaded(json);
 
-        // it might be a good idea to active the comps with conflicts 
-
-        return theSame;
+        return toLoad.length == 0;
     }
 
     this.swap = function (module) {
@@ -210,7 +211,7 @@ g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startin
         var load = function (json) {
             nameAndKey.name = json["name"];
             nameAndKey.accessKey = json["id"];
-            that.lastLoaded = json;
+            that.updateLastLoaded(json);
             modList.forEach(function (item) {
                 item.injected.dataManager = dataManagerFactory(json[item.getId()]);
                 if (item.OnLoad !== undefined) {

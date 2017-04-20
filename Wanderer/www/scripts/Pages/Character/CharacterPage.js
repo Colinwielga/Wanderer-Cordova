@@ -1,5 +1,4 @@
-﻿
-g.CharacterPageFactory = function (char) {
+﻿g.CharacterPageFactory = function (char) {
     return {
         getController: function() {
             return char;

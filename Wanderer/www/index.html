@@ -39,7 +39,9 @@
                     data-ng-click="Select(page)"
                     value="{{page.displayName()}}" 
                     type="button" />
-                    <input data-ng-click="Close(page)"
+                    <input 
+                           data-ng-show="page.canClose()"
+                           data-ng-click="Close(page)"
                        class="right-part"    
                        value="x"
                        type="button" />

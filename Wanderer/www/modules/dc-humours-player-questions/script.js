@@ -209,7 +209,12 @@ DCHumoursPlayerQuestions.component = function () {
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.questionlist = this.communicator.read("questionlist"); 
+        if (this.communicator.canRead("questionlist")) {
+            this.questionlist = this.communicator.read("questionlist");
+        }
+    }
+    this.canClose = function () {
+        return true;
     }
     this.OnUpdate = function () {
     }

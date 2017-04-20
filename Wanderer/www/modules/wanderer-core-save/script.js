@@ -42,12 +42,16 @@
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
+    this.canClose = function () {
+        return true;
+    }
     this.getTitle = function () {
         return "Save";
     }
     this.save = function () {
+        var newJson = that.injected.getJSON();
         var reallySave = function () {
-            g.services.characterService.SaveCharacter(that.injected.nameAndKey.accessKey, that.injected.nameAndKey.name, angular.toJson(that.injected.getJSON()),
+            g.services.characterService.SaveCharacter(that.injected.nameAndKey.accessKey, that.injected.nameAndKey.name, angular.toJson(newJson),
                 function (data) {
                     that.injected.timeout(function () {
                         that.injected.logger.info("save successful!");
@@ -69,7 +73,7 @@
             var ok = that.injected.compareWithLastLoaded(json);
             if (ok) {
                 reallySave();
-                var ok = that.injected.updateLastLoaded(json);
+                that.injected.updateLastLoaded(newJson);
             } else {
                 that.injected.timeout(function () {
                     that.injected.logger.warn("save failed, merge conflicts!");
