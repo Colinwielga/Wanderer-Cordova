@@ -1,18 +1,18 @@
-﻿var accountId = "accountId";
+﻿var AccountList = "AccountList";
 
 g.services.accountService = {
     // pass takes an account object
     // fail takes an error
     currentAccount: null,
-    GetAccount: function (pass,notFound, fail) {
-
+    GetAccount: function (pass, notFound, fail) {
         // try to load from memory
-        var id = window.localStorage.getItem(accountId);
-        if (id!= null){
+        var accountsString = window.localStorage.getItem(AccountList);
+        if (accountsString != null) {
+            var accounts = angular.fromJson(accountsString);
+
             g.services.AWSConnector.GetAccount(
-                id,
+                accounts[0],
                 function (result) {
-                    // TODO transfrom
                     transformed = g.models.accountFormJSONstring(result)
                     g.services.accountService.currentAccount = transformed;
                     pass(result)
@@ -26,9 +26,9 @@ g.services.accountService = {
             g.services.AWSConnector.saveAccount(
                 account.id,
                 account.name,
-                JSON.stringify(account.json()),
+                angular.toJson(account.json()),
                 function (result) {
-                    window.localStorage.setItem(accountId, account.id);
+                    window.localStorage.setItem(AccountList, angular.toJson([account.id]));
                     g.services.accountService.currentAccount = account;
                     pass(account)
                 },
@@ -43,15 +43,30 @@ g.services.accountService = {
         g.services.AWSConnector.saveAccount(
                 g.services.accountService.currentAccount.id,
                 g.services.accountService.currentAccount.name,
-                JSON.stringify(g.services.accountService.currentAccount.json()),
+                angular.toJson(g.services.accountService.currentAccount.json()),
                 pass,
                 fail)
     },
-    SwitchAccount: function (id, pass, notFound, fail) {
+    SwitchAccount: function (id, pass, notFound, fail, remember) {
+        remember = typeof remember !== 'undefined' ? remember : true;
+        var accountsString = window.localStorage.getItem(AccountList);
+        var accounts;
+        if (accountsString == null) {
+            accounts = [];
+        } else {
+            var accounts = angular.fromJson(accountsString);
+        }
         g.services.AWSConnector.GetAccount(
                 id,
                 function (result) {
-                    // TODO transfrom
+                    if (remember) {
+                        var at = accounts.indexOf(id);
+                        if (at != -1) {
+                            accounts.splice(at, 0);
+                        }
+                        accounts.splice(0, 0, id);
+                        window.localStorage.setItem(AccountList, angular.toJson(accounts));
+                    }
                     transformed = g.models.accountFormJSONstring(result)
                     g.services.accountService.currentAccount = transformed;
                     pass(result)
