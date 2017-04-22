@@ -1,0 +1,95 @@
+﻿#dc-humours-moves strong, b{
+    font-weight: bold;
+}
+
+/* Tabs Bar */
+#dc-humours-moves #tabs_bar{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: 0.5em;
+}
+
+#dc-humours-moves #tabs_bar div.selected button{
+    background-color: #888;
+    border-style: solid; 
+}
+
+#dc-humours-moves #all_moves{
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#dc-humours-moves #all_moves > div,
+#dc-humours-moves #add-move-section{
+    margin: 0.5em;
+}
+
+#dc-humours-moves #add-move-button{
+    width: 100%;
+}
+#dc-humours-moves #all_moves .section-header{
+    opacity: 0.75;
+}
+#dc-humours-moves #all_moves .section-header.orgone{
+    background: hsl(181, 30%, 85%);
+}
+#dc-humours-moves #all_moves .section-header.yellowbile{
+    background: hsl(45, 95%, 30%);
+}
+#dc-humours-moves #all_moves .section-header.blackbile{
+    background: hsl(270, 95%, 15%);
+}
+#dc-humours-moves #all_moves .section-header.phlegm{
+    background: hsl(130, 95%, 25%);
+}
+#dc-humours-moves #all_moves .section-header.blood{
+    background: hsl(0, 95%, 35%);
+}
+
+#dc-humours-moves .edit-move-panel,
+#dc-humours-moves #all_moves .move-body{
+    border-color: rgba(0, 0, 0, 0.15);
+    border-style: solid;
+    border-top-style: none;
+
+    padding: 0.5em;
+}
+
+#dc-humours-moves .edit-button{
+    float: right;
+    padding: 0;
+}
+
+/* Add Moves Section Fields */
+#dc-humours-moves .delete-confirmation-buttons span{
+    color: #FFF;
+    float: right;
+    margin: 3px;
+}
+
+#dc-humours-moves .title-span,
+#dc-humours-moves .title-input{
+    font-size: 1.5em;
+}
+#dc-humours-moves .small-inputs{
+    display: flex;
+}
+#dc-humours-moves .leadin-input{
+    width: 6em;
+    flex-basis: auto;
+    flex-grow: 1;
+}
+#dc-humours-moves .trigger-input{
+    font-weight: bold;
+    flex-grow: 5;
+}
+#dc-humours-moves .effect-input-editarea{
+    background: #FFF;
+    border: 2px solid #222;
+    border-radius: 3px;
+    margin: 2px;
+    outline: medium none;
+}

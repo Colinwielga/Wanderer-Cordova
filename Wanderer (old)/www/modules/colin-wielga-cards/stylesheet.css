@@ -1,0 +1,370 @@
+﻿#colin-wielga-cards .classic-card .card-name , #colin-wielga-cards .classic-card .card-number, #colin-wielga-cards .classic-card .card-ability{
+    text-shadow: 0 0 3px #000;
+}
+/**/
+#colin-wielga-cards .classic-card .card-border{
+	border: 0;
+    display:flex;
+    justify-content:flex-end;
+    align-items:stretch;
+    flex-direction:column;
+}
+
+#colin-wielga-cards .classic-card .card-number{
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#colin-wielga-cards .classic-card .card-number-container{
+    padding-top:100px;
+    background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.3), rgba(0,0,0,.4));
+}
+
+#colin-wielga-cards .classic-card .card-padding {
+    -ms-flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
+}
+
+#colin-wielga-cards .card-in-deck-true {
+}
+
+#colin-wielga-cards .card-in-deck-false {
+        opacity:.3;
+}
+
+#colin-wielga-cards .deck-container {
+    -moz-column-width: 200px;
+    -webkit-column-width: 200px;
+    column-width: 200px;
+    -moz-column-gap: 5px;
+    -webkit-column-gap: 5px;
+    column-gap: 5px;
+}
+
+/*i like this pattern but goes know why it seems like at of extra work */
+
+#colin-wielga-cards #setting-hide.hide-check ~ .deck-container-outer {
+    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
+    transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    max-height: 20000px;
+    transform: translateY(0%);
+    overflow-y:hidden;
+}
+
+/*transform:translateY(-100%);*/
+#colin-wielga-cards #setting-hide.hide-check:checked ~ .deck-container-outer {
+    max-height: 0px;
+    overflow-y: hidden;
+    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+}
+
+
+/*Polygon 0*/
+#colin-wielga-cards .titanagon-card svg.poly-0-0-0 {
+	width: 0px;
+	height: 0px;
+	transform: scale(1.2,1.2);
+}
+/*Polygon 3-0*/
+#colin-wielga-cards .titanagon-card svg.poly-3-0-0 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2);
+}
+#colin-wielga-cards .titanagon-card svg.poly-3-0-30 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-3-0-60 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2) rotate(60deg);
+	margin-left: 15px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-3-0-90 {
+	width: 58px;
+	height: 51.3px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+/*Polygon 4-0*/
+#colin-wielga-cards .titanagon-card svg.poly-4-0-0 {
+	width: 58px;
+	height: 58px;
+	transform: scale(1.2,1.2);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-0-30 {
+	width: 58px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-0-60 {
+	width: 58px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+/*Polygon 4-1*/
+#colin-wielga-cards .titanagon-card svg.poly-4-1-0 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(15deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-1-30 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(45deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-1-60 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(75deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-1-90 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(105deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-1-120 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(135deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-1-150 {
+	width: 104.6px;
+	height: 33.9px;
+	transform: scale(1.2,1.2) rotate(165deg);
+}
+/*Polygon 4-2*/
+#colin-wielga-cards .titanagon-card svg.poly-4-2-0 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-2-30 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-2-60 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-2-90 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(180deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-2-120 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(210deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-4-2-150 {
+	width: 94.6px;
+	height: 58.9px;
+	transform: scale(1.2,1.2) rotate(240deg);
+}
+/*Polygon 5-0*/
+#colin-wielga-cards .titanagon-card svg.poly-5-0-0 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(-90deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-30 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(-30deg);
+	margin-left: 20px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-60 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(-60deg);
+	margin-left: 20px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-90 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(0deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-120 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(30deg);
+	margin-left: 10px;
+	margin-top: 25px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-150 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(60deg);
+	margin-left: 20px;
+	margin-top: 25px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-180 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-210 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(120deg);
+	margin-right: 20px;
+	margin-top: 25px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-240 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(150deg);
+	margin-right: 20px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-270 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(180deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-300 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(210deg);
+	margin-right: 20px;
+}
+#colin-wielga-cards .titanagon-card svg.poly-5-0-330 {
+	width: 101.3px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(240deg);
+	margin-right: 20px;
+}
+/*Polygon 6-0*/
+#colin-wielga-cards .titanagon-card svg.poly-6-0-0 {
+	width: 108px;
+	height: 94.6px;
+	transform: scale(1.2,1.2);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-0-30 {
+	width: 108px;
+	height: 94.6px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+/*Polygon 6-1*/
+#colin-wielga-cards .titanagon-card svg.poly-6-1-0 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-1-30 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-1-60 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-1-90 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-1-120 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-1-150 {
+	width: 144.6px;
+	height: 58px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}
+/*Polygon 6-2*/
+#colin-wielga-cards .titanagon-card svg.poly-6-2-0 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(15deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-2-30 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(45deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-2-60 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(75deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-2-90 {
+	width: 104.6px;
+	height: 104.6px;
+	transform: scale(1.2,1.2) rotate(105deg);
+}
+/*Polygon 6-3*/
+#colin-wielga-cards .titanagon-card svg.poly-6-3-0 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(0deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-3-30 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-3-60 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-3-90 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-3-120 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-3-150 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}
+/*Polygon6-4*/
+#colin-wielga-cards .titanagon-card svg.poly-6-4-0 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(0deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-4-30 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(30deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-4-60 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(60deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-4-90 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(90deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-4-120 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(120deg);
+}
+#colin-wielga-cards .titanagon-card svg.poly-6-4-150 {
+	width: 83px;
+	height: 101.3px;
+	transform: scale(1.2,1.2) rotate(150deg);
+}

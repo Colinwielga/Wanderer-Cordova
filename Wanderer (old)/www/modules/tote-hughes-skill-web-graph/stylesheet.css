@@ -1,0 +1,46 @@
+#tote-hughes-skill-web-graph ﻿#graph-container{
+	padding: 0;
+}
+#tote-hughes-skill-web-graph #graph-canvas {
+	position: relative;
+	z-index: -1;
+	width: 100%;
+	background-color: #e0e0e0;
+}
+#tote-hughes-skill-web-graph .graph-button-container{
+/*	margin: 0 -8px;*/
+	padding: 8px 8px 8px 8px;
+	border: 0;
+	box-shadow: 0 4px 3px gray;
+	text-align: center;     /* Aligns buttons */
+}
+
+#tote-hughes-skill-web-graph .links line {
+	stroke: #333333;
+	stroke-opacity: 0.5;
+	stroke-width: 2px;
+}
+
+#tote-hughes-skill-web-graph .nodes circle {
+	stroke: #333333;
+	stroke-width: 2px;
+	fill: #e0e0e0;
+}
+#tote-hughes-skill-web-graph .nodes circle.specificity3 {
+	fill: #a4f7bb;
+}
+#tote-hughes-skill-web-graph .nodes circle.specificity2 {
+	fill: #9fb3d8;
+}
+#tote-hughes-skill-web-graph .nodes circle.specificity1 {
+	fill: #d89fca;
+}
+#tote-hughes-skill-web-graph .nodes circle.specificity0 {
+	fill: #f7a4a4;
+}
+
+#tote-hughes-skill-web-graph .nodes text {
+	pointer-events: none;
+	font: 14px sans-serif;
+/*	font-weight: bold;*/
+}

@@ -1,0 +1,26 @@
+﻿<!-- add tooltips -->
+<div class="pad-me">
+    <div>
+        Bonus: {{module.getBonus()}}
+    </div>
+    <div>
+        DC: <input type="number" data-ng-model="module.dc" />
+        <input type="button"  value="roll" data-ng-click="module.rollDC()" data-ng-diable="module.disableRoll()" />
+    </div>
+</div>
+<div class="pad-me">
+    <h3>public</h3>
+    <table class="outcomes">
+        <tr data-ng-repeat="outcome in module.publicLastRoll" class="pad-me">
+            <td>{{outcome.getDC()}}</td>
+            <td>{{outcome.result}}</td>
+        </tr>
+    </table>
+    <h3>private</h3>
+    <table class="outcomes">
+        <tr data-ng-repeat="outcome in module.privateLastRoll" class="pad-me">
+            <td>{{outcome.getDC()}}</td>
+            <td>{{outcome.result}}</td>
+        </tr>
+    </table>
+</div>
