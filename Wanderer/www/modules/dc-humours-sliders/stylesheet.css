@@ -51,6 +51,9 @@
 #dc-humours-sliders .radiocontainer label.orgone{
     background: hsl(181, 30%, 85%);
 }
+#dc-humours-sliders .radiocontainer label.documentation{
+    background: hsl(38, 95%, 25%);
+}
 
 #dc-humours-sliders .radiocontainer label.Sated{
     border-radius: 50% 0% 0% 50%;
