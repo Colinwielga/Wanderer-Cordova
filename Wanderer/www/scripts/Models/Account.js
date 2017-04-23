@@ -13,7 +13,7 @@ g.makeid = function (n) {
 
 var defaultLength 
 
-g.models.newAccount = function (id,name, characterAccessers) {
+g.models.newAccount = function (id,name, email, characterAccessers) {
     characterAccessers = (typeof characterAccessers !== 'undefined') ? characterAccessers : [];
     name = (typeof name !== 'undefined') ?name: "unnammed";
     id = (typeof id !== 'undefined') ? id: g.makeid();
@@ -21,6 +21,7 @@ g.models.newAccount = function (id,name, characterAccessers) {
     return {
         id: id,
         name: name,
+        Email: email,
         characterAccessers: characterAccessers,
         json: function () {
             return {
@@ -49,6 +50,7 @@ g.models.accountFormJSONstring = function (json) {
     var parsed = json;
     var id = parsed["id"];
     var name = parsed["name"];
+    var email = parsed["Email"];
     var characterAccessers = [];
     var list = parsed["characterAccessers"];
     for (var i = 0; i < list.length; i++) {
@@ -56,7 +58,7 @@ g.models.accountFormJSONstring = function (json) {
         var charName = list[i]["name"];
         characterAccessers.push(g.models.newCharacterAccesser(charId, charName));
     }
-    return g.models.newAccount(id, name, characterAccessers);
+    return g.models.newAccount(id, name, email, characterAccessers);
 }
 
 g.models.newCharacterAccesser = function (id, name) {

@@ -3,7 +3,7 @@
 }
 
 g.StartPageController = function ($timeout, accessKey) {
-    return new g.ModulesPage($timeout, "Start", accessKey, g.services.componetService.startComponentFactories, ["core-start-add-character", "core-start-recent-characters", "core-start-switch-account"])
+    return new g.ModulesPage($timeout, "Start", accessKey, g.services.componetService.startComponentFactories, ["core-start-add-character", "core-start-recent-characters", "core-start-switch-account", "core-start-account-settings", "core-start-recover-account"])
 }
 
 g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startingComponents) {
