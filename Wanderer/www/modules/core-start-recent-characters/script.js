@@ -30,7 +30,7 @@ CoreStartRecentCharacters.component = function () {
         return "modules/" + this.getId() + "/page.html"
     }
     this.canClose = function () {
-        return false;
+        return true;
     }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"

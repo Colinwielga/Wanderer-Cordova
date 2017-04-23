@@ -37,7 +37,7 @@ CoreStartSwitchAccount.component = function () {
         return "Switch Account";
     }
     this.canClose = function () {
-        return false;
+        return true;
     }
     this.getAccountId = function () {
         return g.services.accountService.currentAccount.id;

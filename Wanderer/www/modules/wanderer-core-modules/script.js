@@ -74,3 +74,4 @@
 }
 
 g.services.componetService.registerCharacter(component);
+g.services.componetService.registerStart(component);

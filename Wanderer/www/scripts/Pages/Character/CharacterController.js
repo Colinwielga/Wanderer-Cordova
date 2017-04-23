@@ -3,7 +3,7 @@
 }
 
 g.StartPageController = function ($timeout, accessKey) {
-    return new g.ModulesPage($timeout, "Start", accessKey, g.services.componetService.startComponentFactories, ["core-start-add-character", "core-start-recent-characters", "core-start-switch-account", "core-start-account-settings", "core-start-recover-account"])
+    return new g.ModulesPage($timeout, "Start", accessKey, g.services.componetService.startComponentFactories, ["wanderer-core-modules","core-start-add-character", "core-start-recent-characters", "core-start-switch-account"])
 }
 
 g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startingComponents) {
@@ -226,8 +226,6 @@ g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startin
             });
         };
 
-        // TODO this really does not belong here
-        // maybe in to a service where everyone can see it
         g.services.moduleService.injectComponents(that.PageId, modList, startingComponents)
 
         modList.forEach(function (item) {
