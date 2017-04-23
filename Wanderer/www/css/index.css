@@ -263,13 +263,13 @@ body {
 }
 
 .hide-check ~ .section-body {
-    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
-    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
-    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
-    transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s, opacity linear .4s;
+    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s, opacity linear .4s;
+    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s, opacity linear .4s;
+    transition: max-height cubic-bezier(1, 0, 1, 0) .4s, opacity linear .4s;
     max-height: 20000px;
     transform: translateY(0%);
-    overflow-y:hidden;
+    overflow-y: hidden;
 }
 
 .rules-container {
@@ -280,21 +280,22 @@ body {
 .hide-check:checked ~ .section-body {
     max-height: 0px;
     overflow-y: hidden;
-    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
-    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
-    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
-    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    opacity: 0;
+    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
+    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
+    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
 }
 
 
 .hide-help-check ~ .rules-container {
-    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
-    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
-    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s;
-    transition: max-height cubic-bezier(1, 0, 1, 0) .4s;
+    -moz-transition: max-height cubic-bezier(1, 0, 1, 0) .4s, opacity linear .4s;
+    -o-transition: max-height cubic-bezier(1, 0, 1, 0) .4s, opacity linear .4s;
+    -webkit-transition: max-height cubic-bezier(1, 0, 1, 0) 4s, opacity linear .4s;
+    transition: max-height cubic-bezier(1, 0, 1, 0) .4s, opacity linear .4s;
     max-height: 20000px;
     transform: translateY(0%);
-    overflow-y:hidden;
+    overflow-y: hidden;
 }
 
 /*transform:translateY(-100%);*/
@@ -302,10 +303,11 @@ body {
 .hide-help-check:checked ~ .rules-container {
     max-height: 0px;
     overflow-y: hidden;
-    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
-    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
-    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
-    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+    opacity: 0;
+    -moz-transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
+    -o-transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
+    -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s, opacity linear .4s;
 }
 
 
