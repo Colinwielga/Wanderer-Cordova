@@ -33,12 +33,17 @@ g.services.AWSConnector.saveAccount = function (id, name, email, json, good, bad
     var itemParams = {
         Item: {
             "id": { "S": id },
-            "name": { "S": name },
-            "Email": {"S": email == null?"": email.toLowerCase()},
             "JSON": { "S": json },
         },
         "TableName": g.services.AWSConnector.WandererAccounts
     };
+    if (email !== undefined && email !== null && email !== "") {
+        itemParams["Item"]["Email"] = { "S": email };
+    }
+    if (name !== null && name !== null && name !== "") {
+        itemParams["Item"]["name"] = { "S": name };
+    }
+
     g.services.AWSConnector.dynamodb.putItem(itemParams, function (err, data) {
         if (err) {
             bad(err);
