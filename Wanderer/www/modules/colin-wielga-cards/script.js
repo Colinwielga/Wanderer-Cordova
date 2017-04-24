@@ -3,7 +3,7 @@
     this.getId = function () {
         return "colin-wielga-cards"
     }
-    this.OnStart = function (communicator, dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
         this.godsPublic = dependencies[0];
     }

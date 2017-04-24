@@ -5,7 +5,8 @@ ColinWielgaTemplate.component = function () {
     this.getId = function () {
         return "core-start-account-settings"
     }
-    this.OnStart = function (communicator, dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
+        this.logger = logger;
         this.communicator = communicator;
         this.Dependencies = dependencies;
     }
@@ -45,13 +46,13 @@ ColinWielgaTemplate.component = function () {
     this.save = function () {
         return g.services.accountService.saveAccount(
             function () {
-                that.injected.timeout(function () {
-                    that.injected.logger.warn("account saved");
+                g.services.timeoutService.$timeout(function () {
+                    that.logger.warn("account saved");
                 });
             },
             function (err) {
-                that.injected.timeout(function () {
-                    that.injected.logger.warn("failed to save the account:" + err);
+                g.services.timeoutService.$timeout(function () {
+                    that.logger.warn("failed to save the account:" + err);
                 });
             }
         );

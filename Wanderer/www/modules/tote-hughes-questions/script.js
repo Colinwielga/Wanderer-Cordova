@@ -2,7 +2,7 @@
     this.getId = function () {
         return "tote-hughes-questions"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {

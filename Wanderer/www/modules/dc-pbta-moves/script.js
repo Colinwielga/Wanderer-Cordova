@@ -70,31 +70,31 @@ var component = function () {
     
     this.toggleCollapse=function(event, move){
         move.collapsed = !move.collapsed;
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     }
     this.startEdit = function(event, move){
         move.edit = true;
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     }
     this.endEdit = function(event, move){
         //TODO: Check to make sure there's either a title or leadin+trigger
         move.edit = false;
         move.collapsed = false;
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     }
     this.setDeleteMode = function(event, move){
         move.deletemode = true;
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     }
     this.cancelDeleteMode = function(event, move){
         move.deletemode = false;
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     }
     
     this.deleteMove = function(event, move){
         this.getMoveslist().splice(this.getMoveslist().indexOf(move), 1);
         move.deletemode = true;
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     }
 
     this.changeTab = function(catalogue){
@@ -131,7 +131,7 @@ var component = function () {
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
     }

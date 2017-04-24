@@ -1,5 +1,5 @@
 ﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
-    g.$timeout = $timeout;
+    g.services.timeoutService.$timeout = $timeout;
     
     $scope.onUpdate = function () {
         var toRezie = $(".auto-resize");

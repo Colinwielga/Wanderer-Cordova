@@ -4,22 +4,24 @@
         return "wanderer-core-save"
     }
 
-    this.OnStart = function (communicator, dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
+        this.logger = logger;
+        this.page = page;
         this.communicator = communicator;
         this.Dependencies = dependencies;
         this.OnNewCharacter()
     }
     this.OnNewCharacter = function () {
-        that.injected.nameAndKey.name = "untitled";
+        that.page.name = "untitled";
     }
     this.OnSave = function () {
-        this.communicator.write("name", that.injected.nameAndKey.name);
+        this.communicator.write("name", that.page.name);
     }
     this.OnLoad = function () {
         if (this.communicator.canRead("name")) {
-            that.injected.nameAndKey.name = this.communicator.read("name");
+            that.page.name = this.communicator.read("name");
         } else {
-            that.injected.nameAndKey.name = "untitled";
+            that.page.name = "untitled";
         }
     }
     this.getRequires = function () {
@@ -51,12 +53,12 @@
     this.save = function () {
         var newJson = that.injected.getJSON();
         var reallySave = function () {
-            g.services.characterService.SaveCharacter(that.injected.nameAndKey.accessKey, that.injected.nameAndKey.name, angular.toJson(newJson),
+            g.services.characterService.SaveCharacter(that.page.accessKey, that.page.name, angular.toJson(newJson),
                 function (data) {
-                    that.injected.timeout(function () {
-                        that.injected.logger.info("save successful!");
+                    g.services.timeoutService.$timeout(function () {
+                        that.logger.info("save successful!");
                     });
-                    var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(that.injected.nameAndKey.accessKey, that.injected.nameAndKey.name));
+                    var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(that.page.accessKey, that.page.name));
                     if (changed) {
                         g.services.accountService.saveAccount(function () { }, function () {
                             throw { message: "save failed" }
@@ -64,19 +66,19 @@
                     }
                 },
                 function (error) {
-                    that.injected.timeout(function () {
-                        that.injected.logger.error("save failed " + error);
+                    g.services.timeoutService.$timeout(function () {
+                        that.logger.error("save failed " + error);
                     });
                 });
         };
-        g.services.characterService.GetCharacter(that.injected.nameAndKey.accessKey, function (json) {
+        g.services.characterService.GetCharacter(that.page.accessKey, function (json) {
             var ok = that.injected.compareWithLastLoaded(json);
             if (ok) {
                 reallySave();
                 that.injected.updateLastLoaded(newJson);
             } else {
-                that.injected.timeout(function () {
-                    that.injected.logger.warn("save failed, merge conflicts!");
+                g.services.timeoutService.$timeout(function () {
+                    that.logger.warn("save failed, merge conflicts!");
                 });
             }
         },
@@ -84,8 +86,8 @@
             reallySave();
         },
         function (error) {
-            that.injected.timeout(function () {
-                that.injected.logger.error("error: " + error);
+            g.services.timeoutService.$timeout(function () {
+                that.logger.error("error: " + error);
             });
         })
     }

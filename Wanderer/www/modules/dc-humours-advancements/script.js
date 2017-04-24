@@ -167,7 +167,7 @@ DCHumoursAdvancements.component = function () {
     //Expands or collapses the list in the view
     this.toggleCollapse = function($event, humour){
         humour.expanded = !humour.expanded; 
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     };
 
     //Returns the humour object with the given name, or undefined
@@ -193,7 +193,7 @@ DCHumoursAdvancements.component = function () {
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
         this.Dependencies = dependencies
     }

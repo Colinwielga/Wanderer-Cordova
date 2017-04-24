@@ -6,7 +6,8 @@ ColinWielgaTemplate.component = function () {
     this.getId = function () {
         return "core-start-recover-account"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
+        this.logger = logger;
         this.communicator = communicator
         this.Dependencies = dependencies
     }
@@ -46,22 +47,22 @@ ColinWielgaTemplate.component = function () {
     this.recover = function () {
         return g.services.accountService.RecoverAccount(that.email,
             function () {
-                that.injected.timeout(function () {
-                    that.injected.logger.warn("account recovered");
+                g.services.timeoutService.$timeout(function () {
+                    that.logger.warn("account recovered");
                 });
             }, 
             function () {
-                that.injected.timeout(function () {
-                    that.injected.logger.warn("could not find email address.");
+                g.services.timeoutService.$timeout(function () {
+                    that.logger.warn("could not find email address.");
                 });
             },
             function (err) {
-                that.injected.timeout(function () {
-                    that.injected.logger.warn("failed to recover account:" + err);
+                g.services.timeoutService.$timeout(function () {
+                    that.logger.warn("failed to recover account:" + err);
                 });
             }
         );
     }
 }
 
-g.services.componetService.registerCharacter(ColinWielgaTemplate.component);
+g.services.componetService.registerStart(ColinWielgaTemplate.component);

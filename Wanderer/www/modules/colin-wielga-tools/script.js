@@ -4,7 +4,7 @@
     this.getId = function () {
         return "colin-wielga-tools"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {

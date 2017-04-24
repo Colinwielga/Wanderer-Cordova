@@ -1,14 +1,13 @@
-﻿g.Character = function ($timeout, name, accessKey) {
-    return new g.ModulesPage($timeout, name, accessKey, g.services.componetService.characterComponentFactories,["wanderer-core-modules","wanderer-core-save"])
+﻿g.Character = function (name, accessKey) {
+    return new g.ModulesPage(name, accessKey, g.services.componetService.characterComponentFactories, ["wanderer-core-modules", "wanderer-core-save"])
 }
 
-g.StartPageController = function ($timeout, accessKey) {
-    return new g.ModulesPage($timeout, "Start", accessKey, g.services.componetService.startComponentFactories, ["wanderer-core-modules","core-start-add-character", "core-start-recent-characters", "core-start-switch-account"])
+g.StartPageController = function (accessKey) {
+    return new g.ModulesPage("Start", accessKey, g.services.componetService.startComponentFactories, ["wanderer-core-modules", "core-start-add-character", "core-start-recent-characters", "core-start-switch-account"])
 }
 
-g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startingComponents) {
+g.ModulesPage = function (name, accessKey, componentFactories, startingComponents) {
     var that = this;
-    that.PageId = g.makeid();
 
     var comboKey = function (id, key) {
         return id + "_" + key;
@@ -136,179 +135,79 @@ g.ModulesPage = function ($timeout, name, accessKey, componentFactories, startin
         }
     };
 
-
-    this.updateLastLoaded = function (json) {
-        that.lastLoaded = angular.fromJson(angular.toJson(json));
-    }
-
-    this.compareWithLastLoaded = function (json) {
-
-        for (var property in that.modMap) {
-            if (that.modMap.hasOwnProperty(property)) {
-                that.modMap[property].injected.dataManager.useLocal = true;
-                that.modMap[property].injected.dataManager.remote = null;
-            }
-        }
-        var toLoad = [];
-        if (that.lastLoaded != null) {
-            for (var property in json) {
-                if (json.hasOwnProperty(property)) {
-                    if (angular.toJson(json[property]) == angular.toJson(that.lastLoaded[property])) {
-                    } else {
-                        toLoad.push(property);
-                    }
-                }
-            }
-        }
-        // we load after we finish the check incase 
-        toLoad.forEach(function (property) {
-            that.modMap[property].injected.dataManager.useLocal = false;
-            that.modMap[property].injected.dataManager.remote = json[property];
-            that.modMap[property].OnLoad();
-        })
-
-        that.updateLastLoaded(json);
-
-        return toLoad.length == 0;
-    }
-
     this.swap = function (module) {
         module.OnSave();
         module.injected.dataManager.useLocal = !module.injected.dataManager.useLocal;
         module.OnLoad()
     }
 
-    // todo merge conflicts is not a good way story in injected along with some stat (which one to show)
+    var modList = [];
 
-    this.getBonus = function () {
-        var res = 0;
-        that.modList.forEach(function (comp) {
-            var pub = comp.getPublic();
-            if (pub.bonusProvided != undefined) {
-                res += pub.bonusProvided();
-            }
-        })
-        return res;
-    }
+    componentFactories.forEach(function (item) {
+        var tem = new item();
+        tem.injected = {};
+        modList.push(tem);
+    });
 
-    var nameAndKey = {
-        name: name,
-        accessKey: accessKey,
-    }
+    this.exposedPage = new g.ExposedPage(modList, startingComponents, name, accessKey);
 
-    this.mintModules = function (componentFactoriesList, modMap) {
-        var modList = [];
-
-        componentFactoriesList.forEach(function (item) {
-            var tem = new item();
-            tem.injected = {};
-            modMap[tem.getId()] = tem;
-            modList.push(tem);
-        });
-
-
-        //var logger = modMap["wanderer-core-logger"].getPublic();
-        var load = function (json) {
-            nameAndKey.name = json["name"];
-            nameAndKey.accessKey = json["id"];
-            that.updateLastLoaded(json);
-            modList.forEach(function (item) {
-                item.injected.dataManager = dataManagerFactory(json[item.getId()]);
-                if (item.OnLoad !== undefined) {
-                    //try {
+    this.load = function (json) {
+        that.exposedPage.name = json["name"];
+        that.exposedPage.accessKey = json["id"];
+        that.exposedPage.updateLastLoaded(json);
+        that.exposedPage.getComponents().forEach(function (item) {
+            item.injected.dataManager = dataManagerFactory(json[item.getId()]);
+            if (item.OnLoad !== undefined) {
+                try {
                     item.OnLoad();
-                    //} catch (e) {
-                    //    if (logger != undefined && logger.writeToLog != undefined) {
-                    //        logger.writeToLog(e);
-                    //    }
-                    //}
+                } catch (e) {
+                    console.log("error:" + e);
                 }
-            });
-        };
-
-        g.services.moduleService.injectComponents(that.PageId, modList, startingComponents)
-
-        modList.forEach(function (item) {
-            // we inject a ton of stuff
-            item.injected = {
-                nameAndKey: nameAndKey,
-                pageId: that.PageId,
-                timeout: $timeout,
-                load: load,
-                dataManager: dataManagerFactory({}),
-                logger: logFactory(),
-                getJSON: function () {
-                    var res = {};
-                    modList.forEach(function (item) {
-                        if (item.OnSave !== undefined) {
-                            try {
-                                item.OnSave();
-                                var map = item.injected.dataManager.current();
-                                if (map == undefined) {
-                                    map = {};
-                                }
-                                if (map[g.constants.META] == undefined) {
-                                    map[g.constants.META] = {};
-                                }
-                                map[g.constants.META][g.constants.VERSION] = item.getPublic().getVersion();
-                                res[item.getId()] = map;
-                            } catch (e) {
-                                if (logger != undefined && logger.writeToLog != undefined) {
-                                    logger.writeToLog(e);
-                                }
-                            }
-                        }
-                    });
-                    return res;
-                },
-                getBonus: that.getBonus,
-                compareWithLastLoaded: that.compareWithLastLoaded,
-                updateLastLoaded: that.updateLastLoaded
             }
+        });
+    };
 
-            if (item.OnStart !== undefined) {
+    modList.forEach(function (item) {
+        var myLogger = logFactory();
 
-                var communicator = comFactory(function () { return item.injected.dataManager.current(); }, item.getId(), item.getPublic().getVersion());
+        // we inject module related info that the modules don't need to know about 
+        item.injected = {
+            logger: myLogger,
+            dataManager: dataManagerFactory({}),
+        }
 
-                var dependencies = [];
-                if (item.getRequires !== undefined) {
-                    var lookingFors = item.getRequires();
-                    for (var i = 0; i < lookingFors.length; i++) {
-                        var pimary = g.services.moduleService.getComponent(that.PageId,lookingFors[i])
-                        if (pimary != null) {
-                            dependencies.push(g.services.moduleService.getComponent(that.PageId, lookingFors[i]));
-                        } else {
-                            throw { message: "component: " + lookingFors[i] };
-                            // is this an error case?
-                        }
+        if (item.OnStart !== undefined) {
+
+            var communicator = comFactory(function () { return item.injected.dataManager.current(); }, item.getId(), item.getPublic().getVersion());
+
+            var dependencies = [];
+            if (item.getRequires !== undefined) {
+                var lookingFors = item.getRequires();
+                for (var i = 0; i < lookingFors.length; i++) {
+                    var pimary = that.exposedPage.getComponent(lookingFors[i])
+                    if (pimary != null) {
+                        dependencies.push(that.exposedPage.getComponent(lookingFors[i]));
+                    } else {
+                        throw { message: "component: " + lookingFors[i] };
+                        // is this an error case?
                     }
                 }
-
-
-                // we start.
-                item.OnStart(communicator, dependencies);
             }
-        });
-
-        return {
-            modMap: modMap,
-            modList: modList,
-            load: load
-        };
-    }
 
 
-    this.getName = function () { return nameAndKey.name; };
+            // we start.
+            item.OnStart(communicator, myLogger, that.exposedPage, dependencies);
+        }
+    });
 
-    var mods = this.mintModules(componentFactories, {});
 
-    this.load = mods.load;
-    this.modList = mods.modList;
-    this.modMap = mods.modMap;
+    this.getName = function () {
+        return that.exposedPage.name;
+    };
     this.modules = function () {
-        return g.services.moduleService.getActiveComponents(that.PageId)
+        return that.exposedPage.getActiveComponents()
     };
     this.Remove = function (module) {
-        g.services.moduleService.toggle(that.PageId, module);
+        that.exposedPage.toggle(module);
     };
 }

@@ -5,7 +5,7 @@ CoreStartSwitchAccount.component = function () {
         return "core-start-switch-account"
     }
 
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
         this.Dependencies = dependencies
     }

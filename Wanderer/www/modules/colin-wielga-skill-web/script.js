@@ -37,7 +37,7 @@ ColinWielgaSkillWeb.component = function () {
     this.getId = function () {
         return "colin-wielga-skill-web"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator;
         this.network = ColinWielgaSkillWeb.makeNetwork()
         this.newSkill = "";

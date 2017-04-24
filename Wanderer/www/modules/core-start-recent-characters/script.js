@@ -4,7 +4,7 @@ CoreStartRecentCharacters.component = function () {
     this.getId = function () {
         return "core-start-recent-characters"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
         this.Dependencies = dependencies
     }

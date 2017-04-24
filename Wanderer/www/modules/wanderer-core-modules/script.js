@@ -4,7 +4,8 @@
         return "wanderer-core-modules"
     }
 
-    this.OnStart = function (communicator, dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
+        this.page = page;
         this.communicator = communicator;
         this.Dependencies = dependencies;
         this.OnNewCharacter()
@@ -13,11 +14,11 @@
     }
     this.OnSave = function () {
         this.communicator.write("activeComponents",
-            g.services.moduleService.getActiveComponentsIds(that.injected.pageId));
+            that.page.getActiveComponentsIds());
     }
     this.OnLoad = function () {
         var toActivate = [];
-        g.services.moduleService.clear(that.injected.pageId);
+        that.page.clear();
         if (this.communicator.canRead("activeComponents")) {
             this.communicator.read("activeComponents").forEach(function(item){
                 toActivate.push(item);
@@ -25,7 +26,7 @@
         } 
 
         for (var i = 0, len = toActivate.length; i < len; i++) {
-            g.services.moduleService.activate(that.injected.pageId, toActivate[i]);
+            that.page.activate( toActivate[i]);
         }
     }
     this.getRequires = function () {
@@ -52,11 +53,11 @@
         return false;
     }
     this.toggle = function (mod) {
-        g.services.moduleService.toggle(that.injected.pageId, mod);
+        that.page.toggle(mod);
     }
 
     this.text = function (mod) {
-        var i = g.services.moduleService.getActiveComponents(that.injected.pageId).indexOf(mod.getId());
+        var i = that.page.getActiveComponents().indexOf(mod.getId());
         if (i == -1) {
             return "show";
         } else {
@@ -65,11 +66,11 @@
     }
 
     this.components = function () {
-        return g.services.moduleService.getComponents(that.injected.pageId);
+        return that.page.getComponents();
     }
 
     this.show = function (mod) {
-        return g.services.moduleService.getActiveComponentsIds(that.injected.pageId).indexOf(mod.getId()) == -1;
+        return that.page.getActiveComponentsIds().indexOf(mod.getId()) == -1;
     }
 }
 

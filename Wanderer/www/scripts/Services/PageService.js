@@ -33,20 +33,20 @@ g.services.pageService.Close = function (page) {
 }
 
 g.services.pageService.Add = function () {
-    var newPage = g.CharacterPageFactory(new g.Character(g.$timeout, "new character", g.makeid()));
+    var newPage = g.CharacterPageFactory(new g.Character( "new character", g.makeid()));
     g.services.pageService.private.Pages.push(newPage);
     g.services.pageService.Select(newPage);
 }
 
 g.services.pageService.OpenCharacterById = function (id) {
-    var tempPage = g.LoadingPageFactory(g.$timeout, "loading " + id);
+    var tempPage = g.LoadingPageFactory("loading " + id);
     g.services.pageService.private.Pages.push(tempPage);
     g.services.pageService.Select(tempPage);
     g.services.characterService.GetCharacter(id, function (json) {
         var at = g.services.pageService.private.Pages.indexOf(tempPage);
-        var character = new g.Character(g.$timeout, json["name"], json["id"]);
+        var character = new g.Character(json["name"], json["id"]);
         character.load(json);
-        g.$timeout(function () {
+        g.services.timeoutService.$timeout(function () {
             g.services.pageService.private.Pages[at] = g.CharacterPageFactory(character);
         });
         // update the account
@@ -59,14 +59,14 @@ g.services.pageService.OpenCharacterById = function (id) {
         }
 
     }, function () {
-        g.$timeout(function () {
+        g.services.timeoutService.$timeout(function () {
             var at = g.services.pageService.private.Pages.indexOf(tempPage);
-            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController(g.$timeout, "Character does not exist"));
+            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController("Character does not exist"));
         });
     }, function (err) {
-        g.$timeout(function () {
+        g.services.timeoutService.$timeout(function () {
             var at = g.services.pageService.private.Pages.indexOf(tempPage);
-            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController(g.$timeout, "Error: " + err));
+            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController("Error: " + err));
         });
     }
     )
@@ -77,49 +77,49 @@ g.services.pageService.OpenCharacter = function (characterAccessor) {
 }
 
 g.services.pageService.GetAccount = function () {
-    var tempPage = g.LoadingPageFactory(g.$timeout, "loading account...");
+    var tempPage = g.LoadingPageFactory("loading account...");
     g.services.pageService.private.Pages.push(tempPage);
     g.services.accountService.GetAccount(function (account) {
-        g.$timeout(function () {
+        g.services.timeoutService.$timeout(function () {
             var at = g.services.pageService.private.Pages.indexOf(tempPage);
-            var newPage = g.MainPageFactory(g.StartPageController(g.$timeout, account.id));
+            var newPage = g.MainPageFactory(g.StartPageController(account.id));
             g.services.pageService.private.Pages[at] = newPage;
         });
     }, function (error) {
-        g.$timeout(function () {
+        g.services.timeoutService.$timeout(function () {
             var at = g.services.pageService.private.Pages.indexOf(tempPage);
-            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController(g.$timeout, "Account not found"));
+            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController("Account not found"));
         });
     }, function (error) {
-        g.$timeout(function () {
+        g.services.timeoutService.$timeout(function () {
             var at = g.services.pageService.private.Pages.indexOf(tempPage);
-            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController(g.$timeout, "Error: " + error));
+            g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController("Error: " + error));
         });
     });
 };
 
 g.services.pageService.OpenAccount = function (id) {
-    var tempPage = g.LoadingPageFactory(g.$timeout, "loading account...");
-    g.$timeout(function () {
+    var tempPage = g.LoadingPageFactory("loading account...");
+    g.services.timeoutService.$timeout(function () {
         g.services.pageService.private.Pages[0] = tempPage;
     });
     return g.services.accountService.SwitchAccount(
         id,
         function (account) {
-            g.$timeout(function () {
+            g.services.timeoutService.$timeout(function () {
                 var at = g.services.pageService.private.Pages.indexOf(tempPage);
-                var newPage = g.MainPageFactory(g.StartPageController(g.$timeout, account.id));
+                var newPage = g.MainPageFactory(g.StartPageController(account.id));
                 g.services.pageService.private.Pages[at] = newPage;
             });
         }, function (error) {
-            g.$timeout(function () {
+            g.services.timeoutService.$timeout(function () {
                 var at = g.services.pageService.private.Pages.indexOf(tempPage);
-                g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController(g.$timeout, "Account not found"));
+                g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController("Account not found"));
             });
         }, function (error) {
-            g.$timeout(function () {
+            g.services.timeoutService.$timeout(function () {
                 var at = g.services.pageService.private.Pages.indexOf(tempPage);
-                g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController(g.$timeout, "Error: " + error));
+                g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController("Error: " + error));
             });
         });
 };
