@@ -34,7 +34,7 @@ DCListReputations.component = function () {
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        if(this.communicator.canRead("humours")){
+        if(this.communicator.canRead("reputations")){
             this.reputations = this.communicator.read("reputations") 
         }else{
             this.reputations = [""];
