@@ -51,7 +51,7 @@
         return "Save";
     }
     this.save = function () {
-        var newJson = that.injected.getJSON();
+        var newJson = that.page.getJSON();
         var reallySave = function () {
             g.services.characterService.SaveCharacter(that.page.accessKey, that.page.name, angular.toJson(newJson),
                 function (data) {
@@ -72,10 +72,10 @@
                 });
         };
         g.services.characterService.GetCharacter(that.page.accessKey, function (json) {
-            var ok = that.injected.compareWithLastLoaded(json);
+            var ok = that.page.compareWithLastLoaded(json);
             if (ok) {
                 reallySave();
-                that.injected.updateLastLoaded(newJson);
+                that.page.updateLastLoaded(newJson);
             } else {
                 g.services.timeoutService.$timeout(function () {
                     that.logger.warn("save failed, merge conflicts!");

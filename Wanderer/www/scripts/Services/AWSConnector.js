@@ -91,9 +91,13 @@ g.services.AWSConnector.GetAccount = function (id, good, doesNotExist, bad) {
                 doesNotExist()
             } else {
                 var obj = JSON.parse(data.Item.JSON.S);
-                obj["name"] = data.Item.name.S;
+                if (data.Item.name != null) {
+                    obj["name"] = data.Item.name.S;
+                }
                 obj["id"] = data.Item.id.S;
-                obj["Email"] = data.Item.Email.S;
+                if (data.Item.Email != null) {
+                    obj["Email"] = data.Item.Email.S;
+                }
                 good(obj);
             }
         }
