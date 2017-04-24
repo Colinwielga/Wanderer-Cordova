@@ -51,7 +51,7 @@
     // called when a characrer is loaded 
     this.OnLoad = function () {
         
-        if (this.communicator.canRead("humours")) {
+        if (this.communicator.canRead("debts")) {
             this.debts = this.communicator.read("debts")
         } else {
             this.debts = defaultdebts;
