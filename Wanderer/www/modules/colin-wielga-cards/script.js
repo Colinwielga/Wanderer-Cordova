@@ -1,4 +1,5 @@
 ﻿ColinWielgaCards.component = function () {
+    var that = this;
     this.decklist = ColinWielgaCards.decklist;
     this.getId = function () {
         return "colin-wielga-cards"
@@ -15,7 +16,7 @@
     this.OnSave = function () {
         this.communicator.write("hand", this.hand);
         this.communicator.write("activeDeck", this.activeDeck);
-        this.communicator.write("selectedDeck", this.selectedDeck.id);
+        this.communicator.write("selectedDeck", this.selectedDeck.guid);
     }
     this.OnLoad = function () {
         var version = this.communicator.lastVersion();
@@ -54,17 +55,40 @@
         //        }
         //    }
         //} else 
-        if(version ===1.4) {
-            var deckId = this.communicator.read("selectedDeck");
-            this.selectedDeck = null;
-            for (var i = 0; i < ColinWielgaCards.decklist.length; i++) {
-                if (ColinWielgaCards.decklist[i] == deckId){
-                    this.selectedDeck = ColinWielgaCards.decklist[i];
-                    break;
+        if (version === 1.4) {
+            if (this.communicator.canRead("selectedDeck")) {
+                var deckId = this.communicator.read("selectedDeck");
+                this.selectedDeck = null;
+                for (var i = 0; i < ColinWielgaCards.decklist.length; i++) {
+                    if (ColinWielgaCards.decklist[i].guid == deckId) {
+                        this.selectedDeck = ColinWielgaCards.decklist[i];
+                        break;
+                    }
                 }
-            }
-            if (this.selectedDeck === null) {
-                this.selectedDeck = ColinWielgaCards.decklist[0];
+                if (this.selectedDeck === null) {
+                    this.selectedDeck = ColinWielgaCards.decklist[0];
+                }
+                // now we have selected a deck
+                // we need the active cards
+                if (this.communicator.canRead("activeDeck")) {
+                    var nextActiveDeck = this.communicator.read("activeDeck");
+                    this.activeDeck = [];
+                    nextActiveDeck.forEach(function (id) {
+                        if (that.selectedDeck.allCards.hasOwnProperty(id)) {
+                            that.activeDeck.push(id);
+                        }
+                    });
+                }
+                // now we have selected a deck
+                // we need the active cards
+                if (this.communicator.canRead("hand")) {
+                    var nextHand = this.communicator.read("hand");
+                    nextHand.forEach(function (id) {
+                        if (that.selectedDeck.allCards.hasOwnProperty(id)) {
+                            that.hand.push(id);
+                        }
+                    });
+                }
             }
         }
     }
