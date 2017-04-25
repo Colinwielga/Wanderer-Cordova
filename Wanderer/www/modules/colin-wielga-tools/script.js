@@ -4,7 +4,7 @@
     this.getId = function () {
         return "colin-wielga-tools"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
@@ -18,6 +18,9 @@
         if (this.communicator.canRead("tools")) {
             this.tools = this.communicator.read("tools");
         }
+    }
+    this.canClose = function () {
+        return true;
     }
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
@@ -44,4 +47,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(component);
+g.services.componetService.registerCharacter(component);

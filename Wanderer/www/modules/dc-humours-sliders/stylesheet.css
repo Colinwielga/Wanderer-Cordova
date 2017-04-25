@@ -27,13 +27,49 @@
     justify-content: center;
     align-self: center;
     width: 50%;
-    height: 1.5em;
+    height: 2.2em;
+}
+
+
+#dc-humours-sliders .radiocontainer .humour-button{
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    margin: 5px;
+}
+
+#dc-humours-sliders .radiocontainer .humour-button-border{
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    display: block;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    background: #C2C2C2;
+    border-style: solid;
+    border-color: #C2C2C2;
+}
+#dc-humours-sliders .radiocontainer .humour-button-border.Dry{
+    border-radius: 0% 50% 50% 0%;
+    width: 1.7em;
+}
+#dc-humours-sliders .radiocontainer .humour-button-border.Sated{
+    border-radius: 50% 0% 0% 50%;
+    width: 1.7em;
 }
 
 #dc-humours-sliders .radiocontainer label{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
     border-radius: 50%;
-    padding: 0.5em 1em;
-    margin: 5px;
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
 }
 
 #dc-humours-sliders .radiocontainer label.blackbile{
@@ -48,33 +84,41 @@
 #dc-humours-sliders .radiocontainer label.blood{
     background: hsl(0, 95%, 35%);
 }
+#dc-humours-sliders .radiocontainer label.orgone{
+    background: hsl(181, 30%, 85%);
+}
+#dc-humours-sliders .radiocontainer label.documentation{
+    background: hsl(38, 95%, 25%);
+}
 
 #dc-humours-sliders .radiocontainer label.Sated{
     border-radius: 50% 0% 0% 50%;
-    padding-right: 0.5em;
+    width: 1.7em;
 }
 #dc-humours-sliders .radiocontainer label.Waxing{
-    filter: saturate(50%);
+    filter: saturate(50%) brightness(90%);
 }
 #dc-humours-sliders .radiocontainer label.Balanced{
-    filter: saturate(10%);
+    filter: saturate(10%) brightness(75%);
 }
 #dc-humours-sliders .radiocontainer label.Waning{
-    filter: saturate(10%);
+    filter: saturate(10%) brightness(75%);
+}
+#dc-humours-sliders .radiocontainer label.Dry{
+    filter: saturate(0%) brightness(60%);
 }
 #dc-humours-sliders .radiocontainer label.Dry{
     border-radius: 0% 50% 50% 0%;
-    padding-left: 0.5em;
-    filter: saturate(0%);
+    width: 1.7em;
 }
 
 #dc-humours-sliders .radiocontainer input[type='radio']{
     display: none;
 }
-    #dc-humours-sliders .radiocontainer input[type='radio']:checked ~ label{
+    #dc-humours-sliders .radiocontainer input[type='radio']:checked ~ .humour-button-border{
         border-style: solid;
-        border-color: #FFF;
-        margin: 2px;
+        border-color: white;
+        background: white;
     }
 
 

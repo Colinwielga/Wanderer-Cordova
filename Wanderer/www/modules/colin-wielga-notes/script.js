@@ -3,7 +3,7 @@
     this.getId = function () {
         return "colin-wielga-notes"
     }
-    this.OnStart = function (communicator, dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
@@ -19,7 +19,9 @@
             this.notes = "";
         }
     }
-
+    this.canClose = function () {
+        return true;
+    }
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
@@ -44,4 +46,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(component);
+g.services.componetService.registerCharacter(component);

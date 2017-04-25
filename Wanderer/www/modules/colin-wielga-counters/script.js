@@ -2,7 +2,7 @@
     this.getId = function () {
         return "colin-wielga-counters"
     }
-    this.OnStart = function (communicator, dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
@@ -44,6 +44,9 @@
     }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
+    }
+    this.canClose = function () {
+        return true;
     }
     this.getTitle = function () {
         return "Counters";
@@ -98,4 +101,4 @@
     
 }
 
-g.ComponetRegistry.register(component);
+g.services.componetService.registerCharacter(component);

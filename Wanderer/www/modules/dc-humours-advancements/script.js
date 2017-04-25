@@ -1,19 +1,64 @@
 ﻿var DCHumoursAdvancements = {};
 
 DCHumoursAdvancements.component = function () {
-
+    var that = this;
     this.advancements = [
+        {
+            humour: "orgone",
+            label: "Orgonic Advancements",
+            expanded: false,
+            pc_advs: {
+                taken: [],
+                untaken: [
+                    {text: "Choose another player. That player creates a new move for you that is tied to Orgone."},
+                    {text: "Give yourself a new reputation: Lively, Inspired, Charismatic, Healthy or Virile"},
+                    {text: "Give yourself a new reputation of your choice"},
+                    {text: "Choose one physical ailment, injury or disease that afflicts you: It heals or is cured, even if it seemed permanent or uncurable."},
+                ]
+            },
+            mc_advs: {
+                taken: [],
+                untaken: [
+                    {text: "Choose another player. That player creates a new move for this player that is tied to Orgone."},
+                    {text: "Create a move for the player that is triggered when this humour is Waxing"},
+                    {text: "Give the player a new reputation: Wacko, Hyperactive, Creepy, Egotistical or Deranged"},
+                    {text: "Give the player a new countdown with three boxes, a clear trigger for checking them, and a dramatic complication that will occur when the third box is checked."},
+                ]
+            }
+        },
         {
             humour: "blood",
             label: "Sanguine Advancements",
             expanded: false,
             pc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "You gain a distinct, permanent mark of your injuries, such as a scar. Describe it as you choose and list it on your character sheet. You may take this advancement more than once.",
+                        retakable: true},
+                    {text: "Someone who once defeated you in a fight becomes your ally, if you'll forgive them. Decide who."},
+                    {text: "Give yourself a reputation: Generous, Kind, Compassionate, Big-hearted, Loyal, or Jolly."},
+                    {text: "Draw a card."},
+                    {text: "Draw a card."},
+                    {text: "Draw two cards."},
+                    {text: "Choose one NPC, object or place (building-sized) that is important to you: It is now protected. The MC will not kill it, break it, destroy or ruin it, or allow it to come to unbearable harm."},
+                    {text: "The next time you would be killed, you can choose for your character to survive by an inch. Work with the MC to explain how your character survived and where and in what condition they will make their return."},
+                ]
             },
             mc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "The character gains a distinct, permanent disfigurement, such as a scar. Describe it appropriately and tell them to list it on their character sheet. You may pick this advancement more than once.",
+                        retakable: true},
+                    {text: "They get a persistent wound: Describe it in as much gory detail as pleases you. They take -1 ongoing until they find treatment. You may pick this advancement more than once.",
+                        retakable: true},
+                    {text: "Someone they once defeated in a fight is back for revenge. Your decision when and how this person shows up."},
+                    {text: "Give them a Reputation: Cold-Blooded, Vicious, Cruel, Manipulative, Vengeful or Dangerous"},
+                    {text: "Decrease their Black Bile by one step."},
+                    {text: "Decrease their Yellow Bile by one step."},
+                    {text: "Decrease their Phlegm by one step."},
+                    {text: "Decrease their Yellow Bile by two steps."},
+                    {text: "Ask them to name three things - objects, characters or buildings/establishments that they honestly care about (and that aren't protected, as per the player advancement). Choose one and introduce a significant threat to it at your earliest convenience. If they can't name three, tell them to name as many as they can manage. If they can't name any - and nobody else at the table can, either - you'll just have to send the threat after their own ice-hearted self. Make it a particularly twisted one."},
+                ]
             }
         },
         {
@@ -22,11 +67,21 @@ DCHumoursAdvancements.component = function () {
             expanded: false,
             pc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "Create a new move that is tied to this Humour"},
+                    {text: "Give yourself a new reputation: Bold, Strong, Powerful, Important, Leaderlike, or Macho"},
+                    {text: "You get a group of reasonably loyal followers. Work with the MC to detail them and create a new move if necessary."},
+                    {text: "Check two boxes on one of your countdowns. If this fills it to completion, resolve it as appropriate."},
+                ]
             },
             mc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "Create a new move for the player"},
+                    {text: "Create a move for the player that is triggered when this humour is Waxing"},
+                    {text: "Give the player a new reputation: Angry, Bullish, Short-tempered, Hot-headed, Loudmouthed or Pushy"},
+                    {text: "The player attracts the attention of a new rival, opponent, clinger-on, busybody or stalker. Detail their moves and impulses in your notes."},
+                ]
             }
         },
         {
@@ -35,11 +90,21 @@ DCHumoursAdvancements.component = function () {
             expanded: false,
             pc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "Create a new move that is tied to this Humour"},
+                    {text: "Give yourself a new reputation: Thoughtful, Wise, Perceptive, Creative, Sensitive, or Clever"},
+                    {text: "You get a small building or piece of land for which you are responsible. Work with the MC to detail it and describe your duties towards it."},
+                    {text: "You discover a new fact about the world or the answer to a curiousity. Ask the MC one simple question about the world, the city, or the city's inhabitants, and they will answer fully and honestly. If you think it's important to do so, the two of you can take a moment to figure out where and how your character found this information."},
+                ]
             },
             mc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "Create a new move for the player"},
+                    {text: "Create a move for the player that is triggered when this humour is Waxing"},
+                    {text: "Give the player a new reputation: Flighty, Aloof, Withdrawn, Anxious, Moody or Vain"},
+                    {text: "Describe how a location important to the player shifts or changes in a way that is unwholesome or inconvenient. Create a new World move to reflect the change."},
+                ]
             }
         },
         {
@@ -48,11 +113,21 @@ DCHumoursAdvancements.component = function () {
             expanded: false,
             pc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "Create a new move that is tied to this Humour"},
+                    {text: "Give yourself a new reputation: Amiable, Easygoing, Durable, Cheerful, Solid or Gentle"},
+                    {text: "You find a mysterious artifact. Ask the MC to describe it to you: It's yours to do with as you wish, though it might bring trouble."},
+                    {text: "Uncheck two boxes on one of your countdowns"},
+                ]
             },
             mc_advs: {
                 taken: [],
-                untaken: []
+                untaken: [
+                    {text: "Create a new move for the player"},
+                    {text: "Create a move for the player that is triggered when this humour is Waxing"},
+                    {text: "Give the player a new reputation: Slothful, Apathetic, Useless, Pudgy, Hedonistic or Stupid"},
+                    {text: "The player is burdened with a new job, duty, responsiblility, expectation, or debt. Describe the conditions they must meet to fulfill it and create a move or countdown as appropriate."},
+                ]
             }
         }
     ];
@@ -92,16 +167,16 @@ DCHumoursAdvancements.component = function () {
     //Expands or collapses the list in the view
     this.toggleCollapse = function($event, humour){
         humour.expanded = !humour.expanded; 
-        event.stopImmediatePropogation();
+        event.stopImmediatePropagation();
     };
 
     //Returns the humour object with the given name, or undefined
-    this.getHumour = function(humourname){
-        this.advancements.forEach(function(humour_obj){
-            if(humour_obj.humour === humourname){
-                return humour_obj;    
+    this.getHumour = function (humourname) {
+        for (var i = 0; i < this.advancements.length; i++) {
+            if (this.advancements[i].humour === humourname) {
+                return this.advancements[i];
             }
-        });
+        }
         return undefined;
     };
 
@@ -118,7 +193,7 @@ DCHumoursAdvancements.component = function () {
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
         this.Dependencies = dependencies
     }
@@ -143,7 +218,7 @@ DCHumoursAdvancements.component = function () {
         if (this.communicator.canRead("taken_advancements")){
             var taken_advancements = this.communicator.read("taken_advancements");
             taken_advancements.forEach(function(loaded_humour){
-                var adv_humour = this.getHumour(loaded_humour.humour);
+                var adv_humour = that.getHumour(loaded_humour.humour);
 
                 if(adv_humour){
                     //First put the PC's loaded taken advancements into the "taken" list
@@ -189,6 +264,9 @@ DCHumoursAdvancements.component = function () {
         return "modules/" + this.getId() + "/page.html"
     }
 
+    this.canClose = function () {
+        return true;
+    }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
@@ -200,4 +278,4 @@ DCHumoursAdvancements.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(DCHumoursAdvancements.component);
+g.services.componetService.registerCharacter(DCHumoursAdvancements.component);

@@ -8,7 +8,7 @@ var component = function () {
         return "wanderer-core-logger"
     }
 
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {}
@@ -36,6 +36,9 @@ var component = function () {
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.canClose = function () {
+        return true;
+    }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
     }
@@ -46,4 +49,4 @@ var component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(component);
+g.services.componetService.registerCharacter(component);

@@ -54,7 +54,7 @@
         -webkit-transition: all 0.3s ease;
 }
 
-.section.hidden .section-title, .section.hidden .section-header, .divider,.section.hidden button  {
+.section.hidden .section-title, .section.hidden .section-header, .divider,.section.hidden button, .section.hidden submit  {
     background-color: #e3e3e3;
     color:#333;
     border-color: #e3e3e3;

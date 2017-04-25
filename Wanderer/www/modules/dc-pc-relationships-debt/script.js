@@ -36,7 +36,7 @@
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page ,dependencies) {
         this.communicator = communicator
         this.Dependencies = dependencies
     }
@@ -50,7 +50,12 @@
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.debts = this.communicator.read("debts") || defaultdebts;
+        
+        if (this.communicator.canRead("debts")) {
+            this.debts = this.communicator.read("debts")
+        } else {
+            this.debts = defaultdebts;
+        }
     }
     this.OnUpdate = function () {
     }
@@ -73,6 +78,9 @@
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }
+    this.canClose = function () {
+        return true;
+    }
 
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
@@ -85,4 +93,4 @@
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(component);
+g.services.componetService.registerCharacter(component);

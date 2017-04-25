@@ -20,7 +20,7 @@ DCListReputations.component = function () {
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
         this.Dependencies = dependencies
     }
@@ -34,7 +34,11 @@ DCListReputations.component = function () {
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.reputations = this.communicator.read("reputations") || [""];
+        if(this.communicator.canRead("reputations")){
+            this.reputations = this.communicator.read("reputations") 
+        }else{
+            this.reputations = [""];
+        }
     }
     this.OnUpdate = function () {
     }
@@ -53,6 +57,9 @@ DCListReputations.component = function () {
         }
     }
 
+    this.canClose = function () {
+        return true;
+    }
     // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
@@ -69,4 +76,4 @@ DCListReputations.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(DCListReputations.component);
+g.services.componetService.registerCharacter(DCListReputations.component);

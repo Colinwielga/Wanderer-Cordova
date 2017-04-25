@@ -1,0 +1,4 @@
+﻿#wanderer-core-logger #log-box {
+    max-height:300px;
+    overflow-y:scroll;
+}

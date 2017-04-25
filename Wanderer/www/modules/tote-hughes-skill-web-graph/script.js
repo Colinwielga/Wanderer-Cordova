@@ -4,7 +4,7 @@ ToteHughesSkillWebGraph.component = function () {
     this.getId = function () {
         return "tote-hughes-skill-web-graph"
     }
-    this.OnStart = function (communicator, dependencies) {
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.skillWeb = dependencies[0];
     }
@@ -28,6 +28,9 @@ ToteHughesSkillWebGraph.component = function () {
     }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
+    }
+    this.canClose = function () {
+        return true;
     }
     this.getTitle = function () {
         return "Skill Web Graph";
@@ -114,4 +117,4 @@ ToteHughesSkillWebGraph.component = function () {
     
     this.OnNewCharacter();
 }
-g.ComponetRegistry.register(ToteHughesSkillWebGraph.component);
+g.services.componetService.registerCharacter(ToteHughesSkillWebGraph.component);

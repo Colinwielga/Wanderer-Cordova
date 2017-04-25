@@ -42,6 +42,8 @@
     </div>
 </div>
 <div class="pad-me">
-    <input type="text" data-ng-model="module.newSkill" />
-    <input type="button" value="add" data-ng-click="module.add(module.newSkill)" data-ng-disabled="module.isNameOk(module.newSkill)" />
+    <form ng-submit="module.add(module.newSkill)">
+      <input type="text" data-ng-model="module.newSkill" name="text"  />
+      <input type="submit" id="submit" value="add" data-ng-disabled="module.isNameOk(module.newSkill)" />
+    </form>
 </div>

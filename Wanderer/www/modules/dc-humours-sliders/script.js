@@ -12,7 +12,7 @@
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, info,dependencies) {
         this.communicator = communicator
         this.Dependencies = dependencies
     }
@@ -55,6 +55,9 @@
         return "modules/" + this.getId() + "/rules.html"
     }
 
+    this.canClose = function () {
+        return true;
+    }
     this.getTitle = function () {
         return "Humours";
     }
@@ -64,13 +67,18 @@
     this.humour_levels = ["Dry", "Waning", "Balanced", "Waxing", "Sated"];
     this.humours = [
         {
-            id: "blackbile",
-            name: "Black Bile",
+            id: "orgone",
+            name: "Orgone",
             value: "Balanced"
         },
         {
             id: "yellowbile",
             name: "Yellow Bile",
+            value: "Balanced"
+        },
+        {
+            id: "blackbile",
+            name: "Black Bile",
             value: "Balanced"
         },
         {
@@ -86,4 +94,4 @@
     ];
 }
 
-g.ComponetRegistry.register(component);
+g.services.componetService.registerCharacter(component);

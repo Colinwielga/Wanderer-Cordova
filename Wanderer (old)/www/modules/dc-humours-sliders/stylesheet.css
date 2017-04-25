@@ -1,0 +1,83 @@
+﻿#dc-humours-sliders .module_body{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+}
+
+    #dc-humours-sliders .module_body > div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #dc-humours-sliders .module_body span{
+        margin: .5em;
+    }
+
+#dc-humours-sliders span.humourname{
+    font-size: larger;
+}
+
+#dc-humours-sliders .radiocontainer{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    width: 50%;
+    height: 1.5em;
+}
+
+#dc-humours-sliders .radiocontainer label{
+    border-radius: 50%;
+    padding: 0.5em 1em;
+    margin: 5px;
+}
+
+#dc-humours-sliders .radiocontainer label.blackbile{
+    background: hsl(270, 95%, 15%);
+}
+#dc-humours-sliders .radiocontainer label.yellowbile{
+    background: hsl(45, 95%, 30%);
+}
+#dc-humours-sliders .radiocontainer label.phlegm{
+    background: hsl(130, 95%, 25%);
+}
+#dc-humours-sliders .radiocontainer label.blood{
+    background: hsl(0, 95%, 35%);
+}
+#dc-humours-sliders .radiocontainer label.orgone{
+    background: hsl(181, 30%, 85%);
+}
+
+#dc-humours-sliders .radiocontainer label.Sated{
+    border-radius: 50% 0% 0% 50%;
+    padding-right: 0.5em;
+}
+#dc-humours-sliders .radiocontainer label.Waxing{
+    filter: saturate(50%) brightness(90%);
+}
+#dc-humours-sliders .radiocontainer label.Balanced{
+    filter: saturate(10%) brightness(75%);
+}
+#dc-humours-sliders .radiocontainer label.Waning{
+    filter: saturate(10%) brightness(75%);
+}
+#dc-humours-sliders .radiocontainer label.Dry{
+    border-radius: 0% 50% 50% 0%;
+    padding-left: 0.5em;
+    filter: saturate(0%) brightness(60%);
+}
+
+#dc-humours-sliders .radiocontainer input[type='radio']{
+    display: none;
+}
+    #dc-humours-sliders .radiocontainer input[type='radio']:checked ~ label{
+        border-style: solid;
+        border-color: #FFF;
+        margin: 2px;
+    }
+
+

@@ -4,10 +4,3 @@
 [Pp]lugins/wp8.json
 [Pp]lugins/remote_ios.json
 /[Pp]latforms/
-AppPackages/*
-bin/*
-bld/*
-*.appxupload
-*.suo
-*.appxrecipe
-*.ps1

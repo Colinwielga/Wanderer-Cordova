@@ -3,16 +3,17 @@
     <div data-ng-repeat="humour in module.humours">
         <span class="humourname">{{humour.name}}</span>
         <div class="radiocontainer">
-            <div data-ng-repeat="level in module.humour_levels">
+            <div class="humour-button" data-ng-repeat="level in module.humour_levels">
                 <input type="radio"
-                       id="{{::'humour'+humour.id+'radio'+level}}"
-                       data-ng-model="humour.value"
-                       value="{{level}}">
+                    id="{{::'humour'+humour.id+'radio'+level}}"
+                    data-ng-model="humour.value"
+                    value="{{level}}">
+                <div class="humour-button-border {{level}} {{humour.id}}"></div>
                 <label for="{{::'humour'+humour.id+'radio'+level}}"
-                        class="{{level}} {{humour.id}}">
+                    class="{{level}} {{humour.id}}">
                 </label>
             </div>
         </div>
-        <span>{{humour.value}}</span>
+        <span class="humour-value-word">{{humour.value}}</span>
     </div>
 </div>

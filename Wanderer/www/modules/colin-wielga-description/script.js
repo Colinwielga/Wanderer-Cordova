@@ -2,27 +2,20 @@
     this.getId = function () {
         return "colin-wielga-description"
     }
-    this.OnStart = function (communicator,dependencies) {
+    this.OnStart = function (communicator, logger, page,dependencies) {
         this.communicator = communicator
     }
     this.OnNewCharacter = function () {
         this.description = "";
-        this.name = "Nameless";
     }
     this.OnSave = function () {
         this.communicator.write("description", this.description);
-        this.communicator.write("name", this.name);
     }
     this.OnLoad = function () {
         if (this.communicator.canRead("description")) {
             this.description = this.communicator.read("description");
         } else {
             this.description = "";
-        }
-        if (this.communicator.canRead("name")) {
-            this.name = this.communicator.read("name");
-        } else {
-            this.name = "";
         }
     }
 
@@ -31,6 +24,9 @@
     }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
+    }
+    this.canClose = function () {
+        return true;
     }
     this.getTitle = function () {
         return "Description";
@@ -47,12 +43,9 @@
             },
             getCharacterDescription: function () {
                 return that.description;
-            },
-            getCharacterName: function () {
-                return that.name;
             }
         }
     }
     this.OnNewCharacter();
 }
-g.ComponetRegistry.register(component);
+g.services.componetService.registerCharacter(component);

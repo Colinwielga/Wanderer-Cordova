@@ -1,5 +1,6 @@
 ﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
-
+    g.services.timeoutService.$timeout = $timeout;
+    
     $scope.onUpdate = function () {
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {
@@ -10,33 +11,26 @@
         return "on update";
     }
 
-    $scope.Characters = [new g.Character($timeout)];
+    $scope.Pages = g.services.pageService.GetPages ();
 
-    $scope.Select = function (char) {
-        $scope.activeCharacter = char;
+    g.services.pageService.GetAccount();
+    
+    $scope.activePage = function () {
+        return g.services.pageService.activePage()
+    }
+    
+    $scope.Select = function (page) {
+        g.services.pageService.Select(page);
     }
 
-    $scope.Selected = function (char) {
-        return $scope.activeCharacter == char;
+    $scope.Selected = function (page) {
+        return g.services.pageService.Selected(page);
     }
 
-    $scope.Close = function (char) {
-        var at = $scope.Characters.indexOf(char);
-        if (at >= 0) {
-            $scope.Characters.splice(at, 1);
-        }
+    $scope.Close = function (page) {
+        g.services.pageService.Close(page)
     }
+}
 
-    $scope.Add = function () {
-        $scope.Characters.push(new g.Character($timeout));
-        $scope.activeCharacter = $scope.Characters[$scope.Characters.length-1];
-    }
-
-    $scope.activeCharacter = $scope.Characters[0];
-
-
-
-    //awsPublic.loadLastCharacter();
-
-}]);
+]);
 
