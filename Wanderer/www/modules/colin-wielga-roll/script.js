@@ -5,6 +5,7 @@
         return "colin-wielga-roll"
     }
     this.OnStart = function (communicator, logger, page, dependencies) {
+        this.page = page;
         this.communicator = communicator
     }
     this.OnNewCharacter = function () { }
@@ -179,13 +180,11 @@
         this.publicLastRoll = publicOutcomes;
         this.privateLastRoll = privateOutcomes;
     }
-
-
+    
     this.getBonus = function () {
-        return this.injected.getBonus();
+        return this.page.getBonus();
     }
-
-
+    
     this.OnNewCharacter();
 }
 
