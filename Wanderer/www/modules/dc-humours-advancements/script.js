@@ -171,12 +171,12 @@ DCHumoursAdvancements.component = function () {
     };
 
     //Returns the humour object with the given name, or undefined
-    this.getHumour = function(humourname){
-        this.advancements.forEach(function(humour_obj){
-            if(humour_obj.humour === humourname){
-                return humour_obj;    
+    this.getHumour = function (humourname) {
+        for (var i = 0; i < this.advancements.length; i++) {
+            if (this.advancements[i].humour === humourname) {
+                return this.advancements[i];
             }
-        });
+        }
         return undefined;
     };
 
