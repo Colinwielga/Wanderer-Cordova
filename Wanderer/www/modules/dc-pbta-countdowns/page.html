@@ -1,0 +1,27 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta-countdowns/stylesheet.css">
+
+<div data-ng-repeat="countdown in module.countdown_list">
+    <div data-ng-show="countdown.show_delete">
+        <span>Really delete?</span>
+        <button data-ng-click="module.deleteCountdown(countdown)">Delete</button>
+        <button data-ng-click="module.toggleDeleteCountdown(countdown)">Cancel</button>
+    </div>
+    <button 
+        class="delete-button" 
+        data-ng-show="!countdown.show_delete" 
+        data-ng-click="module.toggleDeleteCountdown(countdown)">X</button>
+    <input type="text" data-ng-model="countdown.description"></input>
+    <br />
+    <button data-ng-click="module.unmarkBox(countdown)">-</button>
+    <span 
+        class="box"
+        data-ng-repeat="box in countdown.boxlist track by $index"
+        data-ng-class="{'checked':countdown.boxlist[$index]}"></span>
+    <button data-ng-click="module.markBox(countdown)">+</button>
+    <!-- <button data-ng-click="addBox(module.countdown_list[$index])">+</button> -->
+    <!-- <button data-ng-disabled="module.countdown_list[$index].boxlist.length <= 1" data-ng-click="subtractBox(module.countdown_list[$index])">-</button> -->
+</div>
+<button data-ng-click="module.addCountdown(module.new_box_num)">
+    Add a Countdown
+</button>
+<span>Boxes:</span><input type="number" data-ng-model="module.new_box_num"></input>
