@@ -1,1 +1,11 @@
-﻿
+﻿#dc-pbta-countdowns span.box{
+    border-style: solid;
+    border-color: black;
+    border-radius: 50%; 
+    padding: 0.05em 0.5em;
+    margin: 1px;
+}
+
+#dc-pbta-countdowns span.box.checked{
+    background-color: black;
+}

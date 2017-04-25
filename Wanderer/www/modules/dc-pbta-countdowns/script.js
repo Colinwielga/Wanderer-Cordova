@@ -13,14 +13,34 @@ DCPbtACountdowns.component = function () {
             boxlist: []
         };
         for(i = 0; i < num_boxes; i++){
-            countdown.boxlist.push({
-                description: "",
-                checked: false
-            }); 
+            this.addBox(countdown);
         }
         this.countdown_list.push(countdown);
     };
 
+    this.markBox = function(countdown){
+        i = countdown.boxlist.indexOf(false);
+        if(i > -1){
+            countdown.boxlist[i] = true;
+        }
+    };
+
+    this.unmarkBox = function(countdown){
+        i = countdown.boxlist.indexOf(false);
+        if(i > 0){
+            countdown.boxlist[i-1] = false;
+        } else if (i === -1){
+            countdown.boxlist[countdown.boxlist.length - 1] = false;
+        }
+    };
+
+    this.addBox = function(countdown){
+        countdown.boxlist.push(false); 
+    };
+
+    this.subtractBox = function(countdown){
+        countdown.boxlist.slice(0, countdown.boxlist.length-1);
+    };
     // all component need a unique ID
     this.getId = function () {
         return "dc-pbta-countdowns"
