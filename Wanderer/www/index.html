@@ -17,7 +17,7 @@
     <link href="External/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
      <!-- module css -->
     <!--<link href="modules/colin-wielga-cards/stylesheet.css" rel="stylesheet" />-->
-    <!--<link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
+<!--    <link rel="stylesheet" type="text/css" href="css/newStyle.css">-->
     <title>Wanderer</title>
 
     <!-- externals -->
@@ -31,23 +31,33 @@
 </head>
 <body data-ng-controller="wandererController">
     <div id="all">
-        <div id="page-header" class="pad-me">
-            <span data-ng-repeat="page in Pages">
-                <input                      
-                    class="left-part"                   
-                    data-ng-disabled="Selected(page)"
-                    data-ng-click="Select(page)"
-                    value="{{page.displayName()}}" 
-                    type="button" />
-                    <input 
-                           data-ng-show="page.canClose()"
-                           data-ng-click="Close(page)"
-                       class="right-part"    
-                       value="x"
-                       type="button" />
-            </span>
+        <div id="header">
+            <div id="page-tab-container">
+                <div class="page-tab" data-ng-repeat="page in Pages">
+                    <input
+                        class="left-part"
+                        data-ng-class="{'can-close':page.canClose(), 'cannot-close':!page.canClose()}"
+                        data-ng-disabled="Selected(page)"
+                        data-ng-click="Select(page)"
+                        value="{{page.displayName()}}"
+                        type="button"
+                    />
+                    <input
+                        class="right-part"
+                        data-ng-show="page.canClose()"
+                        data-ng-click="Close(page)"
+                        value="x"
+                        type="button"
+                    />
+                </div>
             </div>
-        <div data-ng-include="activePage().getHmtl()"></div>
+        </div>
+        <div id="content">
+            <div data-ng-include="activePage().getHmtl()"></div>
+        </div>
+        <div id="footer">
+            <h1>wanderer</h1>
+        </div>
     </div>
 
     <!-- hack? atleast very ugly -->

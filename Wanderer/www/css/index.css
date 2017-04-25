@@ -1,6 +1,10 @@
 ﻿/*px are bad bad bad bad! plz fix*/
 
 
+#header {
+	width: 100%;
+}
+
 /*﻿Rules area*/
 .rules-divider{
 	/*margin: 0 -8px;
@@ -25,109 +29,6 @@
 /*	border-style: dashed;*/
 	box-shadow: 0 4px 3px gray;
 	align-content: center;
-}
-
-/*Cards area*/
-div.card-cards-container{
-	margin-top: 8px;
-}
-div.card-container{
-	display: inline-block;
-	vertical-align: top;
-}
-div.card{
-	display: inline-block;
-	font-family: 'Roboto', 'Helvetica', serif;
-	margin: 10px;
-	width: 200px;
-	height: 350px;
-	border-radius: 10px;
-	text-align: center;
-	border: solid black 2px;
-	cursor: pointer;
-}
-.card-color-dark {
-    background-color:#111;
-}
-div.card-color-0{
-	background-color: #333333;
-}
-div.card-color-1{
-	background-color: #663333;
-}
-div.card-color-2{
-	background-color: #333366;
-}
-.card:hover{
-	opacity: 0.95;
-	box-shadow: 0px 0px 20px #666666;
-}
-div.card-border{
-	margin:5px;
-	width: 188px;
-	height: 338px;
-	border-radius: 5px;
-	border: solid black 1px;
-	border-style: dashed;
-}
-div.card-number-container{
-	overflow: auto;
-	height: 125px;
-	position: relative;
-	margin: 0 auto;
-	margin-top: 0px;
-	padding: 0 5px 5px 5px;
-}
-div.card-name-container{
-	height: 50px;
-	position: relative;
-	margin: 0 auto;
-}
-div.card-poly-container{
-	height: 160px;
-	position: relative;
-	margin: 0 auto;
-}
-span.card-name{
-	display: inline-block;
-	color: white;
-	width: 100%;
-	margin: auto;
-	margin-top: 3px;
-	font-size: 20px;
-	text-transform: uppercase;
-}
-span.card-adjective{
-	display: block;
-	margin-top: -3px;
-	color: white;
-	width: 100%;
-	font-size: 12px;
-	text-transform: lowercase;
-	font-style: italic;
-}
-span.card-number{
-	display: inline-block;
-	color: white;
-	width: 100%;
-	margin: auto;
-	font-size: 60px;
-	line-height: 40px;
-}
-span.card-ability{
-	display: inline-block;
-	margin-top: 1px;
-	color: white;
-	width: 100%;
-	font-size: 14px;
-	line-height: 17px;
-}
-svg.card-poly {
-	position: relative;
-	vertical-align: middle;
-}
-svg.card-poly > polygon{
-	fill: white;
 }
 .positioner {
 	display: inline-block;
@@ -334,10 +235,20 @@ input[type=button].selected-tab{
     font-size: 10pt;
 }
 
-#page-header {
-    /*padding: 8px 8px 60px 8px;
-    background-color: #333;
-    box-shadow: 0px 0px 3px #000;*/
+#page-tab-container{
+    margin: 5px 30px;
+}
+
+#page-tab-container .page-tab{
+    display: inline-block;
+    margin-right: 8px;
+}
+#page-tab-container .page-tab input {
+    display: inline-block;
+    float: left;
+}
+#page-tab-container .page-tab input.cannot-close {
+    border-radius: 3px;
 }
 
 button, label.hide-button, input[type=button], label.label-button{
@@ -611,36 +522,18 @@ table {
 }
 
 
-/*HAND*/
-
-/*.cards {
-}*/
-/*.cards .card {
-    width: 200px;
-}
-
-    .cards .card img {
-        height: 400px;
-        width: 100%;
-    }*/
-
-/*@keyframes slideUp {
-    0% {
-            transform:translateY(0%) scaleY(100%);
-    }
-    50% {
-            transform:translateY(-100%) scaleY(100%);
-    }
-    100% {
-            transform:translateY(-100%) scaleY(0);
-    }
-}*/
-
-
-/*.clickable-text {
-
-}*/
-
-    .clickable-text:hover {
+.clickable-text:hover {
             text-decoration:underline;
     }
+
+#footer {
+    width: 100%;
+}
+
+#footer h1 {
+    font-size: 400%;
+    text-align: right;
+    margin: 0 2em;
+    color: #E0E0E0;
+}
+
