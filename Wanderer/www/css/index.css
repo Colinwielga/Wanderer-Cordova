@@ -327,7 +327,7 @@ body {
 	padding: 0px 10px;
 }*/
 
-input[type=button].selected-tab{
+input[type=button].selected-tab, input[type=submit].selected-tab{
     background-color: transparent;
     color: #333;
     padding: 5px 10px;
@@ -340,7 +340,7 @@ input[type=button].selected-tab{
     box-shadow: 0px 0px 3px #000;*/
 }
 
-button, label.hide-button, input[type=button], label.label-button{
+button, label.hide-button, input[type=button], input[type=submit], label.label-button{
     outline: none;
     /*text-transform: lowercase;*/
     cursor: pointer;
@@ -357,6 +357,7 @@ button, label.hide-button, input[type=button], label.label-button{
 button.left-part, 
 label.hide-button.left-part, 
 input[type=button].left-part, 
+input[type=submit].left-part, 
 label.label-button.left-part{
     border-top-right-radius:0;
     border-bottom-right-radius:0;
@@ -366,20 +367,21 @@ label.label-button.left-part{
 button.right-part, 
 label.hide-button.right-part, 
 input[type=button].right-part, 
+input[type=submit].right-part, 
 label.label-button.right-part{
     border-top-left-radius:0;
     border-bottom-left-radius:0;
     margin-left:0;
 }
 
-    button:hover, label.hide-button:hover, input[type=button]:hover , label.label-button:hover{
+    button:hover, label.hide-button:hover, input[type=button]:hover , input[type=submit]:hover, label.label-button:hover{
         background-color: #903;
         border-color: #903;
         /*text-transform: lowercase;*/
         /*		border: 1px solid #903;*/
     }
 
-   button:disabled, label.hide-button:disabled, input[type=button]:disabled , label.label-button:disabled{
+   button:disabled, label.hide-button:disabled, input[type=button]:disabled, input[type=submit]:disabled , label.label-button:disabled{
         background-color: transparent;
 /*        border-color: transparent;*/
         color: #333;

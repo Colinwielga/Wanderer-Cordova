@@ -119,9 +119,13 @@ ColinWielgaSkillWeb.component = function () {
     this.connect = function (from,to) {
         this.network.connections.push(ColinWielgaSkillWeb.MakeConnection(from, to));
     }
-
+	
     this.add = function (newSkill) {
-        this.network.skills.push(ColinWielgaSkillWeb.MakeSkill(newSkill, 1, 1));
+		// Allow the new name to be input if it's "ok", then clear text.
+		if (! this.isNameOk(newSkill)) {
+			this.network.skills.push(ColinWielgaSkillWeb.MakeSkill(newSkill, 1, 1));
+			this.newSkill = "";
+		}
     }
 
     this.remove = function (skill) {
