@@ -5,6 +5,8 @@ DCPbtACountdowns.component = function () {
     //with a description attached. In-game circumstances will trigger the boxes being filled.
     //When the last one is filled, something will happen.
 
+    this.new_box_num = 6;
+
     this.countdown_list = [];
 
     this.addCountdown = function(num_boxes){
@@ -86,7 +88,6 @@ DCPbtACountdowns.component = function () {
     // hmm is it really safe for this to be a function?
     // we use functions so no one can edit
     this.getRequires = function () {
-        return ["colin-wielga-tools"];
     }
 
     this.getPublic = function () {
