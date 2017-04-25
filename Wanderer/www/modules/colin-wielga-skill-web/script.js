@@ -23,11 +23,9 @@ ColinWielgaSkillWeb.isSkill = function (skill) {
 ColinWielgaSkillWeb.isSubSkill = function (skill) {
     return skill.specificity == ColinWielgaSkillWeb.SkillLevel.SubSkill;
 }
-
 ColinWielgaSkillWeb.MakeConnection = function (from, to) {
     return { to: to, from: from };
 }
-
 ColinWielgaSkillWeb.MakeSkill = function (name,specificity, rank) {
     return {name:name, specificity: specificity, rank: rank, active: false , description:"" };
 }

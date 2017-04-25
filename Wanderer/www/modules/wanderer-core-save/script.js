@@ -72,7 +72,7 @@
                 });
         };
         g.services.characterService.GetCharacter(that.page.accessKey, function (json) {
-            var ok = that.page.compareWithLastLoaded(json);
+            var ok = that.page.compareWithLastLoaded(json["json"]);
             if (ok) {
                 reallySave();
                 that.page.updateLastLoaded(newJson);

@@ -67,8 +67,11 @@ g.services.AWSConnector.GetCharacter = function (id, good, doesNotExist, bad) {
             if (data.Item == null) {
                 doesNotExist()
             } else {
-                var obj = JSON.parse(data.Item.JSON.S);
-                obj["name"] = data.Item.name.S;
+                var obj = {};
+                obj["json"] = JSON.parse(data.Item.JSON.S);
+                if (data.Item.name != null) {
+                    obj["name"] = data.Item.name.S;
+                }
                 obj["id"] = data.Item.id.S;
                 good(obj);
             }
@@ -90,7 +93,8 @@ g.services.AWSConnector.GetAccount = function (id, good, doesNotExist, bad) {
             if (data.Item == null) {
                 doesNotExist()
             } else {
-                var obj = JSON.parse(data.Item.JSON.S);
+                var obj = {};
+                obj["json"] = JSON.parse(data.Item.JSON.S);
                 if (data.Item.name != null) {
                     obj["name"] = data.Item.name.S;
                 }

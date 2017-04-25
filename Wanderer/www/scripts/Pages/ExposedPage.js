@@ -84,16 +84,21 @@
                 }
             }
         }
-        // we load after we finish the check incase 
-        toLoad.forEach(function (property) {
-            var component = that.getComponentById(property);
-            component.injected.dataManager.useLocal = false;
-            component.injected.dataManager.remote = json[property];
-            component.OnLoad();
-        })
 
         that.updateLastLoaded(json);
 
+        // we load after we finish the check incase 
+        toLoad.forEach(function (property) {
+            var component = that.getComponentById(property);
+            if (component != null) {
+                component.injected.dataManager.useLocal = false;
+                component.injected.dataManager.remote = json[property];
+                component.OnLoad();
+            } else {
+                console.log(property + " not found, is this a problem?");
+            }
+        })
+        
         return toLoad.length == 0;
     }
     this.getBonus = function () {

@@ -154,9 +154,9 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
     this.load = function (json) {
         that.exposedPage.name = json["name"];
         that.exposedPage.accessKey = json["id"];
-        that.exposedPage.updateLastLoaded(json);
+        that.exposedPage.updateLastLoaded(json["json"]);
         that.exposedPage.getComponents().forEach(function (item) {
-            item.injected.dataManager = dataManagerFactory(json[item.getId()]);
+            item.injected.dataManager = dataManagerFactory(json["json"][item.getId()]);
             if (item.OnLoad !== undefined) {
                 try {
                     item.OnLoad();
