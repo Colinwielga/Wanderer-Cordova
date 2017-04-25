@@ -9,3 +9,7 @@
 #dc-pbta-countdowns span.box.checked{
     background-color: black;
 }
+
+#dc-pbta-countdowns button.delete-button{
+    padding: 0;
+}

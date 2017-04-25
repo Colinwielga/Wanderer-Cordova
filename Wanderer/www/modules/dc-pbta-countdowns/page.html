@@ -1,7 +1,17 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/dc-pbta-countdowns/stylesheet.css">
 
 <div data-ng-repeat="countdown in module.countdown_list">
-    <input type="text" data-ng-model="countdown.description"></input><br />
+    <div data-ng-show="countdown.show_delete">
+        <span>Really delete?</span>
+        <button data-ng-click="module.deleteCountdown(countdown)">Delete</button>
+        <button data-ng-click="module.toggleDeleteCountdown(countdown)">Cancel</button>
+    </div>
+    <button 
+        class="delete-button" 
+        data-ng-show="!countdown.show_delete" 
+        data-ng-click="module.toggleDeleteCountdown(countdown)">X</button>
+    <input type="text" data-ng-model="countdown.description"></input>
+    <br />
     <button data-ng-click="module.unmarkBox(countdown)">-</button>
     <span 
         class="box"

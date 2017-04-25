@@ -10,12 +10,21 @@ DCPbtACountdowns.component = function () {
     this.addCountdown = function(num_boxes){
         countdown = {
             description: "",
-            boxlist: []
+            boxlist: [],
+            show_delete: false
         };
         for(i = 0; i < num_boxes; i++){
             this.addBox(countdown);
         }
         this.countdown_list.push(countdown);
+    };
+
+    this.toggleDeleteCountdown = function(countdown){
+        countdown.show_delete = !countdown.show_delete;   
+    };
+
+    this.deleteCountdown = function(countdown){
+        this.countdown_list.splice(this.countdown_list.indexOf(countdown), 1);
     };
 
     this.markBox = function(countdown){
