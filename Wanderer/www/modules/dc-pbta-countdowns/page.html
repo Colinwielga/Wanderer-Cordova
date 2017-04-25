@@ -21,6 +21,7 @@
     <!-- <button data-ng-click="addBox(module.countdown_list[$index])">+</button> -->
     <!-- <button data-ng-disabled="module.countdown_list[$index].boxlist.length <= 1" data-ng-click="subtractBox(module.countdown_list[$index])">-</button> -->
 </div>
-<button data-ng-click="module.addCountdown(6)">
+<button data-ng-click="module.addCountdown(module.new_box_num)">
     Add a Countdown
 </button>
+<span>Boxes:</span><input type="number" data-ng-model="module.new_box_num"></input>

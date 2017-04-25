@@ -72,17 +72,13 @@ DCPbtACountdowns.component = function () {
     }
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("countdown_list",this.countdown_list);
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        if (this.communicator.canRead("countdown_list")){
+             this.countdown_list = this.communicator.read("countdown_list");
+        }
     }
     this.OnUpdate = function () {
     }
