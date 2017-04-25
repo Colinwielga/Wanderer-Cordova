@@ -1,4 +1,5 @@
 ﻿var component = function () {
+    var that = this;
     //A component for storing Humours moves.
 
     //Module-specific fields
@@ -730,9 +731,19 @@
     }
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.movescatalogue = default_move_catalogue;
-        if (this.communicator.canRead("custommoves")){
-            this.movescatalogue.concat(this.communicator.read("custommoves"));
+        this.movescatalogue = [];
+        default_move_catalogue.forEach(function (defaultMove) {
+            that.movescatalogue.push(defaultMove);
+        });
+        if (this.communicator.canRead("custommoves")) {
+            that.communicator.read("custommoves").forEach(function (customMove) {
+                that.movescatalogue.forEach(function (move) {
+                    if (move.label == customMove.label) {
+                        var at = that.movescatalogue.indexOf(move);
+                        that.movescatalogue.splice(at, 1, customMove);
+                    }
+                })
+            });
         }
     }
     this.OnUpdate = function () {
