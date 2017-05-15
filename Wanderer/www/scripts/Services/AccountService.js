@@ -78,20 +78,31 @@ g.services.accountService = {
     },
     RecoverAccount: function (email, pass, notFound, fail) {
         email = email.toLowerCase();
-        g.services.AWSConnector.GetAccountIdsForEmail(email, function (ids) {
-            if (ids.length == 0) {
-                notFound();
-            } else {
-                var message = "Wander accounts assocated with this email:\n"
-                for (var i = 0; i < ids.length; i++) {
-                    message += id + "\n";
-                }
-                message += "\n";
-                message += "if this eamil was send in error, or if you have any complants: please contact WandererRolePlaying@gmail.com";
-                g.services.AWSConnector.sendEmail(email, message, pass, fail);
+        g.services.AWSConnector.GetAccountIdsForEmail(
+            email,
+            function (ids) {
+                g.services.AWSConnector.CanSendTo(
+                    email,
+                    function () {
+                        if (ids.length == 0) {
+                            notFound();
+                        } else {
+                            var message = "Wander accounts assocated with this email:\n"
+                            for (var i = 0; i < ids.length; i++) {
+                                message += id + "\n";
+                            }
+                            message += "\n";
+                            message += "if this eamil was send in error, or if you have any complants: please contact WandererRolePlaying@gmail.com";
+                            g.services.AWSConnector.sendEmail(email, message, pass, fail);
+
+                        }
+                    },
+                    function () {
+                        fail("account request not to recieve emails");
+                    },
+                    fail)
             }
-        }
-            , fail);
+            ,fail);
     }
 };
 
