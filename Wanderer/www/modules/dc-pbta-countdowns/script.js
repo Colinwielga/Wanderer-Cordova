@@ -114,4 +114,4 @@ DCPbtACountdowns.component = function () {
     this.OnNewCharacter();
 }
 
-g.ComponetRegistry.register(DCPbtACountdowns.component);
+g.services.componetService.registerCharacter(DCPbtACountdowns.component);
