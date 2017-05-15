@@ -88,6 +88,7 @@ DCPbtACountdowns.component = function () {
     // hmm is it really safe for this to be a function?
     // we use functions so no one can edit
     this.getRequires = function () {
+        return [];
     }
 
     this.getPublic = function () {
