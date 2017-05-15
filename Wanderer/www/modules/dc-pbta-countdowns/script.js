@@ -91,6 +91,10 @@ DCPbtACountdowns.component = function () {
         return [];
     }
 
+    this.canClose = function () {
+        return true;
+    }
+
     this.getPublic = function () {
         return {
             getVersion: function () {
