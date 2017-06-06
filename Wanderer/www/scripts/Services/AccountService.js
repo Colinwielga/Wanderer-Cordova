@@ -89,10 +89,10 @@ g.services.accountService = {
                         } else {
                             var message = "Wander accounts assocated with this email:\n"
                             for (var i = 0; i < ids.length; i++) {
-                                message += id + "\n";
+                                message += ids[i] + "\n";
                             }
                             message += "\n";
-                            message += "if this eamil was send in error, or if you have any complants: please contact WandererRolePlaying@gmail.com";
+                            message += "if this eamil was sent in error (or other complants), please contact: WandererRolePlaying@gmail.com";
                             g.services.AWSConnector.sendEmail(email, message, pass, fail);
 
                         }
