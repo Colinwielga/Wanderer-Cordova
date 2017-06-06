@@ -94,8 +94,14 @@
     this.flipCoin = function () {
 		
 		
-        this.coinState = ["heads", "tails"][Math.floor(Math.random()*2)];
+        $('#coin-cover').stop(true);             // Stop all queued animations for this element (allows rapid clicking).
+        $('#coin-cover').css({'opacity': 1});
 		
+		
+        this.coinState = ["heads", "tails"][Math.floor(Math.random()*2)];
+		console.log(document.getElementById('coin').className); // Check to see if the class name updated.
+		
+		// These variables update properly but I can't seem to make their properties pass on to the CSS.
 		this.coinImg = (this.coinState=="heads" ? "macron-wb-c-120.png" : "macron-bw-c-120.png");
 		this.coinUrl = 'url("'+this.coinImg+'")';
 		
