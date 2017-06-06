@@ -2,6 +2,9 @@
     display: block;
     text-align: center;
     font-style: italic;
+    padding-top: 20px;
+    margin: 0 auto;
+
 }
 .stat-container {
     margin-top: 20px;
@@ -49,27 +52,27 @@
 }
 
 #coin-container {
-    width: 120px;
+    width: 400px;
+    height: 200px;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
-}
-#coin {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    background: #888888;
-    border: 5px solid #333;
-    margin: 0 auto;
+    background-color: rgba(0,0,0,0);
 }
 
-#coin-text {
-    color: #333333;
-    display: block;
-    text-align: center;
-    line-height: 100px;
-    font-size: 65px;
-    font-weight: bold;
+#coin {
+  
+    border: 5px solid rgba(0.8,0.8,0.8,1);
+    
+    border-radius: 50%;
+    width:120px;
+    height:120px;
+    
+    background-image: url("macron-halfhalf-c-120.png"); 
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    
+    margin: 0px auto;
 }
 
 #coin:hover{
@@ -80,4 +83,28 @@
 
 #coin:hover #coin-text{
     color: #903;
+}
+
+.heads{
+  background-image: url("macron-wb-c-120.png");
+  background-position: 50% 0%;
+  
+  background-repeat:no-repeat;
+  margin: 0px auto;
+}
+.tails{
+  background-image: url("macron-bw-c-120.png");
+  background-position: 50% 0%;
+  
+  background-repeat:no-repeat;
+  
+  margin: 0px auto;
+}
+
+#coin-cover{
+  width:120px;
+  height:120px;
+  margin: 0px auto;
+  border-radius: 50%;
+  
 }

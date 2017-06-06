@@ -4,12 +4,14 @@
     }
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
+		console.log(this.coinState);
+		
     }
     this.OnNewCharacter = function () {
         this.hp = 8;
         this.encounterHP = 4;
         this.facts = 3;
-        this.coinState = "H";
+        this.coinState = "heads";
     }
     this.OnSave = function () {
         this.communicator.write("hp", this.hp);
@@ -36,7 +38,7 @@
         if (this.communicator.canRead("coinState")) {
             this.coinState = this.communicator.read("coinState");
         } else {
-            this.coinState = "H";
+            this.coinState = "heads";
         }
     }
     this.getHmtl = function () {
@@ -90,11 +92,17 @@
     }
     
     this.flipCoin = function () {
-        $('#coin-text').stop(true);             // Stop all queued animations for this element (allows rapid clicking).
-        $('#coin-text').css({'opacity': 0});
-        this.coinState = ["H", "T"][Math.floor(Math.random()*2)];
-        $('#coin-text').animate({'opacity': 0}, 200);
-        $('#coin-text').animate({'opacity': 1}, 400);
+		
+		
+        this.coinState = ["heads", "tails"][Math.floor(Math.random()*2)];
+		
+		this.coinImg = (this.coinState=="heads" ? "macron-wb-c-120.png" : "macron-bw-c-120.png");
+		this.coinUrl = 'url("'+this.coinImg+'")';
+		
+        $('#coin-cover').animate({'opacity': 0}, 400);
+		console.log(this.coinState); // This may show the wrong result in the console, not sure why. Just delayed.
+		console.log(this.coinImg);
+		console.log(this.coinUrl);
     }
 
     this.OnNewCharacter();
