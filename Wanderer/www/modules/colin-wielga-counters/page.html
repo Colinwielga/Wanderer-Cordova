@@ -23,10 +23,11 @@
         <button data-ng-click="module.facts=module.facts+1">+</button>
         <button data-ng-click="module.facts=module.facts-1">-</button>
     </div>
+    
     <div id="coin-container">
-        <div id="coin" data-ng-click="module.flipCoin()">
-            <span id="coin-text" data-ng-bind="module.coinState"></span>
-        </div>
-        <span class="descriptor">a coin</span>
+        <div id="coin-cover">
+            <div id="coin" data-ng-click="module.flipCoin()" ng-class="module.coinState"> </div>
+        </div> 
+        <span class="descriptor">"The only morality in a cruel world is chance. Unbiased, unprejudiced, fair."</span>
     </div>
 </div>

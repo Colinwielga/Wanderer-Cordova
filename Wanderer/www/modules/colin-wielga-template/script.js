@@ -42,7 +42,9 @@ ColinWielgaTemplate.component = function () {
     // hmm is it really safe for this to be a function?
     // we use functions so no one can edit
     this.getRequires = function () {
-        return ["colin-wielga-tools"];
+        // example of a populated list:
+        // return ["colin-wielga-tools"]
+        return [];
     }
 
     this.getPublic = function () {

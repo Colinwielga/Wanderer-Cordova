@@ -1,3 +1,113 @@
+/* Things for all cards */
+#colin-wielga-cards div.card-cards-container{
+	margin-top: 8px;
+}
+#colin-wielga-cards div.card-container{
+	display: inline-block;
+	vertical-align: top;
+}
+#colin-wielga-cards .card{
+	display: inline-block;
+	font-family: 'Roboto', 'Helvetica', serif;
+	margin: 10px;
+	width: 200px;
+	height: 350px;
+	border-radius: 10px;
+	text-align: center;
+	border: solid black 2px;
+	cursor: pointer;
+}
+#colin-wielga-cards .card-color-dark {
+    background-color:#111;
+}
+#colin-wielga-cards div.card-color-0{
+	background-color: #333333;
+}
+#colin-wielga-cards div.card-color-1{
+	background-color: #663333;
+}
+#colin-wielga-cards div.card-color-2{
+	background-color: #333366;
+}
+#colin-wielga-cards .card:hover{
+	opacity: 0.95;
+	box-shadow: 0px 0px 20px #666666;
+}
+#colin-wielga-cards div.card-border{
+	margin:5px;
+	width: 188px;
+	height: 338px;
+	border-radius: 5px;
+	border: solid black 1px;
+	border-style: dashed;
+}
+#colin-wielga-cards div.card-number-container{
+	overflow: auto;
+	height: 125px;
+	width: 100%;
+	position: relative;
+	margin: 0 auto;
+	margin-top: 0px;
+/*	padding: 0 5px 5px 5px;*/
+}
+#colin-wielga-cards div.card-name-container{
+	height: 50px;
+	position: relative;
+	margin: 0 auto;
+}
+#colin-wielga-cards div.card-poly-container{
+	height: 160px;
+	position: relative;
+	margin: 0 auto;
+}
+#colin-wielga-cards span.card-name{
+	display: inline-block;
+	color: white;
+	width: 100%;
+	margin: auto;
+	margin-top: 3px;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+#colin-wielga-cards span.card-adjective{
+	display: block;
+	margin-top: -3px;
+	color: white;
+	width: 100%;
+	font-size: 12px;
+	text-transform: lowercase;
+	font-style: italic;
+}
+#colin-wielga-cards span.card-number{
+	display: inline-block;
+	color: white;
+	width: 100%;
+	margin: auto;
+	font-size: 60px;
+	line-height: 40px;
+}
+#colin-wielga-cards span.card-ability{
+	display: inline-block;
+	margin-top: 1px;
+	color: white;
+	width: 100%;
+	font-size: 14px;
+	line-height: 17px;
+}
+#colin-wielga-cards svg.card-poly {
+	position: relative;
+	vertical-align: middle;
+}
+#colin-wielga-cards svg.card-poly > polygon{
+	fill: white;
+}
+#colin-wielga-cards div.card-in-deck {
+	cursor: pointer;
+}
+
+
+
+
 ﻿#colin-wielga-cards .classic-card .card-name , #colin-wielga-cards .classic-card .card-number, #colin-wielga-cards .classic-card .card-ability{
     text-shadow: 0 0 3px #000;
 }

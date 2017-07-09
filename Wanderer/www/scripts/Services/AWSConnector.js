@@ -10,6 +10,7 @@ g.services.AWSConnector.dynamodb = new AWS.DynamoDB();
 
 g.services.AWSConnector.WandererCharacters = 'WandererCharacters2';
 g.services.AWSConnector.WandererAccounts = 'WandererAccounts';
+g.services.AWSConnector.DoNotContact = 'DoNotContact';
 
 g.services.AWSConnector.SaveCharacter = function (id, name, json, good, bad) {
     var itemParams = {
@@ -127,6 +128,27 @@ g.services.AWSConnector.GetAccountIdsForEmail = function (email, good, bad) {
                 res.push(data.Items[i].id.S);
             }
             good(res);
+        }
+    });
+}
+
+g.services.AWSConnector.CanSendTo = function (email, yes, no, bad) {
+    email = email.toLowerCase();
+    var itemParams = {
+        "Key": {
+            "Email": { "S": email }
+        },
+        "TableName": g.services.AWSConnector.DoNotContact
+    };
+    g.services.AWSConnector.dynamodb.getItem(itemParams, function (err, data) {
+        if (err) {
+            bad(err);
+        } else {
+            if (data.Item == null) {
+                yes();
+            } else {
+                no();
+            }
         }
     });
 }
