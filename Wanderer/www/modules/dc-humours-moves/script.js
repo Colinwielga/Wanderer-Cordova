@@ -600,6 +600,17 @@
                         </ul>",
                     collapsed: true,
                 },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "collect information,",
+                    effect: "draw + discard Black Bile. On a hit, the MC gives you two truths \
+                            and a lie about the thing you're interested in. On a Sated, ask the \
+                            MC about one of the three, and they'll tell you if it's the lie. Lower \
+                            or no discard, cede initiative to the MC.",
+                    collapsed: true,
+                    humour: "blackbile"
+                }
 
             ],
             custom: false
@@ -633,7 +644,34 @@
                         </ul>",
                     collapsed: true,
                 },
-
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attend one of Amadeus's parties,",
+                    effect: "draw + discard Phlegm. On a Sated, hold 3. On a Waxing, hold 1. Spend \
+                        your hold 1 for 1 on these options: \
+                        <ul> \
+                            <li>Name or invent an NPC: They're there at the party with you.</li> \
+                            <li>Have a conversation with an NPC who's present, and they'll be impressed with what you say.</li> \
+                            <li>Have a conversation with an NPC who's present, and they'll agree to talk to you later.</li> \
+                            <li>Choose a character who's present: You manage to evade them all night. They never even realize you were there.</li> \
+                            <li>Invent a rumor, and everyone at the party will hear it and remember it without knowing its source.</li> \
+                        </ul> \
+                        Lower or no discard, you publically disgrace yourself due to your clumsiness, \
+                        ignorance, or poor manners. Unless you can make good with Amadeus somehow, you won't \
+                        be welcome at the next party.",
+                    collapsed: true,
+                    humour: "phlegm"
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attend one of Amadeus's parties dressed to impress,",
+                    effect: "you may choose to discard a card. If you do, the other guests find your \
+                        clothing to be the height of fashion and will show up to the next party wearing \
+                        outfits inspired by your own.",
+                    collapsed: true
+                }
             ],
             custom: false
         },
