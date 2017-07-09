@@ -455,7 +455,7 @@
                     title: "Rebalance Orgone",
                     leadin: "When you",
                     trigger: "cut to a flashback and describe a short scene from your character's past,",
-                    effect: "reset Orgone to balanced. If it is already balanced or higher, once the \
+                    effect: "reset Orgone to balanced. Once the \
                         scene is over, ask the other players if they think what you've revealed \
                         fundamentally changes the way they see your character, or colors his/her actions \
                         in a surprising new light. If they think so, the next time you follow up on that \
@@ -469,8 +469,8 @@
                     leadin: "When you",
                     trigger: "spend a scene in calm and reasonably friendly conversation with \
                             a fellow player-character,",
-                    effect: "reset Yellow Bile to balanced. If it is already balanced or higher, \
-                            ask another player involved in the conversation if they found it to be \
+                    effect: "reset Yellow Bile to balanced. After the conversation, ask another player \
+                            involved in the conversation if they found it to be \
                             reasonably stimulating or thought-provoking. If so, take mill 1 forward to \
                             Yellow Bile. (This bonus does not stack.)",
                     humour: "yellowbile",
@@ -480,7 +480,7 @@
                     title: "Rebalance Black Bile",
                     leadin: "When you",
                     trigger: "spend a scene doing something peaceful in your personal home, haven or hidey-hole,",
-                    effect: "reset Black Bile to balanced. If it is already balanced or higher, you may \
+                    effect: "reset Black Bile to balanced. As part of the scene, you may \
                         choose to describe an object of personal significance. If you've described it \
                         before, you must reveal some significant new detail. If you describe it to \
                         everyone's satisfaction, the next time something reminds you of that object, \
@@ -493,8 +493,8 @@
                     leadin: "When you",
                     trigger: "spend a scene deliberately doing something you find unnerving or outside \
                         your comfort zone,",
-                    effect: "reset Phlegm to balanced. If it is already balanced or higher, once the \
-                        scene is over, ask the MC if they think you went out of your way to challenge \
+                    effect: "reset Phlegm to balanced. Once the scene is over, ask the MC if they \
+                        think you went out of your way to challenge \
                         yourself or face unnecessary risk. If they think you did, take mill 1 forward to Phlegm. \
                         (This bonus does not stack.)",
                     humour: "phlegm",
@@ -504,9 +504,9 @@
                     title: "Rebalance Blood",
                     leadin: "When you",
                     trigger: "confront an enemy who has hurt or wronged you and offer sincere forgiveness,",
-                    effect: "reset Blood to balanced. If it's already balanced or higher, if you also make \
-                        a tangible and costly gesture to your enemy in good faith to demonstrate your \
-                        forgiveness, and they also accept it in good faith, immediately choose a Blood \
+                    effect: "reset Blood to balanced. If you also make a tangible and costly \
+                        gesture to your enemy in good faith to demonstrate your \
+                        forgiveness, and they accept it in good faith, immediately choose a Blood \
                         advancement.",
                     humour: "blood",
                     collapsed: true,
@@ -600,6 +600,17 @@
                         </ul>",
                     collapsed: true,
                 },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "collect information,",
+                    effect: "draw + discard Black Bile. On a hit, the MC gives you two truths \
+                            and a lie about the thing you're interested in. On a Sated, ask the \
+                            MC about one of the three, and they'll tell you if it's the lie. Lower \
+                            or no discard, cede initiative to the MC.",
+                    collapsed: true,
+                    humour: "blackbile"
+                }
 
             ],
             custom: false
@@ -633,7 +644,34 @@
                         </ul>",
                     collapsed: true,
                 },
-
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attend one of Amadeus's parties,",
+                    effect: "draw + discard Phlegm. On a Sated, hold 3. On a Waxing, hold 1. Spend \
+                        your hold 1 for 1 on these options: \
+                        <ul> \
+                            <li>Name or invent an NPC: They're there at the party with you.</li> \
+                            <li>Have a conversation with an NPC who's present, and they'll be impressed with what you say.</li> \
+                            <li>Have a conversation with an NPC who's present, and they'll agree to talk to you later.</li> \
+                            <li>Choose a character who's present: You manage to evade them all night. They never even realize you were there.</li> \
+                            <li>Invent a rumor, and everyone at the party will hear it and remember it without knowing its source.</li> \
+                        </ul> \
+                        Lower or no discard, you publically disgrace yourself due to your clumsiness, \
+                        ignorance, or poor manners. Unless you can make good with Amadeus somehow, you won't \
+                        be welcome at the next party.",
+                    collapsed: true,
+                    humour: "phlegm"
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attend one of Amadeus's parties dressed to impress,",
+                    effect: "you may choose to discard a card. If you do, the other guests find your \
+                        clothing to be the height of fashion and will show up to the next party wearing \
+                        outfits inspired by your own.",
+                    collapsed: true
+                }
             ],
             custom: false
         },
