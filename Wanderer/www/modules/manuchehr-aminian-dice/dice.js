@@ -2,15 +2,18 @@
 
 	// Setting some default values for dice.
 	var mymt = new MersenneTwister();
-	var initseed = Date.now();
 	
-	var mymtseed = mymt.init_genrand(initseed);
+	this.lo = 1;
+	this.hi = 6;
+	this.ndrolls = 1;
+	this.drolls = [];
+	this.drollstext = "";
+	this.drollsum = 0;
 	
-
-	var lo = 1;
-	var hi = 6;
-	var ndrolls = 1;
-	var drolls = [];
+	this.initseed = Date.now();
+	mymt.init_genrand(this.initseed);
+	
+	
 
     this.getId = function () {
         return "manuchehr-aminian-dice";
@@ -18,10 +21,6 @@
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
         this.communicator = communicator;
-		
-		
-//		lo = document.getElementById("dicerangelo").value;
-//		hi = document.getElementById("dicerangehi").value;
     }
     this.OnNewCharacter = function () { }
     this.OnSave = function () { }
@@ -51,31 +50,49 @@
     }
 	
 	
-	// Do a dice roll with the given range of numbers.
-	this.intrand = function () {
+	// Do a single dice roll with the given range of numbers.
+	this.intRand = function () {
 		mo = mymt.random();		
-		result = lo + Math.floor((hi-lo+1)*mo);
+		result = this.lo + Math.floor((this.hi - this.lo+1)*mo);
 		return result;
 	}
 	
-	// Do a dice roll with the given range of numbers.
-	this.diceroll = function () {
+	// Do repeated dice rolls with the given range of numbers.
+	this.diceRoll = function () {
 
-		drolls = [];
-		ndrolls = Number(document.getElementById("ndicerolls").value);
-		hi = Number(document.getElementById("dicerangehi").value);
+		this.drolls = [];
+		this.ndrolls = Number(document.getElementById("ndicerolls").value);
+		this.hi = Number(document.getElementById("dicerangehi").value);
 		
-		console.log([lo,hi,ndrolls]);
-		for (i=0; i<ndrolls; i++) {
-			mo = this.intrand();
-			drolls.push(mo);
+		this.drollsum = 0;
+		for (i=0; i<this.ndrolls; i++) {
+			mo = this.intRand();
+			this.drolls.push(mo);
+			this.drollsum += mo;
 		}
+
+		this.drollstext = this.drolls.join(", ");
 		
-		console.log(drolls);
-		
-//		return drolls;
+		return 0;
+	}
+	
+	// (re-)set the seed for the RNG using the value in the html.
+	this.setSeed = function () {
+		this.initseed = Number(document.getElementById("mtseed").value);
+		mymt.init_genrand(this.initseed);
 	}
     
+	// Get the smallest value for the dice from the value in the html.
+	this.setLowerBound = function () {
+		this.lo = Number(document.getElementById("lowerbnd").value);
+	}
+	
+	this.saveAdvSettings = function() {
+		this.setSeed();
+		this.setLowerBound();
+	}
+	
+	
     this.OnNewCharacter();
 }
 
@@ -83,8 +100,10 @@
 g.services.componetService.registerCharacter(component);
 
 /* 
-	BELOW IS AN IMPLEMENTATION OF THE MERSENNE TWISTER IN JAVASCRIPT 
+	EVERYTHING BELOW IS AN IMPLEMENTATION OF THE MERSENNE TWISTER IN JAVASCRIPT.
 	SEE https://gist.github.com/banksean/300494#file-mersenne-twister-js
+	
+	-Nuch
 */
 
 /*
