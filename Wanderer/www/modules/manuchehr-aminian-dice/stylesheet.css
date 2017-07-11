@@ -46,7 +46,7 @@ table.drollresults{
   text-align: left;
 }
 
-label::before {
+label.collapsible::before {
   font-size: var(--icon-fsize);
   content: var(--collapse-icon); 
 /*  vertical-align: text-center; */
