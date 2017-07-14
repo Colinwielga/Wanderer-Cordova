@@ -5,12 +5,12 @@
                 <label class="hide-button"
                        data-ng-show="module.canClose()"
                         data-ng-click="activePage().getController().Remove(module)">x</label>
-                <label class="hide-button" for="{{module.getId()}}-hide">-</label>
+                <label class="hide-button" for="{{module.getId()}}-hide" >{{hidding?"+":"-"}}</label>
                 <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
                 <h2 class="section-title">{{module.getTitle()}}</h2>
             </div>
             <div id="{{module.getId()}}">
-                <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" />
+                <input type="checkbox" class="hide-check" id="{{module.getId()}}-hide" data-ng-model="hidding"/>
                 <div class="section-body fixed-content">
                     <input type="checkbox" class="hide-help-check" id="{{module.getId()}}-help-hide" checked />
                     <div class="rules-container">

@@ -216,6 +216,8 @@ body {
 
 .hide-button, .edit-button {
     float: right;
+    min-width: 15px;
+    text-align: center;
 }
 
 .hide-check, .hide-help-check {
