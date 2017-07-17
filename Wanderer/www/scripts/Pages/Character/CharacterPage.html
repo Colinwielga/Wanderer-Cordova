@@ -4,9 +4,9 @@
             <div class="section-header">
                 <label class="hide-button"
                        data-ng-show="module.canClose()"
-                        data-ng-click="activePage().getController().Remove(module)">x</label>
+                       data-ng-click="activePage().getController().Remove(module)">x</label>
                 <label class="hide-button" for="{{module.getId()}}-hide" >{{hidding?"+":"-"}}</label>
-                <label class="hide-button" for="{{module.getId()}}-help-hide">?</label>
+                <label class="hide-button" for="{{module.getId()}}-help-hide" data-ng-show="!hidding">?</label>
                 <h2 class="section-title">{{module.getTitle()}}</h2>
             </div>
             <div id="{{module.getId()}}">
