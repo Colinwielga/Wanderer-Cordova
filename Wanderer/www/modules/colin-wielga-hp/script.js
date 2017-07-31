@@ -1,8 +1,20 @@
 ﻿// TODO all this max and mins should be in getters + setters 
 
 var component = function () {
-    this.MaxHP = 8;
-    this.MaxEncounterHP = 4;
+    this.MaxHP = 8.0;
+    this.MaxEncounterHP = 4.0;
+
+    this.MoveEncounterHP = function (num) {
+        var start = this.encounterHP;
+        this.encounterHP = Math.min(Math.max(this.encounterHP + num, 0), this.MaxEncounterHP);
+        return num - (this.encounterHP - start);
+    }
+
+    this.MoveHP = function (num) {
+        var start = this.hp;
+        this.hp = Math.min(Math.max(this.hp + num, 0), this.MaxHP);
+        return num - (this.hp - start);
+    }
 
     this.getId = function () {
         return "colin-wielga-hp"
@@ -32,9 +44,13 @@ var component = function () {
         }
     }
     this.ColorString = function () {
-        var r = Math.floor(((this.hp + this.encounterHP) / 12.0)*255);
-        var g = 255 - r;
-        return "#" + g.toString(16) + r.toString(16) +"00";
+        var r = Math.floor(((this.hp + this.encounterHP) / (this.MaxHP + this.MaxEncounterHP)) * (0xCC - 0x33));
+        var g = (0xCC - 0x33) - r;
+        var rstring = (0x33+r).toString(16);
+        rstring = rstring.length == 1 ? "0" + rstring.length : rstring;
+        var gstring = (0x33+g).toString(16);
+        gstring = gstring.length == 1 ? "0" + gstring.length : gstring;
+        return "#" + gstring + rstring +"33";
     }
     this.HPString = function () {
         return (Math.max(0,((this.hp + this.encounterHP) / 12.0) * 100)) + "%";
@@ -54,6 +70,9 @@ var component = function () {
     this.getRequires = function () {
         return [];
     }
+    this.Alive = function () {
+        return this.hp + this.encounterHP > 0;
+    }
     this.getPublic = function () {
         return {
             getVersion: function () {
@@ -63,30 +82,22 @@ var component = function () {
     }
 
     var hpMover = function () {
-        return 1 + Math.min(Math.max(-.9, Roll.roll(1)), 1);
+        return 1 + Math.min(Math.max(-.75, Roll.roll(1)/2.0), .75);
     }
 
     this.hit = function () {
-        var dif = hpMover();
-        if (this.encounterHP > dif) {
-            this.encounterHP -= dif;
-        } else {
-            dif -= this.encounterHP;
-            this.encounterHP = 0;
-            this.hp -= dif;
-        }
-        this.encounterHP = Math.Max(0,Math.floor(this.encounterHP * 10) / 10);
-        this.hp = Math.Max(0,Math.floor(this.hp * 10) / 10);
+        var x = this.MoveEncounterHP(-hpMover());
+        this.MoveHP(x);
     }
 
-    this.heal = function () {
-        this.hp += hpMover();
-        this.encounterHP = Math.min(Math.floor(this.encounterHP * 10) / 10, this.MaxEncounterHP);
-        this.hp = Math.min(Math.floor(this.hp * 10) / 10, this.MaxHP);
+    this.FullHeal = function () {
+        var x = this.MoveEncounterHP(1000);
+        this.MoveHP(x);
     }
 
     this.recoverEncounterHP = function () {
-        this.encounterHP = this.MaxEncounterHP;
+        this.MoveEncounterHP(1000);
+        this.MoveHP(hpMover()/2.0);
     }
 
     this.OnNewCharacter();

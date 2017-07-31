@@ -1,5 +1,30 @@
 
-.hp-bar {
+#colin-wielga-hp .hp-bar-holder {
+    width: 100%;
+    border-width: 4px;
+    background-color: #666;
+    border: 2px solid #333;
+    border-radius: 3px;
+}
+
+
+#colin-wielga-hp .hp-bar {
     height: 30px;
     background: #ff0000;
+    transition: width .2s ease-out, background .2s ease-out;
+}
+
+#colin-wielga-hp .dead {
+    position: absolute;
+    transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 30px;
+    line-height: 30px;
+    width: calc(100% - 12px);
+    text-align: center;
+    color: white;
+}
+
+#colin-wielga-hp .dead.show {
+    opacity: 1;
 }
