@@ -68,7 +68,7 @@
     width:120px;
     height:120px;
     
-    background-image: url("macron-halfhalf-c-120.png"); 
+/*    background-image: url("macron-halfhalf-c-120.png");  */
     background-repeat: no-repeat;
     background-position: 50% 0%;
     
@@ -83,6 +83,14 @@
 
 #coin:hover #coin-text{
     color: #903;
+}
+
+.initialCoin{
+  background-image: url("macron-halfhalf-c-120.png");
+  background-position: 50% 0%;
+  
+  background-repeat:no-repeat;
+  margin: 0px auto;
 }
 
 .heads{
@@ -101,7 +109,8 @@
   margin: 0px auto;
 }
 
-#coin-cover{
+
+.coin-cover{
   width:120px;
   height:120px;
   margin: 0px auto;
