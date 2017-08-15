@@ -892,6 +892,7 @@
                             <ul><li>...days \
                                 <ul><li>...years \
                                 </li></ul> \
+                            </li></ul> \
                             <ul><li>...into the past \
                             </li></ul> \
                         </li> \
@@ -933,7 +934,8 @@
                                 <ul><li>All of the ritual-caster's humours... \
                                 </li></ul> \
                             </li> \
-                        </ul>"
+                        </ul>",
+                    collapsed: true
                 }
             ],
             custom: false
