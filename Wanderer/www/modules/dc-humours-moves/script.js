@@ -610,8 +610,49 @@
                             or no discard, cede initiative to the MC.",
                     collapsed: true,
                     humour: "blackbile"
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "follow someone discreetly,",
+                    effect: "draw + discard Yellow Bile. On a Sated, you track them to their destination without \
+                        being noticed. On a Waxing, for an NPC, the MC flips a coin and does not tell you \
+                        the result: If it's heads, you track your quarry to their destination without being \
+                        noticed. If it's tails, they notice. For a PC, choose: Shift the balance of debt in \
+                        their favor by one and you track them to their destination without being noticed, or \
+                        else ask their player whether they notice, and if they do, where you are when they \
+                        reveal that they noticed you and what they do that reveals it.</br> \
+                        Lower or no discard, they get away clean, but not before leading you somewhere troublesome.",
+                    collapsed: true,
+                    humour: "yellowbile"
+                },
+                {
+                    title: "When you stalk an enemy through difficult terrain or prepare yourself and wait for the \
+                    enemy to come to you...",
+                    leadin: "When you",
+                    trigger: "stalk an enemy through difficult terrain",
+                    effect: "draw + discard Yellow Bile. When you <b> prepare yourself and wait for the enemy \
+                        to come to you</b>, draw + discard Phlegm. In either case, on a Waxing or higher, \
+                        describe your position when direct conflict is imminent. Make it clear what your \
+                        advantage is. On a Waxing, the MC will add a twist or inconvenient detail. <br/> \
+                        Lower or no discard, your enemy finds a way to get the drop on you, or to turn the \
+                        terrain to their own advantage.",
+                    collapsed: true
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "expose yourself to an enemy's attack,",
+                    effect: "the MC will tell you how they attempt to capitalize on the opportunity.  \
+                        Either allow their attack to land, or else draw + discard Phlegm. On a Sated, \
+                        describe how you block or avoid their attack and carry through with your original intent. \
+                        On a Waxing, choose: Describe how you carry through with your original intent despite their \
+                        attack hitting you, or else describe how you abandon your intent in order to block or \
+                        avoid their attack. Lower or no discard, the MC will describe how they hurt you and \
+                        force you into a worse position.",
+                    collapsed: true,
+                    humour: "phlegm"
                 }
-
             ],
             custom: false
         },
@@ -671,6 +712,49 @@
                         clothing to be the height of fashion and will show up to the next party wearing \
                         outfits inspired by your own.",
                     collapsed: true
+                },
+                {
+                    title: "",
+                    leadin: "",
+                    trigger: "At the beginning of each session,",
+                    effect: "if Amadeus hasn't yet announced his next party, (and it isn't currently ongoing,) \
+                        flip a coin. On a heads, mark a box in the Party Countdown. When two boxes are marked, \
+                        Amadeus will send out invitations to all PCs who have his favor.",
+                    collapsed: true
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "travel through the tunnels beneath the city with a particular destination in mind,",
+                    effect: "instead of making the <b>Go Somewhere</b> move, do this: State your intended \
+                        destination, then draw + discard Yellow Bile. On a Sated, choose 3. On a Waxing, choose \
+                        2: \
+                        <ul> \
+                            <li>You find your way to the place you were looking for, or as close as can be managed. \
+                                (If not, the MC tells you what you find instead.)</li> \
+                            <li>You avoid running into any demonic presence</li> \
+                            <li>You don't expose yourself to Fall-dough corruption. (Otherwise, mark a box in the \
+                                appropriate countdown.)</li> \
+                            <li>You remember the way back to where you came from</li> \
+                        </ul> \
+                        Lower or no discard, choose 2 anyway, but neither can be that you find your way.",
+                    collapsed: true,
+                    humour: "yellowbile"
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "visit Oyster's apartment,",
+                    effect: "ask the MC what's happening downstairs. The MC will choose one of these and \
+                        describe: \
+                        <ul> \
+                            <li>You hear unsettling sounds</li> \
+                            <li>You see unsettling visions</li> \
+                            <li>You smell unsettling smells</li> \
+                            <li>A ghost appears</li> \
+                        </ul> \
+                    If you are Oyster, make this move no more than once per session.",
+                    collapsed: true
                 }
             ],
             custom: false
@@ -705,10 +789,10 @@
                     leadin: "When you",
                     trigger: "discard up to three cards containing at least one panel each of the same color,",
                     effect: "increase the slider level of the humour that matches that color by one step. You may \
-                    not increase more than one humour at a time in this way. If your discard \
-                    reduces your hand to 0 cards, you may immediately draw 1. If your humour \
-                    advances to Sated, immediately reset to Balanced and choose a Player Advancement \
-                    from the appropriate list.",
+                        not increase more than one humour at a time in this way. If your discard \
+                        reduces your hand to 0 cards, you may immediately draw 1. If your humour \
+                        advances to Sated, immediately reset to Balanced and choose a Player Advancement \
+                        from the appropriate list.",
                     collapsed: true,
                 },
                 {
@@ -722,6 +806,135 @@
                         are in effect.",
                     collapsed: true,
                 },
+            ],
+            custom: false
+        },
+        {
+            label: "Plasmic Rituals",
+            moveslist: [
+                {
+                    title: "Perform a Ritual",
+                    leadin: "When you",
+                    trigger: "perform a plasmic ritual,",
+                    effect: "choose 0 or more Plasm to spend. Use Plasm spent 1 for 1 to buy effects. \
+                        Also, for each Plasm spent, flip a coin. For every flip that comes up heads, the \
+                        MC gets one point to buy side effects.",
+                    collapsed: true
+                },
+                {
+                    title: "Ritual for Returning from Magbriggan",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<p>Prepare a pig swaddled in black velvet, a set of five pewter oil lamps, \
+                        a red glass tumbler, and a chamber of perfect silence and darkness. Arrange the \
+                        lamps within the chamber according to the forms and ways.</p> \
+                        <p> Blindfold the ritual's subject in black velvet and lead them into the \
+                        chamber. Bid them sit cross-legged at the chamber's crux-point and remain utterly \
+                        still and silent.</p> \
+                        </p>Into the silence and darkness, introduce five pure tones on a pentatonic scale. \
+                        Lead in the pig while the tones carry and lie it down in the exact center of the \
+                        floor. Unwrap the swaddling and pierce its gallbladder with brass. Catch the blood in \
+                        the tumbler. Annoint the ritual's subject with the blood.</p> \
+                        <p>As the pig bleeds to death, light the lamps in counterclockwise order without \
+                        gazing upon the subject. When the last lamp is lit, the subject will have vanished.</p> \
+                        <br/> \
+                        <p>By default, you get the first effect in each list. Spend plasm to buy your way up the list.</p> \
+                        Number Affected: \
+                        <ul> \
+                            <li>1 person</li> \
+                            <li>2 people</li> \
+                            <li>A group of people</li> \
+                            <li>A crowd of people</li> \
+                        </ul> \
+                        Destination: \
+                        <ul> \
+                            <li>Anywhere on Earth</li> \
+                            <li>A specific continent</li> \
+                            <li>A specific country</li> \
+                            <li>A specific city</li> \
+                            <li>Within a specific 10-foot radius</li> \
+                        </ul> \
+                        Time Period: \
+                        <ul> \
+                            <li>Anywhere in Earth's history</li> \
+                            <li>A specific century</li> \
+                            <li>A specific decade</li> \
+                            <li>A specific year</li> \
+                            <li>A specific day</li> \
+                            <li>A specific hour</li> \
+                        </ul> \
+                        Possessions: \
+                        <ul> \
+                            <li>None</li> \
+                            <li>Skintight clothing, the contents of a gripped fist</li> \
+                            <li>Loose clothing, the contents of pockets</li> \
+                            <li>Up to ten pounds of matter in physical contact with the subject</li> \
+                        </ul> \
+                        <br /> \
+                        Side Effects: \
+                        <ul> \
+                        <li>The subject suffers amnesia of the last day for hours \
+                            <ul><li>...of the last week \
+                                <ul><li>...of the whole time they spent in Magbriggan \
+                                    <ul><li>...of their whole life \
+                                    </li></ul> \
+                                </li></ul> \
+                            </li></ul> \
+                            <ul><li>...of a specific thing, person or incident \
+                            </li></ul> \
+                            <ul><li>...for weeks \
+                                <ul><li>...forever \
+                                </li></ul> \
+                            </li></ul> \
+                        </li> \
+                        <li>The ritual-caster is transported to some other location within Magbriggan</li> \
+                        <li>The ritual-caster is transported hours into the future \
+                            <ul><li>...days \
+                                <ul><li>...years \
+                                </li></ul> \
+                            <ul><li>...into the past \
+                            </li></ul> \
+                        </li> \
+                        <li>The ritual-caster experiences a vision of some other time or place within Magbriggan</li> \
+                        <li>The ritual-caster learns the secret thoughts of one subject \
+                            <ul><li>...all subjects \
+                            </li></ul> \
+                        </li> \
+                        </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "General Side-Effects",
+                    leadin: "",
+                    trigger: "",
+                    effect: "\
+                        <ul> \
+                            <li>The ritual-caster suffers mystic injuries \
+                                <ul><li>...with permanent mental side effects \
+                                    <ul><li>...that drastically transform their perception of the world \
+                                    </li></ul> \
+                                </li></ul> \
+                                <ul><li>...with permanent physical side effects \
+                                    <ul><li>....that drastically transform their body \
+                                    </li></ul> \
+                                </li></ul> \
+                            </li> \
+                            <li>Ghosts appear at the ritual site \
+                                <ul><li>...and linger \
+                                </li></ul> \
+                                <ul><li>...and take personal issue with one person involved \
+                                    <ul><li>...all people involved \
+                                    </li></ul> \
+                                </li></ul> \
+                            </li> \
+                            <li>One of the ritual-caster's humours is depleted by one snifter \
+                                <ul><li>...two snifters \
+                                </li></ul> \
+                                <ul><li>All of the ritual-caster's humours... \
+                                </li></ul> \
+                            </li> \
+                        </ul>"
+                }
             ],
             custom: false
         }
