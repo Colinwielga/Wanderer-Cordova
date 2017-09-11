@@ -787,7 +787,7 @@
                 {
                     title: "",
                     leadin: "When you",
-                    trigger: "discard up to three cards containing at least one panel each of the same color,",
+                    trigger: "discard two cards containing at least one panel each of the same color,",
                     effect: "increase the slider level of the humour that matches that color by one step. You may \
                         not increase more than one humour at a time in this way. If your discard \
                         reduces your hand to 0 cards, you may immediately draw 1. If your humour \
