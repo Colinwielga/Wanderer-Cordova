@@ -4,16 +4,37 @@ DCHumoursAdvancements.component = function () {
     var that = this;
     this.advancements = [
         {
+            humour: "",
+            label: "Ungiven Future",
+            expanded: false,
+            pc_advs: {
+                taken: [],
+                untaken: [
+                    {text: "Create a new move for your character."},
+                    {text: "Create a new move for your character."},
+                    {text: "Choose one of your character's moves and delete it."},
+                    {text: "Choose a humour. From now on, whenever you draw+discard that humour, take +1 mill"},
+                    {text: "Choose a humour. From now on, whenever you draw+discard that humour, take +1 mill"},
+                    {text: "From now on, nothing you do counts as Inviting Trouble."},
+                    {text: "Name a demon. That demon dies a horrible death with or without clear reason."},
+                    {text: "Retire your character to safety. Create a new character to play with if you wish."},
+                    {text: "Create a second character and play them alongside the current one."},
+                ]
+            }
+        },
+        {
             humour: "orgone",
             label: "Orgonic Advancements",
             expanded: false,
             pc_advs: {
                 taken: [],
                 untaken: [
-                    {text: "Choose another player. That player creates a new move for you that is tied to Orgone."},
+                    {text: "Choose another player. That player creates a new move for you."},
                     {text: "Give yourself a new reputation: Lively, Inspired, Charismatic, Healthy or Virile"},
                     {text: "Give yourself a new reputation of your choice"},
                     {text: "Choose one physical ailment, injury or disease that afflicts you: It heals or is cured, even if it seemed permanent or uncurable."},
+                    {text: "When you Cash In Your Dues, you can also spend 1 debt to choose: If they do it, they can increase one slider (of your choice) by 1."},
+                    {text: "Choose another player. You gain 3 debt with that player."},
                 ]
             },
             mc_advs: {
@@ -68,10 +89,12 @@ DCHumoursAdvancements.component = function () {
             pc_advs: {
                 taken: [],
                 untaken: [
-                    {text: "Create a new move that is tied to this Humour"},
+                    {text: "Create a new move."},
                     {text: "Give yourself a new reputation: Bold, Strong, Powerful, Important, Leaderlike, or Macho"},
                     {text: "You get a group of reasonably loyal followers. Work with the MC to detail them and create a new move if necessary."},
                     {text: "Check two boxes on one of your countdowns. If this fills it to completion, resolve it as appropriate."},
+                    {text: "From now on, when you Seduce or Manipulate someone, your solemnly sworn oath counts as concrete assurance."},
+                    {text: "From now on, when you Intrude Somewhere, you can choose to remain hidden in place after doing one quick thing instead of leaving. Nobody will find you until you act."},
                 ]
             },
             mc_advs: {
@@ -91,10 +114,12 @@ DCHumoursAdvancements.component = function () {
             pc_advs: {
                 taken: [],
                 untaken: [
-                    {text: "Create a new move that is tied to this Humour"},
+                    {text: "Create a new move."},
                     {text: "Give yourself a new reputation: Thoughtful, Wise, Perceptive, Creative, Sensitive, or Clever"},
                     {text: "You get a small building or piece of land for which you are responsible. Work with the MC to detail it and describe your duties towards it."},
                     {text: "You discover a new fact about the world or the answer to a curiousity. Ask the MC one simple question about the world, the city, or the city's inhabitants, and they will answer fully and honestly. If you think it's important to do so, the two of you can take a moment to figure out where and how your character found this information."},
+                    {text: "From now on, when you Go Somewhere, treat any result less than a Waxing as if it were Waxing."},
+                    {text: "From now on, when you Read a Person, if it's a PC, you may also ask 'What could I do to put your character in my debt?' If you do the thing they say, move your debt with them 1 point in your favor."},
                 ]
             },
             mc_advs: {
@@ -114,10 +139,12 @@ DCHumoursAdvancements.component = function () {
             pc_advs: {
                 taken: [],
                 untaken: [
-                    {text: "Create a new move that is tied to this Humour"},
+                    {text: "Create a new move."},
                     {text: "Give yourself a new reputation: Amiable, Easygoing, Durable, Cheerful, Solid or Gentle"},
                     {text: "You find a mysterious artifact. Ask the MC to describe it to you: It's yours to do with as you wish, though it might bring trouble."},
                     {text: "Uncheck two boxes on one of your countdowns"},
+                    {text: "From now on, when you Call in a Favor, you can describe an NPC you've never met but who might view you favorably and offer help."},
+                    {text: "From now on, when you Have Something, on a Waxing, you can add one reasonable detail to the object the MC describes."},
                 ]
             },
             mc_advs: {
