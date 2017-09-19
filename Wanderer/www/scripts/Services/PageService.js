@@ -98,6 +98,11 @@ g.services.pageService.GetAccount = function () {
     });
 };
 
+g.services.pageService.LoadWiki = function () {
+    var tempPage = g.WikiPageFactory();
+    g.services.pageService.private.Pages.push(tempPage);
+};
+
 g.services.pageService.OpenAccount = function (id) {
     var tempPage = g.LoadingPageFactory("loading account...");
     g.services.timeoutService.$timeout(function () {
