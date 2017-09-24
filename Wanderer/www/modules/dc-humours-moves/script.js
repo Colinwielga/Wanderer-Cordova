@@ -760,6 +760,144 @@
             custom: false
         },
         {
+            label: "Trial Moves",
+            moveslist: [
+                {
+                    title: "Introduce Law",
+                    leadin: "When you",
+                    trigger: "cite an existing law or legal precedent,", 
+                    effect: "draw + discard Orgone. \
+                            On a sated, the law or precedent stands, just as you say. On a waxing, the \
+                            MC will add a twist or detail. If the law or legal precedent clearly and unambigiously \
+                            supports your case for Zanzibar, choose one relevant slider and move it towards acquittal. \
+                            If it clearly and unambiguously undermines your case, the MC will choose one relevant \
+                            slider and move it towards conviction. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "orgone",
+                    collapsed: true
+                },
+                {
+                    title: "Make an Emotional Appeal",
+                    leadin: "When you",
+                    trigger: "attempt to sway the emotions of the court,", 
+                    effect: "draw + discard Orgone. On a Sated, choose one emotional state from the \
+                            list that matches the tone of your attempt, and the court will feel that \
+                            emotion until circumstances change. On a Waxing, pick three emotional states \
+                            to eliminate from the list, and the MC will choose the court's new state from \
+                            the ones that remain.<br />\
+                            <ul> \
+                                <li>Anger</li>\
+                                <li>Sorrow</li>\
+                                <li>Joy</li>\
+                                <li>Boredom</li>\
+                                <li>Fear/Disgust</li>\
+                                <li>Strange demon emotions</li>\
+                            </ul> \
+                            Regardless, the prosecutor gets a chance to speak immediately after.\
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "orgone",
+                    collapsed: true
+                },
+                {
+                    title: "Argue or Refute",
+                    leadin: "When you",
+                    trigger: "make an argument to the court,", 
+                    effect: "or when you logically refute an argument already made, ask the \
+                            MC if the judge accepts your logic. If they accept your logic, draw + \
+                            discard Yellow Bile. Take mill 1 forward if your argument cites evidence, \
+                            law, or legal precedent that has been introduced. On a hit, choose one \
+                            relevant slider and move it one space towards acquittal (if that's what \
+                            your argument or refutation supports.) If the audience's emotional state is \
+                            congruent with your argument's tone, instead move it two spaces. On a Waxing, \
+                            the prosecution also gets a chance to speak immediately after. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "yellowbile",
+                    collapsed: true
+                },
+                {
+                    title: "Introduce Evidence/Call Witness",
+                    leadin: "When you",
+                    trigger: "call for evidence or a witness to be presented to the court,", 
+                    effect: "explain to the judge how the evidence or witness is relevant to the case. \
+                            If the judge agrees it is relevant, you may introduce it/them to the court. \
+                            If the judge does not see the relevance, draw + discard Black Bile. On a Sated, \
+                            they will allow it anyway. On a Waxing, they will allow it, provided the prosecutor \
+                            gets a chance to examine, question, or tamper with it in private first. \
+                            If the evidence or witness is not currently available but might reasonably \
+                            be obtained, you can call for recess to \
+                            obtain it - if you do, take mill 1 forward for that move. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "blackbile",
+                    collapsed: true
+                },
+                {
+                    title: "Interrogate a Witness",
+                    leadin: "When you",
+                    trigger: "interrogate a witness", 
+                    effect: "proceed as per the <b>Read a Person</b> move, but spend your hold\
+                            instead on these options:<br />\
+                            <ul>\
+                                <li>Is your character telling the truth?</li> \
+                                <li>What is your character really feeling?</li> \
+                                <li>Is your character holding anything back?</li> \
+                                <li>Do you know anything important about _____ ?</li> \
+                                <li>What subject do you wish I'd ask about?</li> \
+                                <li>What subject do you most hope I'd avoid?</li> \
+                            </ul><br />\
+                            Or if your witness is a demon, on these options:<br />\
+                            <ul>\
+                                <li>Are you Zanzibar's friend?</li>\
+                                <li>Are you hungry?</li>\
+                            </ul>",
+                    humour: "blackbile",
+                    collapsed: true
+                },
+                {
+                    title: "Call for Recess",
+                    leadin: "When you",
+                    trigger: "formally request recess from trial,", 
+                    effect: "state the reason why to the judge and draw + discard Phlegm. On a hit, your \
+                            request is granted. On a Sated, also choose one:<br />\
+                            <ul> \
+                                <li>The recess will last long enough for you to do more than a single quick thing</li> \
+                                <li>You won't be escorted by demons until it ends</li> \
+                            </ul>\
+                            In either case, when the recess ends, reset your \"Held in Contempt\" countdown to 0. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "phlegm",
+                    collapsed: true
+                },
+                {
+                    title: "Show Contempt",
+                    leadin: "When you",
+                    trigger: "show contempt for court in the eyes of the judge,", 
+                    effect: "either intentionally or by accident, mark a box in a countdown called \
+                            \"Held in Contempt\". If you have no such countdown, create it as a 3-box \
+                            countdown. \
+                            <br/>If the third box becomes checked, immediately cede initiative to the MC.",
+                    collapsed: true
+                },
+                {
+                    title: "MC Trial Moves",
+                    leadin: "",
+                    trigger: "", 
+                    effect: "During the trial, the MC has access to the following moves: \
+                    <ul> \
+                        <li><b>Introduce a new demon law</b></li>\
+                        <li><b>Change, complicate or expand an existing law</b></li>\
+                        <li><b>Make demands, reasonable or un-</b></li>\
+                        <li><b>Enact penalties on any or all present in the courtroom</b></li>\
+                        <li><b>Introduce new evidence or witnesses</b></li>\
+                        <li><b>Demons: Act on their emotional state</b></li>\
+                        <li><b>Call for legal processes to be carried out</b></li>\
+                        <li><b>Offer a deal</b></li>\
+                        <li><b>Move a trial slider one step in any direction</b></li>\
+                    </ul>",
+                    collapsed: true
+                }
+            ]
+        },
+        {
             label: "Card Moves",
             moveslist:[
                 {
