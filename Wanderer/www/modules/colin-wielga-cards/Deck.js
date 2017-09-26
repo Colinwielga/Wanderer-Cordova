@@ -3,7 +3,7 @@
     this.guid = guid;
     this.allCards = {};
     var that = this;
-    listOfCards.forEach(function(card) {
+    listOfCards.forEach(function (card) {
         card.deck = this;
         that.allCards[card.guid] = card;
     })

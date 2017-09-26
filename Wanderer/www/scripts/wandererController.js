@@ -11,7 +11,7 @@
         return "on update";
     }
 
-    $scope.Pages = g.services.pageService.GetPages ();
+    $scope.Pages = g.services.pageService.GetPages();
 
     g.services.pageService.GetAccount();
     

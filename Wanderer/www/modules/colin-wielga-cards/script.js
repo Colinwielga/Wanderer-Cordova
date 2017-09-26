@@ -21,40 +21,6 @@
     this.OnLoad = function () {
         var version = this.communicator.lastVersion();
         this.OnNewCharacter();
-        //if (version === -1 || version === 1.1) {
-        //    if (this.communicator.canRead("cards")) {
-        //        this.hand = JSON.parse(this.communicator.read("cards"));
-        //    }
-        //    this.activeDeck = this.startingDeck();
-        //    this.selectedDeck = ColinWielgaCards.decklist[0];
-        //} else if (version === 1.2) {
-        //    if (this.communicator.canRead("cards")){
-        //        this.hand = this.communicator.read("cards");
-        //    }
-        //    if (this.communicator.canRead("deck")) {
-        //        this.activeDeck = this.communicator.read("deck");
-        //    }
-        //} else if (version === 1.3) {
-        //    if (this.communicator.canRead("hand")) {
-        //        this.hand = this.communicator.read("hand");
-        //    }
-        //    if (this.communicator.canRead("activeDeck")) {
-        //        this.activeDeck = this.communicator.read("activeDeck");
-        //    }
-        //    if (this.communicator.canRead("selectedDeck")) {
-        //        var deckId = this.communicator.read("selectedDeck");
-        //        this.selectedDeck = null;
-        //        for (var i = 0; i < ColinWielgaCards.decklist.length; i++) {
-        //            if (ColinWielgaCards.decklist[i] == deckId){
-        //                this.selectedDeck = ColinWielgaCards.decklist[i];
-        //                break;
-        //            }
-        //        }
-        //        if (this.selectedDeck === null) {
-        //            this.selectedDeck = ColinWielgaCards.decklist[0];
-        //        }
-        //    }
-        //} else 
         if (version === 1.4) {
             if (this.communicator.canRead("selectedDeck")) {
                 var deckId = this.communicator.read("selectedDeck");
@@ -94,7 +60,7 @@
     }
 
     this.getHmtl = function () {
-        return "modules/"+ this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html"
     }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
@@ -122,7 +88,7 @@
         this.activeDeck = this.selectedDeck.defaultActive();
     }
 
-    this.getCard=function (id) {
+    this.getCard = function (id) {
         return this.selectedDeck.allCards[id];
     }
 
@@ -150,7 +116,7 @@
         return keys;
     }
 
-    this.startingDeck = function() {
+    this.startingDeck = function () {
         return this.possibleCards();
     }
 
