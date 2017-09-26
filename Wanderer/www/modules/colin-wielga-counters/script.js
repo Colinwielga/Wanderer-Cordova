@@ -4,12 +4,11 @@
     }
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
-		console.log(this.coinState);
-		
+		this.coinState = "initialCoin";
     }
     this.OnNewCharacter = function () {
         this.facts = 3;
-        this.coinState = "heads";
+        this.coinState = "initialCoin";
     }
     this.OnSave = function () {
         this.communicator.write("facts", this.facts);
@@ -24,7 +23,7 @@
         if (this.communicator.canRead("coinState")) {
             this.coinState = this.communicator.read("coinState");
         } else {
-            this.coinState = "heads";
+            this.coinState = "initialCoin";
         }
     }
     this.getHmtl = function () {
@@ -52,22 +51,21 @@
     
     this.flipCoin = function () {
 		
+//		This could theoretically have fading animation but I couldn't get it working.
+//		Someone can try to fix it later. --Nuch
 		
-        $('#coin-cover').stop(true);             // Stop all queued animations for this element (allows rapid clicking).
-        $('#coin-cover').css({'opacity': 1});
+//        $('#coin-cover').stop(true);             // Stop all queued animations for this element (allows rapid clicking).
+//        $('#coin-cover').css({'opacity': 1});
 		
 		
         this.coinState = ["heads", "tails"][Math.floor(Math.random()*2)];
-		console.log(document.getElementById('coin').className); // Check to see if the class name updated.
+
 		
 		// These variables update properly but I can't seem to make their properties pass on to the CSS.
-		this.coinImg = (this.coinState=="heads" ? "macron-wb-c-120.png" : "macron-bw-c-120.png");
-		this.coinUrl = 'url("'+this.coinImg+'")';
 		
-        $('#coin-cover').animate({'opacity': 0}, 400);
-		console.log(this.coinState); // This may show the wrong result in the console, not sure why. Just delayed.
-		console.log(this.coinImg);
-		console.log(this.coinUrl);
+//        $('#coin-cover').animate({'opacity': 0}, 400);
+//		$('#coin-cover').css({'opacity': 0})
+
     }
 
     this.OnNewCharacter();

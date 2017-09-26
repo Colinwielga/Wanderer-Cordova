@@ -1,0 +1,58 @@
+﻿<link rel="stylesheet" type="text/css" href="modules\chris-qual-outcomes\stylesheet.css">
+<div id="QUALTABLE" class="">
+    <table style="width:100%">
+
+        <tr>
+            <th>Result</th>
+            <th>Outcome</th>
+            <th>Resolved</th>
+            <th>Success</th>
+        </tr>
+        
+        <tr data-ng-repeat="outcome in module.OutcomeList">
+              
+        <td>{{outcome.name}}</td>
+        <td>{{outcome.cat}}</td>
+        <td>{{outcome.resolved? "True" : "False"}}</td>
+        <td>{{outcome.weight}}</td>
+
+    </table>
+</div>
+
+
+
+
+
+
+<div id="chanceofsuccess" >
+    <span class="descriptor">Chance Of Success</span>
+    <input value="" data-ng-model="module.success" />
+</div>
+
+
+<div id="chanceoffailure">
+    <span class="descriptor">Chance Of Failure</span>
+    <input value="" data-ng-model="module.failure" />
+</div>
+
+<div id="chanceofuncertain" >
+    <span class="descriptor">Chance Of an Uncertain Outcome</span>
+    <input value="" data-ng-model="module.uncertain" />
+</div>
+
+
+
+<div id="AdjustSuccess" >
+    <button data-ng-click="module.facts=module.facts+1">+</button>
+    <button data-ng-click="module.facts=module.facts-1">-</button>
+</div>
+
+<div class="pad-me">
+
+    <input type="button" value="Output:" data-ng-click="module.role()" />
+    <p>{{module.output}}</p>
+
+</div>
+
+
+
