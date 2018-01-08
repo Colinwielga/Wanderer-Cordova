@@ -1204,6 +1204,66 @@
                 }
             ],
             custom: false
+        },
+        {
+            label: "Master of Ceremonies",
+            moveslist:[
+                {
+                    title: "Agenda",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Present a world that's believable, understandable, but also strange and exotic</li> \
+                        <li>Keep the players on their toes</li> \
+                        <li>Play to find out what happens</li> \
+                    </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "Principles",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Fill the streets with culture and surprises</li> \
+                        <li>Slow down to add rich detail and strange juxtapositions</li> \
+                        <li>Address yourself to the characters, not the players</li> \
+                        <li>Make your move, but misdirect</li> \
+                        <li>Make your move, but never speak its name</li> \
+                        <li>Embrace impermanence, uproot eagerly</li> \
+                        <li>Name everyone, make everyone sapient (and give them each a humour)</li> \
+                        <li>Ask provocative questions and build on the answers</li> \
+                        <li>Respond with fuckery and intermittent rewards</li> \
+                        <li>Be a fan of the players' characters</li> \
+                        <li>Think offscreen, too</li> \
+                        <li>Sometimes, disclaim decision making</li> \
+                    </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "Moves",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Announce impending badness</li> \
+                        <li>Use up their resources</li> \
+                        <li>Use an antagonist's move</li> \
+                        <li>Put them in a spot</li> \
+                        <li>Lure them in deeper</li> \
+                        <li>Offer an opportunity, with or without a cost</li> \
+                        <li>Tell the consequences, and ask</li> \
+                        <li>Reveal an unexpected twist or hidden motive</li> \
+                        <li>Make them buy</li> \
+                        <li>Activate their stuff's downside</li> \
+                        <li>Give them a troublesome gift</li> \
+                        <li>Start or advance a countdown</li> \
+                        <li>Turn their waxing humours against them</li> \
+                        <li>Turn a Reputation against them</li> \
+                        <li>Turn their move back on them</li> \
+                    </ul>",
+                    collapsed: true
+                }
+            ],
+            custom: false
         }
     ];
 
