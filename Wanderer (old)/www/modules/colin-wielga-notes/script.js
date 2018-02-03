@@ -1,5 +1,5 @@
 ﻿var component = function () {
-    this.notes = ""
+    this.notes = "";
     this.getId = function () {
         return "colin-wielga-notes"
     }
