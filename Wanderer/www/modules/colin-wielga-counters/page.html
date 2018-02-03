@@ -1,20 +1,5 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/colin-wielga-counters/stylesheet.css">
 <div class="pad-me">
-    <div id="hps-container">
-        <div id="hp-container" class="stat-container">
-            <input value="" data-ng-model="module.hp" />
-            <span class="descriptor">hp</span>
-        </div>
-        <div id="encounterhp-container" class="stat-container">
-            <input value="" data-ng-model="module.encounterHP" />
-            <span class="descriptor">encounter hp</span>
-        </div>
-        <div id="hps-button-container" class="stat-button-container">
-            <button data-ng-click="module.hit()">take hit</button>
-            <button data-ng-click="module.heal()">recover hit</button>
-            <button data-ng-click="module.recoverEncounterHP()">End Scene</button>
-        </div>
-    </div>
     <div id="facts-container" class="stat-container">
         <input value="" data-ng-model="module.facts" />
         <span class="descriptor">facts</span>
@@ -23,11 +8,11 @@
         <button data-ng-click="module.facts=module.facts+1">+</button>
         <button data-ng-click="module.facts=module.facts-1">-</button>
     </div>
-    
+
     <div id="coin-container">
-        <div id="coin-cover">
-            <div id="coin" data-ng-click="module.flipCoin()" ng-class="module.coinState"> </div>
-        </div> 
+<!--        <div class="coin-cover"> -->
+            <div id="coin" data-ng-click="module.flipCoin()" ng-class="module.coinState" class="initialCoin"> </div>
+<!--        </div> -->
         <span class="descriptor">"The only morality in a cruel world is chance. Unbiased, unprejudiced, fair."</span>
     </div>
 </div>

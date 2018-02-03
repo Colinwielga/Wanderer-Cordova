@@ -1,6 +1,6 @@
 ﻿var component = function () {
     this.dc = 8;
-
+    
     this.getId = function () {
         return "colin-wielga-roll"
     }

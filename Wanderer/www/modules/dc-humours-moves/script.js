@@ -455,7 +455,7 @@
                     title: "Rebalance Orgone",
                     leadin: "When you",
                     trigger: "cut to a flashback and describe a short scene from your character's past,",
-                    effect: "reset Orgone to balanced. If it is already balanced or higher, once the \
+                    effect: "reset Orgone to balanced. Once the \
                         scene is over, ask the other players if they think what you've revealed \
                         fundamentally changes the way they see your character, or colors his/her actions \
                         in a surprising new light. If they think so, the next time you follow up on that \
@@ -469,8 +469,8 @@
                     leadin: "When you",
                     trigger: "spend a scene in calm and reasonably friendly conversation with \
                             a fellow player-character,",
-                    effect: "reset Yellow Bile to balanced. If it is already balanced or higher, \
-                            ask another player involved in the conversation if they found it to be \
+                    effect: "reset Yellow Bile to balanced. After the conversation, ask another player \
+                            involved in the conversation if they found it to be \
                             reasonably stimulating or thought-provoking. If so, take mill 1 forward to \
                             Yellow Bile. (This bonus does not stack.)",
                     humour: "yellowbile",
@@ -480,7 +480,7 @@
                     title: "Rebalance Black Bile",
                     leadin: "When you",
                     trigger: "spend a scene doing something peaceful in your personal home, haven or hidey-hole,",
-                    effect: "reset Black Bile to balanced. If it is already balanced or higher, you may \
+                    effect: "reset Black Bile to balanced. As part of the scene, you may \
                         choose to describe an object of personal significance. If you've described it \
                         before, you must reveal some significant new detail. If you describe it to \
                         everyone's satisfaction, the next time something reminds you of that object, \
@@ -493,8 +493,8 @@
                     leadin: "When you",
                     trigger: "spend a scene deliberately doing something you find unnerving or outside \
                         your comfort zone,",
-                    effect: "reset Phlegm to balanced. If it is already balanced or higher, once the \
-                        scene is over, ask the MC if they think you went out of your way to challenge \
+                    effect: "reset Phlegm to balanced. Once the scene is over, ask the MC if they \
+                        think you went out of your way to challenge \
                         yourself or face unnecessary risk. If they think you did, take mill 1 forward to Phlegm. \
                         (This bonus does not stack.)",
                     humour: "phlegm",
@@ -504,9 +504,9 @@
                     title: "Rebalance Blood",
                     leadin: "When you",
                     trigger: "confront an enemy who has hurt or wronged you and offer sincere forgiveness,",
-                    effect: "reset Blood to balanced. If it's already balanced or higher, if you also make \
-                        a tangible and costly gesture to your enemy in good faith to demonstrate your \
-                        forgiveness, and they also accept it in good faith, immediately choose a Blood \
+                    effect: "reset Blood to balanced. If you also make a tangible and costly \
+                        gesture to your enemy in good faith to demonstrate your \
+                        forgiveness, and they accept it in good faith, immediately choose a Blood \
                         advancement.",
                     humour: "blood",
                     collapsed: true,
@@ -600,7 +600,59 @@
                         </ul>",
                     collapsed: true,
                 },
-
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "collect information,",
+                    effect: "draw + discard Black Bile. On a hit, the MC gives you two truths \
+                            and a lie about the thing you're interested in. On a Sated, ask the \
+                            MC about one of the three, and they'll tell you if it's the lie. Lower \
+                            or no discard, cede initiative to the MC.",
+                    collapsed: true,
+                    humour: "blackbile"
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "follow someone discreetly,",
+                    effect: "draw + discard Yellow Bile. On a Sated, you track them to their destination without \
+                        being noticed. On a Waxing, for an NPC, the MC flips a coin and does not tell you \
+                        the result: If it's heads, you track your quarry to their destination without being \
+                        noticed. If it's tails, they notice. For a PC, choose: Shift the balance of debt in \
+                        their favor by one and you track them to their destination without being noticed, or \
+                        else ask their player whether they notice, and if they do, where you are when they \
+                        reveal that they noticed you and what they do that reveals it.</br> \
+                        Lower or no discard, they get away clean, but not before leading you somewhere troublesome.",
+                    collapsed: true,
+                    humour: "yellowbile"
+                },
+                {
+                    title: "When you stalk an enemy through difficult terrain or prepare yourself and wait for the \
+                    enemy to come to you...",
+                    leadin: "When you",
+                    trigger: "stalk an enemy through difficult terrain",
+                    effect: "draw + discard Yellow Bile. When you <b> prepare yourself and wait for the enemy \
+                        to come to you</b>, draw + discard Phlegm. In either case, on a Waxing or higher, \
+                        describe your position when direct conflict is imminent. Make it clear what your \
+                        advantage is. On a Waxing, the MC will add a twist or inconvenient detail. <br/> \
+                        Lower or no discard, your enemy finds a way to get the drop on you, or to turn the \
+                        terrain to their own advantage.",
+                    collapsed: true
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "expose yourself to an enemy's attack,",
+                    effect: "the MC will tell you how they attempt to capitalize on the opportunity.  \
+                        Either allow their attack to land, or else draw + discard Phlegm. On a Sated, \
+                        describe how you block or avoid their attack and carry through with your original intent. \
+                        On a Waxing, choose: Describe how you carry through with your original intent despite their \
+                        attack hitting you, or else describe how you abandon your intent in order to block or \
+                        avoid their attack. Lower or no discard, the MC will describe how they hurt you and \
+                        force you into a worse position.",
+                    collapsed: true,
+                    humour: "phlegm"
+                }
             ],
             custom: false
         },
@@ -633,7 +685,342 @@
                         </ul>",
                     collapsed: true,
                 },
-
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attend one of Amadeus's parties,",
+                    effect: "draw + discard Phlegm. On a Sated, hold 3. On a Waxing, hold 1. Spend \
+                        your hold 1 for 1 on these options: \
+                        <ul> \
+                            <li>Name or invent an NPC: They're there at the party with you.</li> \
+                            <li>Have a conversation with an NPC who's present, and they'll be impressed with what you say.</li> \
+                            <li>Have a conversation with an NPC who's present, and they'll agree to talk to you later.</li> \
+                            <li>Choose a character who's present: You manage to evade them all night. They never even realize you were there.</li> \
+                            <li>Invent a rumor, and everyone at the party will hear it and remember it without knowing its source.</li> \
+                        </ul> \
+                        Lower or no discard, you publically disgrace yourself due to your clumsiness, \
+                        ignorance, or poor manners. Unless you can make good with Amadeus somehow, you won't \
+                        be welcome at the next party.",
+                    collapsed: true,
+                    humour: "phlegm"
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attend one of Amadeus's parties dressed to impress,",
+                    effect: "you may choose to discard a card. If you do, the other guests find your \
+                        clothing to be the height of fashion and will show up to the next party wearing \
+                        outfits inspired by your own.",
+                    collapsed: true
+                },
+                {
+                    title: "",
+                    leadin: "",
+                    trigger: "At the beginning of each session,",
+                    effect: "if Amadeus hasn't yet announced his next party, (and it isn't currently ongoing,) \
+                        flip a coin. On a heads, mark a box in the Party Countdown. When two boxes are marked, \
+                        Amadeus will send out invitations to all PCs who have his favor.",
+                    collapsed: true
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "visit Oyster's apartment,",
+                    effect: "ask the MC what's happening downstairs. The MC will choose one of these and \
+                        describe: \
+                        <ul> \
+                            <li>You hear unsettling sounds</li> \
+                            <li>You see unsettling visions</li> \
+                            <li>You smell unsettling smells</li> \
+                            <li>A ghost appears</li> \
+                        </ul> \
+                    If you are Oyster, make this move no more than once per session.",
+                    collapsed: true
+                }
+            ],
+            custom: false
+        },
+        {
+            label: "Trial Moves",
+            moveslist: [
+                {
+                    title: "Introduce Law",
+                    leadin: "When you",
+                    trigger: "cite an existing law or legal precedent,", 
+                    effect: "draw + discard Orgone. \
+                            On a sated, the law or precedent stands, just as you say. On a waxing, the \
+                            MC will add a twist or detail. If the law or legal precedent clearly and unambigiously \
+                            supports your case for Zanzibar, choose one relevant slider and move it towards acquittal. \
+                            If it clearly and unambiguously undermines your case, the MC will choose one relevant \
+                            slider and move it towards conviction. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "orgone",
+                    collapsed: true
+                },
+                {
+                    title: "Make an Emotional Appeal",
+                    leadin: "When you",
+                    trigger: "attempt to sway the emotions of the court,", 
+                    effect: "draw + discard Orgone. On a Sated, choose one emotional state from the \
+                            list that matches the tone of your attempt, and the court will feel that \
+                            emotion until circumstances change. On a Waxing, pick three emotional states \
+                            to eliminate from the list, and the MC will choose the court's new state from \
+                            the ones that remain.<br />\
+                            <ul> \
+                                <li>Anger</li>\
+                                <li>Sorrow</li>\
+                                <li>Joy</li>\
+                                <li>Boredom</li>\
+                                <li>Fear/Disgust</li>\
+                                <li>Strange demon emotions</li>\
+                            </ul> \
+                            Regardless, the prosecutor gets a chance to speak immediately after.\
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "orgone",
+                    collapsed: true
+                },
+                {
+                    title: "Argue or Refute",
+                    leadin: "When you",
+                    trigger: "make an argument to the court,", 
+                    effect: "or when you logically refute an argument already made, ask the \
+                            MC if the judge accepts your logic. If they accept your logic, draw + \
+                            discard Yellow Bile. Take mill 1 forward if your argument cites evidence, \
+                            law, or legal precedent that has been introduced. On a hit, choose one \
+                            relevant slider and move it one space towards acquittal (if that's what \
+                            your argument or refutation supports.) If the audience's emotional state is \
+                            congruent with your argument's tone, instead move it two spaces. On a Waxing, \
+                            the prosecution also gets a chance to speak immediately after. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "yellowbile",
+                    collapsed: true
+                },
+                {
+                    title: "Introduce Evidence/Call Witness",
+                    leadin: "When you",
+                    trigger: "call for evidence or a witness to be presented to the court,", 
+                    effect: "explain to the judge how the evidence or witness is relevant to the case. \
+                            If the judge agrees it is relevant, you may introduce it/them to the court. \
+                            If the judge does not see the relevance, draw + discard Black Bile. On a Sated, \
+                            they will allow it anyway. On a Waxing, they will allow it, provided the prosecutor \
+                            gets a chance to examine, question, or tamper with it in private first. \
+                            If the evidence or witness is not currently available but might reasonably \
+                            be obtained, you can call for recess to \
+                            obtain it - if you do, take mill 1 forward for that move. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "blackbile",
+                    collapsed: true
+                },
+                {
+                    title: "Interrogate a Witness",
+                    leadin: "When you",
+                    trigger: "interrogate a witness", 
+                    effect: "proceed as per the <b>Read a Person</b> move, but spend your hold\
+                            instead on these options:<br />\
+                            <ul>\
+                                <li>Is your character telling the truth?</li> \
+                                <li>What is your character really feeling?</li> \
+                                <li>Is your character holding anything back?</li> \
+                                <li>Do you know anything important about _____ ?</li> \
+                                <li>What subject do you wish I'd ask about?</li> \
+                                <li>What subject do you most hope I'd avoid?</li> \
+                            </ul><br />\
+                            Or if your witness is a demon, on these options:<br />\
+                            <ul>\
+                                <li>Are you Zanzibar's friend?</li>\
+                                <li>Are you hungry?</li>\
+                            </ul>",
+                    humour: "blackbile",
+                    collapsed: true
+                },
+                {
+                    title: "Call for Recess",
+                    leadin: "When you",
+                    trigger: "formally request recess from trial,", 
+                    effect: "state the reason why to the judge and draw + discard Phlegm. On a hit, your \
+                            request is granted. On a Sated, also choose one:<br />\
+                            <ul> \
+                                <li>The recess will last long enough for you to do more than a single quick thing</li> \
+                                <li>You won't be escorted by demons until it ends</li> \
+                            </ul>\
+                            In either case, when the recess ends, reset your \"Held in Contempt\" countdown to 0. \
+                            <br/>Lower or no discard, cede initiative to the prosecution (or the MC.)",
+                    humour: "phlegm",
+                    collapsed: true
+                },
+                {
+                    title: "Show Contempt",
+                    leadin: "When you",
+                    trigger: "show contempt for court in the eyes of the judge,", 
+                    effect: "either intentionally or by accident, mark a box in a countdown called \
+                            \"Held in Contempt\". If you have no such countdown, create it as a 3-box \
+                            countdown. \
+                            <br/>If the third box becomes checked, immediately cede initiative to the MC.",
+                    collapsed: true
+                },
+                {
+                    title: "MC Trial Moves",
+                    leadin: "",
+                    trigger: "", 
+                    effect: "During the trial, the MC has access to the following moves: \
+                    <ul> \
+                        <li><b>Introduce a new demon law</b></li>\
+                        <li><b>Change, complicate or expand an existing law</b></li>\
+                        <li><b>Make demands, reasonable or un-</b></li>\
+                        <li><b>Enact penalties on any or all present in the courtroom</b></li>\
+                        <li><b>Introduce new evidence or witnesses</b></li>\
+                        <li><b>Demons: Act on their emotional state</b></li>\
+                        <li><b>Call for legal processes to be carried out</b></li>\
+                        <li><b>Offer a deal</b></li>\
+                        <li><b>Move a trial slider one step in any direction</b></li>\
+                    </ul>",
+                    collapsed: true
+                }
+            ]
+        },
+        {
+            label: "Fall-dough Tunnel Moves",
+            moveslist:[
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "travel through the tunnels beneath the city with a particular desination \
+                                in mind and clear directions to it,",
+                    effect: "instead of making the <b>Go Somewhere</b> move, do this: State your intended \
+                            destination, then draw + discard Yellow Bile. On a Sated, choose 3. On a \
+                            Waxing, choose 2: \
+                            <ul> \
+                                <li>You find your way to the place you were looking for, or as close as \
+                                    can be managed. (If not, the MC tells you what you find instead.)</li> \
+                                <li>You avoid running into any demonic presence</li> \
+                                <li>You don't expose yourself to Fall-dough corruption. (Otherwise, \
+                                    mark a box in the appropriate countdown.)</li> \
+                                <li>You remember the way back to where you came from.</li> \
+                            </ul> \
+                            Lower or no discard, choose 2 anyway, but neither can be that you find your way.",
+                    humour: "yellowbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "enter the tunnels beneath the city without a known, mapped destination,",
+                    effect: "start these countdowns: <br /> \
+                            Fall-dough corruption (5 boxes) <br /> \
+                            Hopelessly lost (3 boxes) <br /> \
+                            Demon attention (3 boxes) <br /> \
+                        When the fall-dough tunnel moves instruct you to \"mark a countdown box of your choice\", \
+                        they refer to the list of countdowns above, and no others.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "plunge boldly into the unknown,",
+                    effect: "draw + discard Yellow Bile. On a hit, the MC will present you with a \
+                        Discovery. On a Waxing, also choose: Mark two countdown boxes of your choice, \
+                        or the MC will present you with a Danger in addition to the Discovery.",
+                    humour: "yellowbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "proceed ahead with due caution or with cowardice,",
+                    effect: "mark a countdown box of your choice and draw + discard Phlegm. \
+                        On a Sated, the MC will present you with a Discovery. On a Waxing, the \
+                        MC will present you with either a place of safety to stop and catch your \
+                        breath, or a place of hidden danger.",
+                    humour: "phlegm",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "run panicked or wander senselessly through the tunnels,",
+                    effect: "mark a countdown box of your choice and flip a coin. On a heads, the \
+                        MC will present you with a Discovery. On a tails, the MC will present \
+                        you with a Danger.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attempt to get your bearings,",
+                    effect: "mark a box in \"Fall-dough corruption\" or \"Demon attention\" \
+                        (your choice) and draw + discard Black Bile. On a Sated, you figure out \
+                        where you are. Erase all boxes in \"Hopelessly lost\". On a Waxing, you \
+                        still aren't sure, but you at least figure out how to retrace your steps to a \
+                        single known location - the MC will tell you which. If you choose, you can then \
+                        make the <b>retrace your steps</b> move.",
+                    humour: "blackbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "retrace your steps,",
+                    effect: "tell the MC what location you wish to return to, and draw + discard \
+                        Black Bile. On a Sated, you reach that location without incident. On a Waxing, \
+                        choose: Mark a countdown box of your choice, or the MC will tell you how the \
+                        location has changed to become more dangerous since you last visited. In either \
+                        case, you may erase a box in your \"hopelessly lost\" countdown.",
+                    humour: "blackbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"fall-dough corruption\" countdown,",
+                    effect: "start a new countdown with three boxes called \"fall-dough sickness\". \
+                        Whenever you would mark a box in \"fall-dough corruption\" and there are no \
+                        empty boxes to mark, instead mark a box in \"fall-dough sickness\". As long as \
+                        \"fall-dough sickness\" has at least 1 box marked, take -1 Ongoing to all \
+                        draw+discards.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"fall-dough sickness\" countdown,",
+                    effect: "the MC will tell you how your character has been permanently \
+                        altered by the sickness.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"hopelessly lost\" countdown,",
+                    effect: "you may no longer <b>plunge boldly into the unknown</b>, <b>proceed ahead with due \
+                        caution</b>, or <b>retrace your steps</b> until at least one box is empty.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"demon attention\" countdown,",
+                    effect: "the MC will introduce a demon to the situation. When they do, erase all \
+                        \"Demon attention\" boxes.",
+                    collapsed: true,
+                },
+                {
+                    title: "MC Fall-dough Tunnel Moves",
+                    leadin: "",
+                    trigger: "", 
+                    effect: "When PCs are exploring the fall-dough tunnels, the MC has access to the \
+                        following moves: \
+                    <ul> \
+                        <li><b>Introduce demons, as pigs or otherwise</b></li>\
+                        <li><b>Block their path with surprising obstacles</b></li>\
+                        <li><b>Reveal a mystery</b></li>\
+                        <li><b>Threaten their physical or mental health</b></li>\
+                        <li><b>Offer a dilemma</b></li>\
+                        <li><b>Fill a box in one of their countdowns</b></li>\
+                        <li><b>Move them to an unexpected location</b></li>\
+                        <li><b>Reveal a Danger or Discovery</b></li>\
+                    </ul>",
+                    collapsed: true
+                }
             ],
             custom: false
         },
@@ -665,12 +1052,12 @@
                 {
                     title: "",
                     leadin: "When you",
-                    trigger: "discard up to three cards containing at least one panel each of the same color,",
+                    trigger: "discard two cards containing at least one panel each of the same color,",
                     effect: "increase the slider level of the humour that matches that color by one step. You may \
-                    not increase more than one humour at a time in this way. If your discard \
-                    reduces your hand to 0 cards, you may immediately draw 1. If your humour \
-                    advances to Sated, immediately reset to Balanced and choose a Player Advancement \
-                    from the appropriate list.",
+                        not increase more than one humour at a time in this way. If your discard \
+                        reduces your hand to 0 cards, you may immediately draw 1. If your humour \
+                        advances to Sated, immediately reset to Balanced and choose a Player Advancement \
+                        from the appropriate list.",
                     collapsed: true,
                 },
                 {
@@ -684,6 +1071,197 @@
                         are in effect.",
                     collapsed: true,
                 },
+            ],
+            custom: false
+        },
+        {
+            label: "Plasmic Rituals",
+            moveslist: [
+                {
+                    title: "Perform a Ritual",
+                    leadin: "When you",
+                    trigger: "perform a plasmic ritual,",
+                    effect: "choose 0 or more Plasm to spend. Use Plasm spent 1 for 1 to buy effects. \
+                        Also, for each Plasm spent, flip a coin. For every flip that comes up heads, the \
+                        MC gets one point to buy side effects.",
+                    collapsed: true
+                },
+                {
+                    title: "Ritual for Returning from Magbriggan",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<p>Prepare a pig swaddled in black velvet, a set of five pewter oil lamps, \
+                        a red glass tumbler, and a chamber of perfect silence and darkness. Arrange the \
+                        lamps within the chamber according to the forms and ways.</p> \
+                        <p> Blindfold the ritual's subject in black velvet and lead them into the \
+                        chamber. Bid them sit cross-legged at the chamber's crux-point and remain utterly \
+                        still and silent.</p> \
+                        </p>Into the silence and darkness, introduce five pure tones on a pentatonic scale. \
+                        Lead in the pig while the tones carry and lie it down in the exact center of the \
+                        floor. Unwrap the swaddling and pierce its gallbladder with brass. Catch the blood in \
+                        the tumbler. Annoint the ritual's subject with the blood.</p> \
+                        <p>As the pig bleeds to death, light the lamps in counterclockwise order without \
+                        gazing upon the subject. When the last lamp is lit, the subject will have vanished.</p> \
+                        <br/> \
+                        <p>By default, you get the first effect in each list. Spend plasm to buy your way up the list.</p> \
+                        Number Affected: \
+                        <ul> \
+                            <li>1 person</li> \
+                            <li>2 people</li> \
+                            <li>A group of people</li> \
+                            <li>A crowd of people</li> \
+                        </ul> \
+                        Destination: \
+                        <ul> \
+                            <li>Anywhere on Earth</li> \
+                            <li>A specific continent</li> \
+                            <li>A specific country</li> \
+                            <li>A specific city</li> \
+                            <li>Within a specific 10-foot radius</li> \
+                        </ul> \
+                        Time Period: \
+                        <ul> \
+                            <li>Anywhere in Earth's history</li> \
+                            <li>A specific century</li> \
+                            <li>A specific decade</li> \
+                            <li>A specific year</li> \
+                            <li>A specific day</li> \
+                            <li>A specific hour</li> \
+                        </ul> \
+                        Possessions: \
+                        <ul> \
+                            <li>None</li> \
+                            <li>Skintight clothing, the contents of a gripped fist</li> \
+                            <li>Loose clothing, the contents of pockets</li> \
+                            <li>Up to ten pounds of matter in physical contact with the subject</li> \
+                        </ul> \
+                        <br /> \
+                        Side Effects: \
+                        <ul> \
+                        <li>The subject suffers amnesia of the last day for hours \
+                            <ul><li>...of the last week \
+                                <ul><li>...of the whole time they spent in Magbriggan \
+                                    <ul><li>...of their whole life \
+                                    </li></ul> \
+                                </li></ul> \
+                            </li></ul> \
+                            <ul><li>...of a specific thing, person or incident \
+                            </li></ul> \
+                            <ul><li>...for weeks \
+                                <ul><li>...forever \
+                                </li></ul> \
+                            </li></ul> \
+                        </li> \
+                        <li>The ritual-caster is transported to some other location within Magbriggan</li> \
+                        <li>The ritual-caster is transported hours into the future \
+                            <ul><li>...days \
+                                <ul><li>...years \
+                                </li></ul> \
+                            </li></ul> \
+                            <ul><li>...into the past \
+                            </li></ul> \
+                        </li> \
+                        <li>The ritual-caster experiences a vision of some other time or place within Magbriggan</li> \
+                        <li>The ritual-caster learns the secret thoughts of one subject \
+                            <ul><li>...all subjects \
+                            </li></ul> \
+                        </li> \
+                        </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "General Side-Effects",
+                    leadin: "",
+                    trigger: "",
+                    effect: "\
+                        <ul> \
+                            <li>The ritual-caster suffers mystic injuries \
+                                <ul><li>...with permanent mental side effects \
+                                    <ul><li>...that drastically transform their perception of the world \
+                                    </li></ul> \
+                                </li></ul> \
+                                <ul><li>...with permanent physical side effects \
+                                    <ul><li>....that drastically transform their body \
+                                    </li></ul> \
+                                </li></ul> \
+                            </li> \
+                            <li>Ghosts appear at the ritual site \
+                                <ul><li>...and linger \
+                                </li></ul> \
+                                <ul><li>...and take personal issue with one person involved \
+                                    <ul><li>...all people involved \
+                                    </li></ul> \
+                                </li></ul> \
+                            </li> \
+                            <li>One of the ritual-caster's humours is depleted by one snifter \
+                                <ul><li>...two snifters \
+                                </li></ul> \
+                                <ul><li>All of the ritual-caster's humours... \
+                                </li></ul> \
+                            </li> \
+                        </ul>",
+                    collapsed: true
+                }
+            ],
+            custom: false
+        },
+        {
+            label: "Master of Ceremonies",
+            moveslist:[
+                {
+                    title: "Agenda",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Present a world that's believable, understandable, but also strange and exotic</li> \
+                        <li>Keep the players on their toes</li> \
+                        <li>Play to find out what happens</li> \
+                    </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "Principles",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Fill the streets with culture and surprises</li> \
+                        <li>Slow down to add rich detail and strange juxtapositions</li> \
+                        <li>Address yourself to the characters, not the players</li> \
+                        <li>Make your move, but misdirect</li> \
+                        <li>Make your move, but never speak its name</li> \
+                        <li>Embrace impermanence, uproot eagerly</li> \
+                        <li>Name everyone, make everyone sapient (and give them each a humour)</li> \
+                        <li>Ask provocative questions and build on the answers</li> \
+                        <li>Respond with fuckery and intermittent rewards</li> \
+                        <li>Be a fan of the players' characters</li> \
+                        <li>Think offscreen, too</li> \
+                        <li>Sometimes, disclaim decision making</li> \
+                    </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "Moves",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Announce impending badness</li> \
+                        <li>Use up their resources</li> \
+                        <li>Use an antagonist's move</li> \
+                        <li>Put them in a spot</li> \
+                        <li>Lure them in deeper</li> \
+                        <li>Offer an opportunity, with or without a cost</li> \
+                        <li>Tell the consequences, and ask</li> \
+                        <li>Reveal an unexpected twist or hidden motive</li> \
+                        <li>Make them buy</li> \
+                        <li>Activate their stuff's downside</li> \
+                        <li>Give them a troublesome gift</li> \
+                        <li>Start or advance a countdown</li> \
+                        <li>Turn their waxing humours against them</li> \
+                        <li>Turn a Reputation against them</li> \
+                        <li>Turn their move back on them</li> \
+                    </ul>",
+                    collapsed: true
+                }
             ],
             custom: false
         }
