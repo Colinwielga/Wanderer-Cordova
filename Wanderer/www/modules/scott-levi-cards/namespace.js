@@ -1,0 +1,3 @@
+﻿var ScottLeviCards = {};
+
+ScottLeviCards.decklist = [];
