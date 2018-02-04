@@ -28,3 +28,7 @@ Wanderer/build.json
 Wanderer/res/native/android/ant.properties
 Wanderer/www/scripts/Services/AWSConnectorKeys.js
 Wanderer (old)/www/scripts/Services/AWSConnectorKeys.js
+Wanderer/simulation/app-host.js
+Wanderer/simulation/app-host.json
+Wanderer/simulation/sim-host.js
+Wanderer/simulation/sim-host.json

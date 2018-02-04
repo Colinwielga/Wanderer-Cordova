@@ -14,13 +14,13 @@
         //    id -= 100;
         //}
         return "images/cards/" + image + ".jpg";
-    }
+    };
     this.getHtml = function () {
-        return "modules/colin-wielga-cards/card.html"
-    }
+        return "modules/colin-wielga-cards/card.html";
+    };
     this.getValue = function () {
         return this.value;
-    }
+    };
 };
 
 
