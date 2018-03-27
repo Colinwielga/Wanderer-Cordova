@@ -20,7 +20,8 @@ DCHumoursAdvancements.component = function () {
                     {text: "Retire your character to safety. Create a new character to play with if you wish."},
                     {text: "Create a second character and play them alongside the current one."},
                 ]
-            }
+            },
+            mc_advs: {taken:[], untaken:[]}
         },
         {
             humour: "orgone",
