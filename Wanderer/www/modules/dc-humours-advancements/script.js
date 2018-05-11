@@ -20,7 +20,8 @@ DCHumoursAdvancements.component = function () {
                     {text: "Retire your character to safety. Create a new character to play with if you wish."},
                     {text: "Create a second character and play them alongside the current one."},
                 ]
-            }
+            },
+            mc_advs: {taken:[], untaken:[]}
         },
         {
             humour: "orgone",
@@ -252,7 +253,7 @@ DCHumoursAdvancements.component = function () {
                     adv_humour.pc_advs.taken = loaded_humour.pc_advs_taken; 
                     //Then remove those advancements from the "untaken" list, if they're in it
                     loaded_humour.pc_advs_taken.forEach(function(adv){
-                        var untaken_index = adv_humour.pc_advs.untaken.indexOf(adv);
+                        var untaken_index = adv_humour.pc_advs.untaken.map(x => x["text"]).indexOf(adv["text"]);
                         if(untaken_index > -1 && !adv.retakable){
                             adv_humour.pc_advs.untaken.splice(untaken_index, 1);
                         }

@@ -725,25 +725,6 @@
                 {
                     title: "",
                     leadin: "When you",
-                    trigger: "travel through the tunnels beneath the city with a particular destination in mind,",
-                    effect: "instead of making the <b>Go Somewhere</b> move, do this: State your intended \
-                        destination, then draw + discard Yellow Bile. On a Sated, choose 3. On a Waxing, choose \
-                        2: \
-                        <ul> \
-                            <li>You find your way to the place you were looking for, or as close as can be managed. \
-                                (If not, the MC tells you what you find instead.)</li> \
-                            <li>You avoid running into any demonic presence</li> \
-                            <li>You don't expose yourself to Fall-dough corruption. (Otherwise, mark a box in the \
-                                appropriate countdown.)</li> \
-                            <li>You remember the way back to where you came from</li> \
-                        </ul> \
-                        Lower or no discard, choose 2 anyway, but neither can be that you find your way.",
-                    collapsed: true,
-                    humour: "yellowbile"
-                },
-                {
-                    title: "",
-                    leadin: "When you",
                     trigger: "visit Oyster's apartment,",
                     effect: "ask the MC what's happening downstairs. The MC will choose one of these and \
                         describe: \
@@ -896,6 +877,152 @@
                     collapsed: true
                 }
             ]
+        },
+        {
+            label: "Fall-dough Tunnel Moves",
+            moveslist:[
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "travel through the tunnels beneath the city with a particular desination \
+                                in mind and clear directions to it,",
+                    effect: "instead of making the <b>Go Somewhere</b> move, do this: State your intended \
+                            destination, then draw + discard Yellow Bile. On a Sated, choose 3. On a \
+                            Waxing, choose 2: \
+                            <ul> \
+                                <li>You find your way to the place you were looking for, or as close as \
+                                    can be managed. (If not, the MC tells you what you find instead.)</li> \
+                                <li>You avoid running into any demonic presence</li> \
+                                <li>You don't expose yourself to Fall-dough corruption. (Otherwise, \
+                                    mark a box in the appropriate countdown.)</li> \
+                                <li>You remember the way back to where you came from.</li> \
+                            </ul> \
+                            Lower or no discard, choose 2 anyway, but neither can be that you find your way.",
+                    humour: "yellowbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "enter the tunnels beneath the city without a known, mapped destination,",
+                    effect: "start these countdowns: <br /> \
+                            Fall-dough corruption (5 boxes) <br /> \
+                            Hopelessly lost (3 boxes) <br /> \
+                            Demon attention (3 boxes) <br /> \
+                        When the fall-dough tunnel moves instruct you to \"mark a countdown box of your choice\", \
+                        they refer to the list of countdowns above, and no others.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "plunge boldly into the unknown,",
+                    effect: "draw + discard Yellow Bile. On a hit, the MC will present you with a \
+                        Discovery. On a Waxing, also choose: Mark two countdown boxes of your choice, \
+                        or the MC will present you with a Danger in addition to the Discovery.",
+                    humour: "yellowbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "proceed ahead with due caution or with cowardice,",
+                    effect: "mark a countdown box of your choice and draw + discard Phlegm. \
+                        On a Sated, the MC will present you with a Discovery. On a Waxing, the \
+                        MC will present you with either a place of safety to stop and catch your \
+                        breath, or a place of hidden danger.",
+                    humour: "phlegm",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "run panicked or wander senselessly through the tunnels,",
+                    effect: "mark a countdown box of your choice and flip a coin. On a heads, the \
+                        MC will present you with a Discovery. On a tails, the MC will present \
+                        you with a Danger.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "attempt to get your bearings,",
+                    effect: "mark a box in \"Fall-dough corruption\" or \"Demon attention\" \
+                        (your choice) and draw + discard Black Bile. On a Sated, you figure out \
+                        where you are. Erase all boxes in \"Hopelessly lost\". On a Waxing, you \
+                        still aren't sure, but you at least figure out how to retrace your steps to a \
+                        single known location - the MC will tell you which. If you choose, you can then \
+                        make the <b>retrace your steps</b> move.",
+                    humour: "blackbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "retrace your steps,",
+                    effect: "tell the MC what location you wish to return to, and draw + discard \
+                        Black Bile. On a Sated, you reach that location without incident. On a Waxing, \
+                        choose: Mark a countdown box of your choice, or the MC will tell you how the \
+                        location has changed to become more dangerous since you last visited. In either \
+                        case, you may erase a box in your \"hopelessly lost\" countdown.",
+                    humour: "blackbile",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"fall-dough corruption\" countdown,",
+                    effect: "start a new countdown with three boxes called \"fall-dough sickness\". \
+                        Whenever you would mark a box in \"fall-dough corruption\" and there are no \
+                        empty boxes to mark, instead mark a box in \"fall-dough sickness\". As long as \
+                        \"fall-dough sickness\" has at least 1 box marked, take -1 Ongoing to all \
+                        draw+discards.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"fall-dough sickness\" countdown,",
+                    effect: "the MC will tell you how your character has been permanently \
+                        altered by the sickness.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"hopelessly lost\" countdown,",
+                    effect: "you may no longer <b>plunge boldly into the unknown</b>, <b>proceed ahead with due \
+                        caution</b>, or <b>retrace your steps</b> until at least one box is empty.",
+                    collapsed: true,
+                },
+                {
+                    title: "",
+                    leadin: "When you",
+                    trigger: "fill the last box in the \"demon attention\" countdown,",
+                    effect: "the MC will introduce a demon to the situation. When they do, erase all \
+                        \"Demon attention\" boxes.",
+                    collapsed: true,
+                },
+                {
+                    title: "MC Fall-dough Tunnel Moves",
+                    leadin: "",
+                    trigger: "", 
+                    effect: "When PCs are exploring the fall-dough tunnels, the MC has access to the \
+                        following moves: \
+                    <ul> \
+                        <li><b>Introduce demons, as pigs or otherwise</b></li>\
+                        <li><b>Block their path with surprising obstacles</b></li>\
+                        <li><b>Reveal a mystery</b></li>\
+                        <li><b>Threaten their physical or mental health</b></li>\
+                        <li><b>Offer a dilemma</b></li>\
+                        <li><b>Fill a box in one of their countdowns</b></li>\
+                        <li><b>Move them to an unexpected location</b></li>\
+                        <li><b>Reveal a Danger or Discovery</b></li>\
+                    </ul>",
+                    collapsed: true
+                }
+            ],
+            custom: false
         },
         {
             label: "Card Moves",
@@ -1073,6 +1200,66 @@
                                 </li></ul> \
                             </li> \
                         </ul>",
+                    collapsed: true
+                }
+            ],
+            custom: false
+        },
+        {
+            label: "Master of Ceremonies",
+            moveslist:[
+                {
+                    title: "Agenda",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Present a world that's believable, understandable, but also strange and exotic</li> \
+                        <li>Keep the players on their toes</li> \
+                        <li>Play to find out what happens</li> \
+                    </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "Principles",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Fill the streets with culture and surprises</li> \
+                        <li>Slow down to add rich detail and strange juxtapositions</li> \
+                        <li>Address yourself to the characters, not the players</li> \
+                        <li>Make your move, but misdirect</li> \
+                        <li>Make your move, but never speak its name</li> \
+                        <li>Embrace impermanence, uproot eagerly</li> \
+                        <li>Name everyone, make everyone sapient (and give them each a humour)</li> \
+                        <li>Ask provocative questions and build on the answers</li> \
+                        <li>Respond with fuckery and intermittent rewards</li> \
+                        <li>Be a fan of the players' characters</li> \
+                        <li>Think offscreen, too</li> \
+                        <li>Sometimes, disclaim decision making</li> \
+                    </ul>",
+                    collapsed: true
+                },
+                {
+                    title: "Moves",
+                    leadin: "",
+                    trigger: "",
+                    effect: "<ul> \
+                        <li>Announce impending badness</li> \
+                        <li>Use up their resources</li> \
+                        <li>Use an antagonist's move</li> \
+                        <li>Put them in a spot</li> \
+                        <li>Lure them in deeper</li> \
+                        <li>Offer an opportunity, with or without a cost</li> \
+                        <li>Tell the consequences, and ask</li> \
+                        <li>Reveal an unexpected twist or hidden motive</li> \
+                        <li>Make them buy</li> \
+                        <li>Activate their stuff's downside</li> \
+                        <li>Give them a troublesome gift</li> \
+                        <li>Start or advance a countdown</li> \
+                        <li>Turn their waxing humours against them</li> \
+                        <li>Turn a Reputation against them</li> \
+                        <li>Turn their move back on them</li> \
+                    </ul>",
                     collapsed: true
                 }
             ],
