@@ -1,5 +1,8 @@
 ﻿var AccountList = "AccountList";
 
+// for debgging really
+var online = false;
+
 g.services.accountService = {
     // pass takes an account object
     // fail takes an error
@@ -7,7 +10,7 @@ g.services.accountService = {
     GetAccount: function (pass, notFound, fail) {
         // try to load from memory
         var accountsString = window.localStorage.getItem(AccountList);
-        if (accountsString != null) {
+        if (accountsString != null && online) {
             var accounts = angular.fromJson(accountsString);
 
             g.services.AWSConnector.GetAccount(
@@ -23,17 +26,22 @@ g.services.accountService = {
 
             var account = g.models.newAccount();
 
-            g.services.AWSConnector.saveAccount(
-                account.id,
-                account.name,
-                null,
-                angular.toJson(account.json()),
-                function (result) {
-                    window.localStorage.setItem(AccountList, angular.toJson([account.id]));
-                    g.services.accountService.currentAccount = account;
-                    pass(account)
-                },
-                fail)
+            if (online) {
+                g.services.AWSConnector.saveAccount(
+                    account.id,
+                    account.name,
+                    null,
+                    angular.toJson(account.json()),
+                    function (result) {
+                        window.localStorage.setItem(AccountList, angular.toJson([account.id]));
+                        g.services.accountService.currentAccount = account;
+                        pass(account)
+                    },
+                    fail);
+            } else {
+                g.services.accountService.currentAccount = account;
+                pass(account)
+            }
         }
 
         //      pull from awe, return
@@ -102,7 +110,7 @@ g.services.accountService = {
                     },
                     fail)
             }
-            ,fail);
+            , fail);
     }
 };
 

@@ -5,7 +5,7 @@ var g = {};
 g.services = {};
 g.models = {};
 
-var App = angular.module("wandererApp", ['textAngular']);
+var App = angular.module("wandererApp", ['textAngular', 'ngDraggable']);
 
 
 // source:

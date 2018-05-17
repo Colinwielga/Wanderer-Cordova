@@ -1,21 +1,30 @@
-﻿<div class="classic-card card card-color-dark" data-ng-click="module.discard(cardID)" data-ng-init="card = module.getCard(cardID)" draggable="true" ondragstart="angular.element(this).scope().pickUp(ev)" data-cardId="{{cardID}}">
+﻿<!--data-ng-click="module.discard(cardID)"-->
+
+<div data-ng-class="{expanded: module.Dragging()}"
+     class="drag-target drag-target-left"
+     data-ng-init="card = module.getCard(cardID)"
+     data-ng-hide="{{card.lifted || !module.Dragging()}}">
+    <div class="action-circle">
+    </div>
+</div>
+<div class="classic-card card card-color-dark"
+     data-ng-init="card = module.getCard(cardID)"
+     draggable="true"
+     data-ng-hide="{{card.lifted}}"
+     ondragstart="ScottLeviCards.component.pickUp(DragEvent)"
+     data-cardId="{{cardID}}">
 
     <div class="card-border" back-img="{{card.getImage()}}">
-        <!-- data-ng-style="{'background-image':'url(/static/'+module.getCardImage(cardID)+')'}" -->
-        <!--<img src="{{module.getCardImage(cardID)}}" alt="{{module.getCardName(cardID)}}" />-->
-        <!-- style="{{'background-image: url(' + module.getCardImage(cardID) +');'}}" -->
-        <!--<div class="card-name-container">
-            <span class="card-name">{{module.getCardName(cardID)}}</span>
-        </div>-->
-        <!--<div class="card-poly-container">
-            <span class="positioner">
-                                 </span>
-        </div>-->
         <div class="card-padding"></div>
         <div class="card-number-container">
             <span class="card-ability">{{card.text}}</span>
             <span class="card-number">{{card.getValue()}}</span>
         </div>
     </div>
-
+</div>
+<div class="drag-target drag-target-right"
+     data-ng-init="card = module.getCard(cardID)"
+     data-ng-hide="{{card.lifted || !module.Dragging()}}">
+    <div class="action-circle">
+    </div>
 </div>

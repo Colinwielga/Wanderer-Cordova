@@ -7,16 +7,10 @@
     this.inDefault = inDefault;
     this.image = image;
     this.getImage = function () {
-        //var id = this.id();
-        //// this feels like a hack
-        //// can i just use the name?
-        //while (id >= 100) {
-        //    id -= 100;
-        //}
         return "images/cards/" + image + ".jpg";
     }
     this.getHtml = function () {
-        return "modules/colin-wielga-cards/card.html"
+        return "modules/scott-levi-cards/card.html"
     }
     this.getValue = function () {
         return this.value;

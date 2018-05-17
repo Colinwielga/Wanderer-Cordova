@@ -10,7 +10,7 @@
 <div class="card-cards-container">
     <center>
         <div data-ng-repeat="cardID in module.hand" class="card-container">
-            <div data-ng-include="module.getCard(cardID).getHtml()"></div>
+            <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         </div>
     </center>
 </div>
@@ -18,7 +18,7 @@
 <div class="card-cards-container" ondrop="angular.element(this).scope().drop(event)">
     <center>
         <div data-ng-repeat="cardID in module.inPlay" class="card-container">
-            <div data-ng-include="module.getCard(cardID).getHtml()"></div>
+            <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         </div>
     </center>
 </div>

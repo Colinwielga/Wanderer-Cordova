@@ -7,15 +7,19 @@ ScottLeviCards.component = function () {
     }
 
     this.pickUp = function(ev) {
-        ev.dataTransfer.setData("cardId", ev.target.dataset["cardId"]);
+        //ev.dataTransfer.setData("cardId", ev.target.dataset["cardId"]);
+        console.log("did that work??");
     }
     this.Drop = function(ev) {
         var index = this.hand.indexOf(ev.dataTransfer.getData("cardId"));
         if (index > -1) {
             this.hand.splice(index, 1);
         }
-        this.inPlay.push(ev.dataTransfer.getData("cardId"))
-        
+        this.inPlay.push(ev.dataTransfer.getData("cardId"));
+    }
+
+    this.Dragging = function() {
+        return true;
     }
 
     this.OnStart = function (communicator, logger, page, dependencies) {
@@ -43,7 +47,7 @@ ScottLeviCards.component = function () {
                 var deckId = this.communicator.read("selectedDeck");
                 this.selectedDeck = null;
                 for (var i = 0; i < ScottLeviCards.decklist.length; i++) {
-                    if (ScottLeviCards.decklist[i].guid == deckId) {
+                    if (ScottLeviCards.decklist[i].guid === deckId) {
                         this.selectedDeck = ScottLeviCards.decklist[i];
                         break;
                     }
@@ -119,7 +123,7 @@ ScottLeviCards.component = function () {
 
     this.toggleCardActive = function (id) {
         var at = this.activeDeck.indexOf(id);
-        if (at == -1) {
+        if (at === -1) {
             this.activeDeck.push(id);
         } else {
             this.activeDeck.splice(at, 1);
