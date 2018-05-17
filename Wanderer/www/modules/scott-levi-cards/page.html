@@ -15,7 +15,9 @@
     </center>
 </div>
 <h3>In Play:</h3>
-<div class="card-cards-container" ondrop="angular.element(this).scope().drop(event)">
+<div class="card-cards-container" 
+     ng-drop="true" 
+     ng-drop-success="module.drop($data,$event)" >
     <center>
         <div data-ng-repeat="cardID in module.inPlay" class="card-container">
             <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>

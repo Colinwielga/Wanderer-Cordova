@@ -1,6 +1,9 @@
 /* Things for all cards */
 #scott-levi-cards div.card-cards-container {
     margin-top: 8px;
+    min-height: 100px;
+    min-width: 200px;
+    background-color: aqua;
 }
 
 #scott-levi-cards div.card-container {

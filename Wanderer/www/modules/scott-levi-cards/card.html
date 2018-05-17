@@ -7,13 +7,13 @@
     <div class="action-circle">
     </div>
 </div>
+<!-- ondragstart="ScottLeviCards.component.pickUp(DragEvent)" -->
 <div class="classic-card card card-color-dark"
      data-ng-init="card = module.getCard(cardID)"
-     draggable="true"
+     ng-drag="true" 
+     ng-drag-data="card"
      data-ng-hide="{{card.lifted}}"
-     ondragstart="ScottLeviCards.component.pickUp(DragEvent)"
      data-cardId="{{cardID}}">
-
     <div class="card-border" back-img="{{card.getImage()}}">
         <div class="card-padding"></div>
         <div class="card-number-container">

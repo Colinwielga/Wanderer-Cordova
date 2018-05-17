@@ -8,14 +8,16 @@ ScottLeviCards.component = function () {
 
     this.pickUp = function(ev) {
         //ev.dataTransfer.setData("cardId", ev.target.dataset["cardId"]);
-        console.log("did that work??");
+        //console.log("did that work??");
     }
-    this.Drop = function(ev) {
-        var index = this.hand.indexOf(ev.dataTransfer.getData("cardId"));
+    this.drop = function (data, event) {
+        console.log("drag success, data:", data);
+        var index = this.hand.indexOf(data.guid);
         if (index > -1) {
             this.hand.splice(index, 1);
         }
-        this.inPlay.push(ev.dataTransfer.getData("cardId"));
+        this.inPlay.push(data.guid);
+        console.log("drag success, in play:", this.inPlay);
     }
 
     this.Dragging = function() {
