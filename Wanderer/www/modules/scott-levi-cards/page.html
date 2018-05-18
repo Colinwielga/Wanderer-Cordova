@@ -32,7 +32,22 @@
         </div>
     </center>
 </div>
+<h3>Select Card Archetype</h3>
+<div data-ng-repeat="cardID in module.inPlay" class="card-container">
+    <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
+</div>
 <h3>Archetype Classes and Abilities:</h3>
+<div data-ng-repeat="cardID in module.inPlay" class="card-container">
+    {{module.getCard(cardID).name"}}
+    <input type="radio" name="level" value="Warrior">
+    <label for="Warrior"> Warrior (swords)</label>
+    <input type="radio" name="level" value="Magician">
+    <label for="Magician"> Magician (wands)</label>
+    <input type="radio" name="level" value="Influencer">
+    <label for="Influencer"> Influencer (cups)</label>
+    <input type="radio" name="chooseone" value="Scientist">
+    <label for="Scientist"> Scientist (Pentacles)</label>
+</div>
 <ul>
     <li data-ng-repeat="ability in module.getAbilities()" class="card-container">
         {{ability}}
@@ -49,6 +64,7 @@
         <!--<select name="repeatSelect"  data-ng-model="module.selectedDeck"><option data-ng-repeat="deck in module.decklist" data-ng-value="deck.name">{{deck.name}}</option>
         </select>-->
         <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-click="module.toggleCardActive(cardID)">
+
             {{module.getCard(cardID).name}}
         </div>
     </div>
