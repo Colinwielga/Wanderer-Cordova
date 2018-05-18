@@ -52,7 +52,7 @@ ScottLeviCards.component = function () {
             this.inPlay.splice(index, 0, data.guid);
         }
     }
-
+    
     this.dropRight = function (cardNextTo, data, event) {
         var index = this.hand.indexOf(data.guid);
         if (index > -1) {
@@ -70,6 +70,17 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index+1, 0, data.guid);
         }
+    }
+
+    this.getAbilities = function () {
+        var cards = [];
+        for (var card in this.getCard(this.inPlay)) {
+            cards.push(card);
+        }
+
+        // todo a whole lot of code goes here
+        
+        return ["test 1", "test 2", "test 3"];
     }
 
     this.Dragging = function() {

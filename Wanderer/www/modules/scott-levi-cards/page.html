@@ -1,4 +1,4 @@
-﻿<link rel="stylesheet" type="text/css" href="modules/scott-levi-cards/stylesheet.css"/>
+﻿<link rel="stylesheet" type="text/css" href="modules/scott-levi-cards/stylesheet.css" />
 
 <div class="card-buttons-container pad-me highlight-section">
     <center>
@@ -12,7 +12,7 @@
         <div data-ng-repeat="cardID in module.hand" class="card-container">
             <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         </div>
-        <div ng-drop="true" 
+        <div ng-drop="true"
              class="empty-add"
              ng-drop-success="module.dropEmptyHand($data,$event)"
              data-ng-show="module.hand.length == 0">
@@ -20,28 +20,33 @@
     </center>
 </div>
 <h3>In Play:</h3>
-<div class="card-cards-container" >
+<div class="card-cards-container">
     <center>
         <div data-ng-repeat="cardID in module.inPlay" class="card-container">
             <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         </div>
-        <div ng-drop="true" 
+        <div ng-drop="true"
              class="empty-add"
              ng-drop-success="module.dropEmptyInPlay($data,$event)"
              data-ng-show="module.inPlay.length == 0">
         </div>
     </center>
 </div>
-<input type="checkbox" class="hide-check" id="setting-hide" checked/>
+<h3>Archetype Classes and Abilities:</h3>
+<ul>
+    <li data-ng-repeat="ability in module.getAbilities()" class="card-container">
+        {{ability}}
+    </li>
+</ul>
+<input type="checkbox" class="hide-check" id="setting-hide" checked />
 <div class="deck-container-outer">
     <div class="rules-divider"></div>
     <div class="deck-container">
         <label for="decks"> Repeat select: </label>
-        
-            <select id="decks" data-ng-options="deck as deck.name for deck in module.decklist"
-                    data-ng-model="module.selectedDeck" data-ng-change="module.deckSelected()"
-                    ></select>
-            <!--<select name="repeatSelect"  data-ng-model="module.selectedDeck"><option data-ng-repeat="deck in module.decklist" data-ng-value="deck.name">{{deck.name}}</option>
+
+        <select id="decks" data-ng-options="deck as deck.name for deck in module.decklist"
+                data-ng-model="module.selectedDeck" data-ng-change="module.deckSelected()"></select>
+        <!--<select name="repeatSelect"  data-ng-model="module.selectedDeck"><option data-ng-repeat="deck in module.decklist" data-ng-value="deck.name">{{deck.name}}</option>
         </select>-->
         <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-click="module.toggleCardActive(cardID)">
             {{module.getCard(cardID).name}}
