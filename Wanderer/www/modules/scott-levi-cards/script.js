@@ -10,14 +10,66 @@ ScottLeviCards.component = function () {
         //ev.dataTransfer.setData("cardId", ev.target.dataset["cardId"]);
         //console.log("did that work??");
     }
-    this.drop = function (data, event) {
-        console.log("drag success, data:", data);
+    this.dropEmptyHand = function (data, event) {
         var index = this.hand.indexOf(data.guid);
         if (index > -1) {
             this.hand.splice(index, 1);
         }
-        this.inPlay.push(data.guid);
-        console.log("drag success, in play:", this.inPlay);
+        var index = this.inPlay.indexOf(data.guid);
+        if (index > -1) {
+            this.inPlay.splice(index, 1);
+        }
+        this.hand.push(data.guid)
+    }
+
+    this.dropEmptyInPlay = function (data, event) {
+        var index = this.hand.indexOf(data.guid);
+        if (index > -1) {
+            this.hand.splice(index, 1);
+        }
+        index = this.inPlay.indexOf(data.guid);
+        if (index > -1) {
+            this.inPlay.splice(index, 1);
+        }
+        this.inPlay.push(data.guid)
+    }
+
+    this.dropLeft = function (cardNextTo, data, event) {
+        var index = this.hand.indexOf(data.guid);
+        if (index > -1) {
+            this.hand.splice(index, 1);
+        }
+        index = this.inPlay.indexOf(data.guid);
+        if (index > -1) {
+            this.inPlay.splice(index, 1);
+        }
+        index = this.hand.indexOf(cardNextTo.guid);
+        if (index > -1) {
+            this.hand.splice(index, 0, data.guid);
+        }
+        index = this.inPlay.indexOf(cardNextTo.guid);
+        if (index > -1) {
+            this.inPlay.splice(index, 0, data.guid);
+        }
+    }
+
+    this.dropRight = function (cardNextTo, data, event) {
+        var index = this.hand.indexOf(data.guid);
+        if (index > -1) {
+            this.hand.splice(index, 1);
+        }
+        index = this.inPlay.indexOf(data.guid);
+        if (index > -1) {
+            this.inPlay.splice(index, 1);
+        }
+        index = this.hand.indexOf(cardNextTo.guid);
+        if (index > -1) {
+            this.hand.splice(index+1, 0, data.guid);
+        }
+        index = this.inPlay.indexOf(cardNextTo.guid);
+        if (index > -1) {
+            this.inPlay.splice(index+1, 0, data.guid);
+        }
     }
 
     this.Dragging = function() {
@@ -160,6 +212,12 @@ ScottLeviCards.component = function () {
                 fail = false;
                 for (var i = 0; i < this.hand.length; i++) {
                     if (this.hand[i] === num) {
+                        fail = true;
+                        break;
+                    }
+                }
+                for (var i = 0; i < this.inPlay.length; i++) {
+                    if (this.inPlay[i] === num) {
                         fail = true;
                         break;
                     }

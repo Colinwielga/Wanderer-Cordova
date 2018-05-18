@@ -1,10 +1,13 @@
 /* Things for all cards */
 #scott-levi-cards div.card-cards-container {
     margin-top: 8px;
-    min-height: 100px;
-    min-width: 200px;
-    background-color: aqua;
 }
+
+#scott-levi-cards div.empty-add {
+    height: 100px;
+    background-color: mediumpurple;
+}
+
 
 #scott-levi-cards div.card-container {
     display: inline-block;
@@ -20,17 +23,7 @@
     margin-right: 0px;
     margin-left: 0px;
     width: 100px;
-}
-
-#scott-levi-cards .drag-target {
-    height: 350px;
-    width: 0px;
-    display: inline-block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 0px;
-    margin-left: 0px;
-    width: 100px;
+    background-color: pink;
 }
 
 #scott-levi-cards .drag-target.drag-target-left {
@@ -39,24 +32,6 @@
 
 #scott-levi-cards .drag-target.drag-target-right {
     margin-left: -100px;
-}
-
-#scott-levi-cards .action-circle {
-    width: 40px;
-    height: 70px;
-    border-radius: 5px;
-    margin: auto;
-    background-color: white;
-    box-shadow: 0px 0px 30px #FFF;
-    opacity: 0;
-    -moz-transition: opacity ease .4s;
-    -o-transition: opacity ease .4s;
-    -webkit-transition: opacity ease .4s;
-    transition: opacity ease .4s;
-}
-
-#scott-levi-cards .drag-target:hover .action-circle {
-    opacity: 1;
 }
 
 #scott-levi-cards .wrapped-card {
