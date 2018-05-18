@@ -1,18 +1,11 @@
 ﻿<!--data-ng-click="module.discard(cardID)"-->
 
-<div data-ng-class="{expanded: module.Dragging()}"
-     class="drag-target drag-target-left"
-     ng-drop="true" 
-     ng-drop-success="module.dropRight(card,$data,$event)"
-     data-ng-init="card = module.getCard(cardID)"
-     data-ng-hide="{{card.lifted || !module.Dragging()}}">
-</div>
+
 <!-- ondragstart="ScottLeviCards.component.pickUp(DragEvent)" -->
 <div class="classic-card card card-color-dark"
-     data-ng-init="card = module.getCard(cardID)"
+     ng-init="card = module.getCard(cardID)"
      ng-drag="true" 
      ng-drag-data="card"
-     data-ng-hide="{{card.lifted}}"
      data-cardId="{{cardID}}">
     <div class="card-border" back-img="{{card.getImage()}}">
         <div class="card-padding"></div>
@@ -22,9 +15,17 @@
         </div>
     </div>
 </div>
-<div class="drag-target drag-target-right"
+<div class="drag-target"
      data-ng-init="card = module.getCard(cardID)"
-     ng-drop="true" 
-     ng-drop-success="module.dropRight(card,$data,$event)"
-     data-ng-hide="{{card.lifted || !module.Dragging()}}">
+     ng-hide="!module.Dragging()">
+    <div ng-class="{expanded: module.Dragging()}"
+         class="drag-target-left"
+         ng-drop="true"
+         ng-drop-success="module.dropLeft(card,$data,$event)"
+         >
+    </div>
+    <div class="drag-target-right"
+         ng-drop="true"
+         ng-drop-success="module.dropRight(card,$data,$event)">
+    </div>
 </div>

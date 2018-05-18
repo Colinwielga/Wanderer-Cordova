@@ -16,23 +16,27 @@
 
 #scott-levi-cards .drag-target {
     height: 350px;
-    width: 0px;
     display: inline-block;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 200px;
+    margin-left: -240px;
     margin-right: 0px;
-    margin-left: 0px;
-    width: 100px;
-    background-color: pink;
 }
 
-#scott-levi-cards .drag-target.drag-target-left {
-    margin-right: -100px;
-}
+    #scott-levi-cards .drag-target .drag-target-left {
+        height: 350px;
+        width: 120px;
+        display: inline-block;
+        background-color: red;
+    }
 
-#scott-levi-cards .drag-target.drag-target-right {
-    margin-left: -100px;
-}
+    #scott-levi-cards .drag-target .drag-target-right {
+        height: 350px;
+        width: 120px;
+        display: inline-block;
+        background-color: forestgreen;
+    }
 
 #scott-levi-cards .wrapped-card {
 }
