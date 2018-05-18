@@ -2,6 +2,7 @@
 ScottLeviCards.component = function () {
     var that = this;
     this.decklist = ScottLeviCards.decklist;
+    this.isDragging = false;
     this.getId = function () {
         return "scott-levi-cards"
     }
