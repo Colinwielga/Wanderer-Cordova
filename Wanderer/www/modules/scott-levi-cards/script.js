@@ -71,14 +71,30 @@ ScottLeviCards.component = function () {
             this.inPlay.splice(index+1, 0, data.guid);
         }
     }
+    this.swords = "swords";
+    this.wands = "wands";
+    this.pentacles = "pentacles";
+    this.cups = "cups"
+    this.cardArchetype = {
+        "{E4FCE685-BCE3-4CED-B911-2DDF38E99C85}": this.wands,
+        "{DA9712EC-5B22-4B68-9883-4B51C2F47D79}": this.cups,
+        "{777CF479-0630-4653-AD00-5DFA574D4828}": this.swords,
+        "{7C26A612-D5CF-4DC1-891D-70C65B6FA070}": this.pentacles
+    }
 
     this.getAbilities = function () {
+        //var cards = [];
+        //for (var card in this.getCard(this.inPlay)) {
+        //    cards.push(card);
+        //}
         var cards = [];
-        for (var card in this.getCard(this.inPlay)) {
-            cards.push(card);
-        }
+        cards.push(this.getCard("{E4FCE685-BCE3-4CED-B911-2DDF38E99C85}"));
+        cards.push(this.getCard("{DA9712EC-5B22-4B68-9883-4B51C2F47D79}"));
+        cards.push(this.getCard("{777CF479-0630-4653-AD00-5DFA574D4828}"));
+        cards.push(this.getCard("{7C26A612-D5CF-4DC1-891D-70C65B6FA070}"))
+        
 
-        // todo a whole lot of code goes here
+        // todo a whole lot of code goes here!
         
         return ["test 1", "test 2", "test 3"];
     }

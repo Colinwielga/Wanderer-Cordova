@@ -5,6 +5,7 @@
 <div class="classic-card card card-color-dark"
      ng-init="card = module.getCard(cardID)"
      ng-drag="true" 
+     ng-dblclick="discard(cardID)"
      ng-drag-data="card"
      data-cardId="{{cardID}}">
     <div class="card-border" back-img="{{card.getImage()}}">
