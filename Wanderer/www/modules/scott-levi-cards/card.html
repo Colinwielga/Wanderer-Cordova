@@ -5,6 +5,9 @@
 <div class="classic-card card card-color-dark"
      ng-init="card = module.getCard(cardID)"
      ng-drag="true" 
+     ng-drag-start="module.isDragging = true"
+     ng-drag-success="module.isDragging = false"
+     ng-drag-stop="module.isDragging = false"
      ng-dblclick="module.discard(cardID)"
      ng-drag-data="card"
      data-cardId="{{cardID}}">
@@ -18,7 +21,7 @@
 </div>
 <div class="drag-target"
      data-ng-init="card = module.getCard(cardID)"
-     ng-hide="!module.Dragging()">
+     ng-hide="!module.isDragging">
     <div ng-class="{expanded: module.Dragging()}"
          class="drag-target-left"
          ng-drop="true"
