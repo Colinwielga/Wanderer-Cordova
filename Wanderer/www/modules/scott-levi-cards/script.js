@@ -263,6 +263,11 @@ ScottLeviCards.component = function () {
                 this.hand.splice(i, 1);
             }
         }
+        for (var i = 0; i < this.hand.length; i++) {
+            if (this.inPlay[i] === cardID) {
+                this.inPlay.splice(i, 1);
+            }
+        }
     };
     this.OnNewCharacter();
 }
