@@ -93,9 +93,31 @@ ScottLeviCards.component = function () {
         cards.push(this.getCard("{DA9712EC-5B22-4B68-9883-4B51C2F47D79}"));
         cards.push(this.getCard("{777CF479-0630-4653-AD00-5DFA574D4828}"));
         cards.push(this.getCard("{7C26A612-D5CF-4DC1-891D-70C65B6FA070}"))
-        
-        return ["test 1", "test 2", "test 3"];
-    }
+               
+        var numWands = 0;
+        var numCups = 0;
+        var numSwords = 0;
+        var numPentacles = 0;
+    
+        // todo a whole lot of code goes here!
+        for (var card in cards) {
+            if (cardArchetype[card.guid] == this.swords) {
+                numSwords = numSwords + 1;
+            } 
+            if (cardArchetype[card.guid] == this.pentacles) {
+                numSwords = numPentacles + 1;
+            }
+            if (cardArchetype[card.guid] == this.wands) {
+                numSwords = numWands + 1;
+            }
+            if (cardArchetype[card.guid] == this.cups) {
+                numSwords = numCups + 1;
+            }
+    
+        }        
+        // todo a whole lot of code goes here!
+        return ["Wands; " + numWands, "test 2", "test 3"];
+    } 
 
     this.Dragging = function() {
         return true;
