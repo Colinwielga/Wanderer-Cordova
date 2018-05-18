@@ -76,12 +76,12 @@ ScottLeviCards.component = function () {
     this.wands = "wands";
     this.pentacles = "pentacles";
     this.cups = "cups"
-    this.cardArchetype = {
-        "{E4FCE685-BCE3-4CED-B911-2DDF38E99C85}": this.wands,
-        "{DA9712EC-5B22-4B68-9883-4B51C2F47D79}": this.cups,
-        "{777CF479-0630-4653-AD00-5DFA574D4828}": this.swords,
-        "{7C26A612-D5CF-4DC1-891D-70C65B6FA070}": this.pentacles
-    }
+    this.cardArchetype = {};
+    this.cardArchetype["{E4FCE685-BCE3-4CED-B911-2DDF38E99C85}"] = this.wands;
+    this.cardArchetype["{DA9712EC-5B22-4B68-9883-4B51C2F47D79}"] = this.cups;
+    this.cardArchetype["{777CF479-0630-4653-AD00-5DFA574D4828}"] = this.swords;
+    this.cardArchetype["{7C26A612-D5CF-4DC1-891D-70C65B6FA070}"] = this.pentacles;
+    
 
     this.getAbilities = function () {
         //var cards = [];
@@ -285,7 +285,7 @@ ScottLeviCards.component = function () {
                 this.hand.splice(i, 1);
             }
         }
-        for (var i = 0; i < this.hand.length; i++) {
+        for (var i = 0; i < this.inPlay.length; i++) {
             if (this.inPlay[i] === cardID) {
                 this.inPlay.splice(i, 1);
             }
