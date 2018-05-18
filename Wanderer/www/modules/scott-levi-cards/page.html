@@ -6,7 +6,8 @@
         <label class="label-button" for="setting-hide">modify deck</label>
     </center>
 </div>
-<h3>Hand:</h3>
+<h3>Hand</h3>
+<div class="card-cards-container-container hand">
 <div class="card-cards-container">
     <center>
         <div data-ng-repeat="cardID in module.hand" class="card-container">
@@ -19,7 +20,9 @@
         </div>
     </center>
 </div>
-<h3>In Play:</h3>
+</div>
+<h3>Table</h3>
+<div class="card-cards-container-container table">
 <div class="card-cards-container">
     <center>
         <div data-ng-repeat="cardID in module.inPlay" class="card-container">
@@ -31,6 +34,7 @@
              data-ng-show="module.inPlay.length == 0">
         </div>
     </center>
+</div>
 </div>
 <h3>Select Card Archetype</h3>
 <div data-ng-repeat="cardID in module.inPlay" class="card-container">
