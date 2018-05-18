@@ -94,9 +94,6 @@ ScottLeviCards.component = function () {
         cards.push(this.getCard("{777CF479-0630-4653-AD00-5DFA574D4828}"));
         cards.push(this.getCard("{7C26A612-D5CF-4DC1-891D-70C65B6FA070}"))
         
-
-        // todo a whole lot of code goes here!
-        
         return ["test 1", "test 2", "test 3"];
     }
 
@@ -119,6 +116,7 @@ ScottLeviCards.component = function () {
         this.communicator.write("inPlay", this.inPlay);
         this.communicator.write("hand", this.hand);
         this.communicator.write("activeDeck", this.activeDeck);
+        this.communicator.write("cardArchetype", this.cardArchetype);
         this.communicator.write("selectedDeck", this.selectedDeck.guid);
     }
     this.OnLoad = function () {
@@ -166,6 +164,10 @@ ScottLeviCards.component = function () {
                             that.inPlay.push(id);
                         }
                     });
+                }
+
+                if (this.communicator.canRead("cardArchetype")) {
+                    this.cardArchetype = this.communicator.read("cardArchetype");
                 }
             }
         }
@@ -259,6 +261,11 @@ ScottLeviCards.component = function () {
         for (var i = 0; i < this.hand.length; i++) {
             if (this.hand[i] === cardID) {
                 this.hand.splice(i, 1);
+            }
+        }
+        for (var i = 0; i < this.hand.length; i++) {
+            if (this.inPlay[i] === cardID) {
+                this.inPlay.splice(i, 1);
             }
         }
     };
