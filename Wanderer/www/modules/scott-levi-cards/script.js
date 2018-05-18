@@ -76,14 +76,13 @@ ScottLeviCards.component = function () {
     this.wands = "wands";
     this.pentacles = "pentacles";
     this.cups = "cups"
-    this.cardArchetype = {
-        "{E4FCE685-BCE3-4CED-B911-2DDF38E99C85}": this.wands,
-        "{DA9712EC-5B22-4B68-9883-4B51C2F47D79}": this.cups,
-        "{777CF479-0630-4653-AD00-5DFA574D4828}": this.swords,
-        "{7C26A612-D5CF-4DC1-891D-70C65B6FA070}": this.pentacles
-    }
-
+   
     this.getAbilities = function () {
+        this.cardArchetype = {};
+        this.cardArchetype["{E4FCE685-BCE3-4CED-B911-2DDF38E99C85}"] = this.wands;
+        this.cardArchetype["{DA9712EC-5B22-4B68-9883-4B51C2F47D79}"] = this.cups;
+        this.cardArchetype["{777CF479-0630-4653-AD00-5DFA574D4828}"] = this.swords;
+        this.cardArchetype["{7C26A612-D5CF-4DC1-891D-70C65B6FA070}"] = this.pentacles;
         //var cards = [];
         //for (var card in this.getCard(this.inPlay)) {
         //    cards.push(card);
@@ -100,23 +99,25 @@ ScottLeviCards.component = function () {
         var numPentacles = 0;
     
         // todo a whole lot of code goes here!
-        for (var card in cards) {
-            if (cardArchetype[card.guid] == this.swords) {
+        for (var i = 0; i < cards.length; i++) {
+            var card = cards[i];
+            console.log (card);
+            if (this.cardArchetype[card.guid] == this.swords) {
                 numSwords = numSwords + 1;
             } 
-            if (cardArchetype[card.guid] == this.pentacles) {
-                numSwords = numPentacles + 1;
+            if (this.cardArchetype[card.guid] == this.pentacles) {
+                numPentacles = numPentacles + 1;
             }
-            if (cardArchetype[card.guid] == this.wands) {
-                numSwords = numWands + 1;
+            if (this.cardArchetype[card.guid] == this.wands) {
+                numWands = numWands + 1;
             }
-            if (cardArchetype[card.guid] == this.cups) {
-                numSwords = numCups + 1;
+            if (this.cardArchetype[card.guid] == this.cups) {
+                numCups = numCups + 1;
             }
     
         }        
         // todo a whole lot of code goes here!
-        return ["Wands; " + numWands, "test 2", "test 3"];
+        return ["Wands; " + numWands, "Cups; " + numCups, "Swords; " + numSwords, "Pentacles; " + numPentacles];
     } 
 
     this.Dragging = function() {
