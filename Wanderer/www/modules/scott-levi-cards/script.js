@@ -110,6 +110,7 @@ ScottLeviCards.component = function () {
     this.OnNewCharacter = function () {
         this.inPlay = [];
         this.hand = [];
+        this.cardArchetype = {};
         this.selectedDeck = ScottLeviCards.decklist[0];
         this.activeDeck = this.selectedDeck.defaultActive();
     }
