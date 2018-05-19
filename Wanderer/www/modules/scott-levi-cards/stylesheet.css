@@ -54,41 +54,66 @@
     /*    margin-bottom: 20px;*/
     width: 220px;
     /*    margin-left: -240px;*/
-    margin-right: 0px;
+/*    margin-right: 0px;*/
     position: absolute;
-    left: 20px;
+    left: 0px;
     top: 0px;
 }
 
     #scott-levi-cards .drag-target .drag-target-left {
+        	position: relative;
         height: 370px;
         width: 110px;
         display: inline-block;
-        /*        background-color: red;*/
+        background-color: red;
+        float: left;
+/*        background-color: white;*/
+        opacity: 0;
+    }
+
+/*    #scott-levi-cards .drag-target .drag-target-right {*/
+/*        margin-top: 10px;*/
+/*        margin-bottom: 10px;*/
+/*        height: 350px;*/
+/*        width: 140px;*/
+/*        border-radius: 10px;*/
+/*        display: inline-block;*/
+/*        -moz-transform: perspective(200px) rotateY(2deg);*/
+/*        -ms-transform: perspective(200px) rotateY(2deg);*/
+/*        -o-transform: perspective(200px) rotateY(2deg);*/
+/*        -webkit-transform: perspective(200px) rotateY(2deg);*/
+/*        transform: perspective(200px) rotateY(2deg);*/
+/*        overflow: hidden;*/
+/*        background: linear-gradient(to right, white, transparent);*/
+/*        opacity: 0;*/
+/*    }*/
+    #scott-levi-cards .drag-target .drag-target-right {
+        position: absolute;
+        left: 110px;
+        top: 0px;
+        height: 370px;
+        width: 110px;
+        display: inline-block;
+/*        background-color: green;*/
         float: left;
         background-color: white;
         opacity: 0;
     }
 
-    #scott-levi-cards .drag-target .drag-target-right {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        height: 350px;
-        width: 140px;
-        border-radius: 10px;
-        display: inline-block;
-        -moz-transform: perspective(200px) rotateY(2deg);
-        -ms-transform: perspective(200px) rotateY(2deg);
-        -o-transform: perspective(200px) rotateY(2deg);
-        -webkit-transform: perspective(200px) rotateY(2deg);
-        transform: perspective(200px) rotateY(2deg);
-        overflow: hidden;
-        background: linear-gradient(to right, white, transparent);
-        opacity: 0;
-    }
-
         #scott-levi-cards .drag-target .drag-target-right.drag-enter {
-            opacity: 0.6;
+/*        position: absolute;*/
+            top: 0px;
+            width: 130px;
+            height: 370px;
+            opacity: 0.7;
+/*            border: solid white 2px;*/
+            border-radius: 10px;
+            -moz-transform: perspective(200px) rotateY(2deg);
+            -ms-transform: perspective(200px) rotateY(2deg);
+            -o-transform: perspective(200px) rotateY(2deg);
+            -webkit-transform: perspective(200px) rotateY(2deg);
+            transform: perspective(200px) rotateY(2deg);
+            background: linear-gradient(to right, white, transparent);
         }
 
 #scott-levi-cards .wrapped-card {

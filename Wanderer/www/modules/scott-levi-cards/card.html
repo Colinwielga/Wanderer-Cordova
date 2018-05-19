@@ -22,12 +22,10 @@
 <div class="drag-target"
      data-ng-init="card = module.getCard(cardID)"
      ng-hide="!module.isDragging">
-    <!--<div ng-class="{expanded: module.Dragging()}"
-         class="drag-target-left"
+    <div class="drag-target-left"
          ng-drop="true"
-         ng-drop-success="module.dropLeft(card,$data,$event)"
-         >
-    </div>-->
+         ng-drop-success="module.dropLeft(card,$data,$event)">
+    </div>
     <div class="drag-target-right"
          ng-drop="true"
          ng-drop-success="module.dropRight(card,$data,$event)">
