@@ -150,6 +150,11 @@
     #scott-levi-cards .card:hover {
         box-shadow: 0px 0px 30px #FFF;
         z-index: 99;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        -webkit-transform: none;
+        transform: none;
     }
 
 #scott-levi-cards .card-color-dark {
