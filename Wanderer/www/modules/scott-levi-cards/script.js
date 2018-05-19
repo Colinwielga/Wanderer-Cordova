@@ -126,7 +126,7 @@ ScottLeviCards.component = function () {
             'Knight of Wands: discard Two Pairs, and discard any Prime numbered card; automatically pass the next Magick related skill check.',
             'Queen of Wands: You may help other Players pass checks, by discarding your own cards. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
             'King of Wands: Discard Three of a Kind, cast any Magick Spell you can think of, work with the DM to determine something fair and flavorful.  (Stuff like like: Time Reversal, Go Below Absolute Zero…)',
-            ]
+            ];
         var SwordsAbilities = ['Close Quarters, armed melee attacks (daggers, shivs, etc.)', 
             'Mid Range, across the room attacks (throwing knives, hand guns, etc.)', 
             'Long Range, across the block attacks (sniper rifle, laser, missile, etc.)',
@@ -136,8 +136,8 @@ ScottLeviCards.component = function () {
             'Knight of Swords: discard Two Pairs, make a Triple Attack.',
             'Queen of Swords: You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.', 
             'King of Swords: Discard Three of a Kind, gain an additional Shield layer; when your Encounter HP hits 0, reset it to full one time per combat.',
-            ]
-        var PentaclesAbilites = ['Botany, Any Character can eat flowers for power ups, but only Botanists know which plants will be beneficial and how to craft their own plant power ups for personal and party needs.  The number of tricks taken by botanist player determines number of positive effects; the DM’s tricks represent negative side effects. If the other Players involved take any tricks they may add their own qualities.',   
+            ];
+        var PentaclesAbilities = ['Botany, Any Character can eat flowers for power ups, but only Botanists know which plants will be beneficial and how to craft their own plant power ups for personal and party needs.  The number of tricks taken by botanist player determines number of positive effects; the DM’s tricks represent negative side effects. If the other Players involved take any tricks they may add their own qualities.',   
             'Mobility – Piloting ground or space vehicles and advanced power armor acrobatics.',
             'Builder – Crafting technology.  Number of tricks taken in mini Hearts corresponds to what you can make.  How strong, how many, and how fast will be decided by the usual skill check resolution.  One trick, a wall/ramp/platform.  Two tricks, a weapon.  Three tricks, a pentacle/magick channeling item.  Four tricks, a new suit of armor.  Five tricks, a new scroll.  Six tricks, a vehicle.  Seven tricks, Whatever you want within reason to the DM and Party.',
             'Enhance Speed - give yourself or an ally character a speed boost. This counters/is countered by Wands Time Manipulation.',
@@ -146,7 +146,7 @@ ScottLeviCards.component = function () {
             'Knight of Pentacles: Discard Two Pairs, make major repairs to any technology.', 
             'Queen of Pentacles: You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
             'King of Pentacles: Discard Three of a Kind, must be Pentacle suited; your power armor suit can perpetually fly.  Discard Three of a Kind nonPentacles, gain the power of flight for the duration of an encounter.',
-            ]
+            ];
         var CupsAbilities = ['Perception; sizing up a situation, nonviolent conflict resolution.', 
             'Coin; participating in the blockchain currency called Coin for any financial transactions.',  
             'Energy; command a vast energy source for a specific task, like recharging a shield battery, or rebooting a scroll, etc. Sources of energy can be Spiritual, solar, mechanical, etc.',
@@ -156,7 +156,7 @@ ScottLeviCards.component = function () {
             'Knight of Cups: Discard Two Pairs, Face Cards (Page-King) outrank and beat Wild and Major Arcana for the current round of combat/action.', 
             'Queen of Cups: You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',  
             'King of Cups: You may only advance to this level if you have the seven (chariot) and thirteen (devil) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.',
-            ]
+            ];
             
         return ["Wands; " + numWands + ' - ' + WandsAbilities[numWands], "Cups; " + numCups+ ' - ' + CupsAbilities[numCups], "Swords; " + numSwords + ' - ' + SwordsAbilities[numSwords], "Pentacles; " + numPentacles+ ' - ' + PentaclesAbilities[numPentacles]];
         
