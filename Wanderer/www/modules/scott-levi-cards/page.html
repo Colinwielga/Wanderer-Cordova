@@ -37,16 +37,33 @@
 </div>
 </div>
 <h3>Select Card Archetype</h3>
-<div data-ng-repeat="cardID in module.inPlay" class="card-container">
-    {{module.getCard(cardID).name"}}
-    <!--<input type="radio" name="level" value="Warrior">
+<div data-ng-repeat="cardID in module.inPlay">
+    <h4>
+        {{module.getCard(cardID).name}}</h4>
+    <input 
+           type="radio" 
+           name="{{cardID}}-level" 
+           ng-value="module.swords" 
+           ng-model="module.cardArchetype[cardID]">
     <label for="Warrior"> Warrior (swords)</label>
-    <input type="radio" name="level" value="Magician">
+    <input 
+           type="radio" 
+           name="{{cardID}}-level" 
+           ng-value="module.wands" 
+           ng-model="module.cardArchetype[cardID]">
     <label for="Magician"> Magician (wands)</label>
-    <input type="radio" name="level" value="Influencer">
+    <input 
+           type="radio" 
+           name="{{cardID}}-level" 
+            ng-value="module.cups" 
+           ng-model="module.cardArchetype[cardID]">
     <label for="Influencer"> Influencer (cups)</label>
-    <input type="radio" name="chooseone" value="Scientist">
-    <label for="Scientist"> Scientist (Pentacles)</label>-->
+    <input 
+           type="radio" 
+           name="{{cardID}}-level" 
+           ng-value="module.pentacles" 
+           ng-model="module.cardArchetype[cardID]">
+    <label for="Scientist"> Scientist (Pentacles)</label>
 </div>
 <h3>Archetype Classes and Abilities:</h3>
 <ul>

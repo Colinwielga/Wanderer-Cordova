@@ -1,7 +1,7 @@
 ﻿var AccountList = "AccountList";
 
 // for debgging really
-var online = false;
+var online = true;
 
 g.services.accountService = {
     // pass takes an account object
