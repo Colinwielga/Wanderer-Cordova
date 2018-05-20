@@ -72,6 +72,38 @@ ScottLeviCards.component = function () {
             this.inPlay.splice(index+1, 0, data.guid);
         }
     }
+
+    this.isSwords = function (cardId) {
+        var card = this.getCard(cardId);
+        var num = parseInt(card.value);
+        return (num % 2) == 1;
+    }
+
+    this.isWands = function (cardId) {
+        var card = this.getCard(cardId);
+        var num = parseInt(card.value);
+        return ((num % 2) != 0) &&
+            ((num % 3) != 0);
+    }
+
+    this.isCups = function (cardId) {
+        var card = this.getCard(cardId);
+        var num = parseInt(card.value);
+        return (num == 1) ||
+            (num == 2) ||
+            (num == 3) ||
+            (num == 5) ||
+            (num == 8) ||
+            (num == 13) ||
+            (num == 21);
+    }
+
+    this.isPentacles = function (cardId) {
+        var card = this.getCard(cardId);
+        var num = parseInt(card.value);
+        return num % 2 == 0;
+    }
+
     this.swords = "swords";
     this.wands = "wands";
     this.pentacles = "pentacles";
