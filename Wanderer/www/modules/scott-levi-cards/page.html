@@ -2,7 +2,7 @@
 
 <div class="card-buttons-container pad-me highlight-section">
     <center>
-        ﻿       <button data-ng-click="module.draw()"> draw </button>
+        ﻿<button data-ng-click="module.draw()"> draw </button>
         <label class="label-button" for="setting-hide">modify deck</label>
     </center>
 </div>
@@ -37,57 +37,61 @@
     </div>
 </div>
 <h3>Select Card Archetype</h3>
-<div data-ng-repeat="cardID in module.inPlay">
-    <h4>
-        {{module.getCard(cardID).name}}
-    </h4>
-    <label ng-hide="!module.isSwords(cardID)">
-        <input type="radio"
-               name="{{cardID}}-level"
-               ng-value="module.swords"
-               ng-model="module.cardArchetype[cardID]">
-        Warrior (swords)
-    </label>
-    <label ng-hide="!module.isWands(cardID)">
-        <input type="radio"
-               name="{{cardID}}-level"
-               ng-value="module.wands"
-               ng-model="module.cardArchetype[cardID]">
-        Magician (wands)
-    </label>
-    <label ng-hide="!module.isCups(cardID)">
-        <input type="radio"
-               name="{{cardID}}-level"
-               ng-value="module.cups"
-               ng-model="module.cardArchetype[cardID]">
-        Influencer (cups)
-    </label>
-    <label ng-hide="!module.isPentacles(cardID)">
-        <input type="radio"
-               name="{{cardID}}-level"
-               ng-value="module.pentacles"
-               ng-model="module.cardArchetype[cardID]">
-        Scientist (Pentacles)
-    </label>
+<div class="pad-me">
+    <div data-ng-repeat="cardID in module.inPlay">
+        <h4>
+            {{module.getCard(cardID).name}}
+        </h4>
+
+        <label ng-hide="!module.isSwords(cardID)">
+            <input type="radio"
+                   name="{{cardID}}-level"
+                   ng-value="module.swords"
+                   ng-model="module.cardArchetype[cardID]">
+            Warrior (swords)
+        </label>
+        <label ng-hide="!module.isWands(cardID)">
+            <input type="radio"
+                   name="{{cardID}}-level"
+                   ng-value="module.wands"
+                   ng-model="module.cardArchetype[cardID]">
+            Magician (wands)
+        </label>
+        <label ng-hide="!module.isCups(cardID)">
+            <input type="radio"
+                   name="{{cardID}}-level"
+                   ng-value="module.cups"
+                   ng-model="module.cardArchetype[cardID]">
+            Influencer (cups)
+        </label>
+        <label ng-hide="!module.isPentacles(cardID)">
+            <input type="radio"
+                   name="{{cardID}}-level"
+                   ng-value="module.pentacles"
+                   ng-model="module.cardArchetype[cardID]">
+            Scientist (Pentacles)
+        </label>
+    </div>
 </div>
 <h3>Archetype Classes and Abilities:</h3>
-<ul>
-    <li data-ng-repeat="ability in module.getAbilities()">
-        {{ability}}
-    </li>
-</ul>
+<div class="pad-me">
+    <ul>
+        <li data-ng-repeat="ability in module.getAbilities()">
+            {{ability}}
+        </li>
+    </ul>
+</div>
 <input type="checkbox" class="hide-check" id="setting-hide" checked />
-<div class="deck-container-outer">
+<div class="deck-container-outer pad-me">
     <div class="rules-divider"></div>
     <div class="deck-container">
-        <label for="decks"> Repeat select: </label>
+        <<!--label for="decks"> Repeat select: </label>
 
         <select id="decks" data-ng-options="deck as deck.name for deck in module.decklist"
-                data-ng-model="module.selectedDeck" data-ng-change="module.deckSelected()"></select>
+                data-ng-model="module.selectedDeck" data-ng-change="module.deckSelected()"></select>-->
         <!--<select name="repeatSelect"  data-ng-model="module.selectedDeck"><option data-ng-repeat="deck in module.decklist" data-ng-value="deck.name">{{deck.name}}</option>
         </select>-->
         <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-click="module.toggleCardActive(cardID)">
-
             {{module.getCard(cardID).name}}
         </div>
     </div>
