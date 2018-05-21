@@ -212,8 +212,24 @@ ScottLeviCards.component = function () {
             'King of Cups, You may only advance to this level if you have the seven (chariot) and thirteen (devil) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.',
         ];
 
-        return ["Magician: " + numWands + ' - ' + WandsAbilities.splice(0, numWands), "Influencer: " + numCups + ' - ' + CupsAbilities.splice(0, numCups), "Warrior: " + numSwords + ' - ' + SwordsAbilities.splice(0, numSwords), "Scientist: " + numPentacles + ' - ' + PentaclesAbilities.splice(0, numPentacles)];
-
+        var ActiveWandsAbilities = WandsAbilities.splice(0, numWands);
+        var ActiveSwordsAbilities = SwordsAbilities.splice(0, numSwords);
+        var ActiveCupsAbilities = CupsAbilities.splice(0, numCups);
+        var ActivePentaclesAbilities = PentaclesAbilities.splice(0, numPentacles);
+        var result = [];
+        for (var i = 0; i<ActiveWandsAbilities.length; i++){
+            result.push("Magician: " + (i+1) + ' - ' + ActiveWandsAbilities[i]);
+        }
+        for (var i = 0; i<ActiveSwordsAbilities.length; i++){
+            result.push("Warrior: " + (i+1) + ' - ' + ActiveSwordsAbilities[i]);
+        }
+        for (var i = 0; i<ActivePentaclesAbilities.length; i++){
+            result.push("Scientist: " + (i+1) + ' - ' + ActivePentaclesAbilities[i]);
+        }
+        for (var i = 0; i<ActiveCupsAbilities.length; i++){
+            result.push("Influencer: " + (i+1) + ' - ' + ActiveCupsAbilities[i]);
+        }
+        return result;
     }
 
     this.Dragging = function () {
