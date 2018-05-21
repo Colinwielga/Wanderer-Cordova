@@ -212,7 +212,7 @@ ScottLeviCards.component = function () {
             'King of Cups, You may only advance to this level if you have the seven (chariot) and thirteen (devil) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.',
         ];
 
-        return ["Magician: " + numWands + ' - ' + WandsAbilities.splice(0, numWands - 1 ), "Influencer: " + numCups + ' - ' + CupsAbilities.splice(0, numCups - 1), "Warrior: " + numSwords + ' - ' + SwordsAbilities.splice(0, numSwords - 1), "Scientist: " + numPentacles + ' - ' + PentaclesAbilities.splice(0, numPentacles - 1)];
+        return ["Magician: " + numWands + ' - ' + WandsAbilities.splice(0, numWands), "Influencer: " + numCups + ' - ' + CupsAbilities.splice(0, numCups), "Warrior: " + numSwords + ' - ' + SwordsAbilities.splice(0, numSwords), "Scientist: " + numPentacles + ' - ' + PentaclesAbilities.splice(0, numPentacles)];
 
     }
 
