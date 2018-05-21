@@ -19,6 +19,10 @@
             <span class="card-number">{{card.getValue()}}</span>
         </div>
     </div>
+    <div class="card-info-container">
+        <span class="card-info-name">{{card.getValue()}}</span><br>
+        <span class="card-info-suit">{{card.getSuitHTML()}}</span>
+    </div>
 </div>
 <!--<div class="drag-target drag-target-right"
      data-ng-init="card = module.getCard(cardID)"
