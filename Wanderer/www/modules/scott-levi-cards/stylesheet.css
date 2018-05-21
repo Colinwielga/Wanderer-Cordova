@@ -163,7 +163,7 @@
         transform: none;
     }
 
-    #scott-levi-cards .card.drgaggin:hover {
+    #scott-levi-cards .card.dragging:hover {
         left: 0px;
     }
 

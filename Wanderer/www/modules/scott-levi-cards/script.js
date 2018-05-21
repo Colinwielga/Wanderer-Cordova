@@ -23,33 +23,34 @@ ScottLeviCards.component = function () {
         this.hand.push(data.guid);
     }
 
-    this.dropOn = function (cardNextTo, data, event) {
+    this.dropOn = function (cardNextToId, data, event) {
         var wasIndex = this.hand.indexOf(data.guid);
         if (wasIndex > -1) {
-            var nowIndex = this.hand.indexOf(cardNextTo.guid);
+            var nowIndex = this.hand.indexOf(cardNextToId);
             if (nowIndex > -1) {
-                nowIndex = this.hand.indexOf(cardNextTo.guid);
+                nowIndex = this.hand.indexOf(cardNextToId);
                 this.hand.splice(wasIndex, 1);
                 this.hand.splice(nowIndex, 0, data.guid);
             } else {
                 this.hand.splice(wasIndex, 1);
-                nowIndex = this.inPlay.indexOf(cardNextTo.guid);
-                console.log(nowIndex - 1);
-                this.inPlay.splice(nowIndex-1, 0, data.guid);
-            }
-        }
-        wasIndex = this.inPlay.indexOf(data.guid);
-        if (wasIndex > -1) {
-            var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
-            if (nowIndex > -1) {
-                nowIndex = this.inPlay.indexOf(cardNextTo.guid);
-                this.inPlay.splice(wasIndex, 1);
+                nowIndex = this.inPlay.indexOf(cardNextToId);
+                console.log(nowIndex);
                 this.inPlay.splice(nowIndex, 0, data.guid);
-            } else {
-                this.inPlay.splice(wasIndex, 1);
-                nowIndex = this.hand.indexOf(cardNextTo.guid);
-                console.log(nowIndex - 1);
-                this.hand.splice(nowIndex-1, 0, data.guid);
+            }
+        } else {
+            wasIndex = this.inPlay.indexOf(data.guid);
+            if (wasIndex > -1) {
+                var nowIndex = this.inPlay.indexOf(cardNextToId);
+                if (nowIndex > -1) {
+                    nowIndex = this.inPlay.indexOf(cardNextToId);
+                    this.inPlay.splice(wasIndex, 1);
+                    this.inPlay.splice(nowIndex, 0, data.guid);
+                } else {
+                    this.inPlay.splice(wasIndex, 1);
+                    nowIndex = this.hand.indexOf(cardNextToId);
+                    console.log(nowIndex);
+                    this.hand.splice(nowIndex, 0, data.guid);
+                }
             }
         }
     }

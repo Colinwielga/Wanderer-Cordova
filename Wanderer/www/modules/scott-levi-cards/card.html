@@ -10,7 +10,7 @@
      ng-drag-over="module.debug()"
      ng-drag-data="card"
      ng-drop="true"
-     ng-drop-success="module.dropOn(card,$data,$event)"
+     ng-drop-success="module.dropOn(cardID,$data,$event)"
      data-cardId="{{cardID}}">
     <div class="card-border" back-img="{{card.getImage()}}">
         <div class="card-padding"></div>
