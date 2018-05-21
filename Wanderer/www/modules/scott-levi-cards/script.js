@@ -20,7 +20,7 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index, 1);
         }
-        this.hand.splice(0, data.guid)
+        this.hand.splice(0,0, data.guid)
     }
 
     this.dropOn = function (cardNextTo, data, event) {
@@ -28,36 +28,36 @@ ScottLeviCards.component = function () {
         if (wasIndex > -1) {
             var nowIndex = this.hand.indexOf(cardNextTo.guid);
             if (nowIndex > -1) {
-                var nowIndex = this.hand.indexOf(cardNextTo.guid);
+                nowIndex = this.hand.indexOf(cardNextTo.guid);
                 this.hand.splice(wasIndex, 1);
                 this.hand.splice(nowIndex, 0, data.guid);
             } else {
                 this.hand.splice(wasIndex, 1);
-                var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
-                this.inPlay.splice(nowIndex, 0, data.guid);
+                nowIndex = this.inPlay.indexOf(cardNextTo.guid);
+                console.log(nowIndex - 1);
+                this.inPlay.splice(nowIndex-1, 0, data.guid);
             }
         }
         wasIndex = this.inPlay.indexOf(data.guid);
         if (wasIndex > -1) {
             var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
             if (nowIndex > -1) {
-                var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
+                nowIndex = this.inPlay.indexOf(cardNextTo.guid);
                 this.inPlay.splice(wasIndex, 1);
                 this.inPlay.splice(nowIndex, 0, data.guid);
             } else {
                 this.inPlay.splice(wasIndex, 1);
-                var nowIndex = this.hand.indexOf(cardNextTo.guid);
+                nowIndex = this.hand.indexOf(cardNextTo.guid);
+                console.log(nowIndex - 1);
                 this.hand.splice(nowIndex-1, 0, data.guid);
             }
         }
     }
-
-
+    
     this.debug = function () {
         console.log("what!");
     }
-
-
+    
     this.dropEmptyInPlay = function (data, event) {
         var index = this.hand.indexOf(data.guid);
         if (index > -1) {
@@ -67,7 +67,7 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index, 1);
         }
-        this.inPlay.splice(0, data.guid)
+        this.inPlay.splice(0, 0, data.guid)
     }
 
     this.dropLeft = function (cardNextTo, data, event) {
