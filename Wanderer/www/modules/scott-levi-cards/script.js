@@ -7,7 +7,7 @@ ScottLeviCards.component = function () {
         return "scott-levi-cards"
     }
 
-    this.pickUp = function(ev) {
+    this.pickUp = function (ev) {
         //ev.dataTransfer.setData("cardId", ev.target.dataset["cardId"]);
         //console.log("did that work??");
     }
@@ -20,8 +20,43 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index, 1);
         }
-        this.hand.push(data.guid)
+        this.hand.splice(0, data.guid)
     }
+
+    this.dropOn = function (cardNextTo, data, event) {
+        var wasIndex = this.hand.indexOf(data.guid);
+        if (wasIndex > -1) {
+            var nowIndex = this.hand.indexOf(cardNextTo.guid);
+            if (nowIndex > -1) {
+                var nowIndex = this.hand.indexOf(cardNextTo.guid);
+                this.hand.splice(wasIndex, 1);
+                this.hand.splice(nowIndex, 0, data.guid);
+            } else {
+                this.hand.splice(wasIndex, 1);
+                var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
+                this.inPlay.splice(nowIndex-1, 0, data.guid);
+            }
+        }
+        wasIndex = this.inPlay.indexOf(data.guid);
+        if (wasIndex > -1) {
+            var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
+            if (nowIndex > -1) {
+                var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
+                this.inPlay.splice(wasIndex, 1);
+                this.inPlay.splice(nowIndex, 0, data.guid);
+            } else {
+                this.inPlay.splice(wasIndex, 1);
+                var nowIndex = this.hand.indexOf(cardNextTo.guid);
+                this.hand.splice(nowIndex-1, 0, data.guid);
+            }
+        }
+    }
+
+
+    this.debug = function () {
+        console.log("what!");
+    }
+
 
     this.dropEmptyInPlay = function (data, event) {
         var index = this.hand.indexOf(data.guid);
@@ -32,7 +67,7 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index, 1);
         }
-        this.inPlay.push(data.guid)
+        this.inPlay.splice(0, data.guid)
     }
 
     this.dropLeft = function (cardNextTo, data, event) {
@@ -53,7 +88,7 @@ ScottLeviCards.component = function () {
             this.inPlay.splice(index, 0, data.guid);
         }
     }
-    
+
     this.dropRight = function (cardNextTo, data, event) {
         var index = this.hand.indexOf(data.guid);
         if (index > -1) {
@@ -65,11 +100,11 @@ ScottLeviCards.component = function () {
         }
         index = this.hand.indexOf(cardNextTo.guid);
         if (index > -1) {
-            this.hand.splice(index+1, 0, data.guid);
+            this.hand.splice(index + 1, 0, data.guid);
         }
         index = this.inPlay.indexOf(cardNextTo.guid);
         if (index > -1) {
-            this.inPlay.splice(index+1, 0, data.guid);
+            this.inPlay.splice(index + 1, 0, data.guid);
         }
     }
 
@@ -108,25 +143,23 @@ ScottLeviCards.component = function () {
     this.wands = "wands";
     this.pentacles = "pentacles";
     this.cups = "cups"
-   
+
     this.getAbilities = function () {
         var cards = [];
         for (var i = 0; i < this.inPlay.length; i++) {
             cards.push(this.getCard(this.inPlay[i]));
         }
-        
+
         var numWands = 0;
         var numCups = 0;
         var numSwords = 0;
         var numPentacles = 0;
-    
-        // todo a whole lot of code goes here!
+
         for (var i = 0; i < cards.length; i++) {
             var card = cards[i];
-            console.log (card);
             if (this.cardArchetype[card.guid] == this.swords) {
                 numSwords = numSwords + 1;
-            } 
+            }
             if (this.cardArchetype[card.guid] == this.pentacles) {
                 numPentacles = numPentacles + 1;
             }
@@ -136,37 +169,55 @@ ScottLeviCards.component = function () {
             if (this.cardArchetype[card.guid] == this.cups) {
                 numCups = numCups + 1;
             }
+<<<<<<< HEAD
         }   
         
         var WandsAbilities = ['Elements, control a palm-sized amount of your chosen element double the size for succeeding poker hand power levels.', 
             'Telepathy, mental interference and protection from psychic attacks, higher discards allow temporary mind control.', 
             'Matter Manipulation, alchemy and chemistry, growing/shrinking, invisibility.', 
             'Time Manipulation, temporarily change one PC or NPC’s perception of time.',
+=======
+        }
+
+        var WandsAbilities = ['Elements, control a palm-sized amount of your chosen element double the size for succeeding poker hand power levels.',
+            'Telepathy, mental interference and protection from psychic attacks, higher discards allow temporary mind control.',
+            'Matter Manipulation, alchemy and chemistry, growing/shrinking, invisibility.',
+            'Time Manipulation; temporarily change one PC or NPC’s perception of time.',
+>>>>>>> af38c7b8fa3848dc273fefed2a7fe5bbac5fa4c5
             'Mastery, Aces now count as higher value than Kings and; Discard any Wand, draw a card; if it’s the Page draw 3 cards.',
             'Page of Wands: discard a Pair, interrupt enemy magickal attacks, break an on going enemy spell.',
             'Knight of Wands: discard Two Pairs, and discard any Prime numbered card; automatically pass the next Magick related skill check.',
             'Queen of Wands: You may help other Players pass checks, by discarding your own cards. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
             'King of Wands: Discard Three of a Kind, cast any Magick Spell you can think of, work with the DM to determine something fair and flavorful.  (Stuff like like: Time Reversal, Go Below Absolute Zero…)',
-            ];
-        var SwordsAbilities = ['Close Quarters, armed melee attacks (daggers, shivs, etc.)', 
-            'Mid Range, across the room attacks (throwing knives, hand guns, etc.)', 
+        ];
+        var SwordsAbilities = ['Close Quarters, armed melee attacks (daggers, shivs, etc.)',
+            'Mid Range, across the room attacks (throwing knives, hand guns, etc.)',
             'Long Range, across the block attacks (sniper rifle, laser, missile, etc.)',
-            'Area of Effect, blast radius and multi-target attacks (grenades, flechettes, etc.)', 
+            'Area of Effect, blast radius and multi-target attacks (grenades, flechettes, etc.)',
             'Mastery, three card flushes can count towards skill checks and; Discard any Sword card, draw a card; if it’s the Page draw 3 cards.',
-            'Page of Swords: discard a Pair, make a Double Attack (same move twice or two different weapons).', 
+            'Page of Swords: discard a Pair, make a Double Attack (same move twice or two different weapons).',
             'Knight of Swords: discard Two Pairs, make a Triple Attack.',
-            'Queen of Swords: You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.', 
+            'Queen of Swords: You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
             'King of Swords: Discard Three of a Kind, gain an additional Shield layer; when your Encounter HP hits 0, reset it to full one time per combat.',
+<<<<<<< HEAD
             ];
         var PentaclesAbilities = ['Botany, Any Character can eat flowers for power ups, but only Botanists know which plants will be beneficial and how to craft their own plant power ups for personal and party needs.  The number of tricks taken by botanist player determines number of positive effects; the DM’s tricks represent negative side effects. If the other Players involved take any tricks they may add their own qualities.',   
             'Mobility, Piloting ground or space vehicles and advanced power armor acrobatics.',
             'Builder, Crafting technology.  Number of tricks taken in mini Hearts corresponds to what you can make.  How strong, how many, and how fast will be decided by the usual skill check resolution.  One trick, a wall/ramp/platform.  Two tricks, a weapon.  Three tricks, a pentacle/magick channeling item.  Four tricks, a new suit of armor.  Five tricks, a new scroll.  Six tricks, a vehicle.  Seven tricks, Whatever you want within reason to the DM and Party.',
             'Enhance Speed, give yourself or an ally character a speed boost. This counters/is countered by Wands Time Manipulation.',
+=======
+        ];
+        var PentaclesAbilities = ['Botany, Any Character can eat flowers for power ups, but only Botanists know which plants will be beneficial and how to craft their own plant power ups for personal and party needs.  The number of tricks taken by botanist player determines number of positive effects; the DM’s tricks represent negative side effects. If the other Players involved take any tricks they may add their own qualities.',
+            'Mobility – Piloting ground or space vehicles and advanced power armor acrobatics.',
+            'Builder – Crafting technology.  Number of tricks taken in mini Hearts corresponds to what you can make.  How strong, how many, and how fast will be decided by the usual skill check resolution.  One trick, a wall/ramp/platform.  Two tricks, a weapon.  Three tricks, a pentacle/magick channeling item.  Four tricks, a new suit of armor.  Five tricks, a new scroll.  Six tricks, a vehicle.  Seven tricks, Whatever you want within reason to the DM and Party.',
+            'Enhance Speed - give yourself or an ally character a speed boost. This counters/is countered by Wands Time Manipulation.',
+>>>>>>> af38c7b8fa3848dc273fefed2a7fe5bbac5fa4c5
             'Mastery, three card flushes can count towards skill checks and; Discard a Pentacle card, draw a card; if it’s the Page draw 3 cards.',
-            'Page of Pentacles: Discard a Pair, make minor repairs to any technology.', 
-            'Knight of Pentacles: Discard Two Pairs, make major repairs to any technology.', 
+            'Page of Pentacles: Discard a Pair, make minor repairs to any technology.',
+            'Knight of Pentacles: Discard Two Pairs, make major repairs to any technology.',
             'Queen of Pentacles: You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
             'King of Pentacles: Discard Three of a Kind, must be Pentacle suited; your power armor suit can perpetually fly.  Discard Three of a Kind nonPentacles, gain the power of flight for the duration of an encounter.',
+<<<<<<< HEAD
             ];
         var CupsAbilities = ['Perception, sizing up a situation, nonviolent conflict resolution.', 
             'Coin, participating in the blockchain currency called Coin for any financial transactions.',  
@@ -182,8 +233,25 @@ ScottLeviCards.component = function () {
         return ["Wands; " + numWands + ' - ' + WandsAbilities.splice(startindex.numWands - 1), "Cups; " + numCups+ ' - ' + CupsAbilities.splice(startindex, numCups - 1), "Swords; " + numSwords + ' - ' + SwordsAbilities.splice(startindex, numSwords - 1), "Pentacles; " + numPentacles + ' - ' + PentaclesAbilities.splice(startindex, numPentacles - 1)];
         
     } 
+=======
+        ];
+        var CupsAbilities = ['Perception; sizing up a situation, nonviolent conflict resolution.',
+            'Coin; participating in the blockchain currency called Coin for any financial transactions.',
+            'Energy; command a vast energy source for a specific task, like recharging a shield battery, or rebooting a scroll, etc. Sources of energy can be Spiritual, solar, mechanical, etc.',
+            'Advanced Linking; transform into a combination of Avatars with one of your fellow players or an NPC.  Players are in charge of using their own abilities and weapons. Each must agree which specific functions they have control over.  If the player is with an NPC, they will have full control of the combined suit.',
+            'Mastery; The Full Voltron, as long as your character is involved, you may fully combine with your entire party, but no more than that number at any given time.  Same rules as at Level 4, but now with more than 2 characters or players involved (three suits total) and; Discard a Pentacle card, draw a card; if it’s the Page draw 3 cards.',
+            'Page of Cups: Discard a Pair, Saboteur, while doing something unexpected or from concealment, you can make a rogue-like sneak attack or action that sabotages anyone or something in the environment.',
+            'Knight of Cups: Discard Two Pairs, Face Cards (Page-King) outrank and beat Wild and Major Arcana for the current round of combat/action.',
+            'Queen of Cups: You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
+            'King of Cups: You may only advance to this level if you have the seven (chariot) and thirteen (devil) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.',
+        ];
 
-    this.Dragging = function() {
+        return ["Magician: " + numWands + ' - ' + WandsAbilities[numWands], "Influencer: " + numCups + ' - ' + CupsAbilities[numCups], "Warrior: " + numSwords + ' - ' + SwordsAbilities[numSwords], "Scientist: " + numPentacles + ' - ' + PentaclesAbilities[numPentacles]];
+>>>>>>> af38c7b8fa3848dc273fefed2a7fe5bbac5fa4c5
+
+    }
+
+    this.Dragging = function () {
         return true;
     }
 
@@ -208,7 +276,7 @@ ScottLeviCards.component = function () {
     this.OnLoad = function () {
         var version = this.communicator.lastVersion();
         this.OnNewCharacter();
-     
+
         if (version === 1.0) {
             if (this.communicator.canRead("selectedDeck")) {
                 var deckId = this.communicator.read("selectedDeck");
@@ -260,7 +328,7 @@ ScottLeviCards.component = function () {
     }
 
     this.getHmtl = function () {
-        return "modules/"+ this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html"
     }
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
@@ -288,7 +356,7 @@ ScottLeviCards.component = function () {
         this.activeDeck = this.selectedDeck.defaultActive();
     }
 
-    this.getCard=function (id) {
+    this.getCard = function (id) {
         return this.selectedDeck.allCards[id];
     }
 
@@ -316,7 +384,7 @@ ScottLeviCards.component = function () {
         return keys;
     }
 
-    this.startingDeck = function() {
+    this.startingDeck = function () {
         return this.possibleCards();
     }
 
