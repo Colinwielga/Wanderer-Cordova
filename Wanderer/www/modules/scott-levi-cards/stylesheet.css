@@ -51,10 +51,6 @@
 /*		margin-left: 0px;*/
 /*	}*/
 
-.dragging {
-    opacity:.2;
-}
-
 #scott-levi-cards .drag-target {
     height: 370px;
     display: inline-block;

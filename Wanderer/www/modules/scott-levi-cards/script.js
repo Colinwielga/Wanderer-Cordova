@@ -34,7 +34,7 @@ ScottLeviCards.component = function () {
             } else {
                 this.hand.splice(wasIndex, 1);
                 var nowIndex = this.inPlay.indexOf(cardNextTo.guid);
-                this.inPlay.splice(nowIndex-1, 0, data.guid);
+                this.inPlay.splice(nowIndex, 0, data.guid);
             }
         }
         wasIndex = this.inPlay.indexOf(data.guid);
