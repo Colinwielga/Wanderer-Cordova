@@ -6,10 +6,7 @@ ScottLeviCards.component = function () {
     this.getId = function () {
         return "scott-levi-cards"
     }
-
     this.pickUp = function (ev) {
-        //ev.dataTransfer.setData("cardId", ev.target.dataset["cardId"]);
-        //console.log("did that work??");
     }
     this.dropEmptyHand = function (data, event) {
         var index = this.hand.indexOf(data.guid);

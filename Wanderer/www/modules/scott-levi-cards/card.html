@@ -1,6 +1,4 @@
-﻿<!--data-ng-click="module.discard(cardID)"-->
-<!-- ondragstart="ScottLeviCards.component.pickUp(DragEvent)" -->
-<div class="classic-card card card-color-dark"
+﻿<div class="classic-card card card-color-dark"
      ng-init="card = module.getCard(cardID)"
      ng-drag="true"
      ng-drag-start="module.isDragging = true"
@@ -24,9 +22,3 @@
         <span class="card-info-suit">{{card.getSuitHTML()}}</span>
     </div>
 </div>
-<!--<div class="drag-target drag-target-right"
-     data-ng-init="card = module.getCard(cardID)"
-     ng-hide="!module.isDragging"
-     ng-drop="true"
-     ng-drop-success="module.dropOn(card,$data,$event)">
-</div>-->
