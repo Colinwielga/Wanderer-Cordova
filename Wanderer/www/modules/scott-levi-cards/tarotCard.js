@@ -15,6 +15,18 @@
     this.getValue = function () {
         return this.value;
     }
+    this.getSuitValue = function () {
+        if (this.image < 22) return 0;
+        else return Math.floor((this.image - 22)/14);
+    }
+    this.getSuitHTML = function () {
+        if (this.getSuitValue() == 0) return "∞";
+        else if (this.getSuitValue() == 1) return "♣";
+        else if (this.getSuitValue() == 2) return "♥";
+        else if (this.getSuitValue() == 3) return "♠";
+        else if (this.getSuitValue() == 4) return "♦";
+        else return "⊗";
+    }
 };
 
 
