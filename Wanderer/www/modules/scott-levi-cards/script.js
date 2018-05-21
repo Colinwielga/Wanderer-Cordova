@@ -20,7 +20,7 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index, 1);
         }
-        this.hand.splice(0,0, data.guid)
+        this.hand.push(data.guid);
     }
 
     this.dropOn = function (cardNextTo, data, event) {
@@ -67,7 +67,7 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index, 1);
         }
-        this.inPlay.splice(0, 0, data.guid)
+        this.inPlay.push(data.guid);
     }
 
     this.dropLeft = function (cardNextTo, data, event) {
