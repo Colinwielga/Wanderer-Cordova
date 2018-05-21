@@ -9,31 +9,27 @@
 <h3>Hand</h3>
 <div class="card-cards-container-container hand">
     <div class="card-cards-container">
-        <center>
-            <div data-ng-repeat="cardID in module.hand" class="card-container">
-                <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
-            </div>
-            <div ng-drop="true"
-                 class="empty-add"
-                 ng-drop-success="module.dropEmptyHand($data,$event)"
-                 data-ng-show="module.hand.length == 0">
-            </div>
-        </center>
+        <div data-ng-repeat="cardID in module.hand" class="card-container">
+            <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
+        </div>
+        <div ng-drop="true"
+             class="empty-add"
+             ng-drop-success="module.dropEmptyHand($data,$event)"
+             data-ng-show="module.hand.length == 0">
+        </div>
     </div>
 </div>
 <h3>Table</h3>
 <div class="card-cards-container-container table">
     <div class="card-cards-container">
-        <center>
-            <div data-ng-repeat="cardID in module.inPlay" class="card-container">
-                <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
-            </div>
-            <div ng-drop="true"
-                 class="empty-add"
-                 ng-drop-success="module.dropEmptyInPlay($data,$event)"
-                 data-ng-show="module.inPlay.length == 0">
-            </div>
-        </center>
+        <div data-ng-repeat="cardID in module.inPlay" class="card-container">
+            <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
+        </div>
+        <div ng-drop="true"
+             class="empty-add"
+             ng-drop-success="module.dropEmptyInPlay($data,$event)"
+             data-ng-show="module.inPlay.length == 0">
+        </div>
     </div>
 </div>
 <h3>Select Card Archetype</h3>
@@ -42,34 +38,33 @@
         <h4>
             {{module.getCard(cardID).name}}
         </h4>
-
         <label ng-hide="!module.isSwords(cardID)">
             <input type="radio"
                    name="{{cardID}}-level"
                    ng-value="module.swords"
                    ng-model="module.cardArchetype[cardID]">
-            Warrior (swords)
+            Warrior
         </label>
         <label ng-hide="!module.isWands(cardID)">
             <input type="radio"
                    name="{{cardID}}-level"
                    ng-value="module.wands"
                    ng-model="module.cardArchetype[cardID]">
-            Magician (wands)
+            Magician
         </label>
         <label ng-hide="!module.isCups(cardID)">
             <input type="radio"
                    name="{{cardID}}-level"
                    ng-value="module.cups"
                    ng-model="module.cardArchetype[cardID]">
-            Influencer (cups)
+            Influencer
         </label>
         <label ng-hide="!module.isPentacles(cardID)">
             <input type="radio"
                    name="{{cardID}}-level"
                    ng-value="module.pentacles"
                    ng-model="module.cardArchetype[cardID]">
-            Scientist (Pentacles)
+            Scientist
         </label>
     </div>
 </div>
@@ -85,7 +80,8 @@
 <div class="deck-container-outer pad-me">
     <div class="rules-divider"></div>
     <div class="deck-container">
-        <<!--label for="decks"> Repeat select: </label>
+        <
+        <!--label for="decks"> Repeat select: </label>
 
         <select id="decks" data-ng-options="deck as deck.name for deck in module.decklist"
                 data-ng-model="module.selectedDeck" data-ng-change="module.deckSelected()"></select>-->

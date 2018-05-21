@@ -1,15 +1,16 @@
 ﻿<!--data-ng-click="module.discard(cardID)"-->
-
-
 <!-- ondragstart="ScottLeviCards.component.pickUp(DragEvent)" -->
 <div class="classic-card card card-color-dark"
      ng-init="card = module.getCard(cardID)"
-     ng-drag="true" 
+     ng-drag="true"
      ng-drag-start="module.isDragging = true"
      ng-drag-success="module.isDragging = false"
      ng-drag-stop="module.isDragging = false"
      ng-dblclick="module.discard(cardID)"
+     ng-drag-over="module.debug()"
      ng-drag-data="card"
+     ng-drop="true"
+     ng-drop-success="module.dropOn(card,$data,$event)"
      data-cardId="{{cardID}}">
     <div class="card-border" back-img="{{card.getImage()}}">
         <div class="card-padding"></div>
@@ -19,15 +20,9 @@
         </div>
     </div>
 </div>
-<div class="drag-target"
+<!--<div class="drag-target drag-target-right"
      data-ng-init="card = module.getCard(cardID)"
-     ng-hide="!module.isDragging">
-    <div class="drag-target-left"
-         ng-drop="true"
-         ng-drop-success="module.dropLeft(card,$data,$event)">
-    </div>
-    <div class="drag-target-right"
-         ng-drop="true"
-         ng-drop-success="module.dropRight(card,$data,$event)">
-    </div>
-</div>
+     ng-hide="!module.isDragging"
+     ng-drop="true"
+     ng-drop-success="module.dropOn(card,$data,$event)">
+</div>-->
