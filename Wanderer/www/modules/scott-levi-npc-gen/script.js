@@ -15,6 +15,8 @@ ScottLeviNpcGen.component = function () {
     this.secretSociety = "";
     this.genre = "";
     this.color = "";
+    this.firstName = "";
+    this.lastName = "";
 
     this.randomFromList = function (list) {
         return list[Math.floor(Math.random() * list.length)];
@@ -169,6 +171,12 @@ ScottLeviNpcGen.component = function () {
         var genreEntry = this.randomFromList(genres);
         this.genre = genreEntry.name + " - " + this.randomFromList(genreEntry.attrs);
         this.color = genreEntry.color
+
+        var firstNames = ["Colin", "Scott", "Tote", "Chris", "Dylad"]
+        this.firstName = this.randomFromList(firstNames);
+
+        var lastNames = ["Wielga", "Levi", "Crane", "Hughes"]
+        this.lastName = this.randomFromList(lastNames);
     }
 
     this.OnNewCharacter = function () {
