@@ -152,7 +152,7 @@ ScottLeviNpcGen.component = function () {
                 name: 'Thieves Guild', attrs: ['20% Tax on the Five Finger Discount', 'rabbits and other small creatures abound']
             },
             {
-                name: 'Trash Sorters Guild', attrs: ['Living life on the edge of a manmade,  miniturized, blackhole']
+                name: 'Trash Sorters Guild', attrs: ['Living life on the edge of a manmade,  miniaturized, blackhole']
             },
             { name: 'Writers Guild', attrs: ['Lowpaid workers making society function'] }
         ];
@@ -162,20 +162,20 @@ ScottLeviNpcGen.component = function () {
         var genres = [{ name: "Electronic", color: "White", attrs: ["House", "Industrial", "Dance", "EDM", "Dubstep", "Samples", "Trance"]},
             { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
             { name: "Jazz ", color: "Orange", attrs: ["Strings","Woodwinds", "Electronic", "Brass", "Swing", "Big Band", "Funk"] },
-            { name: "Worldly Folk", color: "Yellow", attr: ["Pop, Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
+            { name: "Worldly Folk", color: "Yellow", attr: ["Pop", "Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
             { name: "Blue", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
             { name: "Rock", color: "Indigo", attrs: ["Grunge", "Classic", "Jam Band", "Synth Rock", "Stadium", "Festival"] },
-            { name: "Punk", color: "Violet", attrs: ["Proto -", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
+            { name: "Punk", color: "Violet", attrs: ["Proto", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
             { name: "Metal", color: "Black", attrs: ["Heavy", "Speed", "Death", "Crust", "Stoner"] },
         ];
         var genreEntry = this.randomFromList(genres);
         this.genre = genreEntry.name + " - " + this.randomFromList(genreEntry.attrs);
         this.color = genreEntry.color
 
-        var firstNames = ["Aeon", "Ash", "Astor", "Babylon", "Carl", "Colin", "Chris", "Colbalt", "Dex", "Dylan", "Entropy", "Ezmerelda", "Fez", "Friar", "Hemlock", "Hoist", "Ivy", "Jeeves", "Johnny", "Joy", "Keno", "King", "Knuckles", "L", "Mellifluous", "Mix", "Neon", "Orn", "Phil", "Quest", "Retro", "Rick", "Ripley", "Scott", "Seven", "Siddhartha", "Tilda", "Tote", "Ux", "Verified", "Winston", "Xena", "Zed", "Zip",]
+        var firstNames = ["Aeon", "Algae", "Ash", "Astor", "Babylon", "Barbados", "Bard", "Carl", "Colin", "Chris", "Colbalt", "Dex", "Drake", "Dylan", "Entropy", "Ezmerelda", "Fez", "Friar", "Gerry", "Hemlock", "Hoist", "Indestructable", "Ivy", "Jeremy", "Johnny", "Joy", "Keno", "King", "Knuckles", "L", "Lamentable", "Mellifluous", "Mix", "Neon", "Orn", "Ostensibly", "Phil", "Poppy", "Quest", "Retro", "Rick", "Ripley", "Scott", "Seven", "Siddhartha", "Tilda", "Tote", "Ulma", "Ux", "Verified", "Wiley", "Winston", "Xena", "Yo-Yo", "Yusuf", "Zed", "Zip",]
         this.firstName = this.randomFromList(firstNames);
 
-        var lastNames = ["Alton", "Behemoth", "Comet", "Corybantic", "Crane", "Dirt", "Escher", "Fang", "Fury", "Gibbs", "Herzogin", "Hughes", "Ink", "James", "Kraken", "Levi", "Locke", "Mighty", "Needsahaircut", "Nightshade", "Overlord", "Paraprosdokian", "Petrichor", "Pistorius", "Quiver", "Rigmarole", "Satyr", "Schadenfreude", "Spectre", "Tempest", "Underhill", "Vectors", "Wielga", "Wax", "Wiggs", "X", "Yu", "Zealot", ]
+        var lastNames = ["Alton", "Antimatter", "Behemoth", "Catalyst", "Comet", "Corybantic", "Crane", "Dirt", "Escher", "Expo", "Fang", "Fish", "Fury", "Gallows", "Gibson", "Herzogin", "Hughes", "Illadvised", "Ink", "James", "Ketchum", "Kim", "Kraken", "Lemming", "Levi", "Locke", "Mighty", "Needsahaircut", "Nightshade", "Overlord", "Paraprosdokian", "Petrichor", "Pistorius", "Quazark", "Quiver", "Rigmarole", "Ringing", "Satyr", "Schadenfreude", "Spectre", "Siblings", "Tempest", "Tet", "Underhill", "Vectors", "Waxwork", "Wielga", "Wiggs", "X", "Yu", "Zealot", ]
         this.lastName = this.randomFromList(lastNames);
     }
 
