@@ -161,7 +161,7 @@ ScottLeviNpcGen.component = function () {
             { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
             { name: "Jazz ", color: "Orange", attrs: ["Strings","Woodwinds", "Electronic", "Brass", "Swing", "Big Band", "Funk"] },
             { name: "Worldly Folk", color: "Yellow", attr: ["Pop, Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
-            { name: "Blues", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
+            { name: "Blue", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
             { name: "Rock", color: "Indigo", attrs: ["Grunge", "Classic", "Jam Band", "Synth Rock", "Stadium", "Festival"] },
             { name: "Punk", color: "Violet", attrs: ["Proto -", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
             { name: "Metal", color: "Black", attrs: ["Heavy", "Speed", "Death", "Crust", "Stoner"] },
