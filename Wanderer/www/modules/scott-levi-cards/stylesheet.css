@@ -175,12 +175,6 @@
 
     #scott-levi-cards .card:hover {
         box-shadow: 0px 0px 30px #FFF;
-        left:-40px;
-        -moz-transform: none;
-        -ms-transform: none;
-        -o-transform: none;
-        -webkit-transform: none;
-        transform: none;
     	border-radius: 10px 10px 0px 0px;
     }
     #scott-levi-cards .card.dragging:hover {
@@ -200,10 +194,27 @@
         display: block;
     }
 
-    #scott-levi-cards .card.dragging:hover {
-        left: 0px;
+
+#scott-levi-cards .card-container {
+    left: 0px;
+    -moz-transition: left ease .4s;
+    -o-transition: left ease .4s;
+    -webkit-transition: left ease .4s;
+    transition: left ease .4s;
+}
+
+    #scott-levi-cards .card-container:hover + .card-container {
+        left: 45px;
     }
 
+
+        #scott-levi-cards .card-container:hover + .card-container + .card-container {
+            left: 25px;
+        }
+
+            #scott-levi-cards .card-container:hover + .card-container + .card-container + .card-container {
+                left: 5px;
+            }
 
 #scott-levi-cards .card-color-dark {
     background-color: #111;

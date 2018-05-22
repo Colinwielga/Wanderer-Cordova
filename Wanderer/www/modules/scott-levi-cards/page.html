@@ -9,9 +9,7 @@
 <h3>Hand</h3>
 <div class="card-cards-container-container hand">
     <div class="card-cards-container">
-        <div data-ng-repeat="cardID in module.hand" class="card-container">
-            <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
-        </div>
+        <div data-ng-repeat="cardID in module.hand" class="card-container wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         <div ng-drop="true"
              class="empty-add"
              ng-drop-success="module.dropEmptyHand($data,$event)"
@@ -22,9 +20,7 @@
 <h3>Table</h3>
 <div class="card-cards-container-container table">
     <div class="card-cards-container">
-        <div data-ng-repeat="cardID in module.inPlay" class="card-container">
-            <div class="wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
-        </div>
+        <div data-ng-repeat="cardID in module.inPlay" class="card-container wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         <div ng-drop="true"
              class="empty-add"
              ng-drop-success="module.dropEmptyInPlay($data,$event)"
