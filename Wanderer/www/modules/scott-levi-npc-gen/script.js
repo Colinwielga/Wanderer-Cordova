@@ -172,10 +172,10 @@ ScottLeviNpcGen.component = function () {
         this.genre = genreEntry.name + " - " + this.randomFromList(genreEntry.attrs);
         this.color = genreEntry.color
 
-        var firstNames = ["Colin", "Scott", "Tote", "Chris", "Dylad"]
+        var firstNames = ["Aeon", "Ash", "Astor", "Babylon", "Carl", "Colin", "Chris", "Colbalt", "Dex", "Dylan", "Entropy", "Ezmerelda", "Fez", "Friar", "Hemlock", "Hoist", "Ivy", "Jeeves", "Johnny", "Joy", "Keno", "King", "Knuckles", "L", "Mellifluous", "Mix", "Neon", "Orn", "Phil", "Quest", "Retro", "Rick", "Ripley", "Scott", "Seven", "Siddhartha", "Tilda", "Tote", "Ux", "Verified", "Winston", "Xena", "Zed", "Zip",]
         this.firstName = this.randomFromList(firstNames);
 
-        var lastNames = ["Wielga", "Levi", "Crane", "Hughes"]
+        var lastNames = ["Alton", "Behemoth", "Comet", "Corybantic", "Crane", "Dirt", "Escher", "Fang", "Fury", "Gibbs", "Herzogin", "Hughes", "Ink", "James", "Kraken", "Levi", "Locke", "Mighty", "Needsahaircut", "Nightshade", "Overlord", "Paraprosdokian", "Petrichor", "Pistorius", "Quiver", "Rigmarole", "Satyr", "Schadenfreude", "Spectre", "Tempest", "Underhill", "Vectors", "Wielga", "Wax", "Wiggs", "X", "Yu", "Zealot", ]
         this.lastName = this.randomFromList(lastNames);
     }
 
