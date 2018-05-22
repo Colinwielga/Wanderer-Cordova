@@ -109,20 +109,22 @@ ScottLeviCards.component = function () {
     this.isSwords = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num % 2) == 1;
+        return (num == 0) || (num % 2) == 1;
     }
 
     this.isWands = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return ((num % 2) != 0) &&
+        return (num == 0) ||
+            ((num % 2) != 0) &&
             ((num % 3) != 0);
     }
 
     this.isCups = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num == 1) ||
+        return (num == 0) || 
+            (num == 1) ||
             (num == 2) ||
             (num == 3) ||
             (num == 5) ||

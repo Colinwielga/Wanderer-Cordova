@@ -13,6 +13,8 @@ ScottLeviNpcGen.component = function () {
 
     this.animal = "";
     this.secretSociety = "";
+    this.genre = "";
+    this.color = "";
 
     this.randomFromList = function (list) {
         return list[Math.floor(Math.random() * list.length)];
@@ -154,6 +156,19 @@ ScottLeviNpcGen.component = function () {
         ];
         var societyEntry = this.randomFromList(societies);
         this.secretSociety = societyEntry.name + " - " + this.randomFromList(societyEntry.attrs);
+        
+        var genres = [{ name: "Electronic", color: "White", attrs: ["House", "Industrial", "Dance", "EDM", "Dubstep", "Samples", "Trance"]},
+            { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
+            { name: "Jazz ", color: "Orange", attrs: ["Strings","Woodwinds", "Electronic", "Brass", "Swing", "Big Band", "Funk"] },
+            { name: "Worldly Folk", color: "Yellow", attr: ["Pop, Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
+            { name: "Blues", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
+            { name: "Rock", color: "Indigo", attrs: ["Grunge", "Classic", "Jam Band", "Synth Rock", "Stadium", "Festival"] },
+            { name: "Punk", color: "Violet", attrs: ["Proto -", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
+            { name: "Metal", color: "Black", attrs: ["Heavy", "Speed", "Death", "Crust", "Stoner"] },
+        ];
+        var genreEntry = this.randomFromList(genres);
+        this.genre = genreEntry.name + " - " + this.randomFromList(genreEntry.attrs);
+        this.color = genreEntry.color
     }
 
     this.OnNewCharacter = function () {
