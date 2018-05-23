@@ -24,10 +24,9 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
                 return getSaveJson() !== undefined && getSaveJson()[key] !== undefined;
             },
             write: function (key, value) {
-                if (getSaveJson() === undefined) {
-                    getSaveJson()[key] = {};
+                if (getSaveJson() !== undefined) {
+                    getSaveJson()[key] = value;
                 }
-                getSaveJson()[key] = value;
             },
             lastVersion: function () {
                 if (getSaveJson() === undefined) {
