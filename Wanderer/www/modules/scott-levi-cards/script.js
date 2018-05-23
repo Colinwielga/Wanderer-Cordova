@@ -262,7 +262,6 @@ ScottLeviCards.component = function () {
         if(descendingOrder){
             result.push("If your Cards on the Table are in descending numerical order, your character may count odd numbered (1, 3, 5, etc.) towards skill checks.");
         } 
-        var hasPentaclesSpecial = parseInt(card.value);     
         if(ascendingOrder){
             result.push("If your Cards on the Table are in ascending numerical order, your character may count even numbered (2, 4, 6, etc.) towards skill checks.");
         }    
