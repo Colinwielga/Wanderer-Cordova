@@ -208,17 +208,6 @@
             }
 
 
-    #scott-levi-cards .card-container.dragging:hover + .card-container {
-        left: 0px;
-    }
-
-        #scott-levi-cards .card-container.dragging:hover + .card-container + .card-container {
-            left: 0px;
-        }
-
-            #scott-levi-cards .card-container.dragging:hover + .card-container + .card-container + .card-container {
-                left: 0px;
-            }
 
 #scott-levi-cards .card-color-dark {
     background-color: #111;

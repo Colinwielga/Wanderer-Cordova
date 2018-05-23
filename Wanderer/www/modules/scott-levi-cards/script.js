@@ -28,7 +28,7 @@ ScottLeviCards.component = function () {
                 nowIndex = this.hand.indexOf(cardNextToId);
                 this.hand.splice(wasIndex, 1);
                 this.hand.splice(nowIndex, 0, data.guid);
-            } else {
+            } else if (this.canEnterPlay(data)) {
                 this.hand.splice(wasIndex, 1);
                 nowIndex = this.inPlay.indexOf(cardNextToId);
                 console.log(nowIndex);
@@ -57,15 +57,21 @@ ScottLeviCards.component = function () {
     }
     
     this.dropEmptyInPlay = function (data, event) {
-        var index = this.hand.indexOf(data.guid);
-        if (index > -1) {
-            this.hand.splice(index, 1);
+        if (this.canEnterPlay(data)) {
+            var index = this.hand.indexOf(data.guid);
+            if (index > -1) {
+                this.hand.splice(index, 1);
+            }
+            index = this.inPlay.indexOf(data.guid);
+            if (index > -1) {
+                this.inPlay.splice(index, 1);
+            }
+            this.inPlay.push(data.guid);
         }
-        index = this.inPlay.indexOf(data.guid);
-        if (index > -1) {
-            this.inPlay.splice(index, 1);
-        }
-        this.inPlay.push(data.guid);
+    }
+
+    this.canEnterPlay = function () {
+        var value = data.image < 22;
     }
 
     this.dropLeft = function (cardNextTo, data, event) {
@@ -265,10 +271,6 @@ ScottLeviCards.component = function () {
             result.push("If your Cards on the Table are in ascending numerical order, your character may count even numbered (2, 4, 6, etc.) towards skill checks.");
         }    
         return result;  
-    }
-
-    this.Dragging = function () {
-        return true;
     }
 
     this.OnStart = function (communicator, logger, page, dependencies) {
