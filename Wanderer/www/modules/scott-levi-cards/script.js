@@ -209,7 +209,7 @@ ScottLeviCards.component = function () {
             'Page of Cups, Discard a Pair, Saboteur, while doing something unexpected or from concealment, you can make a rogue-like sneak attack or action that sabotages anyone or something in the environment.',
             'Knight of Cups, Discard Two Pairs, Face Cards (Page-King) outrank and beat Wild and Major Arcana for the current round of combat/action.',
             'Queen of Cups, You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
-            'King of Cups, You may only advance to this level if you have the seven (chariot) and thirteen (devil) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.',
+            'King of Cups, You may only advance to this level if you have the seven (chariot) and thirteen (death) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.',
         ];
 
         var ActiveWandsAbilities = WandsAbilities.splice(0, numWands);
@@ -229,7 +229,42 @@ ScottLeviCards.component = function () {
         for (var i = 0; i<ActiveCupsAbilities.length; i++){
             result.push("Influencer: " + (i+1) + ' - ' + ActiveCupsAbilities[i]);
         }
-        return result;
+        
+        var sum = 0;
+        for (var i = 0; i<cards.length; i++){
+            sum = sum + parseInt(cards[i].value); 
+        }
+        if([1,2,3,5,7,9,11,13,17,19,23,27,29,31,37,41,43,47,52,59,61,67,71,73,79,83,89,97,101].indexOf(sum) > -1){
+            result.push("If your Cards on the Table total numerical value adds up to a prime number, your character's Aces count as Wild; the Ace of Wands, counts as a double Wild Card.");
+        }
+        if([1,4,9,16,25,36,49,64,81,100].indexOf(sum) > -1){
+            result.push("If you Cards on the Table total numerical value adds up to a square number, your character's square numbered cards count as Wild but remain their suit.");
+        }
+        var ascendingOrder = true;
+        var descendingOrder = true;
+        for (var i = 0; i<cards.length-1; i++){
+            var leftValue = parseInt(cards[i].value);
+            var rightValue = parseInt(cards[i+1].value);
+            if (rightValue < leftValue){
+                ascendingOrder = false;
+            }
+            if (rightValue > leftValue){
+                descendingOrder= false;
+            }
+        }
+        if (cards.length < 2){
+            descendingOrder = false;
+            ascendingOrder = false; 
+        }
+             
+        if(descendingOrder){
+            result.push("If your Cards on the Table are in descending numerical order, your character may count odd numbered (1, 3, 5, etc.) towards skill checks.");
+        } 
+        var hasPentaclesSpecial = parseInt(card.value);     
+        if(ascendingOrder){
+            result.push("If your Cards on the Table are in ascending numerical order, your character may count even numbered (2, 4, 6, etc.) towards skill checks.");
+        }    
+        return result;  
     }
 
     this.Dragging = function () {
