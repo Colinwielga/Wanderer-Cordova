@@ -25,7 +25,7 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
             },
             write: function (key, value) {
                 if (getSaveJson() === undefined) {
-                    value = {};
+                    getSaveJson()[key] = {};
                 }
                 getSaveJson()[key] = value;
             },
