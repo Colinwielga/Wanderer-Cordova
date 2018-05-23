@@ -51,11 +51,7 @@ ScottLeviCards.component = function () {
             }
         }
     }
-    
-    this.debug = function () {
-        console.log("what!");
-    }
-    
+     
     this.dropEmptyInPlay = function (data, event) {
         if (this.canEnterPlay(data)) {
             var index = this.hand.indexOf(data.guid);
@@ -70,7 +66,7 @@ ScottLeviCards.component = function () {
         }
     }
 
-    this.canEnterPlay = function () {
+    this.canEnterPlay = function (data) {
         return data.image < 22;
     }
 
