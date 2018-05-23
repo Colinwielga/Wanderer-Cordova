@@ -12,8 +12,7 @@
         <div data-ng-repeat="cardID in module.hand" class="card-container wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         <div ng-drop="true"
              class="empty-add"
-             ng-drop-success="module.dropEmptyHand($data,$event)"
-             data-ng-show="module.hand.length == 0">
+             ng-drop-success="module.dropEmptyHand($data,$event)">
         </div>
     </div>
 </div>
@@ -23,8 +22,7 @@
         <div data-ng-repeat="cardID in module.inPlay" class="card-container wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
         <div ng-drop="true"
              class="empty-add"
-             ng-drop-success="module.dropEmptyInPlay($data,$event)"
-             data-ng-show="module.inPlay.length == 0">
+             ng-drop-success="module.dropEmptyInPlay($data,$event)">
         </div>
     </div>
 </div>

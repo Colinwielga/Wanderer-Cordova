@@ -16,29 +16,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding-left:60px;
+    padding-left: 25px;
 }
 
 #scott-levi-cards div.empty-add {
-    height: 100px;
-    border-top: 1.5px dashed gray;
-    /*    border-bottom: 1.5px dashed gray;*/
-    background-color: white;
-    opacity: 0.4;
-    /*    background-color: mediumpurple;*/
-    margin-left: -80px;
-    padding-top: 50px;
-    margin-bottom: -10px;
+    height: 370px;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
-
-#scott-levi-cards div.hand div.empty-add:before {
-    content: "You don't have any cards in your hand.";
-}
-
-#scott-levi-cards div.table div.empty-add:before {
-    content: "You haven't put any cards on the table.";
-}
-
 
 #scott-levi-cards div.card-container {
     display: inline-block;
@@ -59,7 +44,7 @@
     /*    margin-bottom: 20px;*/
     width: 220px;
     /*    margin-left: -240px;*/
-/*    margin-right: 0px;*/
+    /*    margin-right: 0px;*/
     position: absolute;
     left: 0px;
     top: 0px;
@@ -72,26 +57,26 @@
         display: inline-block;
         background-color: red;
         float: left;
-/*        background-color: white;*/
+        /*        background-color: white;*/
         opacity: 0;
     }
 
-/*    #scott-levi-cards .drag-target .drag-target-right {*/
-/*        margin-top: 10px;*/
-/*        margin-bottom: 10px;*/
-/*        height: 350px;*/
-/*        width: 140px;*/
-/*        border-radius: 10px;*/
-/*        display: inline-block;*/
-/*        -moz-transform: perspective(200px) rotateY(2deg);*/
-/*        -ms-transform: perspective(200px) rotateY(2deg);*/
-/*        -o-transform: perspective(200px) rotateY(2deg);*/
-/*        -webkit-transform: perspective(200px) rotateY(2deg);*/
-/*        transform: perspective(200px) rotateY(2deg);*/
-/*        overflow: hidden;*/
-/*        background: linear-gradient(to right, white, transparent);*/
-/*        opacity: 0;*/
-/*    }*/
+    /*    #scott-levi-cards .drag-target .drag-target-right {*/
+    /*        margin-top: 10px;*/
+    /*        margin-bottom: 10px;*/
+    /*        height: 350px;*/
+    /*        width: 140px;*/
+    /*        border-radius: 10px;*/
+    /*        display: inline-block;*/
+    /*        -moz-transform: perspective(200px) rotateY(2deg);*/
+    /*        -ms-transform: perspective(200px) rotateY(2deg);*/
+    /*        -o-transform: perspective(200px) rotateY(2deg);*/
+    /*        -webkit-transform: perspective(200px) rotateY(2deg);*/
+    /*        transform: perspective(200px) rotateY(2deg);*/
+    /*        overflow: hidden;*/
+    /*        background: linear-gradient(to right, white, transparent);*/
+    /*        opacity: 0;*/
+    /*    }*/
     #scott-levi-cards .drag-target .drag-target-right {
         position: absolute;
         left: 110px;
@@ -99,19 +84,19 @@
         height: 370px;
         width: 110px;
         display: inline-block;
-/*        background-color: green;*/
+        /*        background-color: green;*/
         float: left;
         background-color: white;
         opacity: 0;
     }
 
         #scott-levi-cards .drag-target .drag-target-right.drag-enter {
-/*        position: absolute;*/
+            /*        position: absolute;*/
             top: 0px;
             width: 130px;
             height: 370px;
             opacity: 0.7;
-/*            border: solid white 2px;*/
+            /*            border: solid white 2px;*/
             border-radius: 10px;
             -moz-transform: perspective(200px) rotateY(2deg);
             -ms-transform: perspective(200px) rotateY(2deg);
@@ -122,24 +107,26 @@
         }
 
 #scott-levi-cards .card-info-container {
-	display: none;
-	position: absolute;
-	margin-top: 2px;
-	left: -2px;
-	width: 188px;
-	background-color: #A2A2A2;
+    display: none;
+    position: absolute;
+    margin-top: 2px;
+    left: -2px;
+    width: 188px;
+    background-color: #A2A2A2;
     border-radius: 0px 0px 10px 10px;
     border-left: solid black 8px;
     border-right: solid black 8px;
     border-bottom: solid black 8px;
 }
-	#scott-levi-cards .card:hover .card-info-container {
-		display: inline-block;
-		z-index: 99;
-	}
-	#scott-levi-cards .card.dragging:hover .card-info-container {
-		display: none;
-	}
+
+#scott-levi-cards .card:hover .card-info-container {
+    display: inline-block;
+    z-index: 99;
+}
+
+#scott-levi-cards .card.dragging:hover .card-info-container {
+    display: none;
+}
 
 #scott-levi-cards .wrapped-card {
     /*	background-color: blue;*/
@@ -151,7 +138,7 @@
     display: inline-block;
     position: absolute;
     font-family: 'Roboto', 'Helvetica', serif;
-/*    overflow-x: hidden;*/
+    /*    overflow-x: hidden;*/
     margin: 10px;
     width: 200px;
     height: 350px;
@@ -175,21 +162,25 @@
 
     #scott-levi-cards .card:hover {
         box-shadow: 0px 0px 30px #FFF;
-    	border-radius: 10px 10px 0px 0px;
+        border-radius: 10px 10px 0px 0px;
     }
+
     #scott-levi-cards .card.dragging:hover {
-    	border-radius: 10px;
+        border-radius: 10px;
     }
-    
+
     #scott-levi-cards .card:hover .card-border {
         border-radius: 5px 5px 0px 0px;
     }
+
     #scott-levi-cards .card.dragging:hover .card-border {
         border-radius: 5px;
     }
+
     #scott-levi-cards .card:hover .card-number-container {
         display: none;
     }
+
     #scott-levi-cards .card.dragging:hover .card-number-container {
         display: block;
     }
@@ -214,6 +205,19 @@
 
             #scott-levi-cards .card-container:hover + .card-container + .card-container + .card-container {
                 left: 5px;
+            }
+
+
+    #scott-levi-cards .card-container.dragging:hover + .card-container {
+        left: 0px;
+    }
+
+        #scott-levi-cards .card-container.dragging:hover + .card-container + .card-container {
+            left: 0px;
+        }
+
+            #scott-levi-cards .card-container.dragging:hover + .card-container + .card-container + .card-container {
+                left: 0px;
             }
 
 #scott-levi-cards .card-color-dark {
