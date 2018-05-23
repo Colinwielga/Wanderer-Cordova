@@ -71,7 +71,7 @@ ScottLeviCards.component = function () {
     }
 
     this.canEnterPlay = function () {
-        var value = data.image < 22;
+        return data.image < 22;
     }
 
     this.dropLeft = function (cardNextTo, data, event) {
