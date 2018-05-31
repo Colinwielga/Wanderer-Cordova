@@ -7,7 +7,7 @@
     -->
     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://dynamodb.us-east-1.amazonaws.com/ https://email.us-east-1.amazonaws.com/">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://dynamodb.us-east-1.amazonaws.com/ https://email.us-east-1.amazonaws.com/ https://cdn.jsdelivr.net/ https://wandererwebapp.azurewebsites.net/ https://wanderersignalr.service.signalr.net:5001/ wss://wanderersignalr.service.signalr.net:5001/">
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -21,14 +21,15 @@
     <title>Wanderer</title>
 
     <!-- externals -->
+    <script src="External/jquery-3.1.0.min.js"></script>
     <script src="External/angular.min.js"></script>
     <script src="External/ngDraggable.js"></script>
-    <script src="External/jquery-3.1.0.min.js"></script>
-    <script src="External/aws-sdk.js"></script>
-    <script src="External/d3.v4.min.js"></script>
     <script src="External/textAngular-rangy.min.js"></script>
     <script src="External/textAngular-sanitize.min.js"></script>
     <script src="External/textAngular.min.js"></script>
+    <script src="External/aws-sdk.js"></script>
+    <script src="External/d3.v4.min.js"></script>
+    <script src="External/SignalR/signalr.js"></script>
 </head>
 <body data-ng-controller="wandererController">
     <div id="all">
@@ -87,6 +88,7 @@
         <script src="scripts/Services/PageService.js"></script>
         <script src="scripts/Services/ComponetService.js"></script>
         <script src="scripts/Services/TimeoutService.js"></script>
+        <script src="scripts/Services/SignalRService.js"></script>
 
         <!-- pages -->
         <script src="scripts/Pages/Character/CharacterPage.js"></script>
@@ -113,6 +115,7 @@
         <script src="modules/colin-wielga-cards/script.js"></script>
         <script src="modules/scott-levi-cards/namespace.js"></script>
         <script src="modules/scott-levi-cards/Deck.js"></script>
+        <script src="modules/wanderer-core-activities/script.js"></script>
         <script src="modules/scott-levi-cards/script.js"></script>
         <script src="modules/scott-levi-cards/tarotCard.js"></script>
         <script src="modules/scott-levi-npc-gen/script.js"></script>

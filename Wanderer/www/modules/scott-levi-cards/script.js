@@ -31,7 +31,6 @@ ScottLeviCards.component = function () {
             } else if (this.canEnterPlay(data)) {
                 this.hand.splice(wasIndex, 1);
                 nowIndex = this.inPlay.indexOf(cardNextToId);
-                console.log(nowIndex);
                 this.inPlay.splice(nowIndex, 0, data.guid);
             }
         } else {
@@ -45,7 +44,6 @@ ScottLeviCards.component = function () {
                 } else {
                     this.inPlay.splice(wasIndex, 1);
                     nowIndex = this.hand.indexOf(cardNextToId);
-                    console.log(nowIndex);
                     this.hand.splice(nowIndex, 0, data.guid);
                 }
             }
@@ -260,17 +258,26 @@ ScottLeviCards.component = function () {
         }
              
         if(descendingOrder){
-            result.push("If your Cards on the Table are in descending numerical order, your character may count odd numbered (1, 3, 5, etc.) towards skill checks.");
+            result.push("If your Cards on the Table are in descending numerical order, your character may count odd straight numbered (1, 3, 5, etc.) towards skill checks.");
         } 
         if(ascendingOrder){
-            result.push("If your Cards on the Table are in ascending numerical order, your character may count even numbered (2, 4, 6, etc.) towards skill checks.");
+            result.push("If your Cards on the Table are in ascending numerical order, your character may count even straight numbered (2, 4, 6, etc.) towards skill checks.");
         }    
         return result;  
     }
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator
-        this.godsPublic = dependencies[0];
+        this.activitiesPublic = dependencies[0]; 
+        this.activitiesPublic.addCallback("card-played", function (cardInfo) {
+            return {
+                playedBy: cardInfo.playedBy,
+                card: that.getCard(cardInfo.cardId),
+                getHtml: function () {
+                    return "modules/" + that.getId() + "/cardPlayed.html";
+                },
+            }
+        })
     }
     this.OnNewCharacter = function () {
         this.inPlay = [];
@@ -353,7 +360,7 @@ ScottLeviCards.component = function () {
         return "Tarot";
     }
     this.getRequires = function () {
-        return [];//"colin-wielga-gods"
+        return ["wanderer-core-activities"];//"colin-wielga-gods"
     }
 
     this.getPublic = function () {
@@ -428,6 +435,11 @@ ScottLeviCards.component = function () {
         for (var i = 0; i < this.hand.length; i++) {
             if (this.hand[i] === cardID) {
                 this.hand.splice(i, 1);
+                this.activitiesPublic.publish({
+                    callbackName: "card-played",
+                    playedBy: "_",
+                    cardId: "_",
+                });
             }
         }
         for (var i = 0; i < this.inPlay.length; i++) {
