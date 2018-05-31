@@ -17,15 +17,60 @@
     }
     this.getSuitValue = function () {
         if (this.image < 22) return 0;
-        else return Math.floor((this.image - 22)/14);
+        else return Math.floor((this.image - 22)/14 + 1);
+    }
+    this.getArchetypes = function () {
+        var archetypes = [];
+        if (this.getSuitValue() != 0) return archetypes;
+        // Wands:
+        if (
+            (this.getValue() == 0) ||
+            ((this.getValue() % 2) != 0) &&
+            ((this.getValue() % 3) != 0)
+        ) archetypes.push(1);
+        // Cups:
+        if (
+            (this.getValue() == 0) ||
+            (this.getValue() == 1) ||
+            (this.getValue() == 2) ||
+            (this.getValue() == 3) ||
+            (this.getValue() == 5) ||
+            (this.getValue() == 8) ||
+            (this.getValue() == 13) ||
+            (this.getValue() == 21)
+        ) archetypes.push(2);
+        // Swords:
+        if (
+            (this.getValue() == 0) ||
+            (this.getValue() % 2) == 1
+        ) archetypes.push(3);
+        // Pentacles:
+        if (
+            (this.getValue() % 2 == 0)
+        ) archetypes.push(4);
+        
+        return archetypes;
     }
     this.getSuitHTML = function () {
         if (this.getSuitValue() == 0) return "∞";
-        else if (this.getSuitValue() == 1) return "♣";
-        else if (this.getSuitValue() == 2) return "♥";
-        else if (this.getSuitValue() == 3) return "♠";
-        else if (this.getSuitValue() == 4) return "♦";
+        else if (this.getSuitValue() == 1) return "⚔";      // ♣ (wands: warrior)
+        else if (this.getSuitValue() == 2) return "⚑";      // ♥ (cups: influencer)
+        else if (this.getSuitValue() == 3) return "⚙";      // ♠ (swords: magician)
+        else if (this.getSuitValue() == 4) return "⚛";      // ♦ (pentacles: scientist)
         else return "⊗";
+    }
+    this.getArchetypesHTML = function () {
+        var archetypesHTML = [];
+        for (var i = 0; i < this.getArchetypes().length; i++) {
+            var value = this.getArchetypes()[i];
+            if (value == 0) archetypesHTML.push("∞");
+            else if (value == 1) archetypesHTML.push("⚔");
+            else if (value == 2) archetypesHTML.push("⚑");
+            else if (value == 3) archetypesHTML.push("⚙");
+            else if (value == 4) archetypesHTML.push("⚛");
+            else archetypesHTML.push("⊗");
+        }
+        return archetypesHTML.join(" ");
     }
 };
 
