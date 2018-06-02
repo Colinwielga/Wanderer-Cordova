@@ -16,19 +16,45 @@ g.services.SingnalRService.Callback = function (groupName, x) {
 }
 
 g.services.SingnalRService.setCallback = function (name, groupName, accept, act) {
-    g.services.SingnalRService.callbacks[name] = { Accept: accept, GroupName: groupName,  Act: act };
+    g.services.SingnalRService.callbacks[name] = { Accept: accept, GroupName: groupName, Act: act };
 }
 
 g.services.SingnalRService.removeCallback = function (name, accept, act) {
     delete g.services.SingnalRService.callbacks[name];
 }
 
-g.services.SingnalRService.Connect = function () {
-    g.services.SingnalRService.connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://wandererwebapp.azurewebsites.net/chat")
-        .build();
-    g.services.SingnalRService.connection.on('BroadcastMessage', g.services.SingnalRService.Callback);
-    g.services.SingnalRService.connection.start().catch(err => console.error("do all signalR errors go here? "+err.toString()));
+g.services.SingnalRService.onConnectCallbacks = [];
+g.services.SingnalRService.connecting = false;
+g.services.SingnalRService.Connect = function (callback) {
+    if (callback) {
+        g.services.SingnalRService.onConnectCallbacks.push(callback)
+    }
+    if (!g.services.SingnalRService.connecting) {
+        g.services.SingnalRService.connecting = true;
+        g.services.SingnalRService.InnerConnection(0);
+    }
+}
+
+g.services.SingnalRService.InnerConnection = function (time) {
+    setTimeout(function () {
+        g.services.SingnalRService.connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://wandererwebapp.azurewebsites.net/chat")
+            .build();
+        g.services.SingnalRService.connection.on('BroadcastMessage', g.services.SingnalRService.Callback);
+        g.services.SingnalRService.connection.start().then(function () {
+            g.services.SingnalRService.connecting = false;
+            for (var i = 0; i < g.services.SingnalRService.onConnectCallbacks.length; i++) {
+                g.services.SingnalRService.onConnectCallbacks[i]();
+            }
+            g.services.SingnalRService.onConnectCallbacks = [];
+        }).catch(function (err) {
+            g.services.SingnalRService.connecting = false;
+            console.error(err.toString());
+            if (time < 1000) {
+                g.services.SingnalRService.InnerConnection(time + 100);
+            }
+        });
+    }, time);
 }
 
 g.services.SingnalRService.Connect();
@@ -43,6 +69,14 @@ g.services.SingnalRService.Send = function (key, obj) {
     if (g.services.SingnalRService.groupNames[key] == null) {
         throw "Group name should not be null";
     }
-    g.services.SingnalRService.connection.send('BroadcastMessage', g.services.SingnalRService.groupNames[key] ,obj);
+    try {
+        g.services.SingnalRService.connection.send('BroadcastMessage', g.services.SingnalRService.groupNames[key], obj);
+    } catch (err) {
+        console.error(err.toString());
+        console.log("attempting to reconnect");
+        g.services.SingnalRService.Connect(function () {
+            g.services.SingnalRService.connection.send('BroadcastMessage', g.services.SingnalRService.groupNames[key], obj);
+        })
+    }
 }
 
