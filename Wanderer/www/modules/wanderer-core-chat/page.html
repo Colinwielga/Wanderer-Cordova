@@ -1,0 +1,16 @@
+﻿<div ng-show="!module.Joined" class="pad-me">
+    <form>
+        <input type="text" ng-model="module.GroupName" />
+        <input type="submit" value="Join" ng-click="module.Join()" ng-disabled="module.GroupName == null" />
+    </form>
+</div>
+<div ng-show="module.Joined">
+    <div class="pad-me">
+        <div ng-repeat="activity in module.Activities" ng-include="activity.getHtml()"></div>
+    </div>
+    <form class="pad-me">
+        <input type="text" ng-model="module.Message" />
+        <input type="submit" value="Send" ng-click="module.Send()" ng-disabled="module.Message == null" />
+    </form>
+</div>
+

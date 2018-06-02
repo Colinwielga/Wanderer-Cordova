@@ -1,11 +1,31 @@
 ﻿
 ScottLeviCards.component = function () {
     var that = this;
+    this.GroupName = "";
+    this.Joined = false;
+    this.discardPile = [];
     this.decklist = ScottLeviCards.decklist;
     this.isDragging = false;
     this.getId = function () {
         return "scott-levi-cards"
     }
+
+    this.Join = function () {
+        g.services.SingnalRService.setCallback(this.key,
+            this.GroupName,
+            function (x) { return true; },
+            function (message) {
+                g.services.timeoutService.$timeout(function () {
+                    that.discardPile.push(message);
+                    if (that.discardPile.length > 5) {
+                        that.discardPile.splice(0, 1);
+                    }
+                });
+            });
+        g.services.SingnalRService.Join(this.GroupName, this.key);
+        this.Joined = true;
+    }
+
     this.pickUp = function (ev) {
     }
     this.dropEmptyHand = function (data, event) {
@@ -267,17 +287,9 @@ ScottLeviCards.component = function () {
     }
 
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator
-        this.activitiesPublic = dependencies[0]; 
-        this.activitiesPublic.addCallback("card-played", function (cardInfo) {
-            return {
-                playedBy: cardInfo.playedBy,
-                card: that.getCard(cardInfo.cardId),
-                getHtml: function () {
-                    return "modules/" + that.getId() + "/cardPlayed.html";
-                },
-            }
-        })
+        this.key = Math.random() + "";
+        this.communicator = communicator;
+        this.page = page;
     }
     this.OnNewCharacter = function () {
         this.inPlay = [];
@@ -360,7 +372,7 @@ ScottLeviCards.component = function () {
         return "Tarot";
     }
     this.getRequires = function () {
-        return ["wanderer-core-activities"];//"colin-wielga-gods"
+        return [];
     }
 
     this.getPublic = function () {
@@ -407,7 +419,7 @@ ScottLeviCards.component = function () {
     this.startingDeck = function () {
         return this.possibleCards();
     }
-
+    
     this.draw = function () {
         if (this.hand.length < this.activeDeck.length) {
             var num = -1;
@@ -435,10 +447,10 @@ ScottLeviCards.component = function () {
         for (var i = 0; i < this.hand.length; i++) {
             if (this.hand[i] === cardID) {
                 this.hand.splice(i, 1);
-                this.activitiesPublic.publish({
+                g.services.SingnalRService.Send(that.key,{
                     callbackName: "card-played",
-                    playedBy: "_",
-                    cardId: "_",
+                    playedBy: that.page.name,
+                    cardId: cardID,
                 });
             }
         }

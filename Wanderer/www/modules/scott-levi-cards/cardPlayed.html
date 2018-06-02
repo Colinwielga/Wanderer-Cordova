@@ -1,1 +1,9 @@
-﻿<div>Content goes here.</div>
+﻿<div>
+    <div>
+        {{activity.playedBy}}:
+    </div>
+    <div class="card-container wrapped-card"
+         ng-init="card = activity.card";
+         ng-include="activity.card.getHtml()">
+    </div>
+</div>

@@ -1,86 +1,138 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/scott-levi-cards/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="modules/scott-levi-cards/card.css" />
 
-<div class="card-buttons-container pad-me highlight-section">
+<div class="highlight-section discard-pile pad-me">
+    <h3>Shared Discard  Pile</h3>
+    <div ng-show="!module.Joined">
+        <center>
+            <form>
+                <input type="text" ng-model="module.GroupName" />
+                <input type="submit" value="Join" ng-click="module.Join()" ng-disabled="module.GroupName == null" />
+            </form>
+        </center>
+    </div>
+    <div ng-show="module.Joined">
+        <div class="card-cards-container-container discard">
+            <div class="card-cards-container">
+                <div data-ng-repeat="message in module.discardPile"
+                     class="card-container wrapped-card"
+                     ng-init="card = module.getCard(message.cardId)"
+                     data-cardId="{{message.cardId}}">
+                    <div class="played-by">
+                        {{message.playedBy}}
+                    </div>
+                    <div ng-include="card.getHtml()">
+                    </div>
+                </div>
+                <div class="empty-add">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pad-me ">
+    <h3>Hand</h3>
     <center>
         ﻿<button data-ng-click="module.draw()"> draw </button>
         <label class="label-button" for="setting-hide">modify deck</label>
     </center>
-</div>
-<h3>Hand</h3>
-<div class="card-cards-container-container hand">
-    <div class="card-cards-container">
-        <div data-ng-repeat="cardID in module.hand" class="card-container wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
-        <div ng-drop="true"
-             class="empty-add"
-             ng-drop-success="module.dropEmptyHand($data,$event)">
+    <div class="card-cards-container-container hand">
+        <div class="card-cards-container">
+            <div data-ng-repeat="cardID in module.hand"
+                 class="card-container wrapped-card draggable"
+                 ng-init="card = module.getCard(cardID)"
+                 ng-include="card.getHtml()"
+                 ng-drag="true"
+                 ng-drag-start="module.isDragging = true"
+                 ng-drag-success="module.isDragging = false"
+                 ng-drag-stop="module.isDragging = false"
+                 ng-dblclick="module.discard(cardID)"
+                 ng-drag-data="card"
+                 ng-drop="true"
+                 ng-drop-success="module.dropOn(cardID,$data,$event)"
+                 data-cardId="{{cardID}}"></div>
+            <div ng-drop="true"
+                 class="empty-add"
+                 ng-drop-success="module.dropEmptyHand($data,$event)">
+            </div>
         </div>
     </div>
 </div>
-<h3>Table</h3>
-<div class="card-cards-container-container table">
-    <div class="card-cards-container">
-        <div data-ng-repeat="cardID in module.inPlay" class="card-container wrapped-card" data-ng-include="module.getCard(cardID).getHtml()"></div>
-        <div ng-drop="true"
-             class="empty-add"
-             ng-drop-success="module.dropEmptyInPlay($data,$event)">
+<div class="highlight-section pad-me">
+    <h3>Table</h3>
+    <div class="card-cards-container-container table">
+        <div class="card-cards-container">
+            <div data-ng-repeat="cardID in module.inPlay"
+                 class="card-container wrapped-card draggable"
+                 ng-init="card = module.getCard(cardID)"
+                 ng-include="card.getHtml()"
+                 ng-drag="true"
+                 ng-drag-start="module.isDragging = true"
+                 ng-drag-success="module.isDragging = false"
+                 ng-drag-stop="module.isDragging = false"
+                 ng-dblclick="module.discard(cardID)"
+                 ng-drag-data="card"
+                 ng-drop="true"
+                 ng-drop-success="module.dropOn(cardID,$data,$event)"
+                 data-cardId="{{cardID}}"></div>
+            <div ng-drop="true"
+                 class="empty-add"
+                 ng-drop-success="module.dropEmptyInPlay($data,$event)">
+            </div>
         </div>
     </div>
 </div>
-<h3>Select Card Archetype</h3>
 <div class="pad-me">
-    <div data-ng-repeat="cardID in module.inPlay">
-        <h4>
-            {{module.getCard(cardID).name}}
-        </h4>
-        <label ng-hide="!module.isSwords(cardID)">
-            <input type="radio"
-                   name="{{cardID}}-level"
-                   ng-value="module.swords"
-                   ng-model="module.cardArchetype[cardID]">
-            Warrior
-        </label>
-        <label ng-hide="!module.isWands(cardID)">
-            <input type="radio"
-                   name="{{cardID}}-level"
-                   ng-value="module.wands"
-                   ng-model="module.cardArchetype[cardID]">
-            Magician
-        </label>
-        <label ng-hide="!module.isCups(cardID)">
-            <input type="radio"
-                   name="{{cardID}}-level"
-                   ng-value="module.cups"
-                   ng-model="module.cardArchetype[cardID]">
-            Influencer
-        </label>
-        <label ng-hide="!module.isPentacles(cardID)">
-            <input type="radio"
-                   name="{{cardID}}-level"
-                   ng-value="module.pentacles"
-                   ng-model="module.cardArchetype[cardID]">
-            Scientist
-        </label>
+    <h3>Select Card Archetype</h3>
+    <div>
+        <div data-ng-repeat="cardID in module.inPlay">
+            <h4>
+                {{module.getCard(cardID).name}}
+            </h4>
+            <label ng-hide="!module.isSwords(cardID)">
+                <input type="radio"
+                       name="{{cardID}}-level"
+                       ng-value="module.swords"
+                       ng-model="module.cardArchetype[cardID]">
+                Warrior
+            </label>
+            <label ng-hide="!module.isWands(cardID)">
+                <input type="radio"
+                       name="{{cardID}}-level"
+                       ng-value="module.wands"
+                       ng-model="module.cardArchetype[cardID]">
+                Magician
+            </label>
+            <label ng-hide="!module.isCups(cardID)">
+                <input type="radio"
+                       name="{{cardID}}-level"
+                       ng-value="module.cups"
+                       ng-model="module.cardArchetype[cardID]">
+                Influencer
+            </label>
+            <label ng-hide="!module.isPentacles(cardID)">
+                <input type="radio"
+                       name="{{cardID}}-level"
+                       ng-value="module.pentacles"
+                       ng-model="module.cardArchetype[cardID]">
+                Scientist
+            </label>
+        </div>
     </div>
 </div>
-<h3>Archetype Classes and Abilities:</h3>
-<div class="pad-me">
-    <ul>
-        <li data-ng-repeat="ability in module.getAbilities()">
-            {{ability}}
-        </li>
-    </ul>
+<div class="highlight-section pad-me">
+    <h3>Archetype Classes and Abilities:</h3>
+    <div>
+        <ul>
+            <li data-ng-repeat="ability in module.getAbilities()">
+                {{ability}}
+            </li>
+        </ul>
+    </div>
 </div>
 <input type="checkbox" class="hide-check" id="setting-hide" checked />
 <div class="deck-container-outer pad-me">
-    <div class="rules-divider"></div>
     <div class="deck-container">
-        <
-        <!--label for="decks"> Repeat select: </label>
-
-        <select id="decks" data-ng-options="deck as deck.name for deck in module.decklist"
-                data-ng-model="module.selectedDeck" data-ng-change="module.deckSelected()"></select>-->
-        <!--<select name="repeatSelect"  data-ng-model="module.selectedDeck"><option data-ng-repeat="deck in module.decklist" data-ng-value="deck.name">{{deck.name}}</option>
-        </select>-->
         <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-click="module.toggleCardActive(cardID)">
             {{module.getCard(cardID).name}}
         </div>

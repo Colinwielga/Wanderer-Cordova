@@ -1,15 +1,4 @@
-﻿<div class="classic-card card card-color-dark"
-     ng-init="card = module.getCard(cardID)"
-     ng-drag="true"
-     ng-drag-start="module.isDragging = true"
-     ng-drag-success="module.isDragging = false"
-     ng-drag-stop="module.isDragging = false"
-     ng-dblclick="module.discard(cardID)"
-     ng-drag-over="module.debug()"
-     ng-drag-data="card"
-     ng-drop="true"
-     ng-drop-success="module.dropOn(cardID,$data,$event)"
-     data-cardId="{{cardID}}">
+﻿<div class="classic-card card card-color-dark">
     <div class="card-border" back-img="{{card.getImage()}}">
         <div class="card-padding"></div>
         <div class="card-number-container">
