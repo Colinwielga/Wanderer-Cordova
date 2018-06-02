@@ -131,8 +131,8 @@
     </div>
 </div>
 <input type="checkbox" class="hide-check" id="setting-hide" checked />
-<div class="deck-container-outer pad-me">
-    <div class="deck-container">
+<div class="deck-container-outer">
+    <div class="deck-container pad-me">
         <div data-ng-repeat="cardID in module.possibleCards()" class="card-in-deck card-in-deck-{{module.inDeck(cardID)}}" data-ng-click="module.toggleCardActive(cardID)">
             {{module.getCard(cardID).name}}
         </div>

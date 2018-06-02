@@ -28,7 +28,7 @@ g.services.SingnalRService.Connect = function () {
         .withUrl("https://wandererwebapp.azurewebsites.net/chat")
         .build();
     g.services.SingnalRService.connection.on('BroadcastMessage', g.services.SingnalRService.Callback);
-    g.services.SingnalRService.connection.start().catch(err => console.error(err.toString()));
+    g.services.SingnalRService.connection.start().catch(err => console.error("do all signalR errors go here? "+err.toString()));
 }
 
 g.services.SingnalRService.Connect();
