@@ -46,6 +46,11 @@ g.services.SingnalRService.InnerConnection = function (time) {
             for (var i = 0; i < g.services.SingnalRService.onConnectCallbacks.length; i++) {
                 g.services.SingnalRService.onConnectCallbacks[i]();
             }
+            for (var key in g.services.SingnalRService.groupNames) {
+                if (g.services.SingnalRService.groupNames.hasOwnProperty(key)) {
+                    g.services.SingnalRService.connection.send('JoinGame', g.services.SingnalRService.groupNames[key]);
+                }
+            }
             g.services.SingnalRService.onConnectCallbacks = [];
         }).catch(function (err) {
             g.services.SingnalRService.connecting = false;
@@ -62,7 +67,13 @@ g.services.SingnalRService.groupNames = {};
 
 g.services.SingnalRService.Join = function (groupName, key) {
     g.services.SingnalRService.groupNames[key] = groupName;
-    g.services.SingnalRService.connection.send('JoinGame', groupName);
+    try {
+        g.services.SingnalRService.connection.send('JoinGame', groupName);
+    } catch (err) {
+        console.error(err.toString());
+        console.log("attempting to reconnect");
+        g.services.SingnalRService.Connect(function () {})
+    }
 }
 
 g.services.SingnalRService.Send = function (key, obj) {
