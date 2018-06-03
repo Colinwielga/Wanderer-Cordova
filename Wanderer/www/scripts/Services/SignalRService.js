@@ -43,13 +43,13 @@ g.services.SingnalRService.InnerConnection = function (time) {
         g.services.SingnalRService.connection.on('BroadcastMessage', g.services.SingnalRService.Callback);
         g.services.SingnalRService.connection.start().then(function () {
             g.services.SingnalRService.connecting = false;
-            for (var i = 0; i < g.services.SingnalRService.onConnectCallbacks.length; i++) {
-                g.services.SingnalRService.onConnectCallbacks[i]();
-            }
             for (var key in g.services.SingnalRService.groupNames) {
                 if (g.services.SingnalRService.groupNames.hasOwnProperty(key)) {
                     g.services.SingnalRService.connection.send('JoinGame', g.services.SingnalRService.groupNames[key]);
                 }
+            }
+            for (var i = 0; i < g.services.SingnalRService.onConnectCallbacks.length; i++) {
+                g.services.SingnalRService.onConnectCallbacks[i]();
             }
             g.services.SingnalRService.onConnectCallbacks = [];
         }).catch(function (err) {
