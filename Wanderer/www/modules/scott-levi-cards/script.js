@@ -255,7 +255,7 @@ ScottLeviCards.component = function () {
             sum = sum + parseInt(cards[i].value); 
         }
         if([1,2,3,5,7,9,11,13,17,19,23,27,29,31,37,41,43,47,52,59,61,67,71,73,79,83,89,97,101].indexOf(sum) > -1){
-            result.push("If your Cards on the Table total numerical value adds up to a prime number, your character's Aces count as Wild; the Ace of Wands, counts as a double Wild Card.");
+            result.push("If your Cards on the Table total numerical value adds up to a prime number, your character's Aces count as Wild; the Ace of Wands counts as a double Wild Card.");
         }
         if([1,4,9,16,25,36,49,64,81,100].indexOf(sum) > -1){
             result.push("If you Cards on the Table total numerical value adds up to a square number, your character's square numbered cards count as Wild but remain their suit.");
@@ -278,11 +278,11 @@ ScottLeviCards.component = function () {
         }
              
         if(descendingOrder){
-            result.push("If your Cards on the Table are in descending numerical order, your character may count odd straight numbered (1, 3, 5, etc.) towards skill checks.");
+            result.push("If your Cards on the Table are in descending numerical order, your character may count odd numbered straights (1, 3, 5, etc.) towards skill checks.");
         } 
         if(ascendingOrder){
-            result.push("If your Cards on the Table are in ascending numerical order, your character may count even straight numbered (2, 4, 6, etc.) towards skill checks.");
-        }    
+            result.push("If your Cards on the Table are in ascending numerical order, your character may count even numbered straights (2, 4, 6, etc.) towards skill checks.");
+        }   
         return result;  
     }
 
