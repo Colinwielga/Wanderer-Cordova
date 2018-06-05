@@ -8,19 +8,8 @@
     margin-bottom: 20px;
 }
 
-.discard-pile {
-    -webkit-filter: grayscale(70%);
-}
 
-#scott-levi-cards div.card-cards-container {
-    margin-top: 8px;
-    margin-left: 60px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-left: 25px;
-}
+
 
 #scott-levi-cards div.empty-add {
     height: 370px;

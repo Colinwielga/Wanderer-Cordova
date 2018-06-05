@@ -379,6 +379,16 @@ ScottLeviCards.component = function () {
         return {
             getVersion: function () {
                 return 1.0;
+            },
+            getHand: function () {
+                var result = [];
+                for (var i = 0; i < that.hand.length; i++) {
+                    result.push(that.getCard(that.hand[i]));
+                }
+                return result;
+            },
+            getCard: function (id) {
+                return that.getCard(id);
             }
         }
     }

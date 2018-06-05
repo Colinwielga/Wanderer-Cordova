@@ -1,4 +1,6 @@
-﻿<!--connect-->
+﻿<link href="../scott-levi-cards/card.css" rel="stylesheet" />
+
+<!--connect-->
 <div ng-show="!module.joined" class="pad-me">
     <center>
         <form>
@@ -17,28 +19,58 @@
 <div ng-show="module.joined" class="pad-me ">
     <div data-ng-repeat="challenge in module.challenges">
         <div ng-if="challenge.status == 'Received' || challenge.status == 'Sent'">
-            waiting for responce from: {{challenge.challengeeName}}
+            waiting for responce from: <b>{{challenge.challengeeName}}</b>
             <input type="button" value="Revoke" ng-click="module.RevokeChallenge(challenge)" />
         </div>
         <div ng-if="challenge.status== 'Open'">
-            {{challenge.challengerName}} wants to play with you:
+            <b>{{challenge.challengerName}}</b> wants to play with you:
             <input type="button" value="Play" ng-click="module.AcceptChallenge(challenge)" />
             <input type="button" value="Don't play" ng-click="module.RejectChallenge(challenge)" />
         </div>
         <div ng-if="challenge.status== 'Expired'">
-            {{challenge.challengeeName}} could not be reached
+            <b>{{challenge.challengeeName}}</b> could not be reached
             <input type="button" value="Remove" ng-click="module.RemoveChallenge(challenge)" />
         </div>
         <div ng-if="challenge.status == 'Revoked'">
-            {{challenge.challengerName}} revoked their challange
+            <b>{{challenge.challengerName}}</b> revoked their challange
             <input type="button" value="Remove" ng-click="module.RemoveChallenge(challenge)" />
         </div>
         <div ng-if="challenge.status == 'Rejected'">
-            {{challenge.challengerName}} rejected your challange
+            <b>
+                {{challenge.challengerName}}
+            </b> rejected your challange
             <input type="button" value="Remove" ng-click="module.RemoveChallenge(challenge)" />
         </div>
     </div>
 </div>
 <!-- games -->
 <div ng-show="module.joined" class="pad-me">
+    <div data-ng-repeat="game in module.games">
+        <h3>Game with {{game.oppo}}</h3>
+        <div class="card-cards-container discard-pile">
+            <div data-ng-repeat="message in game.inPlay"
+                 class="scott-levi-card-container wrapped-card"
+                 ng-init="card = message.card">
+                <div class="played-by">
+                    {{message.playedBy}}
+                </div>
+                <div ng-include="card.getHtml()">
+                </div>
+            </div>
+        </div>
+        <div class="card-cards-container">
+            <div ng-repeat="card in game.hand"
+                 class="scott-levi-card-container wrapped-card"
+                 ng-click="game.play(card)"
+                 ng-include="card.getHtml()">
+            </div>
+        </div>
+        <input ng-if="game.alone == false" type="button" value="Leave" ng-click="module.LeaveGame(game)" />
+        <div ng-if="game.alone == true">
+            <b>
+                {{game.oppo}}
+            </b> has left the game
+            <input type="button" value="Leave" ng-click="module.LeaveAbandonedGame(game)" />
+        </div>
+    </div>
 </div>

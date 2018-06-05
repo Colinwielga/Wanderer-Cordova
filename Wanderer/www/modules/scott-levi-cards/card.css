@@ -1,5 +1,5 @@
 ﻿
-#scott-levi-cards .card {
+.scott-levi-card {
     display: inline-block;
     position: absolute;
     font-family: 'Roboto', 'Helvetica', serif;
@@ -18,80 +18,74 @@
     top: 0px;
 }
 
-#scott-levi-cards .wrapped-card.draggable .card {
+.wrapped-card.draggable .scott-levi-card {
     cursor: grab;
 }
 
-    #scott-levi-cards .card:hover {
+    .scott-levi-card:hover {
         box-shadow: 0px 0px 20px -2px black;
         border-radius: 10px 10px 0px 0px;
     }
 
-    #scott-levi-cards .card.dragging:hover {
+    .scott-levi-card.dragging:hover {
         border-radius: 10px;
     }
 
-    #scott-levi-cards .card:hover .card-border {
+    .scott-levi-card:hover .card-border {
         border-radius: 5px 5px 0px 0px;
     }
 
-    #scott-levi-cards .card.dragging:hover .card-border {
+    .scott-levi-card.dragging:hover .card-border {
         border-radius: 5px;
     }
 
-    #scott-levi-cards .card:hover .card-number-container {
+    .scott-levi-card:hover .card-number-container {
         display: none;
     }
 
-    #scott-levi-cards .card.dragging:hover .card-number-container {
+    .scott-levi-card.dragging:hover .card-number-container {
         display: block;
     }
 
 
 
-#scott-levi-cards .card-color-dark {
+.scott-levi-card {
     background-color: #111;
 }
+    .scott-levi-card .card-name,
+    .scott-levi-card .card-number,
+    .scott-levi-card .card-ability {
+        text-shadow: 0 0 3px #000;
+    }
 
-﻿#scott-levi-cards .classic-card .card-name, #scott-levi-cards .classic-card .card-number, #scott-levi-cards .classic-card .card-ability {
-    text-shadow: 0 0 3px #000;
-}
+    .scott-levi-card .card-border {
+        border: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: stretch;
+        flex-direction: column;
+    }
 
-#scott-levi-cards .classic-card .card-border {
-    border: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: stretch;
-    flex-direction: column;
-}
+    .scott-levi-card .card-number {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 
-#scott-levi-cards .classic-card .card-number {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
+    .scott-levi-card .card-number-container {
+        padding-top: 100px;
+        background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.3), rgba(0,0,0,.4));
+    }
 
-#scott-levi-cards .classic-card .card-number-container {
-    padding-top: 100px;
-    background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.3), rgba(0,0,0,.4));
-}
-
-#scott-levi-cards .classic-card .card-padding {
-    -ms-flex: 1 0 auto;
-    -webkit-flex: 1 0 auto;
-    flex: 1 0 auto;
-}
-
-
-#scott-levi-cards div.card-container {
-    display: inline-block;
-    vertical-align: top;
-    width: 220px;
-    height: 370px;
-    margin-left: -80px;
-}
+    .scott-levi-card .card-padding {
+        -ms-flex: 1 0 auto;
+        -webkit-flex: 1 0 auto;
+        flex: 1 0 auto;
+    }
 
 
-#scott-levi-cards .card-info-container {
+
+
+.card-info-container {
     display: none;
     position: absolute;
     margin-top: 2px;
@@ -105,13 +99,21 @@
     box-shadow: 0px 2px 20px -2px black;
 }
 
-#scott-levi-cards .card:hover .card-info-container {
+.scott-levi-card:hover .card-info-container {
     display: inline-block;
     z-index: 99;
 }
 
 
-#scott-levi-cards .card-container {
+.scott-levi-card-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 220px;
+    height: 370px;
+    margin-left: -80px;
+}
+
+.scott-levi-card-container {
     left: 0px;
     -moz-transition: left ease .4s;
     -o-transition: left ease .4s;
@@ -119,11 +121,11 @@
     transition: left ease .4s;
 }
 
-    #scott-levi-cards .card-container:hover ~ .card-container {
+    .scott-levi-card-container:hover ~ .scott-levi-card-container {
         left: 70px;
     }
 
-    #scott-levi-cards .card-container.dragging:hover ~ .card-container {
+    .scott-levi-card-container.dragging:hover ~ .scott-levi-card-container {
         left: 0px;
     }
 
@@ -144,7 +146,12 @@
     border: 2px black solid;
 }
 
-#scott-levi-cards .card-border {
+.discard-pile {
+    -webkit-filter: grayscale(70%);
+}
+
+
+.scott-levi-card-container .card-border {
     margin: 5px;
     width: 188px;
     height: 338px;
@@ -152,7 +159,7 @@
     background: center;
 }
 
-#scott-levi-cards div.card-number-container {
+.scott-levi-card-container .card-number-container {
     overflow: auto;
     height: 125px;
     width: 100%;
@@ -162,13 +169,13 @@
     /*	padding: 0 5px 5px 5px;*/
 }
 
-#scott-levi-cards div.card-name-container {
+.scott-levi-card-container .card-name-container {
     height: 50px;
     position: relative;
     margin: 0 auto;
 }
 
-#scott-levi-cards span.card-name {
+.scott-levi-card-container .card-name {
     display: inline-block;
     color: white;
     width: 100%;
@@ -178,7 +185,7 @@
     text-transform: uppercase;
 }
 
-#scott-levi-cards span.card-number {
+.scott-levi-card-container .card-number {
     display: inline-block;
     color: white;
     width: 100%;
@@ -187,7 +194,7 @@
     line-height: 40px;
 }
 
-#scott-levi-cards span.card-ability {
+.scott-levi-card-container .card-ability {
     display: inline-block;
     margin-top: 1px;
     color: white;
@@ -197,6 +204,16 @@
 }
 
 
-#scott-levi-cards .wrapped-card {
+.wrapped-card {
     position: relative;
+}
+
+.card-cards-container {
+    margin-top: 8px;
+    margin-left: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-left: 25px;
 }

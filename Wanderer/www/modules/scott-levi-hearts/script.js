@@ -18,6 +18,7 @@ ScottLeviHearts.component = function () {
         this.page = page;
         this.key = Math.random() + "";
         this.id = Math.random() + "";
+        this.scottLeviHand = dependencies[0];
     }
 
     this.Join = function () {
@@ -101,6 +102,42 @@ ScottLeviHearts.component = function () {
                             }
                         }
                     }
+                } else if (message.type == "Challenge Accepted") {
+                    if (message.challengerId == that.id) {
+                        for (var i = 0; i < that.challenges.length; i++) {
+                            var target = that.challenges[i];
+                            if (target.challengeId == message.challengeId) {
+                                if (target.challengeeId == that.id) {
+                                    var oppo = target.challengerName;
+                                } else {
+                                    var oppo = target.challengeeName;
+                                }
+                                that.games.push(that.makeGame(oppo, target.challengeId));
+                                that.challenges.splice(i, 1);
+                                g.services.timeoutService.$timeout(function () { });
+                            }
+                        }
+                    }
+                } else if (message.type == "Played Card") {
+                    for (var i = 0; i < that.games.length; i++) {
+                        var target = that.games[i];
+                        if (target.gameId == message.gameId && message.playerId != that.id) {
+                            target.inPlay.push({
+                                card: that.scottLeviHand.getCard(message.cardId),
+                                playedBy: message.playedBy
+                            }); 
+                            g.services.timeoutService.$timeout(function () { });
+                        }
+                    }
+                } else if (message.type == "Left Game") {
+                    if (message.playerId != that.id) {
+                        for (var i = 0; i < that.games.length; i++) {
+                            if (message.gameId == that.games[i].gameId) {
+                                that.games[i].alone = true;
+                                g.services.timeoutService.$timeout(function () { });
+                            }
+                        }
+                    }
                 }
             });
         g.services.SingnalRService.Join(this.groupName, this.key);
@@ -111,7 +148,7 @@ ScottLeviHearts.component = function () {
         });
         this.joined = true;
     }
-
+    
     this.Challenge = function (player) {
         var challengeId = Math.random() + "";
 
@@ -156,6 +193,68 @@ ScottLeviHearts.component = function () {
     }
 
     this.AcceptChallenge = function (challenge) {
+        g.services.SingnalRService.Send(that.key, {
+            type: "Challenge Accepted",
+            challengeId: challenge.challengeId,
+            challengeeId: challenge.challengeeId,
+            challengerId: challenge.challengerId,
+        });
+        that.RemoveChallenge(challenge);
+
+        if (challenge.challengeeId == that.id) {
+            var oppo = challenge.challengerName;
+        } else {
+            var oppo = challenge.challengeeName;
+        }
+        that.games.push(that.makeGame(oppo, challenge.challengeId));
+    }
+
+    this.LeaveGame = function (game) {
+        for (var i = 0; i < that.games.length; i++) {
+            if (game.gameId == that.games[i].gameId) {
+                that.games.splice(i, 1);
+            }
+        }
+        g.services.SingnalRService.Send(that.key, {
+            type: "Left Game",
+            gameId: game.gameId,
+            playerId: that.id,
+        });
+    }
+
+    this.LeaveAbandonedGame = function (game) {
+        for (var i = 0; i < that.games.length; i++) {
+            if (game.gameId == that.games[i].gameId) {
+                that.games.splice(i, 1);
+            }
+        }
+    }
+
+
+    this.makeGame = function (oppo, gameId) {
+        var hand = that.scottLeviHand.getHand();
+        return {
+            oppo: oppo,
+            inPlay: [],
+            alone : false,
+            hand: hand,
+            gameId: gameId,
+            play: function (card) {
+                this.inPlay.push({ card: card, playedBy: that.page.name });
+                g.services.SingnalRService.Send(that.key, {
+                    type: "Played Card",
+                    gameId: gameId,
+                    cardId: card.guid,
+                    playerId: that.id,
+                    playedBy: that.page.name,
+                });
+                for (var i = 0; i < hand.length; i++) {
+                    if (hand[i].guid == card.guid) {
+                        hand.splice(i, 1);
+                    }
+                }
+            }
+        };
     }
 
     this.RejectChallenge = function (challenge) {
@@ -196,7 +295,7 @@ ScottLeviHearts.component = function () {
     this.OnUpdate = function () { }
 
     this.getRequires = function () {
-        return [];
+        return ["scott-levi-cards"];
     }
 
 

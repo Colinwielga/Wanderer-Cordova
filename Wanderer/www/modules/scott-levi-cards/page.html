@@ -15,7 +15,7 @@
         <div class="card-cards-container-container discard">
             <div class="card-cards-container">
                 <div data-ng-repeat="message in module.discardPile"
-                     class="card-container wrapped-card"
+                     class="scott-levi-card-container wrapped-card"
                      ng-init="card = module.getCard(message.cardId)"
                      data-cardId="{{message.cardId}}">
                     <div class="played-by">
@@ -23,8 +23,6 @@
                     </div>
                     <div ng-include="card.getHtml()">
                     </div>
-                </div>
-                <div class="empty-add">
                 </div>
             </div>
         </div>
@@ -39,7 +37,7 @@
     <div class="card-cards-container-container hand">
         <div class="card-cards-container">
             <div data-ng-repeat="cardID in module.hand"
-                 class="card-container wrapped-card draggable"
+                 class="scott-levi-card-container wrapped-card draggable"
                  ng-init="card = module.getCard(cardID)"
                  ng-include="card.getHtml()"
                  ng-drag="true"
@@ -63,7 +61,7 @@
     <div class="card-cards-container-container table">
         <div class="card-cards-container">
             <div data-ng-repeat="cardID in module.inPlay"
-                 class="card-container wrapped-card draggable"
+                 class="scott-levi-card-container wrapped-card draggable"
                  ng-init="card = module.getCard(cardID)"
                  ng-include="card.getHtml()"
                  ng-drag="true"
