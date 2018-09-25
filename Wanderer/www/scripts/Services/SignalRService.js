@@ -19,6 +19,11 @@ g.services.SingnalRService.setCallback = function (name, groupName, accept, act)
     g.services.SingnalRService.callbacks[name] = { Accept: accept, GroupName: groupName, Act: act };
 }
 
+
+g.services.SingnalRService.HasCallback = function (name) {
+    return g.services.SingnalRService.callbacks[name] !== undefined;
+}
+
 g.services.SingnalRService.removeCallback = function (name, accept, act) {
     delete g.services.SingnalRService.callbacks[name];
 }
@@ -76,9 +81,11 @@ g.services.SingnalRService.Join = function (groupName, key) {
     }
 }
 
+
+
 g.services.SingnalRService.Send = function (key, obj) {
     if (g.services.SingnalRService.groupNames[key] == null) {
-        throw "Group name should not be null";
+        throw "Group name: " + key + " should not be null";
     }
     try {
         g.services.SingnalRService.connection.send('BroadcastMessage', g.services.SingnalRService.groupNames[key], obj);

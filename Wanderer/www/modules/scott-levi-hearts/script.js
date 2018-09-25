@@ -9,45 +9,65 @@ ScottLeviHearts.component = function () {
     var that = this;
 
     this.getId = function () {
-        return "scott-levi-hearts"
+        return "scott-levi-hearts";
     }
 
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator
-        this.Dependencies = dependencies
+        this.communicator = communicator;
+        this.Dependencies = dependencies;
         this.page = page;
         this.key = Math.random() + "";
         this.id = Math.random() + "";
         this.scottLeviHand = dependencies[0];
-    }
+    };
+
+    this.AddPlayer = function (playerId, playerName) {
+        var alreadyAdded = false;
+        for (var i = 0, len = that.playersInRoom.length; i < len; i++) {
+            if (that.playersInRoom[i].id === playerId) {
+                alreadyAdded = true;
+            } else {
+                that.playersInRoom[i].age++;
+            }
+        }
+        if (!alreadyAdded) {
+            that.playersInRoom.push({
+                name: playerName,
+                id: playerId,
+                age: 0
+            });
+        }
+        var j = 0;
+        while (j < that.playersInRoom.length) {
+            while (j < that.playersInRoom.length && that.playersInRoom[j].age >= 1) {
+                that.playersInRoom.splice(j, 1);
+            }
+            j++;
+        }
+    };
 
     this.Join = function () {
         g.services.SingnalRService.setCallback(this.key,
             this.groupName,
-            function (x) { return true; },
+            function (message) { return message.module === that.getId(); },
             function (message) {
                 console.log("got message:", message);
                 if (message.type == "joined Game") {
                     if (message.id != that.id) {
                         g.services.timeoutService.$timeout(function () {
-                            that.playersInRoom.push({
-                                name: message.name,
-                                id: message.id,
-                            });
+                            that.AddPlayer(message.id, message.name);
                         });
                         g.services.SingnalRService.Send(that.key, {
+                            module: that.getId(),
                             type: "In Room",
                             name: that.page.name,
                             id: that.id,
                         });
                     }
-                } else if (message.type == "In Room") {
-                    if (message.id != that.id) {
+                } else if (message.type === "In Room") {
+                    if (message.id !== that.id) {
                         g.services.timeoutService.$timeout(function () {
-                            that.playersInRoom.push({
-                                name: message.name,
-                                id: message.id,
-                            });
+                            that.AddPlayer(message.id, message.name);
                         });
                     }
                 } else if (message.type == "Challenge") {
@@ -62,6 +82,7 @@ ScottLeviHearts.component = function () {
                             });
                         });
                         g.services.SingnalRService.Send(that.key, {
+                            module: that.getId(),
                             type: "Challenge Recived",
                             challengerName: that.page.challengerName,
                             challengerId: message.challengerId,
@@ -123,6 +144,7 @@ ScottLeviHearts.component = function () {
                         var target = that.games[i];
                         if (target.gameId == message.gameId && message.playerId != that.id) {
                             target.inPlay.push({
+                                module: that.getId(),
                                 card: that.scottLeviHand.getCard(message.cardId),
                                 playedBy: message.playedBy
                             }); 
@@ -142,6 +164,7 @@ ScottLeviHearts.component = function () {
             });
         g.services.SingnalRService.Join(this.groupName, this.key);
         g.services.SingnalRService.Send(that.key, {
+            module: that.getId(),
             type: "joined Game",
             name: that.page.name,
             id: that.id,
@@ -161,6 +184,7 @@ ScottLeviHearts.component = function () {
             challengeeName: player.name,
         });
         g.services.SingnalRService.Send(that.key, {
+            module: that.getId(),
             type: "Challenge",
             challengee: player.name,
             challengeeId: player.id,
@@ -194,6 +218,7 @@ ScottLeviHearts.component = function () {
 
     this.AcceptChallenge = function (challenge) {
         g.services.SingnalRService.Send(that.key, {
+            module: that.getId(),
             type: "Challenge Accepted",
             challengeId: challenge.challengeId,
             challengeeId: challenge.challengeeId,
@@ -216,6 +241,7 @@ ScottLeviHearts.component = function () {
             }
         }
         g.services.SingnalRService.Send(that.key, {
+            module: that.getId(),
             type: "Left Game",
             gameId: game.gameId,
             playerId: that.id,
@@ -242,6 +268,7 @@ ScottLeviHearts.component = function () {
             play: function (card) {
                 this.inPlay.push({ card: card, playedBy: that.page.name });
                 g.services.SingnalRService.Send(that.key, {
+                    module: that.getId(),
                     type: "Played Card",
                     gameId: gameId,
                     cardId: card.guid,
@@ -259,6 +286,7 @@ ScottLeviHearts.component = function () {
 
     this.RejectChallenge = function (challenge) {
         g.services.SingnalRService.Send(that.key, {
+            module: that.getId(),
             type: "Challenge Rejected",
             challengeId: challenge.challengeId,
             challengeeId: challenge.challengeeId,
@@ -269,6 +297,7 @@ ScottLeviHearts.component = function () {
 
     this.RevokeChallenge = function (challenge) {
         g.services.SingnalRService.Send(that.key, {
+            module: that.getId(),
             type: "Challenge Revoked",
             challengeId: challenge.challengeId,
             challengeeId: challenge.challengeeId,

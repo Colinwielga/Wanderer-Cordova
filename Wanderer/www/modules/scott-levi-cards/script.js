@@ -13,7 +13,7 @@ ScottLeviCards.component = function () {
     this.Join = function () {
         g.services.SingnalRService.setCallback(this.key,
             this.GroupName,
-            function (x) { return true; },
+            function (message) { return message.module === that.getId(); },
             function (message) {
                 g.services.timeoutService.$timeout(function () {
                     that.discardPile.push(message);
@@ -69,7 +69,7 @@ ScottLeviCards.component = function () {
             }
         }
     }
-     
+
     this.dropEmptyInPlay = function (data, event) {
         if (this.canEnterPlay(data)) {
             var index = this.hand.indexOf(data.guid);
@@ -143,7 +143,7 @@ ScottLeviCards.component = function () {
     this.isCups = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num == 0) || 
+        return (num == 0) ||
             (num == 1) ||
             (num == 2) ||
             (num == 3) ||
@@ -237,53 +237,53 @@ ScottLeviCards.component = function () {
         var ActiveCupsAbilities = CupsAbilities.splice(0, numCups);
         var ActivePentaclesAbilities = PentaclesAbilities.splice(0, numPentacles);
         var result = [];
-        for (var i = 0; i<ActiveWandsAbilities.length; i++){
-            result.push("Magician: " + (i+1) + ' - ' + ActiveWandsAbilities[i]);
+        for (var i = 0; i < ActiveWandsAbilities.length; i++) {
+            result.push("Magician: " + (i + 1) + ' - ' + ActiveWandsAbilities[i]);
         }
-        for (var i = 0; i<ActiveSwordsAbilities.length; i++){
-            result.push("Warrior: " + (i+1) + ' - ' + ActiveSwordsAbilities[i]);
+        for (var i = 0; i < ActiveSwordsAbilities.length; i++) {
+            result.push("Warrior: " + (i + 1) + ' - ' + ActiveSwordsAbilities[i]);
         }
-        for (var i = 0; i<ActivePentaclesAbilities.length; i++){
-            result.push("Scientist: " + (i+1) + ' - ' + ActivePentaclesAbilities[i]);
+        for (var i = 0; i < ActivePentaclesAbilities.length; i++) {
+            result.push("Scientist: " + (i + 1) + ' - ' + ActivePentaclesAbilities[i]);
         }
-        for (var i = 0; i<ActiveCupsAbilities.length; i++){
-            result.push("Influencer: " + (i+1) + ' - ' + ActiveCupsAbilities[i]);
+        for (var i = 0; i < ActiveCupsAbilities.length; i++) {
+            result.push("Influencer: " + (i + 1) + ' - ' + ActiveCupsAbilities[i]);
         }
-        
+
         var sum = 0;
-        for (var i = 0; i<cards.length; i++){
-            sum = sum + parseInt(cards[i].value); 
+        for (var i = 0; i < cards.length; i++) {
+            sum = sum + parseInt(cards[i].value);
         }
-        if([1,2,3,5,7,9,11,13,17,19,23,27,29,31,37,41,43,47,52,59,61,67,71,73,79,83,89,97,101].indexOf(sum) > -1){
+        if ([1, 2, 3, 5, 7, 9, 11, 13, 17, 19, 23, 27, 29, 31, 37, 41, 43, 47, 52, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101].indexOf(sum) > -1) {
             result.push("If your Cards on the Table total numerical value adds up to a prime number, your character's Aces count as Wild; the Ace of Wands counts as a double Wild Card.");
         }
-        if([1,4,9,16,25,36,49,64,81,100].indexOf(sum) > -1){
+        if ([1, 4, 9, 16, 25, 36, 49, 64, 81, 100].indexOf(sum) > -1) {
             result.push("If you Cards on the Table total numerical value adds up to a square number, your character's square numbered cards count as Wild but remain their suit.");
         }
         var ascendingOrder = true;
         var descendingOrder = true;
-        for (var i = 0; i<cards.length-1; i++){
+        for (var i = 0; i < cards.length - 1; i++) {
             var leftValue = parseInt(cards[i].value);
-            var rightValue = parseInt(cards[i+1].value);
-            if (rightValue < leftValue){
+            var rightValue = parseInt(cards[i + 1].value);
+            if (rightValue < leftValue) {
                 ascendingOrder = false;
             }
-            if (rightValue > leftValue){
-                descendingOrder= false;
+            if (rightValue > leftValue) {
+                descendingOrder = false;
             }
         }
-        if (cards.length < 2){
+        if (cards.length < 2) {
             descendingOrder = false;
-            ascendingOrder = false; 
+            ascendingOrder = false;
         }
-             
-        if(descendingOrder){
+
+        if (descendingOrder) {
             result.push("If your Cards on the Table are in descending numerical order, your character may count odd numbered straights (1, 3, 5, etc.) towards skill checks.");
-        } 
-        if(ascendingOrder){
+        }
+        if (ascendingOrder) {
             result.push("If your Cards on the Table are in ascending numerical order, your character may count even numbered straights (2, 4, 6, etc.) towards skill checks.");
-        }   
-        return result;  
+        }
+        return result;
     }
 
     this.OnStart = function (communicator, logger, page, dependencies) {
@@ -429,7 +429,7 @@ ScottLeviCards.component = function () {
     this.startingDeck = function () {
         return this.possibleCards();
     }
-    
+
     this.draw = function () {
         if (this.hand.length < this.activeDeck.length) {
             var num = -1;
@@ -457,11 +457,14 @@ ScottLeviCards.component = function () {
         for (var i = 0; i < this.hand.length; i++) {
             if (this.hand[i] === cardID) {
                 this.hand.splice(i, 1);
-                g.services.SingnalRService.Send(that.key,{
-                    callbackName: "card-played",
-                    playedBy: that.page.name,
-                    cardId: cardID,
-                });
+                if (g.services.SingnalRService.HasCallback(that.key)) {
+                    g.services.SingnalRService.Send(that.key, {
+                        module: that.getId(),
+                        callbackName: "card-played",
+                        playedBy: that.page.name,
+                        cardId: cardID,
+                    });
+                }
             }
         }
         for (var i = 0; i < this.inPlay.length; i++) {
