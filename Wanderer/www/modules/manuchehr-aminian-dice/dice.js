@@ -1,4 +1,4 @@
-﻿var component = function () {
+﻿    var component = function () {
 
 	// Setting some default values for dice.
 	var mymt = new MersenneTwister();
@@ -17,87 +17,92 @@
 
     this.getId = function () {
         return "manuchehr-aminian-dice";
-    }
+    };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
         this.communicator = communicator;
-    }
-    this.OnNewCharacter = function () { }
-    this.OnSave = function () { }
-    this.OnLoad = function () { }
+    };
+        this.OnNewCharacter = function () { };
+        this.OnSave = function () { };
+        this.OnLoad = function () { };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html";
-    }
+    };
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html";
-    }
+    };
     this.getTitle = function () {
         return "Dice";
-    }
+    };
     this.getRequires = function () {
         return [];
-    }
+    };
 
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1;
             }
-        }
-    }
+        };
+    };
 	
 	
 	// Do a single dice roll with the given range of numbers.
-	this.intRand = function () {
-		mo = mymt.random();		
-		result = this.lo + Math.floor((this.hi - this.lo+1)*mo);
-		return result;
-	}
+    this.intRand = function () {
+        mo = mymt.random();
+        result = this.lo + Math.floor((this.hi - this.lo + 1) * mo);
+        return result;
+    };
 	
 	// Do repeated dice rolls with the given range of numbers.
-	this.diceRoll = function () {
+    this.diceRoll = function () {
 
-		this.drolls = [];
-		this.ndrolls = Number(document.getElementById("ndicerolls").value);
-		this.hi = Number(document.getElementById("dicerangehi").value);
-		
-		this.drollsum = 0;
-		for (i=0; i<this.ndrolls; i++) {
-			mo = this.intRand();
-			this.drolls.push(mo);
-			this.drollsum += mo;
-		}
+        this.drolls = [];
+        this.ndrolls = Number(document.getElementById("ndicerolls").value);
+        this.hi = Number(document.getElementById("dicerangehi").value);
 
-		this.drollstext = this.drolls.join(", ");
-		
-		return 0;
-	}
+        this.drollsum = 0;
+        for (i = 0; i < this.ndrolls; i++) {
+            mo = this.intRand();
+            this.drolls.push(mo);
+            this.drollsum += mo;
+        }
+
+        this.drollstext = this.drolls.join(", ");
+
+        return 0;
+    };
 	
 	// (re-)set the seed for the RNG using the value in the html.
-	this.setSeed = function () {
-		this.initseed = Number(document.getElementById("mtseed").value);
-		mymt.init_genrand(this.initseed);
-	}
+    this.setSeed = function () {
+        this.initseed = Number(document.getElementById("mtseed").value);
+        mymt.init_genrand(this.initseed);
+    };
     
 	// Get the smallest value for the dice from the value in the html.
-	this.setLowerBound = function () {
-		this.lo = Number(document.getElementById("lowerbnd").value);
-	}
+    this.setLowerBound = function () {
+        this.lo = Number(document.getElementById("lowerbnd").value);
+    };
 	
-	this.saveAdvSettings = function() {
-		this.setSeed();
-		this.setLowerBound();
-	}
+    this.saveAdvSettings = function () {
+        this.setSeed();
+        this.setLowerBound();
+    };
 	
 	
     this.OnNewCharacter();
-}
+};
 
 
 g.services.componetService.registerCharacter(component);
+
+//TODO
+// replace with a sane option like Math.random()
+// not even going to fix the JSlint here
+
 
 /* 
 	EVERYTHING BELOW IS AN IMPLEMENTATION OF THE MERSENNE TWISTER IN JAVASCRIPT.
@@ -169,7 +174,7 @@ g.services.componetService.registerCharacter(component);
 */
 
 var MersenneTwister = function(seed) {
-  if (seed == undefined) {
+  if (seed === undefined) {
     seed = new Date().getTime();
   } 
   /* Period parameters */  

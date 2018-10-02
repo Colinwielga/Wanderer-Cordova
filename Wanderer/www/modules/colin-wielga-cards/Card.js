@@ -14,13 +14,13 @@
         //    id -= 100;
         //}
         return "images/cards/" + image + ".jpg";
-    }
+    };
     this.getHtml = function () {
-        return "modules/colin-wielga-cards/card.html"
-    }
+        return "modules/colin-wielga-cards/card.html";
+    };
     this.getValue = function () {
         return this.value;
-    }
+    };
 };
 
 // decrease by 3, keep it until it hits 0
@@ -152,7 +152,6 @@ var cardList =[
      new ColinWielgaCards.AhlosainCard("{097402A0-4E2A-4817-B38B-870701D893A7}", "THE SUN (scorn)", "(scorn) you may only play this card during the day. discard it and draw another if you can't play any cards", "7",false,19),
      new ColinWielgaCards.AhlosainCard("{CAD6E6EE-755A-489B-A5F6-D18D1664C8DF}", "JUDGEMENT (scorn)", "(scorn) when you play this card place the remaining cards in your hand inorder faceup on the table. you must play them in that order", "5",false,20),
      new ColinWielgaCards.AhlosainCard("{E8035A0F-222D-4464-9AB8-97C74C9E33AE}", "THE WORLD (scorn)", "(scorn) you can't play this card. discard and draw another if you critically fail. discard it and draw another if you can't play any cards", "",false,21),
-
      new ColinWielgaCards.AhlosainCard("{03583476-EC17-4E6D-B8A9-B8C9AE0F81FB}", "THE FOOL (scorn)", "(blessing) 15 when doing something stupid", "0",false,0),
      new ColinWielgaCards.AhlosainCard("{07A877A8-E040-4FFC-A283-4FDA44336642}", "THE MAGICAIN (scorn)", "(blessing) failure counts as a pass (and vice-versa), critical failure count as critical pass (and vice-versa)", "0",false,1),
      new ColinWielgaCards.AhlosainCard("{49EBEB33-543E-4575-A554-E56318B86678}", "THE HIGH PRIESTESS (scorn)", "(blessing) you may discard this card to ask a favor of air-ah if she agress lose air-ahs blessing", "10",false,2),
@@ -174,8 +173,8 @@ var cardList =[
      new ColinWielgaCards.AhlosainCard("{2C073EEF-E6DF-4D31-BFC4-8C75A489DFCF}", "THE MOON (blessing)", "(blessing) 15 if acting directly", "10",false,18),
      new ColinWielgaCards.AhlosainCard("{C2A002C5-0577-4850-B349-BA34A8771DD8}", "THE SUN (blessing)", "(blessing) 15 if acting deceptively", "10",false,19),
      new ColinWielgaCards.AhlosainCard("{66B15EDF-5A14-41B6-B782-4605B8540489}", "JUDGEMENT (blessing)", "(blessing) or 15 and take a hit", "12",false,20),
-     new ColinWielgaCards.AhlosainCard("{8625F075-C76D-4AE3-B5F0-C1462925ED25}", "THE WORLD (blessing)", "(blessing) heal 2 clicks", "13",false,21),
-    ]
+     new ColinWielgaCards.AhlosainCard("{8625F075-C76D-4AE3-B5F0-C1462925ED25}", "THE WORLD (blessing)", "(blessing) heal 2 clicks", "13",false,21)
+    ];
 
 ColinWielgaCards.AhlosainDeck = new ColinWielgaCards.Deck("{53799C64-1547-4FF7-9C00-E8D9AE22C6CE}", "Ahlos Deck", cardList);
 

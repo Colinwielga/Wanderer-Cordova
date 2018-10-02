@@ -9,8 +9,7 @@ ChrisQualOutcomes.component = function () {
         else if (outcome.cat === "Negative") { proboutcome = outcome.weight * this.failure; }
         else if (outcome.cat === "Other") { proboutcome = outcome.weight * this.uncertain; }
         return proboutcome;
-    }
-
+    };
 
     this.role = function () {
 
@@ -29,21 +28,19 @@ ChrisQualOutcomes.component = function () {
         var at = 0;
 
         for (i = 0; i < this.OutcomeList.length; i++) {
-            at += this.prob(this.OutcomeList[i])
-                ;
+            at += this.prob(this.OutcomeList[i]);
             if (r < at) {
                 this.output = this.OutcomeList[i].name;
                 break;
             }
         }
 
-    }
-
-
-
+    };
+    
     this.getId = function () {
-        return "chris-qual-outcomes"
-    }
+        return "chris-qual-outcomes";
+    };
+
     this.OutcomeList = [
         { name: "Success", cat: "Positive", resolved: true, weight: 50 },
         { name: "Brilliant Succes", cat: "Positive", resolved: true, weight: 15 },
@@ -64,21 +61,21 @@ ChrisQualOutcomes.component = function () {
         { name: "A Change of Direction", cat: "Other", resolved: false, weight: 10 },
         { name: "The Situation Escalates", cat: "Other", resolved: false, weight: 20 },
         { name: "Things Get Worse", cat: "Other", resolved: false, weight: 10 },
-        { name: "GHOSTS", cat: "Other", resolved: false, weight: 10 }]
+        { name: "GHOSTS", cat: "Other", resolved: false, weight: 10 }];
     // A component should know how to handle some events
     // called when Wanderer is ready to talk to us
     // a component talks to the rest of the app throught a communicator
     // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
-    this.OnStart = function (communicator, logger, page, dependencies) { }
+    this.OnStart = function (communicator, logger, page, dependencies) { };
     // called when a new character is created
-    this.OnNewCharacter = function () { }
+    this.OnNewCharacter = function () { };
     // called when a character is saved
-    this.OnSave = function () { }
+    this.OnSave = function () { };
     // called when a characrer is loaded 
-    this.OnLoad = function () { }
-    this.OnUpdate = function () { }
+    this.OnLoad = function () { };
+    this.OnUpdate = function () { };
 
     // hmm is it really safe for this to be a function?
     // we use functions so no one can edit
@@ -86,33 +83,33 @@ ChrisQualOutcomes.component = function () {
         // example of a populated list:
         // return ["colin-wielga-tools"]
         return [];
-    }
-
+    };
+    
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1;
             }
-        }
-    }
+        };
+    };
     // can your module be close?
     this.canClose = function () {
         return true;
-    }
+    };
     // a component should be able to provide some infomation
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
 
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
 
     this.getTitle = function () {
         return "Qualitative Outcome Generator";
-    }
+    };
 
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(ChrisQualOutcomes.component);

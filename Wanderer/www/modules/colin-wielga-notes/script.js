@@ -1,49 +1,49 @@
 ﻿var component = function () {
-    this.notes = ""
+    this.notes = "";
     this.getId = function () {
-        return "colin-wielga-notes"
-    }
-    this.OnStart = function (communicator, logger, page,dependencies) {
-        this.communicator = communicator
-    }
+        return "colin-wielga-notes";
+    };
+    this.OnStart = function (communicator, logger, page, dependencies) {
+        this.communicator = communicator;
+    };
     this.OnNewCharacter = function () {
         this.notes = "";
-    }
+    };
     this.OnSave = function () {
         this.communicator.write("notes", this.notes);
-    }
+    };
     this.OnLoad = function () {
         if (this.communicator.canRead("notes")) {
             this.notes = this.communicator.read("notes");
         } else {
             this.notes = "";
         }
-    }
+    };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
     this.getTitle = function () {
         return "Notes";
-    }
+    };
     this.getRequires = function () {
         return [];
-    }
+    };
 
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1;
             }
-        }
-    }
+        };
+    };
 
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(component);

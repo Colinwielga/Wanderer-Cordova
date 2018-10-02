@@ -10,7 +10,7 @@ ScottLeviHearts.component = function () {
 
     this.getId = function () {
         return "scott-levi-hearts";
-    }
+    };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
@@ -52,8 +52,8 @@ ScottLeviHearts.component = function () {
             function (message) { return message.module === that.getId(); },
             function (message) {
                 console.log("got message:", message);
-                if (message.type == "joined Game") {
-                    if (message.id != that.id) {
+                if (message.type === "joined Game") {
+                    if (message.id !== that.id) {
                         g.services.timeoutService.$timeout(function () {
                             that.AddPlayer(message.id, message.name);
                         });
@@ -61,7 +61,7 @@ ScottLeviHearts.component = function () {
                             module: that.getId(),
                             type: "In Room",
                             name: that.page.name,
-                            id: that.id,
+                            id: that.id
                         });
                     }
                 } else if (message.type === "In Room") {
@@ -70,15 +70,15 @@ ScottLeviHearts.component = function () {
                             that.AddPlayer(message.id, message.name);
                         });
                     }
-                } else if (message.type == "Challenge") {
-                    if (message.challengeeId == that.id) {
+                } else if (message.type === "Challenge") {
+                    if (message.challengeeId === that.id) {
                         g.services.timeoutService.$timeout(function () {
                             that.challenges.push({
                                 challengerName: message.challengerName,
                                 status: "Open",
                                 challengeId: message.challengeId,
                                 challengeeId: message.challengeeId,
-                                challengerId: message.challengerId,
+                                challengerId: message.challengerId
                             });
                         });
                         g.services.SingnalRService.Send(that.key, {
@@ -86,25 +86,25 @@ ScottLeviHearts.component = function () {
                             type: "Challenge Recived",
                             challengerName: that.page.challengerName,
                             challengerId: message.challengerId,
-                            challengeId: message.challengeId,
+                            challengeId: message.challengeId
                         });
                     }
-                } else if (message.type == "Challenge Recived") {
-                    if (message.challengerId == that.id) {
+                } else if (message.type === "Challenge Recived") {
+                    if (message.challengerId === that.id) {
                         for (var i = 0; i < that.challenges.length; i++) {
                             var target = that.challenges[i];
-                            if (target.challengeId == message.challengeId) {
+                            if (target.challengeId === message.challengeId) {
                                 target.status = "Received";
                                 g.services.timeoutService.$timeout(function () {
                                 });
                             }
                         }
                     }
-                } else if (message.type == "Challenge Rejected") {
-                    if (message.challengerId == that.id) {
-                        for (var i = 0; i < that.challenges.length; i++) {
-                            var target = that.challenges[i];
-                            if (target.challengeId == message.challengeId) {
+                } else if (message.type === "Challenge Rejected") {
+                    if (message.challengerId === that.id) {
+                        for (i = 0; i < that.challenges.length; i++) {
+                            target = that.challenges[i];
+                            if (target.challengeId === message.challengeId) {
                                 target.status = "Rejected";
                                 g.services.timeoutService.$timeout(function () {
                                 });
@@ -112,26 +112,26 @@ ScottLeviHearts.component = function () {
 
                         }
                     }
-                } else if (message.type == "Challenge Revoked") {
-                    if (message.challengeeId == that.id) {
-                        for (var i = 0; i < that.challenges.length; i++) {
-                            var target = that.challenges[i];
-                            if (target.challengeId == message.challengeId) {
+                } else if (message.type === "Challenge Revoked") {
+                    if (message.challengeeId === that.id) {
+                        for (i = 0; i < that.challenges.length; i++) {
+                            target = that.challenges[i];
+                            if (target.challengeId === message.challengeId) {
                                 target.status = "Revoked";
-                                g.services.timeoutService.$timeout(function () {
-                                });
+                                g.services.timeoutService.$timeout(function () {});
                             }
                         }
                     }
-                } else if (message.type == "Challenge Accepted") {
-                    if (message.challengerId == that.id) {
-                        for (var i = 0; i < that.challenges.length; i++) {
-                            var target = that.challenges[i];
-                            if (target.challengeId == message.challengeId) {
-                                if (target.challengeeId == that.id) {
-                                    var oppo = target.challengerName;
+                } else if (message.type === "Challenge Accepted") {
+                    if (message.challengerId === that.id) {
+                        for (i = 0; i < that.challenges.length; i++) {
+                            target = that.challenges[i];
+                            if (target.challengeId === message.challengeId) {
+                                var oppo;
+                                if (target.challengeeId === that.id) {
+                                    oppo = target.challengerName;
                                 } else {
-                                    var oppo = target.challengeeName;
+                                    oppo = target.challengeeName;
                                 }
                                 that.games.push(that.makeGame(oppo, target.challengeId));
                                 that.challenges.splice(i, 1);
@@ -139,22 +139,22 @@ ScottLeviHearts.component = function () {
                             }
                         }
                     }
-                } else if (message.type == "Played Card") {
-                    for (var i = 0; i < that.games.length; i++) {
-                        var target = that.games[i];
-                        if (target.gameId == message.gameId && message.playerId != that.id) {
+                } else if (message.type === "Played Card") {
+                    for (i = 0; i < that.games.length; i++) {
+                        target = that.games[i];
+                        if (target.gameId === message.gameId && message.playerId !== that.id) {
                             target.inPlay.push({
                                 module: that.getId(),
                                 card: that.scottLeviHand.getCard(message.cardId),
                                 playedBy: message.playedBy
-                            }); 
+                            });
                             g.services.timeoutService.$timeout(function () { });
                         }
                     }
-                } else if (message.type == "Left Game") {
-                    if (message.playerId != that.id) {
-                        for (var i = 0; i < that.games.length; i++) {
-                            if (message.gameId == that.games[i].gameId) {
+                } else if (message.type === "Left Game") {
+                    if (message.playerId !== that.id) {
+                        for (i = 0; i < that.games.length; i++) {
+                            if (message.gameId === that.games[i].gameId) {
                                 that.games[i].alone = true;
                                 g.services.timeoutService.$timeout(function () { });
                             }
@@ -167,11 +167,11 @@ ScottLeviHearts.component = function () {
             module: that.getId(),
             type: "joined Game",
             name: that.page.name,
-            id: that.id,
+            id: that.id
         });
         this.joined = true;
-    }
-    
+    };
+
     this.Challenge = function (player) {
         var challengeId = Math.random() + "";
 
@@ -181,7 +181,7 @@ ScottLeviHearts.component = function () {
             challengeeId: player.id,
             challengerId: that.id,
             status: "Sent",
-            challengeeName: player.name,
+            challengeeName: player.name
         });
         g.services.SingnalRService.Send(that.key, {
             module: that.getId(),
@@ -190,23 +190,24 @@ ScottLeviHearts.component = function () {
             challengeeId: player.id,
             challengerId: that.id,
             challengerName: that.page.name,
-            challengeId: challengeId,
+            challengeId: challengeId
         });
         // todo timeout and then remove from list and notify
         setTimeout(function () {
             var removePlayer = false;
+
             for (var i = 0; i < that.challenges.length; i++) {
-                if (that.challenges[i].challengeId == challengeId) {
-                    if (that.challenges[i].status == "Sent") {
+                if (that.challenges[i].challengeId === challengeId) {
+                    if (that.challenges[i].status === "Sent") {
                         removePlayer = true;
                         that.challenges.status = "Expired";
                         g.services.timeoutService.$timeout(function () { });
                     }
                 }
             }
-            if (removePlayer == true) {
-                for (var i = 0; i < that.playersInRoom.length; i++) {
-                    if (that.playersInRoom[i].id == player.id) {
+            if (removePlayer === true) {
+                for (i = 0; i < that.playersInRoom.length; i++) {
+                    if (that.playersInRoom[i].id === player.id) {
                         that.playersInRoom.splice(i, 1);
                         g.services.timeoutService.$timeout(function () { });
                     }
@@ -214,7 +215,7 @@ ScottLeviHearts.component = function () {
             }
         }, 5000);
 
-    }
+    };
 
     this.AcceptChallenge = function (challenge) {
         g.services.SingnalRService.Send(that.key, {
@@ -222,21 +223,22 @@ ScottLeviHearts.component = function () {
             type: "Challenge Accepted",
             challengeId: challenge.challengeId,
             challengeeId: challenge.challengeeId,
-            challengerId: challenge.challengerId,
+            challengerId: challenge.challengerId
         });
         that.RemoveChallenge(challenge);
 
-        if (challenge.challengeeId == that.id) {
-            var oppo = challenge.challengerName;
+        var oppo = null;
+        if (challenge.challengeeId === that.id) {
+            oppo = challenge.challengerName;
         } else {
-            var oppo = challenge.challengeeName;
+            oppo = challenge.challengeeName;
         }
         that.games.push(that.makeGame(oppo, challenge.challengeId));
-    }
+    };
 
     this.LeaveGame = function (game) {
         for (var i = 0; i < that.games.length; i++) {
-            if (game.gameId == that.games[i].gameId) {
+            if (game.gameId === that.games[i].gameId) {
                 that.games.splice(i, 1);
             }
         }
@@ -244,17 +246,17 @@ ScottLeviHearts.component = function () {
             module: that.getId(),
             type: "Left Game",
             gameId: game.gameId,
-            playerId: that.id,
+            playerId: that.id
         });
-    }
+    };
 
     this.LeaveAbandonedGame = function (game) {
         for (var i = 0; i < that.games.length; i++) {
-            if (game.gameId == that.games[i].gameId) {
+            if (game.gameId === that.games[i].gameId) {
                 that.games.splice(i, 1);
             }
         }
-    }
+    };
 
 
     this.makeGame = function (oppo, gameId) {
@@ -262,7 +264,7 @@ ScottLeviHearts.component = function () {
         return {
             oppo: oppo,
             inPlay: [],
-            alone : false,
+            alone: false,
             hand: hand,
             gameId: gameId,
             play: function (card) {
@@ -273,16 +275,16 @@ ScottLeviHearts.component = function () {
                     gameId: gameId,
                     cardId: card.guid,
                     playerId: that.id,
-                    playedBy: that.page.name,
+                    playedBy: that.page.name
                 });
                 for (var i = 0; i < hand.length; i++) {
-                    if (hand[i].guid == card.guid) {
+                    if (hand[i].guid === card.guid) {
                         hand.splice(i, 1);
                     }
                 }
             }
         };
-    }
+    };
 
     this.RejectChallenge = function (challenge) {
         g.services.SingnalRService.Send(that.key, {
@@ -290,10 +292,10 @@ ScottLeviHearts.component = function () {
             type: "Challenge Rejected",
             challengeId: challenge.challengeId,
             challengeeId: challenge.challengeeId,
-            challengerId: challenge.challengerId,
+            challengerId: challenge.challengerId
         });
         that.RemoveChallenge(challenge);
-    }
+    };
 
     this.RevokeChallenge = function (challenge) {
         g.services.SingnalRService.Send(that.key, {
@@ -301,31 +303,31 @@ ScottLeviHearts.component = function () {
             type: "Challenge Revoked",
             challengeId: challenge.challengeId,
             challengeeId: challenge.challengeeId,
-            challengerId: challenge.challengerId,
+            challengerId: challenge.challengerId
         });
         that.RemoveChallenge(challenge);
-    }
+    };
 
     this.RemoveChallenge = function (challenge) {
         for (var i = 0; i < that.challenges.length; i++) {
             var target = that.challenges[i];
-            if (target.challengeId == challenge.challengeId) {
+            if (target.challengeId === challenge.challengeId) {
                 that.challenges.splice(i, 1);
             }
-        }
-    }
+        } 
+    };
 
-    this.OnNewCharacter = function () { }
+    this.OnNewCharacter = function () { };
 
-    this.OnSave = function () { }
+    this.OnSave = function () { };
 
-    this.OnLoad = function () { }
+    this.OnLoad = function () { };
 
-    this.OnUpdate = function () { }
+    this.OnUpdate = function () { };
 
     this.getRequires = function () {
         return ["scott-levi-cards"];
-    }
+    };
 
 
     this.getPublic = function () {
@@ -333,26 +335,26 @@ ScottLeviHearts.component = function () {
             getVersion: function () {
                 return 1;
             }
-        }
-    }
+        };
+    };
 
     this.canClose = function () {
         return true;
-    }
+    };
 
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
 
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
 
     this.getTitle = function () {
         return "Hearts";
-    }
+    };
 
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(ScottLeviHearts.component);

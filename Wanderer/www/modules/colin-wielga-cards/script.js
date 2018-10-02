@@ -2,22 +2,22 @@
     var that = this;
     this.decklist = ColinWielgaCards.decklist;
     this.getId = function () {
-        return "colin-wielga-cards"
-    }
+        return "colin-wielga-cards";
+    };
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator
+        this.communicator = communicator;
         this.godsPublic = dependencies[0];
-    }
+    };
     this.OnNewCharacter = function () {
         this.hand = [];
         this.selectedDeck = ColinWielgaCards.decklist[0];
         this.activeDeck = this.selectedDeck.defaultActive();
-    }
+    };
     this.OnSave = function () {
         this.communicator.write("hand", this.hand);
         this.communicator.write("activeDeck", this.activeDeck);
         this.communicator.write("selectedDeck", this.selectedDeck.guid);
-    }
+    };
     this.OnLoad = function () {
         var version = this.communicator.lastVersion();
         this.OnNewCharacter();
@@ -26,7 +26,7 @@
                 var deckId = this.communicator.read("selectedDeck");
                 this.selectedDeck = null;
                 for (var i = 0; i < ColinWielgaCards.decklist.length; i++) {
-                    if (ColinWielgaCards.decklist[i].guid == deckId) {
+                    if (ColinWielgaCards.decklist[i].guid === deckId) {
                         this.selectedDeck = ColinWielgaCards.decklist[i];
                         break;
                     }
@@ -57,53 +57,53 @@
                 }
             }
         }
-    }
+    };
 
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getTitle = function () {
         return "Hand";
-    }
+    };
     this.getRequires = function () {
         return [];//"colin-wielga-gods"
-    }
+    };
 
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1.4;
             }
-        }
-    }
+        };
+    };
 
     this.deckSelected = function () {
         this.hand = [];
         this.activeDeck = this.selectedDeck.defaultActive();
-    }
+    };
 
     this.getCard = function (id) {
         return this.selectedDeck.allCards[id];
-    }
+    };
 
     this.toggleCardActive = function (id) {
         var at = this.activeDeck.indexOf(id);
-        if (at == -1) {
+        if (at === -1) {
             this.activeDeck.push(id);
         } else {
             this.activeDeck.splice(at, 1);
         }
-    }
+    };
 
     this.inDeck = function (id) {
-        return (this.activeDeck.indexOf(id) !== -1);
-    }
+        return this.activeDeck.indexOf(id) !== -1;
+    };
 
     this.possibleCards = function () {
         var keys = [];
@@ -114,11 +114,11 @@
             }
         }
         return keys;
-    }
+    };
 
     this.startingDeck = function () {
         return this.possibleCards();
-    }
+    };
 
     this.draw = function () {
         if (this.hand.length < this.activeDeck.length) {
@@ -145,6 +145,6 @@
         }
     };
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(ColinWielgaCards.component);

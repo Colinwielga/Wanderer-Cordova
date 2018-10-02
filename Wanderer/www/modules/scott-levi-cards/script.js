@@ -7,8 +7,8 @@ ScottLeviCards.component = function () {
     this.decklist = ScottLeviCards.decklist;
     this.isDragging = false;
     this.getId = function () {
-        return "scott-levi-cards"
-    }
+        return "scott-levi-cards";
+    };
 
     this.Join = function () {
         g.services.SingnalRService.setCallback(this.key,
@@ -24,10 +24,10 @@ ScottLeviCards.component = function () {
             });
         g.services.SingnalRService.Join(this.GroupName, this.key);
         this.Joined = true;
-    }
+    };
 
     this.pickUp = function (ev) {
-    }
+    };
     this.dropEmptyHand = function (data, event) {
         var index = this.hand.indexOf(data.guid);
         if (index > -1) {
@@ -38,7 +38,7 @@ ScottLeviCards.component = function () {
             this.inPlay.splice(index, 1);
         }
         this.hand.push(data.guid);
-    }
+    };
 
     this.dropOn = function (cardNextToId, data, event) {
         var wasIndex = this.hand.indexOf(data.guid);
@@ -68,7 +68,7 @@ ScottLeviCards.component = function () {
                 }
             }
         }
-    }
+    };
 
     this.dropEmptyInPlay = function (data, event) {
         if (this.canEnterPlay(data)) {
@@ -82,11 +82,11 @@ ScottLeviCards.component = function () {
             }
             this.inPlay.push(data.guid);
         }
-    }
+    };
 
     this.canEnterPlay = function (data) {
         return data.image < 22;
-    }
+    };
 
     this.dropLeft = function (cardNextTo, data, event) {
         var index = this.hand.indexOf(data.guid);
@@ -105,7 +105,7 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index, 0, data.guid);
         }
-    }
+    };
 
     this.dropRight = function (cardNextTo, data, event) {
         var index = this.hand.indexOf(data.guid);
@@ -124,13 +124,13 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.inPlay.splice(index + 1, 0, data.guid);
         }
-    }
+    };
 
     this.isSwords = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
         return (num == 0) || (num % 2) == 1;
-    }
+    };
 
     this.isWands = function (cardId) {
         var card = this.getCard(cardId);
@@ -138,7 +138,7 @@ ScottLeviCards.component = function () {
         return (num == 0) ||
             ((num % 2) != 0) &&
             ((num % 3) != 0);
-    }
+    };
 
     this.isCups = function (cardId) {
         var card = this.getCard(cardId);
@@ -151,13 +151,13 @@ ScottLeviCards.component = function () {
             (num == 8) ||
             (num == 13) ||
             (num == 21);
-    }
+    };
 
     this.isPentacles = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
         return num % 2 == 0;
-    }
+    };
 
     this.swords = "swords";
     this.wands = "wands";

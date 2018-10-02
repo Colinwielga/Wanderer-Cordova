@@ -1,47 +1,47 @@
 ﻿var component = function () {
     this.dc = 8;
-    
+
     this.getId = function () {
         return "colin-wielga-roll"
-    }
+    };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
-        this.communicator = communicator
-    }
-    this.OnNewCharacter = function () { }
-    this.OnSave = function () { }
-    this.OnLoad = function () { }
+        this.communicator = communicator;
+    };
+    this.OnNewCharacter = function () { };
+    this.OnSave = function () { };
+    this.OnLoad = function () { };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
-    }
+    };
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
-    }
+    };
     this.getTitle = function () {
         return "Roll";
-    }
+    };
     this.getRequires = function () {
         return [];
-    }
+    };
 
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1;
             }
-        }
-    }
+        };
+    };
 
     this.disableRoll = function () {
-        return this.dc != undefined;
-    }
+        return this.dc !== undefined;
+    };
 
     this.rollDC = function () {
-        return this.roll(this.dc- this.getBonus());
-    }
+        return this.roll(this.dc - this.getBonus());
+    };
 
     // TODO
     // you should be able to get pass with hard choice
@@ -61,12 +61,12 @@
                 } else {
                     return DCh + " to " + DCl;
                 }
-            }
+            };
         };
 
         var move = function (moveBy) {
             return Math.round(moveBy + Roll.roll(Math.sqrt(moveBy)));
-        }
+        };
 
         var flip = function (x) {
             if (x === undefined) x = .5;
@@ -85,7 +85,7 @@
                     return lst[i].result;
                 }
             }
-        }
+        };
 
         // place pass or hard choice
         var includeHardChoice = flip(.25);
@@ -93,7 +93,7 @@
         var includeCriticalPass = flip(.3);
         var showCriticalPass = flip();
         var showPass = flip(.75) || showCriticalPass || includeHardChoice;
-        var includeMixed = (!includeHardChoice && showPass) ? flip(.3): false; 
+        var includeMixed = !includeHardChoice && showPass ? flip(.3) : false;
         var DC = center +
             Math.round(Roll.roll(1.5)) +
             (includeHardChoice ? move(1) : 0) +
@@ -127,7 +127,7 @@
                 publicAbove = DC - 1;
             } else {
                 privateOutcomes.push(new rollLevel(privateAbove, DC,
-                "pass"));
+                    "pass"));
             }
             privateAbove = DC - 1;
         }
@@ -139,13 +139,13 @@
                 "hard choice"));
             publicAbove = DCHardChoice - 1;
             privateAbove = DCHardChoice - 1;
-        } 
+        }
 
         if (includeMixed) {
             var DCPassAtACost = privateAbove - move(2);
             publicOutcomes.push(new rollLevel(publicAbove,
-            DCPassAtACost,
-            "mixed or undetermine or escalation"));
+                DCPassAtACost,
+                "mixed or undetermine or escalation"));
             publicAbove = DCPassAtACost - 1;
             privateAbove = DCPassAtACost - 1;
         }
@@ -173,19 +173,19 @@
             }
         } else {
             publicOutcomes.push(new rollLevel(publicAbove, "",
-            "fail"));
+                "fail"));
         }
 
 
         this.publicLastRoll = publicOutcomes;
         this.privateLastRoll = privateOutcomes;
-    }
-    
+    };
+
     this.getBonus = function () {
         return this.page.getBonus();
-    }
-    
+    };
+
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(component);

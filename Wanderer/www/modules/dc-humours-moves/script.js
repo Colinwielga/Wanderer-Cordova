@@ -4,19 +4,19 @@
 
     //Module-specific fields
 
-    this.getMoveslist = function(tab_idx){
+    this.getMoveslist = function (tab_idx) {
         tab_idx = tab_idx || this.current_tab;
         return this.movescatalogue[tab_idx].moveslist;
-    }
+    };
 
     //Returns true if the player should be prevented from adding
     //or editing moves
-    this.lockEdits = function(tab_idx){
+    this.lockEdits = function (tab_idx) {
         tab_idx = tab_idx || this.current_tab;
         return !this.movescatalogue[tab_idx].custom;
-    }
+    };
 
-    this.addNewMove = function(){
+    this.addNewMove = function () {
         addmove = {
             title: this.newmove.title,
             leadin: this.newmove.leadin,
@@ -29,76 +29,76 @@
         this.resetNewMove();
     };
 
-    this.resetNewMove = function(){
+    this.resetNewMove = function () {
         this.newmove.title = "";
         this.newmove.leadin = "When you";
         this.newmove.trigger = "[act and/or circumstances dictate],";
         this.newmove.effect = "[mechanical and/or fictional effects occur.]";
         this.newmove.collapsed = true;
     };
-    
-    this.getMoveBody = function(move){
+
+    this.getMoveBody = function (move) {
         //Returns the html-formatted full body of the move, including leadin, bolded trigger,
         //and effect.
         var leadin = "";
-        if(move.leadin){
+        if (move.leadin) {
             leadin = move.leadin.trim() + " ";
         }
         var trigger = "<b>" + move.trigger.trim() + "</b> ";
         var effect = move.effect.trim();
         //Move initial paragraph tag to the beginning of the whole body
-        if(effect.slice(0, 3) === "<p>"){
+        if (effect.slice(0, 3) === "<p>") {
             effect = effect.slice(3);
             leadin = "<p>" + leadin;
         }
         return leadin + trigger + effect;
-    }
+    };
 
-    this.getMoveHeader = function(move){
+    this.getMoveHeader = function (move) {
         //Returns text for a possibly-collapsed move header
         var header = move.title.trim() || "";
-        if(move.collapsed && !move.title){
+        if (move.collapsed && !move.title) {
             var trigger = move.trigger;
-            if(move.trigger.trim().charAt(move.trigger.trim().length - 1) === ','){
+            if (move.trigger.trim().charAt(move.trigger.trim().length - 1) === ',') {
                 trigger = move.trigger.trim().slice(0, -1);
             }
-            header = move.leadin.trim() + " <b>" + trigger.trim() + "</b>..."; 
+            header = move.leadin.trim() + " <b>" + trigger.trim() + "</b>...";
         }
         return header;
-    }
-    
-    this.toggleCollapse=function(event, move){
+    };
+
+    this.toggleCollapse = function (event, move) {
         move.collapsed = !move.collapsed;
         event.stopImmediatePropagation();
-    }
-    this.startEdit = function(event, move){
+    };
+    this.startEdit = function (event, move) {
         move.edit = true;
         event.stopImmediatePropagation();
-    }
-    this.endEdit = function(event, move){
+    };
+    this.endEdit = function (event, move) {
         //TODO: Check to make sure there's either a title or leadin+trigger
         move.edit = false;
         move.collapsed = false;
         event.stopImmediatePropagation();
-    }
-    this.setDeleteMode = function(event, move){
+    };
+    this.setDeleteMode = function (event, move) {
         move.deletemode = true;
         event.stopImmediatePropagation();
-    }
-    this.cancelDeleteMode = function(event, move){
+    };
+    this.cancelDeleteMode = function (event, move) {
         move.deletemode = false;
         event.stopImmediatePropagation();
-    }
-    
-    this.deleteMove = function(event, move){
+    };
+
+    this.deleteMove = function (event, move) {
         this.getMoveslist().splice(this.getMoveslist().indexOf(move), 1);
         move.deletemode = true;
         event.stopImmediatePropagation();
-    }
+    };
 
-    this.changeTab = function(catalogue){
+    this.changeTab = function (catalogue) {
         this.current_tab = this.movescatalogue.indexOf(catalogue);
-    }
+    };
 
     //This is the catalogue of moves that are built into the system
     //The final moves catalogue takes this and appends categories 
@@ -443,14 +443,14 @@
                         under normal circumstances, and whether you lose or not, you spend the Blood you \
                         committed and gain none back. \
                         <br />When your last humour reaches Dry, you have lost all connection to the mortal world.",
-                    collapsed: true,
-                },
+                    collapsed: true
+                }
             ],
             custom: false
         },
         {
             label: "Rebalance Moves",
-            moveslist:[
+            moveslist: [
                 {
                     title: "Rebalance Orgone",
                     leadin: "When you",
@@ -462,7 +462,7 @@
                         revelation with your actions, take mill 1 forward to Orgone. (This \
                         bonus does not stack.) ",
                     humour: "orgone",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "Rebalance Yellow Bile",
@@ -474,7 +474,7 @@
                             reasonably stimulating or thought-provoking. If so, take mill 1 forward to \
                             Yellow Bile. (This bonus does not stack.)",
                     humour: "yellowbile",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "Rebalance Black Bile",
@@ -486,7 +486,7 @@
                         everyone's satisfaction, the next time something reminds you of that object, \
                         take mill 1 forward to Black Bile.",
                     humour: "blackbile",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "Rebalance Phlegm",
@@ -498,7 +498,7 @@
                         yourself or face unnecessary risk. If they think you did, take mill 1 forward to Phlegm. \
                         (This bonus does not stack.)",
                     humour: "phlegm",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "Rebalance Blood",
@@ -509,14 +509,14 @@
                         forgiveness, and they accept it in good faith, immediately choose a Blood \
                         advancement.",
                     humour: "blood",
-                    collapsed: true,
-                },
+                    collapsed: true
+                }
             ],
             custom: false
         },
         {
             label: "Peripheral Moves",
-            moveslist:[
+            moveslist: [
                 {
                     title: "Pay Back Debt",
                     leadin: "When you",
@@ -532,7 +532,7 @@
                         Their call if it counts as one of those, but remind them that if they're too \
                         hard to please, you might have no reason to keep trying. If it does count, \
                         shift the balance of debt one point in your favor.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "Cash In Your Dues",
@@ -553,7 +553,7 @@
                         you'd want them to do in this situation even if you never said it explicitly. A \
                         little weird, I know, but it gives everyone a good reason to pay attention to \
                         each others' scenes.)",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -561,7 +561,7 @@
                     trigger: "help or interfere with someone",
                     effect: "who is making a draw + discard, describe how you're getting involved \
                         and discard a single card of your own. They get +1 or -1 forward, your choice.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -571,7 +571,7 @@
                         person knows you by it. What exactly the character thinks about that \
                         is the MC's choice. At their discretion, they might decide the \
                         character also knows you by any of your other reputations",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -581,7 +581,7 @@
                         for a new reputation. Discuss your reasoning briefly, and if the players - \
                         including the MC, and not including the player of that character - can reach \
                         consensus, award it.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -598,7 +598,7 @@
                             <li>Point you at someone else they know to be interested</li> \
                             <li>Counter with something of comparable cost or value</li> \
                         </ul>",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -658,7 +658,7 @@
         },
         {
             label: "World Moves",
-            moveslist:[
+            moveslist: [
                 {
                     title: "",
                     leadin: "If you",
@@ -668,7 +668,7 @@
                         take place in the presence of demons. If you have three or more humours at waxing, the \
                         demons will start to come looking for you. Tell the MC they have a new move they \
                         can make when you cede initiative to them: <b>Introduce a demon</b>.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -683,7 +683,7 @@
                             <li>Counter with something of comparable cost or value</li> \
                             <li>Counter with something unexpected or wildly irrelevant</li> \
                         </ul>",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -746,7 +746,7 @@
                 {
                     title: "Introduce Law",
                     leadin: "When you",
-                    trigger: "cite an existing law or legal precedent,", 
+                    trigger: "cite an existing law or legal precedent,",
                     effect: "draw + discard Orgone. \
                             On a sated, the law or precedent stands, just as you say. On a waxing, the \
                             MC will add a twist or detail. If the law or legal precedent clearly and unambigiously \
@@ -760,7 +760,7 @@
                 {
                     title: "Make an Emotional Appeal",
                     leadin: "When you",
-                    trigger: "attempt to sway the emotions of the court,", 
+                    trigger: "attempt to sway the emotions of the court,",
                     effect: "draw + discard Orgone. On a Sated, choose one emotional state from the \
                             list that matches the tone of your attempt, and the court will feel that \
                             emotion until circumstances change. On a Waxing, pick three emotional states \
@@ -782,7 +782,7 @@
                 {
                     title: "Argue or Refute",
                     leadin: "When you",
-                    trigger: "make an argument to the court,", 
+                    trigger: "make an argument to the court,",
                     effect: "or when you logically refute an argument already made, ask the \
                             MC if the judge accepts your logic. If they accept your logic, draw + \
                             discard Yellow Bile. Take mill 1 forward if your argument cites evidence, \
@@ -798,7 +798,7 @@
                 {
                     title: "Introduce Evidence/Call Witness",
                     leadin: "When you",
-                    trigger: "call for evidence or a witness to be presented to the court,", 
+                    trigger: "call for evidence or a witness to be presented to the court,",
                     effect: "explain to the judge how the evidence or witness is relevant to the case. \
                             If the judge agrees it is relevant, you may introduce it/them to the court. \
                             If the judge does not see the relevance, draw + discard Black Bile. On a Sated, \
@@ -814,7 +814,7 @@
                 {
                     title: "Interrogate a Witness",
                     leadin: "When you",
-                    trigger: "interrogate a witness", 
+                    trigger: "interrogate a witness",
                     effect: "proceed as per the <b>Read a Person</b> move, but spend your hold\
                             instead on these options:<br />\
                             <ul>\
@@ -836,7 +836,7 @@
                 {
                     title: "Call for Recess",
                     leadin: "When you",
-                    trigger: "formally request recess from trial,", 
+                    trigger: "formally request recess from trial,",
                     effect: "state the reason why to the judge and draw + discard Phlegm. On a hit, your \
                             request is granted. On a Sated, also choose one:<br />\
                             <ul> \
@@ -851,7 +851,7 @@
                 {
                     title: "Show Contempt",
                     leadin: "When you",
-                    trigger: "show contempt for court in the eyes of the judge,", 
+                    trigger: "show contempt for court in the eyes of the judge,",
                     effect: "either intentionally or by accident, mark a box in a countdown called \
                             \"Held in Contempt\". If you have no such countdown, create it as a 3-box \
                             countdown. \
@@ -861,7 +861,7 @@
                 {
                     title: "MC Trial Moves",
                     leadin: "",
-                    trigger: "", 
+                    trigger: "",
                     effect: "During the trial, the MC has access to the following moves: \
                     <ul> \
                         <li><b>Introduce a new demon law</b></li>\
@@ -880,7 +880,7 @@
         },
         {
             label: "Fall-dough Tunnel Moves",
-            moveslist:[
+            moveslist: [
                 {
                     title: "",
                     leadin: "When you",
@@ -899,7 +899,7 @@
                             </ul> \
                             Lower or no discard, choose 2 anyway, but neither can be that you find your way.",
                     humour: "yellowbile",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -911,7 +911,7 @@
                             Demon attention (3 boxes) <br /> \
                         When the fall-dough tunnel moves instruct you to \"mark a countdown box of your choice\", \
                         they refer to the list of countdowns above, and no others.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -921,7 +921,7 @@
                         Discovery. On a Waxing, also choose: Mark two countdown boxes of your choice, \
                         or the MC will present you with a Danger in addition to the Discovery.",
                     humour: "yellowbile",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -932,7 +932,7 @@
                         MC will present you with either a place of safety to stop and catch your \
                         breath, or a place of hidden danger.",
                     humour: "phlegm",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -941,7 +941,7 @@
                     effect: "mark a countdown box of your choice and flip a coin. On a heads, the \
                         MC will present you with a Discovery. On a tails, the MC will present \
                         you with a Danger.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -954,7 +954,7 @@
                         single known location - the MC will tell you which. If you choose, you can then \
                         make the <b>retrace your steps</b> move.",
                     humour: "blackbile",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -966,7 +966,7 @@
                         location has changed to become more dangerous since you last visited. In either \
                         case, you may erase a box in your \"hopelessly lost\" countdown.",
                     humour: "blackbile",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -977,7 +977,7 @@
                         empty boxes to mark, instead mark a box in \"fall-dough sickness\". As long as \
                         \"fall-dough sickness\" has at least 1 box marked, take -1 Ongoing to all \
                         draw+discards.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -985,7 +985,7 @@
                     trigger: "fill the last box in the \"fall-dough sickness\" countdown,",
                     effect: "the MC will tell you how your character has been permanently \
                         altered by the sickness.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -993,7 +993,7 @@
                     trigger: "fill the last box in the \"hopelessly lost\" countdown,",
                     effect: "you may no longer <b>plunge boldly into the unknown</b>, <b>proceed ahead with due \
                         caution</b>, or <b>retrace your steps</b> until at least one box is empty.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -1001,12 +1001,12 @@
                     trigger: "fill the last box in the \"demon attention\" countdown,",
                     effect: "the MC will introduce a demon to the situation. When they do, erase all \
                         \"Demon attention\" boxes.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "MC Fall-dough Tunnel Moves",
                     leadin: "",
-                    trigger: "", 
+                    trigger: "",
                     effect: "When PCs are exploring the fall-dough tunnels, the MC has access to the \
                         following moves: \
                     <ul> \
@@ -1026,7 +1026,7 @@
         },
         {
             label: "Card Moves",
-            moveslist:[
+            moveslist: [
                 {
                     title: "Draw + Discard",
                     leadin: "When",
@@ -1038,7 +1038,7 @@
                         humour and add two to it. If neither panel matches the color of the humour specified \
                         by the move, take your slider value for the humour specified by the move and use it \
                         unaltered. If you choose not to discard, take the 'no discard' result for the move.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -1047,7 +1047,7 @@
                     effect: "reduce the slider level of the slider corresponding to the arrow's humour \
                         color by one notch. If your humour is reduced to Dry, immediately reset to Balanced \
                         and tell the MC to choose an MC Advancement for you from the appropriate list.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -1058,7 +1058,7 @@
                         reduces your hand to 0 cards, you may immediately draw 1. If your humour \
                         advances to Sated, immediately reset to Balanced and choose a Player Advancement \
                         from the appropriate list.",
-                    collapsed: true,
+                    collapsed: true
                 },
                 {
                     title: "",
@@ -1069,8 +1069,8 @@
                         Note that if you have a bonus 'forward', it only applies to the next draw, whereas \
                         if you have a bonus 'ongoing', it applies as long as the circumstances that grant it \
                         are in effect.",
-                    collapsed: true,
-                },
+                    collapsed: true
+                }
             ],
             custom: false
         },
@@ -1207,7 +1207,7 @@
         },
         {
             label: "Master of Ceremonies",
-            moveslist:[
+            moveslist: [
                 {
                     title: "Agenda",
                     leadin: "",
@@ -1272,8 +1272,8 @@
 
 
     this.getId = function () {
-        return "dc-humours-moves"
-    }
+        return "dc-humours-moves";
+    };
 
     // A component should know how to handle some events
     // called when Wanderer is ready to talk to us
@@ -1284,29 +1284,29 @@
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
-    }
+    };
     // called when a new character is created
     this.OnNewCharacter = function () {
         this.movescatalogue = default_move_catalogue;
         this.movescatalogue.push({
             label: "Player Moves",
-            moveslist:[],
+            moveslist: [],
             custom: true
         });
         this.current_tab = 0;
         this.newmove = {};
         this.resetNewMove();
-    }
+    };
     // called when a character is saved
     this.OnSave = function () {
         var custom_moves = [];
-        this.movescatalogue.forEach(function(movecategory){
-            if(movecategory.custom){
+        this.movescatalogue.forEach(function (movecategory) {
+            if (movecategory.custom) {
                 custom_moves.push(movecategory);
             }
         });
         this.communicator.write("custommoves", custom_moves);
-    }
+    };
     // called when a characrer is loaded 
     this.OnLoad = function () {
         this.movescatalogue = [];
@@ -1320,20 +1320,20 @@
                         var at = that.movescatalogue.indexOf(move);
                         that.movescatalogue.splice(at, 1, customMove);
                     }
-                })
+                });
             });
         }
-    }
+    };
     this.OnUpdate = function () {
-    }
+    };
 
     this.getRequires = function () {
         return ["dc-humours-moves"];
-    }
+    };
 
     this.canClose = function () {
         return true;
-    }
+    };
     this.getPublic = function () {
         return {
             getDescription: function () {
@@ -1342,21 +1342,21 @@
             getVersion: function () {
                 return 1;
             }
-        }
-    }
+        };
+    };
 
     // a component should be able to provide some infomation
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
-    }
+    };
     this.getRulesHtml = function () {
         return "modules/" + this.getId() + "/rules.html"
-    }
+    };
     this.getTitle = function () {
         return "Moves";
-    }
+    };
 
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(component);
