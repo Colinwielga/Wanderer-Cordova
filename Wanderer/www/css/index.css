@@ -85,9 +85,7 @@ body {
 
 @media only screen and (min-width:530px) {
     #content  {
-        -moz-column-width: 500px;
-        -webkit-column-width: 500px;
-        column-width: 500px;
+        column-width: 650px;
         padding-left: 5px;
         padding-right: 5px;
         margin-left: 10px;
@@ -100,40 +98,14 @@ body {
     width: 500px;
 }
 
-/*-webkit-column-break-inside: avoid;*/
 .section {
     page-break-inside:avoid;
     overflow: hidden;
 }
 
-/*-webkit-column-break-after: always;*/
 .divider {
     page-break-after:always;
     display: none;
-}
-
-@media only screen and (min-width:0px) {
-    #divider4 {
-        display: block;
-    }
-}
-
-@media only screen and (min-width:1059px) {
-    #divider3 {
-        display: block;
-    }
-}
-
-@media only screen and (min-width:1579px) {
-    #divider2 {
-        display: block;
-    }
-}
-
-@media only screen and (min-width:2099px) {
-    #divider1 {
-        display: block;
-    }
 }
 
 .mock-section-title {
