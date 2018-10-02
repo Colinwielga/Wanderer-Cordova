@@ -1,0 +1,14 @@
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\bin\Debug\netcoreapp2.0\WandererWebAPI.deps.json
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\bin\Debug\netcoreapp2.0\WandererWebAPI.runtimeconfig.json
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\bin\Debug\netcoreapp2.0\WandererWebAPI.runtimeconfig.dev.json
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\bin\Debug\netcoreapp2.0\WandererWebAPI.dll
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\bin\Debug\netcoreapp2.0\WandererWebAPI.pdb
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\bin\Debug\netcoreapp2.0\Library.dll
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\bin\Debug\netcoreapp2.0\Library.pdb
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\obj\Debug\netcoreapp2.0\WandererWebAPI.csprojAssemblyReference.cache
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\obj\Debug\netcoreapp2.0\WandererWebAPI.csproj.CoreCompileInputs.cache
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\obj\Debug\netcoreapp2.0\WandererWebAPI.AssemblyInfoInputs.cache
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\obj\Debug\netcoreapp2.0\WandererWebAPI.AssemblyInfo.cs
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\obj\Debug\netcoreapp2.0\WandererWebAPI.csproj.CopyComplete
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\obj\Debug\netcoreapp2.0\WandererWebAPI.dll
+C:\Users\Colin_000\source\repos\WandererWebApp\WandererWebApp\obj\Debug\netcoreapp2.0\WandererWebAPI.pdb
