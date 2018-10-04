@@ -53,7 +53,7 @@ var component = function () {
         return "#" + gstring + rstring + "33";
     };
     this.HPString = function () {
-        return (Math.max(0, (this.hp + this.encounterHP / 12.0) * 100)) + "%";
+        return Math.max(0, (this.hp + this.encounterHP) / 12.0 * 100) + "%";
     };
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html";
