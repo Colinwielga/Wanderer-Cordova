@@ -1,31 +1,14 @@
 ﻿
 ScottLeviCards.component = function () {
     var that = this;
-    this.GroupName = "";
-    this.Joined = false;
     this.discardPile = [];
+    this.joined = false;
     this.decklist = ScottLeviCards.decklist;
     this.isDragging = false;
     this.getId = function () {
         return "scott-levi-cards";
     };
-
-    this.Join = function () {
-        g.services.SingnalRService.setCallback(this.key,
-            this.GroupName,
-            function (message) { return message.module === that.getId(); },
-            function (message) {
-                g.services.timeoutService.$timeout(function () {
-                    that.discardPile.push(message);
-                    if (that.discardPile.length > 5) {
-                        that.discardPile.splice(0, 1);
-                    }
-                });
-            });
-        g.services.SingnalRService.Join(this.GroupName, this.key);
-        this.Joined = true;
-    };
-
+    
     this.pickUp = function (ev) {
     };
     this.dropEmptyHand = function (data, event) {
@@ -33,7 +16,7 @@ ScottLeviCards.component = function () {
         if (index > -1) {
             this.hand.splice(index, 1);
         }
-        var index = this.inPlay.indexOf(data.guid);
+        index = this.inPlay.indexOf(data.guid);
         if (index > -1) {
             this.inPlay.splice(index, 1);
         }
@@ -56,7 +39,7 @@ ScottLeviCards.component = function () {
         } else {
             wasIndex = this.inPlay.indexOf(data.guid);
             if (wasIndex > -1) {
-                var nowIndex = this.inPlay.indexOf(cardNextToId);
+                nowIndex = this.inPlay.indexOf(cardNextToId);
                 if (nowIndex > -1) {
                     nowIndex = this.inPlay.indexOf(cardNextToId);
                     this.inPlay.splice(wasIndex, 1);
@@ -129,40 +112,40 @@ ScottLeviCards.component = function () {
     this.isSwords = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num == 0) || (num % 2) == 1;
+        return (num === 0) || (num % 2) == 1;
     };
 
     this.isWands = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num == 0) ||
-            ((num % 2) != 0) &&
-            ((num % 3) != 0);
+        return (num === 0) ||
+            ((num % 2) !== 0) &&
+            ((num % 3) !== 0);
     };
 
     this.isCups = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num == 0) ||
-            (num == 1) ||
-            (num == 2) ||
-            (num == 3) ||
-            (num == 5) ||
-            (num == 8) ||
-            (num == 13) ||
-            (num == 21);
+        return (num === 0) ||
+            (num === 1) ||
+            (num === 2) ||
+            (num === 3) ||
+            (num === 5) ||
+            (num === 8) ||
+            (num === 13) ||
+            (num === 21);
     };
 
     this.isPentacles = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return num % 2 == 0;
+        return num % 2 === 0;
     };
 
     this.swords = "swords";
     this.wands = "wands";
     this.pentacles = "pentacles";
-    this.cups = "cups"
+    this.cups = "cups";
 
     this.getAbilities = function () {
         var cards = [];
@@ -290,7 +273,27 @@ ScottLeviCards.component = function () {
         this.key = Math.random() + "";
         this.communicator = communicator;
         this.page = page;
+
+        dependencies[0].onJoin(groupName => {
+            g.services.timeoutService.$timeout(function () {
+                that.discardPile = [];
+                that.joined = true;
+            });
+            g.services.SingnalRService.tryRemoveCallback(that.key);
+            g.services.SingnalRService.setCallback(that.key,
+                groupName,
+                function (message) { return message.module === that.getId(); },
+                function (message) {
+                    g.services.timeoutService.$timeout(function () {
+                        that.discardPile.push(message);
+                        if (that.discardPile.length > 5) {
+                            that.discardPile.splice(0, 1);
+                        }
+                    });
+                });
+           });
     }
+
     this.OnNewCharacter = function () {
         this.inPlay = [];
         this.hand = [];
@@ -372,7 +375,7 @@ ScottLeviCards.component = function () {
         return "Tarot";
     }
     this.getRequires = function () {
-        return [];
+        return ["wanderer-core-save"];
     }
 
     this.getPublic = function () {

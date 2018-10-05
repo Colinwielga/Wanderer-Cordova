@@ -1,32 +1,50 @@
 ﻿var component = function () {
     var that = this;
+    this.groupName = "";
+    this.OnJoindCallbacks = [];
+    
     this.getId = function () {
-        return "wanderer-core-save"
-    }
+        return "wanderer-core-save";
+    };
+
+    this.Join = function () {
+        g.services.SingnalRService.Join(that.GroupName, that.key);
+        for (var callback of that.OnJoindCallbacks) {
+            callback(that.groupName);
+        }
+    };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.logger = logger;
         this.page = page;
         this.communicator = communicator;
         this.Dependencies = dependencies;
-        this.OnNewCharacter()
-    }
+        this.OnNewCharacter();
+
+    };
     this.OnNewCharacter = function () {
         that.page.name = "untitled";
-    }
+    };
     this.OnSave = function () {
         this.communicator.write("name", that.page.name);
-    }
+        this.communicator.write("group-name", that.groupName);
+    };
     this.OnLoad = function () {
         if (this.communicator.canRead("name")) {
             that.page.name = this.communicator.read("name");
         } else {
             that.page.name = "untitled";
         }
-    }
+        if (this.communicator.canRead("group-name")) {
+            that.groupName = this.communicator.read("group-name");
+        }
+        if (this.groupName !== undefined && this.groupName !== null && this.groupName !== "") {
+            this.Join();
+        }
+    };
     this.getRequires = function () {
         return [];
-    }
+    };
     this.getPublic = function () {
         var that = this;
         return {
@@ -35,9 +53,12 @@
             },
             injectComponents: function (comps) {
                 that.components = comps;
+            },
+            onJoin: function (callback) {
+                that.OnJoindCallbacks.push(callback);
             }
-        }
-    }
+        };
+    };
     this.getHmtl = function () {
         return "modules/" + this.getId() + "/page.html"
     }

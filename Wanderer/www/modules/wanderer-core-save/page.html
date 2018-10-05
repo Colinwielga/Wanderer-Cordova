@@ -2,4 +2,13 @@
     <input type="text" data-ng-model="module.page.name" />
     <input type="button" value="Save" data-ng-click="module.save()" />
     <p class="can-select">{{module.page.accessKey}}</p>
+    <div class="pad-me">
+        <center>
+            <form>
+                <input type="text" ng-model="module.groupName" />
+                <input type="submit" value="Join" ng-click="module.Join()" ng-disabled="module.groupName == null" />
+            </form>
+        </center>
+    </div>
+
 </div>

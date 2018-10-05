@@ -1,14 +1,5 @@
 ﻿<link href="../scott-levi-cards/card.css" rel="stylesheet" />
 
-<!--connect-->
-<div ng-show="!module.joined" class="pad-me">
-    <center>
-        <form>
-            <input type="text" ng-model="module.groupName" />
-            <input type="submit" value="Join" ng-click="module.Join()" ng-disabled="module.groupName == null" />
-        </form>
-    </center>
-</div>
 <!--players-->
 <div ng-show="module.joined" class="pad-me">
     <div data-ng-repeat="player in module.playersInRoom">

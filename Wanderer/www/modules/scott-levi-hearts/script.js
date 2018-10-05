@@ -1,11 +1,10 @@
 ﻿var ScottLeviHearts = {};
 
 ScottLeviHearts.component = function () {
-    this.groupName = "";
-    this.joined = false;
     this.playersInRoom = [];
     this.challenges = [];
     this.games = [];
+    this.joined = false;
     var that = this;
 
     this.getId = function () {
@@ -19,6 +18,137 @@ ScottLeviHearts.component = function () {
         this.key = Math.random() + "";
         this.id = Math.random() + "";
         this.scottLeviHand = dependencies[0];
+        dependencies[1].onJoin(groupName => {
+            g.services.timeoutService.$timeout(function () {
+                that.playersInRoom = [];
+                that.challenges = [];
+                that.games = [];
+                that.joined = true;
+            });
+            g.services.SingnalRService.tryRemoveCallback(that.key);
+            g.services.SingnalRService.setCallback(that.key,
+                groupName,
+                function (message) { return message.module === that.getId(); },
+                function (message) {
+                    console.log("got message:", message);
+                    if (message.type === "joined Game") {
+                        if (message.id !== that.id) {
+                            g.services.timeoutService.$timeout(function () {
+                                that.AddPlayer(message.id, message.name);
+                            });
+                            g.services.SingnalRService.Send(that.key, {
+                                module: that.getId(),
+                                type: "In Room",
+                                name: that.page.name,
+                                id: that.id
+                            });
+                        }
+                    } else if (message.type === "In Room") {
+                        if (message.id !== that.id) {
+                            g.services.timeoutService.$timeout(function () {
+                                that.AddPlayer(message.id, message.name);
+                            });
+                        }
+                    } else if (message.type === "Challenge") {
+                        if (message.challengeeId === that.id) {
+                            g.services.timeoutService.$timeout(function () {
+                                that.challenges.push({
+                                    challengerName: message.challengerName,
+                                    status: "Open",
+                                    challengeId: message.challengeId,
+                                    challengeeId: message.challengeeId,
+                                    challengerId: message.challengerId
+                                });
+                            });
+                            g.services.SingnalRService.Send(that.key, {
+                                module: that.getId(),
+                                type: "Challenge Recived",
+                                challengerName: that.page.challengerName,
+                                challengerId: message.challengerId,
+                                challengeId: message.challengeId
+                            });
+                        }
+                    } else if (message.type === "Challenge Recived") {
+                        if (message.challengerId === that.id) {
+                            for (var i = 0; i < that.challenges.length; i++) {
+                                var target = that.challenges[i];
+                                if (target.challengeId === message.challengeId) {
+                                    target.status = "Received";
+                                    g.services.timeoutService.$timeout(function () {
+                                    });
+                                }
+                            }
+                        }
+                    } else if (message.type === "Challenge Rejected") {
+                        if (message.challengerId === that.id) {
+                            for (i = 0; i < that.challenges.length; i++) {
+                                target = that.challenges[i];
+                                if (target.challengeId === message.challengeId) {
+                                    target.status = "Rejected";
+                                    g.services.timeoutService.$timeout(function () {
+                                    });
+                                }
+
+                            }
+                        }
+                    } else if (message.type === "Challenge Revoked") {
+                        if (message.challengeeId === that.id) {
+                            for (i = 0; i < that.challenges.length; i++) {
+                                target = that.challenges[i];
+                                if (target.challengeId === message.challengeId) {
+                                    target.status = "Revoked";
+                                    g.services.timeoutService.$timeout(function () { });
+                                }
+                            }
+                        }
+                    } else if (message.type === "Challenge Accepted") {
+                        if (message.challengerId === that.id) {
+                            for (i = 0; i < that.challenges.length; i++) {
+                                target = that.challenges[i];
+                                if (target.challengeId === message.challengeId) {
+                                    var oppo;
+                                    if (target.challengeeId === that.id) {
+                                        oppo = target.challengerName;
+                                    } else {
+                                        oppo = target.challengeeName;
+                                    }
+                                    that.games.push(that.makeGame(oppo, target.challengeId));
+                                    that.challenges.splice(i, 1);
+                                    g.services.timeoutService.$timeout(function () { });
+                                }
+                            }
+                        }
+                    } else if (message.type === "Played Card") {
+                        for (i = 0; i < that.games.length; i++) {
+                            target = that.games[i];
+                            if (target.gameId === message.gameId && message.playerId !== that.id) {
+                                target.inPlay.push({
+                                    module: that.getId(),
+                                    card: that.scottLeviHand.getCard(message.cardId),
+                                    playedBy: message.playedBy
+                                });
+                                g.services.timeoutService.$timeout(function () { });
+                            }
+                        }
+                    } else if (message.type === "Left Game") {
+                        if (message.playerId !== that.id) {
+                            for (i = 0; i < that.games.length; i++) {
+                                if (message.gameId === that.games[i].gameId) {
+                                    that.games[i].alone = true;
+                                    g.services.timeoutService.$timeout(function () { });
+                                }
+                            }
+                        }
+                    }
+                });
+            g.services.SingnalRService.Join(groupName, this.key);
+            g.services.SingnalRService.Send(that.key, {
+                module: that.getId(),
+                type: "joined Game",
+                name: that.page.name,
+                id: that.id
+            });
+        });
     };
 
     this.AddPlayer = function (playerId, playerName) {
@@ -44,132 +174,6 @@ ScottLeviHearts.component = function () {
             }
             j++;
         }
-    };
-
-    this.Join = function () {
-        g.services.SingnalRService.setCallback(this.key,
-            this.groupName,
-            function (message) { return message.module === that.getId(); },
-            function (message) {
-                console.log("got message:", message);
-                if (message.type === "joined Game") {
-                    if (message.id !== that.id) {
-                        g.services.timeoutService.$timeout(function () {
-                            that.AddPlayer(message.id, message.name);
-                        });
-                        g.services.SingnalRService.Send(that.key, {
-                            module: that.getId(),
-                            type: "In Room",
-                            name: that.page.name,
-                            id: that.id
-                        });
-                    }
-                } else if (message.type === "In Room") {
-                    if (message.id !== that.id) {
-                        g.services.timeoutService.$timeout(function () {
-                            that.AddPlayer(message.id, message.name);
-                        });
-                    }
-                } else if (message.type === "Challenge") {
-                    if (message.challengeeId === that.id) {
-                        g.services.timeoutService.$timeout(function () {
-                            that.challenges.push({
-                                challengerName: message.challengerName,
-                                status: "Open",
-                                challengeId: message.challengeId,
-                                challengeeId: message.challengeeId,
-                                challengerId: message.challengerId
-                            });
-                        });
-                        g.services.SingnalRService.Send(that.key, {
-                            module: that.getId(),
-                            type: "Challenge Recived",
-                            challengerName: that.page.challengerName,
-                            challengerId: message.challengerId,
-                            challengeId: message.challengeId
-                        });
-                    }
-                } else if (message.type === "Challenge Recived") {
-                    if (message.challengerId === that.id) {
-                        for (var i = 0; i < that.challenges.length; i++) {
-                            var target = that.challenges[i];
-                            if (target.challengeId === message.challengeId) {
-                                target.status = "Received";
-                                g.services.timeoutService.$timeout(function () {
-                                });
-                            }
-                        }
-                    }
-                } else if (message.type === "Challenge Rejected") {
-                    if (message.challengerId === that.id) {
-                        for (i = 0; i < that.challenges.length; i++) {
-                            target = that.challenges[i];
-                            if (target.challengeId === message.challengeId) {
-                                target.status = "Rejected";
-                                g.services.timeoutService.$timeout(function () {
-                                });
-                            }
-
-                        }
-                    }
-                } else if (message.type === "Challenge Revoked") {
-                    if (message.challengeeId === that.id) {
-                        for (i = 0; i < that.challenges.length; i++) {
-                            target = that.challenges[i];
-                            if (target.challengeId === message.challengeId) {
-                                target.status = "Revoked";
-                                g.services.timeoutService.$timeout(function () {});
-                            }
-                        }
-                    }
-                } else if (message.type === "Challenge Accepted") {
-                    if (message.challengerId === that.id) {
-                        for (i = 0; i < that.challenges.length; i++) {
-                            target = that.challenges[i];
-                            if (target.challengeId === message.challengeId) {
-                                var oppo;
-                                if (target.challengeeId === that.id) {
-                                    oppo = target.challengerName;
-                                } else {
-                                    oppo = target.challengeeName;
-                                }
-                                that.games.push(that.makeGame(oppo, target.challengeId));
-                                that.challenges.splice(i, 1);
-                                g.services.timeoutService.$timeout(function () { });
-                            }
-                        }
-                    }
-                } else if (message.type === "Played Card") {
-                    for (i = 0; i < that.games.length; i++) {
-                        target = that.games[i];
-                        if (target.gameId === message.gameId && message.playerId !== that.id) {
-                            target.inPlay.push({
-                                module: that.getId(),
-                                card: that.scottLeviHand.getCard(message.cardId),
-                                playedBy: message.playedBy
-                            });
-                            g.services.timeoutService.$timeout(function () { });
-                        }
-                    }
-                } else if (message.type === "Left Game") {
-                    if (message.playerId !== that.id) {
-                        for (i = 0; i < that.games.length; i++) {
-                            if (message.gameId === that.games[i].gameId) {
-                                that.games[i].alone = true;
-                                g.services.timeoutService.$timeout(function () { });
-                            }
-                        }
-                    }
-                }
-            });
-        g.services.SingnalRService.Join(this.groupName, this.key);
-        g.services.SingnalRService.Send(that.key, {
-            module: that.getId(),
-            type: "joined Game",
-            name: that.page.name,
-            id: that.id
-        });
-        this.joined = true;
     };
 
     this.Challenge = function (player) {
@@ -257,8 +261,7 @@ ScottLeviHearts.component = function () {
             }
         }
     };
-
-
+    
     this.makeGame = function (oppo, gameId) {
         var hand = that.scottLeviHand.getHand();
         return {
@@ -326,7 +329,7 @@ ScottLeviHearts.component = function () {
     this.OnUpdate = function () { };
 
     this.getRequires = function () {
-        return ["scott-levi-cards"];
+        return ["scott-levi-cards", "wanderer-core-save"];
     };
 
 

@@ -2,16 +2,8 @@
 <link rel="stylesheet" type="text/css" href="modules/scott-levi-cards/card.css" />
 
 <div class="highlight-section discard-pile pad-me">
-    <h3>Shared Discard  Pile</h3>
-    <div ng-show="!module.Joined">
-        <center>
-            <form>
-                <input type="text" ng-model="module.GroupName" />
-                <input type="submit" value="Join" ng-click="module.Join()" ng-disabled="module.GroupName == null" />
-            </form>
-        </center>
-    </div>
-    <div ng-show="module.Joined">
+    <div ng-show="module.joined">
+        <h3>Shared Discard  Pile</h3>
         <div class="card-cards-container-container discard">
             <div class="card-cards-container">
                 <div data-ng-repeat="message in module.discardPile"

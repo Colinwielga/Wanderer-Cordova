@@ -8,7 +8,7 @@ g.services.SingnalRService.Callback = function (groupName, x) {
         // check if the property/key is defined in the object itself, not in parent
         if (g.services.SingnalRService.callbacks.hasOwnProperty(key)) {
             const currentCallback = g.services.SingnalRService.callbacks[key];
-            if (groupName == currentCallback.GroupName && currentCallback.Accept(x)) {
+            if (groupName === currentCallback.GroupName && currentCallback.Accept(x)) {
                 currentCallback.Act(x);
             }
         }
@@ -16,6 +16,7 @@ g.services.SingnalRService.Callback = function (groupName, x) {
 }
 
 g.services.SingnalRService.setCallback = function (name, groupName, accept, act) {
+    g.services.SingnalRService.groupNames[name] = groupName;
     g.services.SingnalRService.callbacks[name] = { Accept: accept, GroupName: groupName, Act: act };
 }
 
@@ -24,7 +25,15 @@ g.services.SingnalRService.HasCallback = function (name) {
     return g.services.SingnalRService.callbacks[name] !== undefined;
 }
 
-g.services.SingnalRService.removeCallback = function (name, accept, act) {
+g.services.SingnalRService.tryRemoveCallback = function (name) {
+    if (g.services.SingnalRService.HasCallback(name)) {
+        g.services.SingnalRService.removeCallback(name)
+        return true;
+    }
+    return false;
+}
+
+g.services.SingnalRService.removeCallback = function (name) {
     delete g.services.SingnalRService.callbacks[name];
 }
 
@@ -81,10 +90,8 @@ g.services.SingnalRService.Join = function (groupName, key) {
     }
 }
 
-
-
 g.services.SingnalRService.Send = function (key, obj) {
-    if (g.services.SingnalRService.groupNames[key] == null) {
+    if (g.services.SingnalRService.groupNames[key] === null) {
         throw "Group name: " + key + " should not be null";
     }
     try {
