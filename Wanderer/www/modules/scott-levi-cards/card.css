@@ -4,9 +4,9 @@
     position: absolute;
     font-family: 'Roboto', 'Helvetica', serif;
     margin: 10px;
-    width: 200px;
-    height: 350px;
-    border-radius: 10px;
+    width: 100px;
+    height: 175px;
+    border-radius: 5px;
     text-align: center;
     border: solid black 2px;
     -moz-transition: box-shadow ease 1s;
@@ -72,12 +72,12 @@
     }
 
     .scott-levi-card .card-number {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 
     .scott-levi-card .card-number-container {
-        padding-top: 100px;
+        padding-top: 50px;
         background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.3), rgba(0,0,0,.4));
     }
 
@@ -113,9 +113,9 @@
 .scott-levi-card-container {
     display: inline-block;
     vertical-align: top;
-    width: 220px;
-    height: 370px;
-    margin-left: -80px;
+    width: 110px;
+    height: 185px;
+    margin-left: -0px;
 }
 
 .scott-levi-card-container {
@@ -157,16 +157,15 @@
 
 
 .scott-levi-card-container .card-border {
-    margin: 5px;
-    width: 188px;
-    height: 338px;
-    border-radius: 5px;
+    margin: 1px;
+    width: 98px;
+    height: 173px;
     background: center;
 }
 
 .scott-levi-card-container .card-number-container {
     overflow: auto;
-    height: 125px;
+    height: 120px;
     width: 100%;
     position: relative;
     margin: 0 auto;
@@ -215,7 +214,7 @@
 
 .card-cards-container {
     margin-top: 8px;
-    margin-left: 60px;
+    margin-left: 8px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
