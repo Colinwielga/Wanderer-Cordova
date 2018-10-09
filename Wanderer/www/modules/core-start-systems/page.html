@@ -1,0 +1,10 @@
+﻿<div class="pad-me">
+    <input type="button"
+           name="name"
+           data-ng-repeat="system in module.getSystemAccessers()"
+           value="{{system.name}}"
+           data-ng-click="module.OpenSystem(system)" />
+    <input data-ng-click="module.Add()"
+           type="button"
+           value="+" />
+</div>
