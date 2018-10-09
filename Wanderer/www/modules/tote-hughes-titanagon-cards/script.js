@@ -1,18 +1,18 @@
 ﻿var component = function () {
 
     this.getId = function () {
-        return "tote-hughes-titanagon-cards"
-    }
-    this.OnStart = function (communicator, logger, page,dependencies) {
+        return "tote-hughes-titanagon-cards";
+    };
+    this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
-    }
+    };
     this.OnNewCharacter = function () {
         this.cards = [];
-    }
+    };
     this.OnSave = function () {
         this.communicator.write("cards", this.cards);
-    }
+    };
     this.OnLoad = function () {
         if (this.communicator.lastVersion() === -1) {
             if (this.communicator.canRead("cards")) {
@@ -28,35 +28,35 @@
                 this.OnNewCharacter();
             }
         }
-    }
+    };
 
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getTitle = function () {
         return "Ousichor Hand";
-    }
+    };
     this.getRequires = function () {
         return [];
-    }
+    };
 
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1.1;
             }
-        }
-    }
+        };
+    };
 
     this.getCard = function (id) {
         return TitanagonCard.getCard(id);
-    }
+    };
 
     //this.getCardName = function (id) {
     //    return TitanagonCard.getCard(id).name;
@@ -108,6 +108,6 @@
         }
     };
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(component);

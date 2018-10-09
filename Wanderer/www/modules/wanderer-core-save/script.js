@@ -2,7 +2,7 @@
     var that = this;
     this.groupName = "";
     this.OnJoindCallbacks = [];
-    
+
     this.getId = function () {
         return "wanderer-core-save";
     };
@@ -60,17 +60,17 @@
         };
     };
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getTitle = function () {
         return "Save";
-    }
+    };
     this.save = function () {
         var newJson = that.page.getJSON();
         var reallySave = function () {
@@ -82,8 +82,8 @@
                     var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(that.page.accessKey, that.page.name));
                     if (changed) {
                         g.services.accountService.saveAccount(function () { }, function () {
-                            throw { message: "save failed" }
-                        })
+                            throw { message: "save failed" };
+                        });
                     }
                 },
                 function (error) {
@@ -103,15 +103,15 @@
                 });
             }
         },
-        function (error) {
-            reallySave();
-        },
-        function (error) {
-            g.services.timeoutService.$timeout(function () {
-                that.logger.error("error: " + error);
+            function (error) {
+                reallySave();
+            },
+            function (error) {
+                g.services.timeoutService.$timeout(function () {
+                    that.logger.error("error: " + error);
+                });
             });
-        })
-    }
-}
+    };
+};
 
 g.services.componetService.registerCharacter(component);

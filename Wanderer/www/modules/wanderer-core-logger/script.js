@@ -5,19 +5,19 @@ var component = function () {
 
 
     this.getId = function () {
-        return "wanderer-core-logger"
-    }
+        return "wanderer-core-logger";
+    };
 
-    this.OnStart = function (communicator, logger, page,dependencies) {
-        this.communicator = communicator
-    }
-    this.OnNewCharacter = function () {}
-    this.OnSave = function () {}
-    this.OnLoad = function () {}
+    this.OnStart = function (communicator, logger, page, dependencies) {
+        this.communicator = communicator;
+    };
+    this.OnNewCharacter = function () { };
+    this.OnSave = function () { };
+    this.OnLoad = function () { };
 
     this.getRequires = function () {
         return [];
-    }
+    };
 
 
     this.getPublic = function () {
@@ -29,24 +29,24 @@ var component = function () {
             writeToLog: function (str) {
                 that.log.push(str);
             }
-        }
-    }
+        };
+    };
 
     // a component should be able to provide some infomation
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
     this.getTitle = function () {
         return "Log";
-    }
+    };
 
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(component);

@@ -1,20 +1,20 @@
-var Questions = function(test) {
+var Questions = function (test) {
     this.test = test;
     return true;
-}
+};
 
 Questions.QuestionTemplate = function (id, template, significance) {
     this.id = id;
     this.template = template;
     this.significance = significance;
-}
+};
 
 
 Questions.QuestionTemplates = [
     // "!": don't include the article.
     // "@": use the plural word and exclude the article.
     new Questions.QuestionTemplate(1, "Why did you kill your %!family%?", 8),
-//    new Questions.QuestionTemplate(17, "How did you kill your %@family%?", 4),
+    //    new Questions.QuestionTemplate(17, "How did you kill your %@family%?", 4),
     new Questions.QuestionTemplate(2, "How were you betrayed by %person%?", 6),
     new Questions.QuestionTemplate(3, "When was the last time you saw your %!family%?", 4),
     new Questions.QuestionTemplate(4, "Why did you stop being %profession%?", 4),
@@ -49,15 +49,15 @@ Questions.QuestionTemplates = [
     new Questions.QuestionTemplate(33, "What's your theory about %@person% and %!concept%?", 0),
     new Questions.QuestionTemplate(34, "Why don't you trust %@person% with %@item%?", 0),
     new Questions.QuestionTemplate(35, "Why do you feel %!emotion% when you're in %place%?", 0),
-    new Questions.QuestionTemplate(36, "Why do %@profession% express %!emotion% when they see you?", 0),
-]
+    new Questions.QuestionTemplate(36, "Why do %@profession% express %!emotion% when they see you?", 0)
+];
 
 Questions.QuestionField = function (word, wordPlural, article, categories) {
     this.word = word;
     this.wordPlural = wordPlural;
     this.article = article;
     this.categories = categories;
-}
+};
 
 Questions.QuestionFields = [
     new Questions.QuestionField("grandparent", "grandparents", "a", ["family"]),
@@ -77,7 +77,7 @@ Questions.QuestionFields = [
     new Questions.QuestionField("uncle", "uncles", "a", ["family"]),
     new Questions.QuestionField("niece", "nieces", "a", ["family"]),
     new Questions.QuestionField("nephew", "nephews", "a", ["family"]),
-    
+
     new Questions.QuestionField("king", "kings", "a", ["person"]),
     new Questions.QuestionField("queen", "queens", "a", ["person"]),
     new Questions.QuestionField("prince", "princes", "a", ["person"]),
@@ -120,7 +120,7 @@ Questions.QuestionFields = [
     new Questions.QuestionField("enemy", "enemies", "an", ["person"]),
     new Questions.QuestionField("rival", "rivals", "a", ["person"]),
     new Questions.QuestionField("vagabond", "vagabonds", "a", ["person"]),
-    
+
     new Questions.QuestionField("bee", "bees", "a", ["animal"]),
     new Questions.QuestionField("sheep", "sheep", "a", ["animal"]),
     new Questions.QuestionField("goat", "goats", "a", ["animal"]),
@@ -144,7 +144,7 @@ Questions.QuestionFields = [
     new Questions.QuestionField("crab", "crabs", "a", ["animal", "food"]),
     new Questions.QuestionField("lobster", "lobsters", "a", ["animal", "food"]),
     new Questions.QuestionField("octopus", "octopodes", "a", ["animal", "food"]),
-    
+
     new Questions.QuestionField("happiness", "happinesses", "a", ["concept", "emotion"]),
     new Questions.QuestionField("sorrow", "sorrows", "a", ["concept", "emotion"]),
     new Questions.QuestionField("confusion", "confusions", "a", ["concept", "emotion"]),
@@ -179,7 +179,7 @@ Questions.QuestionFields = [
     new Questions.QuestionField("wine", "wines", "a", ["food"]),
     new Questions.QuestionField("pasta", "pastas", "a", ["food"]),
     new Questions.QuestionField("bread", "breads", "a", ["food"]),
-    
+
     new Questions.QuestionField("compass", "compasses", "a", ["item", "tool"]),
     new Questions.QuestionField("ornate rug", "ornate rugs", "an", ["item"]),
     new Questions.QuestionField("watch", "watches", "a", ["item", "tool"]),
@@ -210,7 +210,7 @@ Questions.QuestionFields = [
     new Questions.QuestionField("flute", "flutes", "a", ["item", "instrument"]),
     new Questions.QuestionField("violin", "violins", "a", ["item", "instrument"]),
     new Questions.QuestionField("cello", "cellos", "a", ["item", "instrument"]),
-    
+
     new Questions.QuestionField("field", "fields", "a", ["place"]),
     new Questions.QuestionField("city", "cities", "a", ["place"]),
     new Questions.QuestionField("town", "towns", "a", ["place"]),
@@ -231,38 +231,38 @@ Questions.QuestionFields = [
     new Questions.QuestionField("desert", "deserts", "a", ["place"]),
     new Questions.QuestionField("forest", "forests", "a", ["place"]),
     new Questions.QuestionField("cave", "caves", "a", ["place"]),
-    
+
     new Questions.QuestionField("past", "pasts", "a", ["past"]),
     new Questions.QuestionField("prime", "primes", "a", ["past"]),
     new Questions.QuestionField("childhood", "childhoods", "a", ["past"]),
     new Questions.QuestionField("youth", "youths", "a", ["past", "person"]),
     new Questions.QuestionField("dream", "dreams", "a", ["past"]),
     new Questions.QuestionField("imagination", "fantasies", "an", ["past"]),
-    new Questions.QuestionField("school days", "school days", "a", ["past"]),
-]
+    new Questions.QuestionField("school days", "school days", "a", ["past"])
+];
 
-Questions.getNewQuestion = function(forbiddenIDs) {
+Questions.getNewQuestion = function (forbiddenIDs) {
     // Get an unanswered question template:
     var possibleQuestionTemplates = [];
     for (var i = 0; i < Questions.QuestionTemplates.length; i++) {
-        var allowed = (forbiddenIDs.indexOf(Questions.QuestionTemplates[i].id) == -1);
+        var allowed = forbiddenIDs.indexOf(Questions.QuestionTemplates[i].id) === -1;
         if (allowed) {
             possibleQuestionTemplates.push(Questions.QuestionTemplates[i]);
         }
     }
-    var choice = Math.floor(Math.random()*possibleQuestionTemplates.length);
+    var choice = Math.floor(Math.random() * possibleQuestionTemplates.length);
     var qt = possibleQuestionTemplates[choice];
-    
+
     // Fill question template fields:
-    var ask = qt.template.replace(/%([!@]?\w+)%/g, function(match, capture){
+    var ask = qt.template.replace(/%([!@]?\w+)%/g, function (match, capture) {
         var allowArticle = true;
         var allowPlural = false;
-        var category = capture
-        if (capture.charAt(0) == "!") {
+        var category = capture;
+        if (capture.charAt(0) === "!") {
             allowArticle = false;
             category = capture.substring(1);
         }
-        else if (capture.charAt(0) == "@") {
+        else if (capture.charAt(0) === "@") {
             allowArticle = false;
             allowPlural = true;
             category = capture.substring(1);
@@ -273,7 +273,7 @@ Questions.getNewQuestion = function(forbiddenIDs) {
                 allowedFields.push(Questions.QuestionFields[i]);
             }
         }
-        var qf = allowedFields[Math.floor(Math.random()*allowedFields.length)];
+        var qf = allowedFields[Math.floor(Math.random() * allowedFields.length)];
         var phrase = "";
         if (allowArticle) {
             phrase += qf.article + " ";
@@ -286,10 +286,10 @@ Questions.getNewQuestion = function(forbiddenIDs) {
         }
         return phrase;
     });
-    
+
     return {
         "id": qt.id,
         "ask": ask,
-        "answer": "",
+        "answer": ""
     };
-}
+};
