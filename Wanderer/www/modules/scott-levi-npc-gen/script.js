@@ -3,13 +3,13 @@
 ScottLeviNpcGen.component = function () {
 
     this.getId = function () {
-        return "scott-levi-npc-gen"
-    }
+        return "scott-levi-npc-gen";
+    };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator
-        this.Dependencies = dependencies
-    }
+        this.communicator = communicator;
+        this.Dependencies = dependencies;
+    };
 
     this.animal = "";
     this.secretSociety = "";
@@ -20,7 +20,7 @@ ScottLeviNpcGen.component = function () {
 
     this.randomFromList = function (list) {
         return list[Math.floor(Math.random() * list.length)];
-    }
+    };
 
     this.gen = function () {
         var animals = [
@@ -158,68 +158,68 @@ ScottLeviNpcGen.component = function () {
         ];
         var societyEntry = this.randomFromList(societies);
         this.secretSociety = societyEntry.name + " - " + this.randomFromList(societyEntry.attrs);
-        
-        var genres = [{ name: "Electronic", color: "White", attrs: ["House", "Industrial", "Dance", "EDM", "Dubstep", "Samples", "Trance"]},
-            { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
-            { name: "Jazz ", color: "Orange", attrs: ["Strings","Woodwinds", "Electronic", "Brass", "Swing", "Big Band", "Funk"] },
-            { name: "Worldly Folk", color: "Yellow", attr: ["Pop", "Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
-            { name: "Blue", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
-            { name: "Rock", color: "Indigo", attrs: ["Grunge", "Classic", "Jam Band", "Synth Rock", "Stadium", "Festival"] },
-            { name: "Punk", color: "Violet", attrs: ["Proto", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
-            { name: "Metal", color: "Black", attrs: ["Heavy", "Speed", "Death", "Crust", "Stoner"] },
+
+        var genres = [{ name: "Electronic", color: "White", attrs: ["House", "Industrial", "Dance", "EDM", "Dubstep", "Samples", "Trance"] },
+        { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
+        { name: "Jazz ", color: "Orange", attrs: ["Strings", "Woodwinds", "Electronic", "Brass", "Swing", "Big Band", "Funk"] },
+        { name: "Worldly Folk", color: "Yellow", attr: ["Pop", "Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
+        { name: "Blue", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
+        { name: "Rock", color: "Indigo", attrs: ["Grunge", "Classic", "Jam Band", "Synth Rock", "Stadium", "Festival"] },
+        { name: "Punk", color: "Violet", attrs: ["Proto", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
+        { name: "Metal", color: "Black", attrs: ["Heavy", "Speed", "Death", "Crust", "Stoner"] }
         ];
         var genreEntry = this.randomFromList(genres);
         this.genre = genreEntry.name + " - " + this.randomFromList(genreEntry.attrs);
-        this.color = genreEntry.color
+        this.color = genreEntry.color;
 
-        var firstNames = ["Aeon", "Algae", "Ash", "Astor", "Atlantis", "Babylon", "Barbados", "Bard", "Blake", "Boudica", "Calamity", "Carl", "Cobin", "Colin", "Chris", "Colbalt", "Crawford", "Dex", "Drake", "Dylan", "Enviable", "Entropy", "Esteban", "Ezmerelda", "Fez", "Friar", "Garvey", "Gerry", "Hemlock", "Hoist", "Indestructable", "Indiana", "Ivy", "Jeremy", "Johnny", "Joy", "J-Roc", "Keno", "King", "Knuckles", "L", "Lance", "Lamentable", "Mellifluous", "Mix", "Mohamed", "Neon", "Nullwin", "Olga", "Orn", "Ostensibly", "Phil", "Pinky", "Pluto", "Poppy", "Prince", "Quest", "Rasputin", "Retro", "Rick", "Ripley", "Rocko", "Sammy", "Scott", "Seven", "Siddhartha", "Tilda", "Tote", "Tuco", "Ulma", "Ux", "Verified", "Wiley", "Winston", "Xena", "Yo-Yo", "Yusuf", "Zed", "Zip",]
+        var firstNames = ["Aeon", "Algae", "Ash", "Astor", "Atlantis", "Babylon", "Barbados", "Bard", "Blake", "Boudica", "Calamity", "Carl", "Cobin", "Colin", "Chris", "Colbalt", "Crawford", "Dex", "Drake", "Dylan", "Enviable", "Entropy", "Esteban", "Ezmerelda", "Fez", "Friar", "Garvey", "Gerry", "Hemlock", "Hoist", "Indestructable", "Indiana", "Ivy", "Jeremy", "Johnny", "Joy", "J-Roc", "Keno", "King", "Knuckles", "L", "Lance", "Lamentable", "Mellifluous", "Mix", "Mohamed", "Neon", "Nullwin", "Olga", "Orn", "Ostensibly", "Phil", "Pinky", "Pluto", "Poppy", "Prince", "Quest", "Rasputin", "Retro", "Rick", "Ripley", "Rocko", "Sammy", "Scott", "Seven", "Siddhartha", "Tilda", "Tote", "Tuco", "Ulma", "Ux", "Verified", "Wiley", "Winston", "Xena", "Yo-Yo", "Yusuf", "Zed", "Zip"];
         this.firstName = this.randomFromList(firstNames);
 
-        var lastNames = ["Algernon", "Alton", "Antimatter", "Baldwin", "Behemoth", "Billings", "Catalyst", "Comet", "Corybantic", "Crane", "Dagger", "Digmire", "Drago", "Escher", "Escobar", "Expo", "Fang", "Fish", "Fury", "Gallows", "Gibbons", "Grrr", "Haverford", "Haz", "Herzogin", "Hughes", "Iliad", "Illadvised", "Ink", "James", "Jarl", "Juke", "Ketchum", "Kim", "Kraken", "Lemming", "Levi", "Locke", "Lurch", "Magnificent", "Michaels", "Mighty", "Needsahaircut", "Nightshade", "Nukem", "Ocean", "Oppa", "Overlord", "Paraprosdokian", "Petrichor", "Pincer", "Pistorius", "Quality", "Quasar", "Quiver", "Rigmarole", "Ringing", "Rogers", "Sanchez", "Satyr", "Schadenfreude", "Slime", "Spectre", "Siblings", "Tempest", "Tet", "The Brain", "Ubermensch", "Underhill", "Uce", "Vapor", "Vectors", "Volley", "Waxwork", "Wielga", "Wiggins", "Wort", "X", "Ye", "Yu", "Zealot", "Zentavo", "Zillianare"]
+        var lastNames = ["Algernon", "Alton", "Antimatter", "Baldwin", "Behemoth", "Billings", "Catalyst", "Comet", "Corybantic", "Crane", "Dagger", "Digmire", "Drago", "Escher", "Escobar", "Expo", "Fang", "Fish", "Fury", "Gallows", "Gibbons", "Grrr", "Haverford", "Haz", "Herzogin", "Hughes", "Iliad", "Illadvised", "Ink", "James", "Jarl", "Juke", "Ketchum", "Kim", "Kraken", "Lemming", "Levi", "Locke", "Lurch", "Magnificent", "Michaels", "Mighty", "Needsahaircut", "Nightshade", "Nukem", "Ocean", "Oppa", "Overlord", "Paraprosdokian", "Petrichor", "Pincer", "Pistorius", "Quality", "Quasar", "Quiver", "Rigmarole", "Ringing", "Rogers", "Sanchez", "Satyr", "Schadenfreude", "Slime", "Spectre", "Siblings", "Tempest", "Tet", "The Brain", "Ubermensch", "Underhill", "Uce", "Vapor", "Vectors", "Volley", "Waxwork", "Wielga", "Wiggins", "Wort", "X", "Ye", "Yu", "Zealot", "Zentavo", "Zillianare"];
         this.lastName = this.randomFromList(lastNames);
-    }
+    };
 
     this.OnNewCharacter = function () {
-    }
+    };
 
     this.OnSave = function () {
-    }
+    };
 
     this.OnLoad = function () {
-    }
+    };
 
     this.OnUpdate = function () {
-    }
+    };
 
     this.getRequires = function () {
         return [];
-    }
+    };
 
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1;
             }
-        }
-    }
+        };
+    };
 
     this.canClose = function () {
         return true;
-    }
+    };
 
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
 
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
 
     this.getTitle = function () {
         return "NPC Generator";
-    }
+    };
 
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(ScottLeviNpcGen.component);
