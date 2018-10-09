@@ -38,6 +38,12 @@ g.services.pageService.Add = function () {
     g.services.pageService.Select(newPage);
 }
 
+g.services.pageService.AddSystem = function () {
+    var newPage = g.SystemPageFactory(new g.System("new system", g.makeid()));
+    g.services.pageService.private.Pages.push(newPage);
+    g.services.pageService.Select(newPage);
+}
+
 g.services.pageService.OpenCharacterById = function (id) {
     var tempPage = g.LoadingPageFactory("loading " + id);
     g.services.pageService.private.Pages.push(tempPage);
