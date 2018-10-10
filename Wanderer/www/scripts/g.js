@@ -28,7 +28,7 @@ App.config(['$compileProvider',
 
 
 function isbefore(a, b) {
-    if (a.parentNode == b.parentNode) {
+    if (a.parentNode === b.parentNode) {
         for (var cur = a; cur; cur = cur.previousSibling) {
             if (cur === b) {
                 return true;
@@ -40,7 +40,7 @@ function isbefore(a, b) {
 
 function dragenter(e) {
     //console.log("enter!", this)
-    if (source != this) {
+    if (source !== this) {
         if (isbefore(source, this)) {
             this.parentNode.insertBefore(source, this);
         }

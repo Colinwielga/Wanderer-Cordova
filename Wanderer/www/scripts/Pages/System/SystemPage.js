@@ -1,6 +1,6 @@
 ﻿g.SystemPageFactory = function (sys) {
     return {
-        getController: function() {
+        getController: function () {
             return sys;
         },
         getHmtl: function () {
@@ -12,5 +12,5 @@
         canClose: function () {
             return true;
         }
-    }
-}
+    };
+};

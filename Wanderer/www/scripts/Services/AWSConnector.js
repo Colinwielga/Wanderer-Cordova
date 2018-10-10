@@ -17,7 +17,7 @@ g.services.AWSConnector.SaveCharacter = function (id, name, json, good, bad) {
         Item: {
             "id": { "S": id },
             "name": { "S": name },
-            "JSON": { "S": json },
+            "JSON": { "S": json }
         },
         "TableName": g.services.AWSConnector.WandererCharacters
     };
@@ -28,13 +28,13 @@ g.services.AWSConnector.SaveCharacter = function (id, name, json, good, bad) {
             good(data);
         }
     });
-}
+};
 
 g.services.AWSConnector.saveAccount = function (id, name, email, json, good, bad) {
     var itemParams = {
         Item: {
             "id": { "S": id },
-            "JSON": { "S": json },
+            "JSON": { "S": json }
         },
         "TableName": g.services.AWSConnector.WandererAccounts
     };
@@ -52,7 +52,7 @@ g.services.AWSConnector.saveAccount = function (id, name, email, json, good, bad
             good(data);
         }
     });
-}
+};
 
 g.services.AWSConnector.GetCharacter = function (id, good, doesNotExist, bad) {
     var itemParams = {
@@ -65,12 +65,12 @@ g.services.AWSConnector.GetCharacter = function (id, good, doesNotExist, bad) {
         if (err) {
             bad(err);
         } else {
-            if (data.Item == null) {
-                doesNotExist()
+            if (data.Item === null) {
+                doesNotExist();
             } else {
                 var obj = {};
                 obj["json"] = JSON.parse(data.Item.JSON.S);
-                if (data.Item.name != null) {
+                if (data.Item.name !== null) {
                     obj["name"] = data.Item.name.S;
                 }
                 obj["id"] = data.Item.id.S;
@@ -78,7 +78,7 @@ g.services.AWSConnector.GetCharacter = function (id, good, doesNotExist, bad) {
             }
         }
     });
-}
+};
 
 g.services.AWSConnector.GetAccount = function (id, good, doesNotExist, bad) {
     var itemParams = {
@@ -91,23 +91,23 @@ g.services.AWSConnector.GetAccount = function (id, good, doesNotExist, bad) {
         if (err) {
             bad(err);
         } else {
-            if (data.Item == null) {
-                doesNotExist()
+            if (data.Item === null) {
+                doesNotExist();
             } else {
                 var obj = {};
                 obj["json"] = JSON.parse(data.Item.JSON.S);
-                if (data.Item.name != null) {
+                if (data.Item.name !== null) {
                     obj["name"] = data.Item.name.S;
                 }
                 obj["id"] = data.Item.id.S;
-                if (data.Item.Email != null) {
+                if (data.Item.Email !== null) {
                     obj["Email"] = data.Item.Email.S;
                 }
                 good(obj);
             }
         }
     });
-}
+};
 
 // returns a list of Ids
 g.services.AWSConnector.GetAccountIdsForEmail = function (email, good, bad) {
@@ -115,7 +115,7 @@ g.services.AWSConnector.GetAccountIdsForEmail = function (email, good, bad) {
 
     var params = {
         KeyConditionExpression: "Email = :targetEmail",
-        ExpressionAttributeValues: { ":targetEmail": {"S": email}},
+        ExpressionAttributeValues: { ":targetEmail": { "S": email } },
         TableName: g.services.AWSConnector.WandererAccounts,
         IndexName: "Email-index"
     };
@@ -130,7 +130,7 @@ g.services.AWSConnector.GetAccountIdsForEmail = function (email, good, bad) {
             good(res);
         }
     });
-}
+};
 
 g.services.AWSConnector.CanSendTo = function (email, yes, no, bad) {
     email = email.toLowerCase();
@@ -144,14 +144,14 @@ g.services.AWSConnector.CanSendTo = function (email, yes, no, bad) {
         if (err) {
             bad(err);
         } else {
-            if (data.Item == null) {
+            if (data.Item === null) {
                 yes();
             } else {
                 no();
             }
         }
     });
-}
+};
 
 //########################## SES
 
@@ -161,7 +161,7 @@ g.services.AWSConnector.sendEmail = function (address, message, good, bad) {
     var params = {
         Destination: {
             ToAddresses: [
-                address,
+                address
             ]
         },
         Message: {
@@ -180,16 +180,16 @@ g.services.AWSConnector.sendEmail = function (address, message, good, bad) {
                 Data: "Wanderer Account"
             }
         },
-        Source: "wandererroleplaying@gmail.com",
+        Source: "wandererroleplaying@gmail.com"
     };
 
     g.services.AWSConnector.ses.sendEmail(params, function (err, data) {
         if (err) {
             bad(err);
         } else {
-            good()
+            good();
         }
     });
-}
+};
 
 //g.services.AWSConnector.sendEmail("ColinWielga@gmail.com", "this is test", function () { }, function (err) {})
