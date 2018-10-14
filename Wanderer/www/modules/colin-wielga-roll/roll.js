@@ -32,7 +32,7 @@ Roll.erfinv = function (x) {
 Roll.roll = function (scale) {
     var innerRoll = 0;
     do {
-        innerRoll = (Math.random() * 2) - 1;
+        innerRoll = Math.random() * 2 - 1;
     } while (innerRoll === -1);
     return Roll.erfinv(innerRoll) * scale;
 };

@@ -182,13 +182,13 @@
 
     // a component should be able to provide some infomation
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
     this.canClose = function () {
         return true;
     };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
+        return "modules/" + this.getId() + "/rules.html";
     };
     this.getTitle = function () {
         return "Moves";

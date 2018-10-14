@@ -2,7 +2,7 @@
     this.dc = 8;
 
     this.getId = function () {
-        return "colin-wielga-roll"
+        return "colin-wielga-roll";
     };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
@@ -15,10 +15,10 @@
         return true;
     };
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html";
     };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
+        return "modules/" + this.getId() + "/rules.html";
     };
     this.getTitle = function () {
         return "Roll";
