@@ -3,7 +3,7 @@
 CoreStartSystem.component = function () {
     
     this.getId = function () {
-        return "core-start-system";
+        return "core-start-systems";
     };
 
     this.OnStart = function (communicator, logger, page, dependencies) {

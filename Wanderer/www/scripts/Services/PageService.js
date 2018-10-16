@@ -39,7 +39,7 @@ g.services.pageService.Add = function () {
 };
 
 g.services.pageService.AddSystem = function () {
-    var newPage = g.SystemPageFactory(new g.System("new system", g.makeid()));
+    var newPage = g.SystemPageFactory(new g.SystemPageController("new system", g.makeid()));
     g.services.pageService.private.Pages.push(newPage);
     g.services.pageService.Select(newPage);
 };
