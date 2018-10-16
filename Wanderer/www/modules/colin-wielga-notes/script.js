@@ -47,3 +47,8 @@
 };
 
 g.services.componetService.registerCharacter(component);
+
+/*This is the simpliest module you can make in Wanderer.
+Starts as a blank text box, then uses functions to save, load, etc.
+These functions can all be found in the other modules, but this is a good starting point for understanding the app.
+-Scott*/ 
