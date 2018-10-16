@@ -12,5 +12,5 @@
         canClose: function () {
             return true;
         }
-    };
-};
+    }
+}

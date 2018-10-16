@@ -1,10 +1,10 @@
 ﻿g.Character = function (name, accessKey) {
-    return new g.ModulesPage(name, accessKey, g.services.componetService.characterComponentFactories, ["wanderer-core-modules", "wanderer-core-save"]);
-};
+    return new g.ModulesPage(name, accessKey, g.services.componetService.characterComponentFactories, ["wanderer-core-modules", "wanderer-core-save"])
+}
 
 g.StartPageController = function (accessKey) {
-    return new g.ModulesPage("Start", accessKey, g.services.componetService.startComponentFactories, ["wanderer-core-modules", "core-start-add-character", "core-start-recent-characters", "core-start-switch-account"]);
-};
+    return new g.ModulesPage("Start", accessKey, g.services.componetService.startComponentFactories, ["wanderer-core-modules", "core-start-add-character", "core-start-recent-characters", "core-start-switch-account"])
+}
 
 g.ModulesPage = function (name, accessKey, componentFactories, startingComponents) {
     var that = this;
@@ -14,7 +14,7 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
     };
     var versionComboKey = function (id, key) {
         return "Version_" + id + "_" + key;
-    };
+    }
     var comFactory = function (getSaveJson, id, version) {
         return {
             read: function (key) {
@@ -53,19 +53,19 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
                 window.localStorage.setItem(versionComboKey(id, key), version);
             }
         };
-    };
+    }
     var dataManagerFactory = function (json) {
         var res = {
             useLocal: true,
             local: json,
-            remote: null
+            remote: null,
         };
         res.current = function () {
             return res.useLocal ? res.local : res.remote;
         };
         return res;
 
-    };
+    }
     var logFactory = function () {
         var TypeEnum = {
             VERBOSE: 1,
@@ -73,8 +73,8 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
             INFO: 3,
             WARN: 4,
             ERROR: 5,
-            WTF: 6
-        };
+            WTF: 6,
+        }
 
         var displayTypeMap = {};
         displayTypeMap[TypeEnum.VERBOSE] = "Verbose";
@@ -123,8 +123,8 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
             wtf: function (message) {
                 this.log(message, TypeEnum.WTF);
             }
-        };
-    };
+        }
+    }
     this.displayName = function () {
         var name = that.getName();
         if (name === null || name === undefined || name === "") {
@@ -137,8 +137,8 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
     this.swap = function (module) {
         module.OnSave();
         module.injected.dataManager.useLocal = !module.injected.dataManager.useLocal;
-        module.OnLoad();
-    };
+        module.OnLoad()
+    }
 
     var modList = [];
 
@@ -172,8 +172,8 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
         // we inject module related info that the modules don't need to know about 
         item.injected = {
             logger: myLogger,
-            dataManager: dataManagerFactory({})
-        };
+            dataManager: dataManagerFactory({}),
+        }
 
         if (item.OnStart !== undefined) {
 
@@ -183,8 +183,8 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
             if (item.getRequires !== undefined) {
                 var lookingFors = item.getRequires();
                 for (var i = 0; i < lookingFors.length; i++) {
-                    var pimary = that.exposedPage.getComponent(lookingFors[i]);
-                    if (pimary !== null) {
+                    var pimary = that.exposedPage.getComponent(lookingFors[i])
+                    if (pimary != null) {
                         dependencies.push(that.exposedPage.getComponent(lookingFors[i]));
                     } else {
                         throw { message: "component: " + lookingFors[i] };
@@ -204,9 +204,9 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
         return that.exposedPage.name;
     };
     this.modules = function () {
-        return that.exposedPage.getActiveComponents();
+        return that.exposedPage.getActiveComponents()
     };
     this.Remove = function (module) {
         that.exposedPage.toggle(module);
     };
-};
+}

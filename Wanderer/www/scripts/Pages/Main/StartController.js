@@ -3,6 +3,6 @@
 //        getAccount: function() {
 //            return g.services.accountService.currentAccount;
 //        }
-//    };
+//    }
 //    return toReturn;
-//};
+//}

@@ -6,10 +6,10 @@
         for (var i = 0; i < toRezie.length; i++) {
             var target = toRezie[i];
             target.style.height = "1px";
-            target.style.height = 25 + target.scrollHeight + "px";
+            target.style.height = (25 + target.scrollHeight) + "px";
         }
         return "on update";
-    };
+    }
 
     $scope.Pages = g.services.pageService.GetPages();
 
@@ -17,20 +17,20 @@
     g.services.pageService.LoadWiki();
     
     $scope.activePage = function () {
-        return g.services.pageService.activePage();
-    };
+        return g.services.pageService.activePage()
+    }
     
     $scope.Select = function (page) {
         g.services.pageService.Select(page);
-    };
+    }
 
     $scope.Selected = function (page) {
         return g.services.pageService.Selected(page);
-    };
+    }
 
     $scope.Close = function (page) {
-        g.services.pageService.Close(page);
-    };
+        g.services.pageService.Close(page)
+    }
 }
 
 ]);
