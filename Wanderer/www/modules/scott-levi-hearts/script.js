@@ -112,21 +112,31 @@ ScottLeviHearts.component = function () {
                                     } else {
                                         oppo = target.challengeeName;
                                     }
-                                    that.games.push(that.makeGame(oppo, target.challengeId));
+                                    that.games.push(that.makeGame(oppo, target.challengeId, true));
                                     that.challenges.splice(i, 1);
                                     g.services.timeoutService.$timeout(function () { });
                                 }
                             }
                         }
                     } else if (message.type === "Played Card") {
+                        // we got a message that they played a card
+                        // first we have to see what game the card goes with
                         for (i = 0; i < that.games.length; i++) {
                             target = that.games[i];
+                            // check to make sure the other player played the caed
                             if (target.gameId === message.gameId && message.playerId !== that.id) {
+
+                                // add the card they played to inplay
                                 target.inPlay.push({
                                     module: that.getId(),
                                     card: that.scottLeviHand.getCard(message.cardId),
                                     playedBy: message.playedBy
                                 });
+
+                                // TODO set target.IsYourTurn to true;
+
+                                // weird little thing that tells the UI to update
+                                // don't worry about it for now
                                 g.services.timeoutService.$timeout(function () { });
                             }
                         }
@@ -237,7 +247,7 @@ ScottLeviHearts.component = function () {
         } else {
             oppo = challenge.challengeeName;
         }
-        that.games.push(that.makeGame(oppo, challenge.challengeId));
+        that.games.push(that.makeGame(oppo, challenge.challengeId,false));
     };
 
     this.LeaveGame = function (game) {
@@ -262,16 +272,24 @@ ScottLeviHearts.component = function () {
         }
     };
     
-    this.makeGame = function (oppo, gameId) {
+    this.makeGame = function (oppo, gameId, yourTurn) {
         var hand = that.scottLeviHand.getHand();
         return {
+            IsYourTurn: yourTurn,
             oppo: oppo,
             inPlay: [],
             alone: false,
             hand: hand,
             gameId: gameId,
             play: function (card) {
+                // TODO this should do nothing if it is not your turn.
+                
+                // this is the code where you play a card.
+
+                // this line displays the card
                 this.inPlay.push({ card: card, playedBy: that.page.name });
+
+                // this sends a message to the other play to let them know you played a card
                 g.services.SingnalRService.Send(that.key, {
                     module: that.getId(),
                     type: "Played Card",
@@ -280,11 +298,18 @@ ScottLeviHearts.component = function () {
                     playerId: that.id,
                     playedBy: that.page.name
                 });
+
+                // and this removes the card from our hand
+                // it goes through all the cards in your hand
                 for (var i = 0; i < hand.length; i++) {
+                    // finds the one that has the same id as the card played 
                     if (hand[i].guid === card.guid) {
+                        // and removes it 
                         hand.splice(i, 1);
                     }
                 }
+
+                // TODO set IsYourTurn to false
             }
         };
     };

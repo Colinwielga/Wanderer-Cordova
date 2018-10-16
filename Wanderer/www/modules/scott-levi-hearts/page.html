@@ -38,6 +38,7 @@
 <div ng-show="module.joined" class="pad-me">
     <div data-ng-repeat="game in module.games">
         <h3>Game with {{game.oppo}}</h3>
+        <p>your turn: {{game.IsYourTurn}}</p>
         <div class="card-cards-container discard-pile">
             <div data-ng-repeat="message in game.inPlay"
                  class="scott-levi-card-container wrapped-card"
