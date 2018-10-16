@@ -10,15 +10,15 @@ g.services.accountService = {
     GetAccount: function (pass, notFound, fail) {
         // try to load from memory
         var accountsString = window.localStorage.getItem(AccountList);
-        if (accountsString != null && online) {
+        if (accountsString !== null && online) {
             var accounts = angular.fromJson(accountsString);
 
             g.services.AWSConnector.GetAccount(
                 accounts[0],
                 function (result) {
-                    transformed = g.models.accountFormJSONstring(result)
+                    transformed = g.models.accountFormJSONstring(result);
                     g.services.accountService.currentAccount = transformed;
-                    pass(result)
+                    pass(result);
                 },
                 notFound,
                 fail);
@@ -35,12 +35,12 @@ g.services.accountService = {
                     function (result) {
                         window.localStorage.setItem(AccountList, angular.toJson([account.id]));
                         g.services.accountService.currentAccount = account;
-                        pass(account)
+                        pass(account);
                     },
                     fail);
             } else {
                 g.services.accountService.currentAccount = account;
-                pass(account)
+                pass(account);
             }
         }
 
@@ -55,31 +55,31 @@ g.services.accountService = {
             g.services.accountService.currentAccount.Email,
             angular.toJson(g.services.accountService.currentAccount.json()),
             pass,
-            fail)
+            fail);
     },
     SwitchAccount: function (id, pass, notFound, fail, remember) {
         remember = typeof remember !== 'undefined' ? remember : true;
         var accountsString = window.localStorage.getItem(AccountList);
         var accounts;
-        if (accountsString == null) {
+        if (accountsString === null) {
             accounts = [];
         } else {
-            var accounts = angular.fromJson(accountsString);
+            accounts = angular.fromJson(accountsString);
         }
         g.services.AWSConnector.GetAccount(
             id,
             function (result) {
                 if (remember) {
                     var at = accounts.indexOf(id);
-                    if (at != -1) {
+                    if (at !== -1) {
                         accounts.splice(at, 0);
                     }
                     accounts.splice(0, 0, id);
                     window.localStorage.setItem(AccountList, angular.toJson(accounts));
                 }
-                transformed = g.models.accountFormJSONstring(result)
+                transformed = g.models.accountFormJSONstring(result);
                 g.services.accountService.currentAccount = transformed;
-                pass(result)
+                pass(result);
             },
             notFound,
             fail);
@@ -92,10 +92,10 @@ g.services.accountService = {
                 g.services.AWSConnector.CanSendTo(
                     email,
                     function () {
-                        if (ids.length == 0) {
+                        if (ids.length === 0) {
                             notFound();
                         } else {
-                            var message = "Wander accounts assocated with this email:\n"
+                            var message = "Wander accounts assocated with this email:\n";
                             for (var i = 0; i < ids.length; i++) {
                                 message += ids[i] + "\n";
                             }
@@ -108,7 +108,7 @@ g.services.accountService = {
                     function () {
                         fail("account request not to recieve emails");
                     },
-                    fail)
+                    fail);
             }
             , fail);
     }

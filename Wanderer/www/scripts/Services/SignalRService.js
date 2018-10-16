@@ -1,5 +1,5 @@
 ﻿g.services.SingnalRService = {
-}
+};
 
 g.services.SingnalRService.callbacks = {}
 
@@ -13,41 +13,41 @@ g.services.SingnalRService.Callback = function (groupName, x) {
             }
         }
     }
-}
+};
 
 g.services.SingnalRService.setCallback = function (name, groupName, accept, act) {
     g.services.SingnalRService.groupNames[name] = groupName;
     g.services.SingnalRService.callbacks[name] = { Accept: accept, GroupName: groupName, Act: act };
-}
+};
 
 
 g.services.SingnalRService.HasCallback = function (name) {
     return g.services.SingnalRService.callbacks[name] !== undefined;
-}
+};
 
 g.services.SingnalRService.tryRemoveCallback = function (name) {
     if (g.services.SingnalRService.HasCallback(name)) {
-        g.services.SingnalRService.removeCallback(name)
+        g.services.SingnalRService.removeCallback(name);
         return true;
     }
     return false;
-}
+};
 
 g.services.SingnalRService.removeCallback = function (name) {
     delete g.services.SingnalRService.callbacks[name];
-}
+};
 
 g.services.SingnalRService.onConnectCallbacks = [];
 g.services.SingnalRService.connecting = false;
 g.services.SingnalRService.Connect = function (callback) {
     if (callback) {
-        g.services.SingnalRService.onConnectCallbacks.push(callback)
+        g.services.SingnalRService.onConnectCallbacks.push(callback);
     }
     if (!g.services.SingnalRService.connecting) {
         g.services.SingnalRService.connecting = true;
         g.services.SingnalRService.InnerConnection(0);
     }
-}
+};
 
 g.services.SingnalRService.InnerConnection = function (time) {
     setTimeout(function () {
@@ -74,7 +74,7 @@ g.services.SingnalRService.InnerConnection = function (time) {
             }
         });
     }, time);
-}
+};
 
 g.services.SingnalRService.Connect();
 g.services.SingnalRService.groupNames = {};
@@ -86,9 +86,9 @@ g.services.SingnalRService.Join = function (groupName, key) {
     } catch (err) {
         console.error(err.toString());
         console.log("attempting to reconnect");
-        g.services.SingnalRService.Connect(function () {})
+        g.services.SingnalRService.Connect(function () { });
     }
-}
+};
 
 g.services.SingnalRService.Send = function (key, obj) {
     if (g.services.SingnalRService.groupNames[key] === null) {
@@ -101,7 +101,7 @@ g.services.SingnalRService.Send = function (key, obj) {
         console.log("attempting to reconnect");
         g.services.SingnalRService.Connect(function () {
             g.services.SingnalRService.connection.send('BroadcastMessage', g.services.SingnalRService.groupNames[key], obj);
-        })
+        });
     }
-}
+};
 

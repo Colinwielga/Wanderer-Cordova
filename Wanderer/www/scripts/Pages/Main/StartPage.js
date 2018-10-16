@@ -4,7 +4,7 @@
             return controller;
         },
         getHmtl: function () {
-            return "scripts/Pages/Character/CharacterPage.html"; //return "scripts/Pages/Main/StartPage.html";
+            return "scripts/Pages/Character/CharacterPage.html";
         },
         displayName: function () {
             return "Start";
@@ -12,5 +12,5 @@
         canClose: function () {
             return false;
         }
-    }
-}
+    };
+};

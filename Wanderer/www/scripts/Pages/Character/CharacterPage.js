@@ -1,6 +1,6 @@
 ﻿g.CharacterPageFactory = function (char) {
     return {
-        getController: function() {
+        getController: function () {
             return char;
         },
         getHmtl: function () {
@@ -12,5 +12,5 @@
         canClose: function () {
             return true;
         }
-    }
-}
+    };
+};

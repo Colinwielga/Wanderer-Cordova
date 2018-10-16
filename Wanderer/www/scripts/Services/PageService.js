@@ -1,5 +1,5 @@
 ﻿g.services.pageService = {
-}
+};
 
 g.services.pageService.private = {};
 
@@ -8,19 +8,19 @@ g.services.pageService.private.activeIndex = 0;
 
 g.services.pageService.GetPages = function () {
     return g.services.pageService.private.Pages;
-}
+};
 
 g.services.pageService.activePage = function () {
     return g.services.pageService.private.Pages[g.services.pageService.private.activeIndex];
-}
+};
 
 g.services.pageService.Select = function (page) {
-    g.services.pageService.private.activeIndex = g.services.pageService.private.Pages.indexOf(page)
-}
+    g.services.pageService.private.activeIndex = g.services.pageService.private.Pages.indexOf(page);
+};
 
 g.services.pageService.Selected = function (page) {
     return g.services.pageService.private.Pages.indexOf(page) === g.services.pageService.private.activeIndex;
-}
+};
 
 g.services.pageService.Close = function (page) {
     var at = g.services.pageService.private.Pages.indexOf(page);
@@ -30,19 +30,19 @@ g.services.pageService.Close = function (page) {
     if (g.services.pageService.private.activeIndex >= g.services.pageService.private.Pages.length) {
         g.services.pageService.private.activeIndex = g.services.pageService.private.activeIndex - 1;
     }
-}
+};
 
 g.services.pageService.Add = function () {
-    var newPage = g.CharacterPageFactory(new g.Character( "new character", g.makeid()));
+    var newPage = g.CharacterPageFactory(new g.Character("new character", g.makeid()));
     g.services.pageService.private.Pages.push(newPage);
     g.services.pageService.Select(newPage);
-}
+};
 
 g.services.pageService.AddSystem = function () {
     var newPage = g.SystemPageFactory(new g.System("new system", g.makeid()));
     g.services.pageService.private.Pages.push(newPage);
     g.services.pageService.Select(newPage);
-}
+};
 
 g.services.pageService.OpenCharacterById = function (id) {
     var tempPage = g.LoadingPageFactory("loading " + id);
@@ -60,8 +60,8 @@ g.services.pageService.OpenCharacterById = function (id) {
         var changed = g.services.accountService.currentAccount.addChatacterAccesser(accessor);
         if (changed) {
             g.services.accountService.saveAccount(function () { }, function () {
-                throw { message: "save failed" }
-            })
+                throw { message: "save failed" };
+            });
         }
 
     }, function () {
@@ -75,12 +75,12 @@ g.services.pageService.OpenCharacterById = function (id) {
             g.services.pageService.private.Pages[at] = g.ErrorPageFactory(new g.getErrorController("Error: " + err));
         });
     }
-    )
-}
+    );
+};
 
 g.services.pageService.OpenCharacter = function (characterAccessor) {
     g.services.pageService.OpenCharacterById(characterAccessor.id);
-}
+};
 
 g.services.pageService.GetAccount = function () {
     var tempPage = g.LoadingPageFactory("loading account...");

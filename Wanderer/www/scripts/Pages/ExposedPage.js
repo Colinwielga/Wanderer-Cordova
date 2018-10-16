@@ -1,4 +1,4 @@
-﻿g.ExposedPage = function (components, startingActiveComponentsIds, name , accessKey) {
+﻿g.ExposedPage = function (components, startingActiveComponentsIds, name, accessKey) {
     this.components = components;
     this.activeComponentsIds = startingActiveComponentsIds;
     this.name = name;
@@ -6,7 +6,7 @@
     var that = this;
 
 
-    this.getComponent = function ( compId) {
+    this.getComponent = function (compId) {
         for (var i = 0; i < that.components.length; i++) {
             var inner = that.components[i];
             if (compId === inner.getId()) {
@@ -14,46 +14,46 @@
             }
         }
         throw { message: "could not find id: " + compId };
-    }
-    this.clear =  function () {
-        this.activeComponentsIds =[];
-    },
+    };
+    this.clear = function () {
+        this.activeComponentsIds = [];
+    };
 
     this.getActiveComponents = function () {
         var res = [];
         for (var i = 0; i < that.activeComponentsIds.length; i++) {
             var lookingFor = that.activeComponentsIds[i];
             var comp = that.getComponentById(lookingFor);
-            if (comp != null) {
+            if (comp !== null) {
                 res.push(comp);
             }
         }
         return res;
-    }
+    };
     this.getComponents = function () {
         return that.components;
-    }
+    };
     this.getActiveComponentsIds = function () {
         return that.activeComponentsIds;
-    }
-    this.toggle = function ( module) {
+    };
+    this.toggle = function (module) {
         var i = that.activeComponentsIds.indexOf(module.getId());
-        if (i == -1) {
+        if (i === -1) {
             that.activeComponentsIds.push(module.getId());
         } else {
             that.activeComponentsIds.splice(i, 1);
         }
-    }
+    };
     this.activate = function (moduleId) {
         var i = that.activeComponentsIds.indexOf(moduleId);
-        if (i == -1) {
+        if (i === -1) {
             that.activeComponentsIds.push(moduleId);
         }
-    }
+    };
 
     this.updateLastLoaded = function (json) {
         that.lastLoaded = angular.fromJson(angular.toJson(json));
-    }
+    };
 
     this.getComponentById = function (lookingFor) {
         for (var j = 0; j < that.components.length; j++) {
@@ -64,7 +64,7 @@
         }
         console.log("could not find comp: " + lookingFor);
         return null;
-    }
+    };
 
     this.compareWithLastLoaded = function (json) {
 
@@ -74,11 +74,10 @@
         });
 
         var toLoad = [];
-        if (that.lastLoaded != null) {
+        if (that.lastLoaded !== null) {
             for (var property in json) {
                 if (json.hasOwnProperty(property)) {
-                    if (angular.toJson(json[property]) == angular.toJson(that.lastLoaded[property])) {
-                    } else {
+                    if (angular.toJson(json[property]) !== angular.toJson(that.lastLoaded[property])) {
                         toLoad.push(property);
                     }
                 }
@@ -90,27 +89,27 @@
         // we load after we finish the check incase 
         toLoad.forEach(function (property) {
             var component = that.getComponentById(property);
-            if (component != null) {
+            if (component !== null) {
                 component.injected.dataManager.useLocal = false;
                 component.injected.dataManager.remote = json[property];
                 component.OnLoad();
             } else {
                 console.log(property + " not found, is this a problem?");
             }
-        })
-        
-        return toLoad.length == 0;
-    }
+        });
+
+        return toLoad.length === 0;
+    };
     this.getBonus = function () {
         var res = 0;
         that.components.forEach(function (component) {
             var pub = component.getPublic();
-            if (pub.bonusProvided != undefined) {
+            if (pub.bonusProvided !== undefined) {
                 res += pub.bonusProvided();
             }
-        })
+        });
         return res;
-    }
+    };
     this.getJSON = function () {
         var res = {};
         that.components.forEach(function (component) {
@@ -118,20 +117,20 @@
                 try {
                     component.OnSave();
                     var map = component.injected.dataManager.current();
-                    if (map == undefined) {
+                    if (map === undefined) {
                         map = {};
                     }
-                    if (map[g.constants.META] == undefined) {
+                    if (map[g.constants.META] === undefined) {
                         map[g.constants.META] = {};
                     }
                     map[g.constants.META][g.constants.VERSION] = component.getPublic().getVersion();
                     res[component.getId()] = map;
-                } catch (e) { 
+                } catch (e) {
                     // this should wrap all module interactions
                     console.log(e);
                 }
             }
         });
         return res;
-    }
-}
+    };
+};
