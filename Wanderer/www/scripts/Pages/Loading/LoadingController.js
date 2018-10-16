@@ -1,4 +1,4 @@
-﻿g.getLoadingController = function ($timeout, message) {
+﻿g.getLoadingController = function (message) {
     var toReturn = {
         message: message
     };
