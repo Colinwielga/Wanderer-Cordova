@@ -8,7 +8,7 @@ ScottLeviCards.component = function () {
     this.getId = function () {
         return "scott-levi-cards";
     };
-    
+
     this.pickUp = function (ev) {
     };
     this.dropEmptyHand = function (data, event) {
@@ -112,28 +112,28 @@ ScottLeviCards.component = function () {
     this.isSwords = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num === 0) || (num % 2) == 1;
+        return num === 0 || num % 2 === 1;
     };
 
     this.isWands = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num === 0) ||
-            ((num % 2) !== 0) &&
-            ((num % 3) !== 0);
+        return num === 0 ||
+            num % 2 !== 0 &&
+            num % 3 !== 0;
     };
 
     this.isCups = function (cardId) {
         var card = this.getCard(cardId);
         var num = parseInt(card.value);
-        return (num === 0) ||
-            (num === 1) ||
-            (num === 2) ||
-            (num === 3) ||
-            (num === 5) ||
-            (num === 8) ||
-            (num === 13) ||
-            (num === 21);
+        return num === 0 ||
+            num === 1 ||
+            num === 2 ||
+            num === 3 ||
+            num === 5 ||
+            num === 8 ||
+            num === 13 ||
+            num === 21;
     };
 
     this.isPentacles = function (cardId) {
@@ -160,16 +160,16 @@ ScottLeviCards.component = function () {
 
         for (var i = 0; i < cards.length; i++) {
             var card = cards[i];
-            if (this.cardArchetype[card.guid] == this.swords) {
+            if (this.cardArchetype[card.guid] === this.swords) {
                 numSwords = numSwords + 1;
             }
-            if (this.cardArchetype[card.guid] == this.pentacles) {
+            if (this.cardArchetype[card.guid] === this.pentacles) {
                 numPentacles = numPentacles + 1;
             }
-            if (this.cardArchetype[card.guid] == this.wands) {
+            if (this.cardArchetype[card.guid] === this.wands) {
                 numWands = numWands + 1;
             }
-            if (this.cardArchetype[card.guid] == this.cups) {
+            if (this.cardArchetype[card.guid] === this.cups) {
                 numCups = numCups + 1;
             }
         }
@@ -182,7 +182,7 @@ ScottLeviCards.component = function () {
             'Page of Wands, discard a Pair, interrupt enemy magickal attacks, break an on going enemy spell.',
             'Knight of Wands, discard Two Pairs, and discard any Prime numbered card; automatically pass the next Magick related skill check.',
             'Queen of Wands, You may help other Players pass checks, by discarding your own cards. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
-            'King of Wands, Discard Three of a Kind, cast any Magick Spell you can think of, work with the DM to determine something fair and flavorful.  (Stuff like like: Time Reversal, Go Below Absolute Zero…)',
+            'King of Wands, Discard Three of a Kind, cast any Magick Spell you can think of, work with the DM to determine something fair and flavorful.  (Stuff like: Time Reversal, Go Below Absolute Zero…)'
         ];
         var SwordsAbilities = ['Close Quarters, armed melee attacks (daggers, shivs, etc.)',
             'Mid Range, across the room attacks (throwing knives, hand guns, etc.)',
@@ -192,7 +192,7 @@ ScottLeviCards.component = function () {
             'Page of Swords, discard a Pair, make a Double Attack (same move twice or two different weapons).',
             'Knight of Swords, discard Two Pairs, make a Triple Attack.',
             'Queen of Swords, You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
-            'King of Swords, Discard Three of a Kind, gain an additional Shield layer; when your Encounter HP hits 0, reset it to full one time per combat.',
+            'King of Swords, Discard Three of a Kind, gain an additional Shield layer; when your Encounter HP hits 0, reset it half full one time per combat.'
         ];
         var PentaclesAbilities = ['Botany, Any Character can eat flowers for power ups, but only Botanists know which plants will be beneficial and how to craft their own plant power ups for personal and party needs.  The number of tricks taken by botanist player determines number of positive effects; the DM’s tricks represent negative side effects. If the other Players involved take any tricks they may add their own qualities.',
             'Mobility, Piloting ground or space vehicles and advanced power armor acrobatics.',
@@ -202,7 +202,7 @@ ScottLeviCards.component = function () {
             'Page of Pentacles, Discard a Pair, make minor repairs to any technology.',
             'Knight of Pentacles, Discard Two Pairs, make major repairs to any technology.',
             'Queen of Pentacles, You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
-            'King of Pentacles, Discard Three of a Kind, must be Pentacle suited; your power armor suit can perpetually fly.  Discard Three of a Kind nonPentacles, gain the power of flight for the duration of an encounter.',
+            'King of Pentacles, Discard Three of a Kind, must be Pentacle suited; your power armor suit can perpetually fly.  Discard Three of a Kind nonPentacles, gain the power of flight for the duration of an encounter.'
         ];
         var CupsAbilities = ['Perception, sizing up a situation, nonviolent conflict resolution.',
             'Coin, participating in the blockchain currency called Coin for any financial transactions.',
@@ -212,7 +212,7 @@ ScottLeviCards.component = function () {
             'Page of Cups, Discard a Pair, Saboteur, while doing something unexpected or from concealment, you can make a rogue-like sneak attack or action that sabotages anyone or something in the environment.',
             'Knight of Cups, Discard Two Pairs, Face Cards (Page-King) outrank and beat Wild and Major Arcana for the current round of combat/action.',
             'Queen of Cups, You may help other Players pass checks. Discard one card; if the person you are assisting fails their check, your hand size decreases by one.',
-            'King of Cups, You may only advance to this level if you have the seven (chariot) and thirteen (death) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.',
+            'King of Cups, You may only advance to this level if you have the seven (chariot) and thirteen (death) In Play.  Discard Three of a Kind, Cup suited face Cards count as Wild for your next skill check.'
         ];
 
         var ActiveWandsAbilities = WandsAbilities.splice(0, numWands);
@@ -267,7 +267,7 @@ ScottLeviCards.component = function () {
             result.push("If your Cards on the Table are in ascending numerical order, your character may count even numbered straights (2, 4, 6, etc.) towards skill checks.");
         }
         return result;
-    }
+    };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.key = Math.random() + "";
@@ -291,8 +291,8 @@ ScottLeviCards.component = function () {
                         }
                     });
                 });
-           });
-    }
+        });
+    };
 
     this.OnNewCharacter = function () {
         this.inPlay = [];
@@ -300,14 +300,14 @@ ScottLeviCards.component = function () {
         this.cardArchetype = {};
         this.selectedDeck = ScottLeviCards.decklist[0];
         this.activeDeck = this.selectedDeck.defaultActive();
-    }
+    };
     this.OnSave = function () {
         this.communicator.write("inPlay", this.inPlay);
         this.communicator.write("hand", this.hand);
         this.communicator.write("activeDeck", this.activeDeck);
         this.communicator.write("cardArchetype", this.cardArchetype);
         this.communicator.write("selectedDeck", this.selectedDeck.guid);
-    }
+    };
     this.OnLoad = function () {
         var version = this.communicator.lastVersion();
         this.OnNewCharacter();
@@ -360,23 +360,23 @@ ScottLeviCards.component = function () {
                 }
             }
         }
-    }
+    };
 
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
-    }
+        return "modules/" + this.getId() + "/page.html";
+    };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
-    }
+        return "modules/" + this.getId() + "/rules.html";
+    };
     this.canClose = function () {
         return true;
-    }
+    };
     this.getTitle = function () {
         return "Tarot";
-    }
+    };
     this.getRequires = function () {
         return ["wanderer-core-save"];
-    }
+    };
 
     this.getPublic = function () {
         return {
@@ -393,17 +393,17 @@ ScottLeviCards.component = function () {
             getCard: function (id) {
                 return that.getCard(id);
             }
-        }
-    }
+        };
+    };
 
     this.deckSelected = function () {
         this.hand = [];
         this.activeDeck = this.selectedDeck.defaultActive();
-    }
+    };
 
     this.getCard = function (id) {
         return this.selectedDeck.allCards[id];
-    }
+    };
 
     this.toggleCardActive = function (id) {
         var at = this.activeDeck.indexOf(id);
@@ -412,11 +412,11 @@ ScottLeviCards.component = function () {
         } else {
             this.activeDeck.splice(at, 1);
         }
-    }
+    };
 
     this.inDeck = function (id) {
-        return (this.activeDeck.indexOf(id) !== -1);
-    }
+        return this.activeDeck.indexOf(id) !== -1;
+    };
 
     this.possibleCards = function () {
         var keys = [];
@@ -427,11 +427,11 @@ ScottLeviCards.component = function () {
             }
         }
         return keys;
-    }
+    };
 
     this.startingDeck = function () {
         return this.possibleCards();
-    }
+    };
 
     this.draw = function () {
         if (this.hand.length < this.activeDeck.length) {
@@ -465,7 +465,7 @@ ScottLeviCards.component = function () {
                         module: that.getId(),
                         callbackName: "card-played",
                         playedBy: that.page.name,
-                        cardId: cardID,
+                        cardId: cardID
                     });
                 }
             }
@@ -477,6 +477,6 @@ ScottLeviCards.component = function () {
         }
     };
     this.OnNewCharacter();
-}
+};
 
 g.services.componetService.registerCharacter(ScottLeviCards.component);

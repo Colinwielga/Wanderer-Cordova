@@ -2,10 +2,10 @@
     this.tools = "";
 
     this.getId = function () {
-        return "colin-wielga-tools"
+        return "colin-wielga-tools";
     };
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator
+        this.communicator = communicator;
     };
     this.OnNewCharacter = function () {
         this.tools = "";

@@ -45,7 +45,7 @@ var component = function () {
     };
     this.ColorString = function () {
         var r = Math.floor((this.hp + this.encounterHP) / (this.MaxHP + this.MaxEncounterHP) * (0xCC - 0x33));
-        var g = (0xCC - 0x33) - r;
+        var g = 0xCC - 0x33 - r;
         var rstring = (0x33 + r).toString(16);
         rstring = rstring.length === 1 ? "0" + rstring.length : rstring;
         var gstring = (0x33 + g).toString(16);

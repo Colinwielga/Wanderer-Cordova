@@ -11,7 +11,7 @@ DCListReputations.component = function () {
 
     // all component need a unique ID
     this.getId = function () {
-        return "dc-list-reputations"
+        return "dc-list-reputations";
     };
 
     // A component should know how to handle some events
@@ -21,8 +21,8 @@ DCListReputations.component = function () {
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator
-        this.Dependencies = dependencies
+        this.communicator = communicator;
+        this.Dependencies = dependencies;
     };
     // called when a new character is created
     this.OnNewCharacter = function () {
@@ -35,7 +35,7 @@ DCListReputations.component = function () {
     // called when a characrer is loaded 
     this.OnLoad = function () {
         if (this.communicator.canRead("reputations")) {
-            this.reputations = this.communicator.read("reputations")
+            this.reputations = this.communicator.read("reputations");
         } else {
             this.reputations = [""];
         }
@@ -59,14 +59,14 @@ DCListReputations.component = function () {
 
     this.canClose = function () {
         return true;
-    }
+    };
     // a component should be able to provide some infomation
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html";
     };
 
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
+        return "modules/" + this.getId() + "/rules.html";
     };
 
     this.getTitle = function () {

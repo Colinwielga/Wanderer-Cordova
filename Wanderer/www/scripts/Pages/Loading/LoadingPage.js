@@ -1,4 +1,5 @@
-﻿g.LoadingPageFactory = function (controller) {
+﻿g.LoadingPageFactory = function (message) {
+    var controller = g.getLoadingController(message);
     return {
         getController: function () {
             return controller;

@@ -1316,7 +1316,7 @@
         if (this.communicator.canRead("custommoves")) {
             that.communicator.read("custommoves").forEach(function (customMove) {
                 that.movescatalogue.forEach(function (move) {
-                    if (move.label == customMove.label) {
+                    if (move.label === customMove.label) {
                         var at = that.movescatalogue.indexOf(move);
                         that.movescatalogue.splice(at, 1, customMove);
                     }
@@ -1347,10 +1347,10 @@
 
     // a component should be able to provide some infomation
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html";
     };
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
+        return "modules/" + this.getId() + "/rules.html";
     };
     this.getTitle = function () {
         return "Moves";

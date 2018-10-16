@@ -37,8 +37,8 @@
     // the communicator also allows know what to have to write also holds the infomation 
     // all events are optional
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator
-        this.Dependencies = dependencies
+        this.communicator = communicator;
+        this.Dependencies = dependencies;
     };
     // called when a new character is created
     this.OnNewCharacter = function () {
@@ -52,7 +52,7 @@
     this.OnLoad = function () {
 
         if (this.communicator.canRead("debts")) {
-            this.debts = this.communicator.read("debts")
+            this.debts = this.communicator.read("debts");
         } else {
             this.debts = defaultdebts;
         }
@@ -76,14 +76,14 @@
 
     // a component should be able to provide some infomation
     this.getHmtl = function () {
-        return "modules/" + this.getId() + "/page.html"
+        return "modules/" + this.getId() + "/page.html";
     };
     this.canClose = function () {
         return true;
     };
 
     this.getRulesHtml = function () {
-        return "modules/" + this.getId() + "/rules.html"
+        return "modules/" + this.getId() + "/rules.html";
     };
 
     this.getTitle = function () {
