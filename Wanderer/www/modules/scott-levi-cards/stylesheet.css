@@ -24,21 +24,40 @@
 
 
 #scott-levi-cards div.card-in-deck {
-    cursor: pointer;
+    cursor: pointer; /*  cursor sets what your mouse looks like when it is over an item.. */
 }
 
+/* 
+    item, what item?
+
+    that is what the first line is for
+
+    it selects what items the styles apply too
+
+    you have things called ids and classes
+
+    if we go to scott-levi-cards\card.html
+
+    we can see some class and ids
+
+    #id
+    .class
+
+
+*/
 
 #scott-levi-cards .card-in-deck-true {
 }
 
 #scott-levi-cards .card-in-deck-false {
-    opacity: .3;
+    opacity: .3; /*  mostly they ave pretty good names tho, opacity is used to make something transparent */
 }
 
-#scott-levi-cards .deck-container {
-    -moz-column-width: 200px;
-    -webkit-column-width: 200px;
-    column-width: 200px;
+/* so CSS is made of entries like this */
+#scott-levi-cards .deck-container { /* they have a "selector" which is the first line. */
+    -moz-column-width: 200px; /* inside we have some styles */
+    -webkit-column-width: 200px; /* there are 1000000 styles */
+    column-width: 200px; /* so you often have to look up what you need */
     -moz-column-gap: 5px;
     -webkit-column-gap: 5px;
     column-gap: 5px;
@@ -65,3 +84,12 @@
     -webkit-transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
     transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
 }
+/*
+    
+    yeah
+
+    yeah dictionary
+
+
+
+*/

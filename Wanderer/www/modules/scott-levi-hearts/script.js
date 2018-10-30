@@ -142,6 +142,8 @@ ScottLeviHearts.component = function () {
                                 // is equal check (strong) === <- this one will retunr true if the things are the same
                                 // all do different things
                                 // cool
+                                // and look at that!
+                                // we totally have it
                                 target.IsYourTurn = true;
                                 
                                 // weird little thing that tells the UI to update

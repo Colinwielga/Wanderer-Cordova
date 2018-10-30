@@ -1,5 +1,24 @@
-﻿<link href="../scott-levi-cards/card.css" rel="stylesheet" />
+﻿<!-- the cards in play go grey -->
+<link href="../scott-levi-cards/card.css" rel="stylesheet" />
+<link href="modules/scott-levi-hearts/stylesheet.css" rel="stylesheet" />
+<!--
 
+    these are paths
+    so scott-levi-cards is the folder name 
+   
+    let's run it again  <- crossed fingers emoji 
+
+    try that
+
+    yeah, let's run it
+
+    ^ this is the line to load css
+
+    we load the card style
+
+    but we do not load our own style
+
+    -->
 <!--players-->
 <div ng-show="module.joined" class="pad-me">
     <div data-ng-repeat="player in module.playersInRoom">
@@ -35,8 +54,10 @@
     </div>
 </div>
 <!-- games -->
+<!-- we are going to add a class to our games -->
+<!-- ok I think that should be good -->
 <div ng-show="module.joined" class="pad-me">
-    <div data-ng-repeat="game in module.games">
+    <div data-ng-repeat="game in module.games" class="game">
         <!-- game area starts here -->
         <h3>Game with {{game.oppo}}</h3>        <!-- it knows who your opponent is "game.oppo"-->
 
@@ -62,17 +83,16 @@
             that is just fine
             yeah
     -->
+        <!--
 
-        <!-- 
-            
-            ok so maybe this is a little complex
-            we need to css
-            
+    ok so maybe this is a little complex
+    we need to css
 
-            -->
+
+    -->
 
         <p>your Tricks: You- {{game.yourTricks}} Them- {{game.yourOppoTricks}}</p>  <!-- and it knows how many tricks you have won "game.tricks"-->
-        <div class="card-cards-container discard-pile"> 
+        <div class="card-cards-container discard-pile">
             <div data-ng-repeat="message in game.inPlay"
                  class="scott-levi-card-container wrapped-card"
                  ng-init="card = message.card">
@@ -80,17 +100,86 @@
                     <!-- it also knows what cards have been played "game.inPlay"-->
                     <!-- do you want to see where we make this game object? -->
                     <!--
-        it is in the JS
-        we just set IsYourTurn
-        we were setting that on the game object
-        -->
+                it is in the JS
+                we just set IsYourTurn
+                we were setting that on the game object
+                -->
                     {{message.playedBy}}
                 </div>
                 <div ng-include="card.getHtml()">
                 </div>
             </div>
         </div>
-        <div class="card-cards-container">
+        <!--
+
+    here! - this is the cards you have in your hand
+    we are going to use something called ng-class
+    it let's you give a div a class when a condition is true
+
+    so we can give this a not-your-trun class
+
+    when it is not your turn
+
+    and we can tie our rule to it
+
+    and will be awesome
+
+    but I don't really remebmer how ng-class works
+
+    so we need to find an example
+
+    can you paste an example here?
+
+    I remember the syntax is strange
+
+
+        we need ng-class not ng-if
+                                                                another method
+                                                another class
+        ng-class="{'can-close':page.canClose(), 'cannot-close':!page.canClose()}"
+                    ^class     |
+                               ^a method, when the method is true the element will get the class
+        ok- so - weird syntax
+
+
+        we need to fill in those ??
+
+        I wish
+
+        just do the work for me
+            haha
+            naw, we got to do it the hard way
+
+        ng-class is confusing so I would not worry about it, if it does not make sense
+
+            we just need to go in our JS and find somehting that tells us if it is our turn
+
+            probably something on a game object
+
+            do you know the '!'?
+            it generally means not
+
+            so !game.IsYourTurn
+
+            means not game.IsYourTurn
+
+            yeah,
+
+            so this:
+
+            'not-your-turn':!game.IsYourTurn
+
+            reads:
+
+            when '!game.IsYourTurn' apply the class 'not-your-turn'
+
+            cool?
+
+            now we should add that class to our css
+
+
+    -->
+        <div class="card-cards-container" ng-class="{'not-your-turn':!game.IsYourTurn, 'your-turn':game.IsYourTurn}">
             <div ng-repeat="card in game.hand"
                  class="scott-levi-card-container wrapped-card"
                  ng-click="game.play(card)"

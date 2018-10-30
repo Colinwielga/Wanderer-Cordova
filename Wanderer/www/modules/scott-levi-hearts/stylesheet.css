@@ -1,1 +1,158 @@
-﻿
+﻿/*
+    
+    we had "--" at the top of the page!
+
+    and it was breaking the whole page!
+
+    wow really nothing
+    let me look around real quick
+
+    the card style must be elsewhere
+
+    go to where you were that looked good
+
+    now to populate this empty document
+
+    
+
+*/
+
+/*
+    inside the game class
+    find the cards
+
+    and now I need to look up how to grey things out
+
+    I did it in the shared discard
+
+    so we do singlar
+
+    but it will effect all of them
+
+    oh on more thing actually
+
+    we want this css rule to only work inside the hearts module
+
+    each module is wrapped in a element with an id that matches the module id
+
+    #scott-levi-hearts
+    
+    so in #scott-levi-hearts
+    find all the .game
+    then find all the .scott-levi-card
+    and set the opacity to .3
+
+    # means id
+    . means class
+
+    ids and classes are stupid
+
+    they are exactly the same as far as I can tell
+
+    don't know why they exist
+
+    yeah, that is the idea
+
+    id for a single thing
+    class for a group
+
+    functionally they are the same
+
+    but yeah, what you said is exactly the convention
+
+    shall we run it? 
+
+    well this will only half work,
+
+    if that
+
+    but good to make sure it half works
+
+    I am calling you on skype
+    
+
+    you drive
+    
+    the first part
+
+    we could not find scott-levi-hearts
+
+    maybe it did not get added idk
+    
+    let's try it like this
+
+
+    let's try the OG selector now
+
+    no, we need a class that only applies when it is not our turn 
+
+    so we add that in the html
+
+    do you want to do the honors?
+
+    add:
+    .not-your-turn
+
+    it needs to go in the right place
+    so they are a hairarchy
+    #scott-levi-hearts - is the whole moldue
+    .game - is a game
+
+    .scott-levi-car - is a single card
+    yeah
+    
+    boom
+
+    lez run it
+
+    cool we have to find an example 
+
+    transition is a property that makes css changes happen gradually
+
+    transition: max-height cubic-bezier(0, 1, 0, 1) .4s;
+
+    we need a new rule,
+    we want transition to happen gradually all the tim
+    not only when it is your turn
+    so take the rule we made
+    and remove the .not-your-turn bit
+
+    *make a copy of the whole rule
+    then pull the bit
+
+    my skype crashed..
+    idk how long ago
+
+    haha
+    
+    you did seem quiet 
+
+    skype..
+
+    make a new rule
+    
+    ok 
+    so
+    we want opacity to transition
+    and we want it fade linearly, there are a lot of ways for things to fade
+    they are fun to play with
+    yeah
+    and let's bump up the .3, I think they are a bit too faded
+    idk .5 .6 .7
+    cool
+    lez run it
+
+    i hate that
+
+    give me my F-keys
+
+    let's commit it
+*/
+
+#scott-levi-hearts .game .scott-levi-card {
+    transition: opacity linear .4s;
+}
+
+#scott-levi-hearts .game .not-your-turn .scott-levi-card{
+    opacity: .5;
+}
