@@ -122,33 +122,22 @@ ScottLeviHearts.component = function () {
                         // we got a message that they played a card
                         // first we have to see what game the card goes with
                         for (i = 0; i < that.games.length; i++) {
+                            // look here! idk if you know this notation that.games[i] 
+                            // but the word games here is a pretty big clue target is a game
+                            // anyway.. back to your changes
+                            // i think you were in the middle of things before I started quizing
                             target = that.games[i];
                             // check to make sure the other player played the caed
                             if (target.gameId === message.gameId && message.playerId !== that.id) {
+                                // yeah sure
+                                // pretty key to know that
 
-                                // add the card they played to inplay
-                                target.inPlay.push({
+                                // I am going to put that comment in the method so you have it
+                                target.putCardInPlay({
                                     module: that.getId(),
                                     card: that.scottLeviHand.getCard(message.cardId),
                                     playedBy: message.playedBy
                                 });
-
-                                // yeah understanable mistake
-                                // in js you have:
-                                // make equal   = <- this one set the vareable on the left to the value on the right
-                                // is equal check (weak) == <- this one will return true if the things are similar
-                                //          this one is bad - similar is poorly defined
-                                           
-                                // is equal check (strong) === <- this one will retunr true if the things are the same
-                                // all do different things
-                                // cool
-                                // and look at that!
-                                // we totally have it
-                                target.IsYourTurn = true;
-                                
-                                // weird little thing that tells the UI to update
-                                // don't worry about it for now
-                                g.services.timeoutService.$timeout(function () { });
                             }
                         }
                     } else if (message.type === "Left Game") {
@@ -317,11 +306,56 @@ ScottLeviHearts.component = function () {
             yourTricks: 0,
             yourOppoTricks: 0,
             oppo: oppo, // here is opponent
-            inPlay: [], // here is the list of cards in play
+            inPlay: [], // here is the list of cards in play <- here
             alone: false, // here is "alone", this tells us if we are alone in the game, aka has the other player left the game
             hand: hand, // more stuff....
             gameId: gameId,
+            // so new method
+            // naming is hard
+            putCardInPlay: function (card) {
+                // TODO we are here
+                // we need to make your turn work right.
+
+                // usef
+                // card.getValue() will return the cards number
+                // you will want to last card in the list this.inPlay
+                // you wil have to google that
+                // it is something ugly with splice
+
+                // now there is another place we should apply this method
+                // we just put it in the code that is called when you play a card
+                // we now need it in the code that is called they THEY play a card
+                // do you know where that is?
+                // naw, it is up
+                // in hat bit at the top of the file
+                // where you get all the massages from the other player
+                // we were working on it before I think
+                // last time we did the turn stuff
+                // I think it probably has 10000 comments
+
+
+                //TODO, does not really work!
+                // yeah
+                this.inPlay.push(card);
+                this.IsYourTurn = !IsYourTurn;
+                // the line is still there something something timeout
+                // good
+                g.services.timeoutService.$timeout(function () { });
+            
+            },
             play: function (card) {
+                // oh shit
+                // we already have a method called play
+                // but it is a little different than what we want
+                // it is only for when you play a card
+                // we want our method to be when either player plays a card
+
+                // it is different
+                // because when you play a card you have to send a message to the other player that you played it
+
+                // whe they play a card no need to send any messages
+
+
                 // shall we test?
 
                 if (this.IsYourTurn !== true) {
@@ -331,7 +365,47 @@ ScottLeviHearts.component = function () {
                 // this is the code where you play a card.
 
                 // this line displays the card
-                this.inPlay.push({ card: card, playedBy: that.page.name });
+                // this line :
+                // we need to replace this line
+                // let me break down what this line did
+
+                // why is this here?
+                // where is the putCardInPlay method?
+                // what is it on?
+                // yeah
+                // what is 'this' in the code we are looking at now 
+                // naw, this is ok
+                // but putCardInPlay is on game and this is game
+                // so inPlay...
+                // what is inPlay?
+                // it is the list of cards inplay for a game of hearts
+                // the cards people have played 
+                // it is part of a game
+                // we can see it being defined 
+                // up a little line
+
+                // so. inPlay, does it have a putCardInPlay method?
+                // game has the putCardInPlay method
+                // they are both part of game
+
+                // so . are a bit like the \ in file explorer
+                // you have a game
+                // it has a bunch of stuff
+                // it has inPlay and it has putCardInPlay
+
+                // cool
+                // so this is good
+                // this method is going to be incharge updating IsYourTurn
+                // right now we update that a little lower in the code
+                // we should remove that
+                this.putCardInPlay( 
+                    {
+                        card: card, 
+                        playedBy: that.page.name 
+                        // up more
+                        // the number is in the card
+                        // card.getValue(), we would have to look it up
+                    });
 
                 // this sends a message to the other play to let them know you played a card
                 g.services.SingnalRService.Send(that.key, {
@@ -342,6 +416,8 @@ ScottLeviHearts.component = function () {
                     playerId: that.id,
                     playedBy: that.page.name
                 });
+
+                //yep!
 
                 // and this removes the card from our hand
                 // it goes through all the cards in your hand
@@ -371,9 +447,13 @@ ScottLeviHearts.component = function () {
                 // let's
                 // well
                 // let's block play when it is not your turn anyway
-                
-                this.IsYourTurn = false;    
- 
+
+                // we should actually move this in to the new method to
+                // you want to do that  now?
+                // this is the black magic line
+                // tells the UI it needs to update
+                // go for it
+                // yeah
                 g.services.timeoutService.$timeout(function () { });
             }
         };
