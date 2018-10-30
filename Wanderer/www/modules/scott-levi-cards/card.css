@@ -151,11 +151,27 @@
     border: 2px black solid;
 }
 
-.discard-pile {
+.discard-pile { /*this first bit ".discard-pile" says what the rules applies to
+                    this rule applies to html elements with the class "dicard-pile"
+                    the dot "." means class
+                    so ".discard-pile"
+                */
     -webkit-filter: grayscale(70%);
+    /*
+        inside here we have 
+    */
 }
 
+/*
+    this is css
 
+    i think this is the first time you have used it, no?
+
+    it is made up of rules
+
+*/
+
+/*each one of those is a rule*/
 .scott-levi-card-container .card-border {
     margin: 1px;
     width: 98px;

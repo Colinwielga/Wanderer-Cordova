@@ -133,8 +133,17 @@ ScottLeviHearts.component = function () {
                                     playedBy: message.playedBy
                                 });
 
-                                // TODO set target.IsYourTurn to true;
-
+                                // yeah understanable mistake
+                                // in js you have:
+                                // make equal   = <- this one set the vareable on the left to the value on the right
+                                // is equal check (weak) == <- this one will return true if the things are similar
+                                //          this one is bad - similar is poorly defined
+                                           
+                                // is equal check (strong) === <- this one will retunr true if the things are the same
+                                // all do different things
+                                // cool
+                                target.IsYourTurn = true;
+                                
                                 // weird little thing that tells the UI to update
                                 // don't worry about it for now
                                 g.services.timeoutService.$timeout(function () { });
@@ -271,18 +280,51 @@ ScottLeviHearts.component = function () {
             }
         }
     };
-    
+
+
+    // look at this name!
+    // how helpful
+    // make game
     this.makeGame = function (oppo, gameId, yourTurn) {
         var hand = that.scottLeviHand.getHand();
-        return {
-            IsYourTurn: yourTurn,
-            oppo: oppo,
-            inPlay: [],
-            alone: false,
-            hand: hand,
+        // here!
+        // to make an object
+        // the syntac is {}
+        // if you want an empty object you write "var x= {}"
+        
+        return { // this is our game object
+            IsYourTurn: yourTurn, // here is your turn
+
+            // new syntax, just follow the pattern "name:value,"
+            // here we just put the starting value 
+            // yeah
+            // I think it safe to assume it is 0
+            // we are creating a new game 
+            // no one has won any tricks yet
+
+            // oh! also we probably need 2
+            // your tricks
+            // their tricks
+            // ��
+            // i tried to type an emjo and live share crashed
+            // it was thumb up
+            // now we need to update our html
+            // since we added another counter
+            // and changed our names
+            // lead the way
+            yourTricks: 0,
+            yourOppoTricks: 0,
+            oppo: oppo, // here is opponent
+            inPlay: [], // here is the list of cards in play
+            alone: false, // here is "alone", this tells us if we are alone in the game, aka has the other player left the game
+            hand: hand, // more stuff....
             gameId: gameId,
             play: function (card) {
-                // TODO this should do nothing if it is not your turn.
+                // shall we test?
+
+                if (this.IsYourTurn !== true) {
+                    return;
+                }
                 
                 // this is the code where you play a card.
 
@@ -303,13 +345,34 @@ ScottLeviHearts.component = function () {
                 // it goes through all the cards in your hand
                 for (var i = 0; i < hand.length; i++) {
                     // finds the one that has the same id as the card played 
+                    // look at this if
                     if (hand[i].guid === card.guid) {
                         // and removes it 
                         hand.splice(i, 1);
                     }
                 }
 
-                // TODO set IsYourTurn to false
+                // so what was the issue
+                // and why did "this." fix it 
+                // somethings
+                // uhh
+
+                // somehow this. is telling it where to look for IsYourTurn
+                // but why we need a this I am not totally sure
+                // but yeah you got the gist
+
+                // let's not let players play when it is not there turn next
+                // oh actual
+                // we are tracking turns wrong
+                // it is not just ABABAB
+                // if you win you lead
+                // let's
+                // well
+                // let's block play when it is not your turn anyway
+                
+                this.IsYourTurn = false;    
+ 
+                g.services.timeoutService.$timeout(function () { });
             }
         };
     };
