@@ -20,7 +20,7 @@ ScottLeviHearts.component = function () {
         this.scottLeviHand = dependencies[0];
         dependencies[1].onJoin(groupName => {
             g.services.timeoutService.$timeout(function () {
-                that.playersInRoom = [];
+                that.playersInRoom = []; 
                 that.challenges = [];
                 that.games = [];
                 that.joined = true;
@@ -136,7 +136,7 @@ ScottLeviHearts.component = function () {
                                 target.putCardInPlay({
                                     module: that.getId(),
                                     card: that.scottLeviHand.getCard(message.cardId),
-                                    playedBy: message.playedBy
+                                    playedBy: message.playedBy 
                                 });
                             }
                         }
@@ -271,140 +271,88 @@ ScottLeviHearts.component = function () {
             }
         }
     };
-
-
-    // look at this name!
-    // how helpful
-    // make game
+    
     this.makeGame = function (oppo, gameId, yourTurn) {
         var hand = that.scottLeviHand.getHand();
-        // here!
-        // to make an object
-        // the syntac is {}
-        // if you want an empty object you write "var x= {}"
-        
-        return { // this is our game object
-            IsYourTurn: yourTurn, // here is your turn
-
-            // new syntax, just follow the pattern "name:value,"
-            // here we just put the starting value 
-            // yeah
-            // I think it safe to assume it is 0
-            // we are creating a new game 
-            // no one has won any tricks yet
-
-            // oh! also we probably need 2
-            // your tricks
-            // their tricks
-            // ��
-            // i tried to type an emjo and live share crashed
-            // it was thumb up
-            // now we need to update our html
-            // since we added another counter
-            // and changed our names
-            // lead the way
+        return { 
+            IsYourTurn: yourTurn, 
             yourTricks: 0,
             yourOppoTricks: 0,
-            oppo: oppo, // here is opponent
-            inPlay: [], // here is the list of cards in play <- here
-            alone: false, // here is "alone", this tells us if we are alone in the game, aka has the other player left the game
-            hand: hand, // more stuff....
+            oppo: oppo, 
+            inPlay: [], 
+            alone: false, 
+            hand: hand, 
             gameId: gameId,
-            // so new method
-            // naming is hard
-            putCardInPlay: function (card) {
-                // TODO we are here
-                // we need to make your turn work right.
 
-                // usef
-                // card.getValue() will return the cards number
-                // you will want to last card in the list this.inPlay
-                // you wil have to google that
-                // it is something ugly with splice
+            putCardInPlay: function (cardInfo) {
+                // when there are two cards already out
+                // clear the table a start a new trick
+                if (this.inPlay.length == 2) {
+                    this.inPlay = [];
+                }
 
-                // now there is another place we should apply this method
-                // we just put it in the code that is called when you play a card
-                // we now need it in the code that is called they THEY play a card
-                // do you know where that is?
-                // naw, it is up
-                // in hat bit at the top of the file
-                // where you get all the massages from the other player
-                // we were working on it before I think
-                // last time we did the turn stuff
-                // I think it probably has 10000 comments
+                // when there are no cards out
+                // managing turn is simple
+                // if you played the card it is their turn
+                // if they played the card it is your turn
+                if (this.inPlay.length == 0) {
 
+                    if (that.page.name === cardInfo.playedBy) {
+                        this.IsYourTurn = false;
+                    }
 
-                //TODO, does not really work!
-                // yeah
-                this.inPlay.push(card);
-                this.IsYourTurn = !IsYourTurn;
-                // the line is still there something something timeout
-                // good
+                    if (that.page.name !== cardInfo.playedBy) {
+                        this.IsYourTurn = true;
+                    }
+                } else {
+                    // if there is already a card on the table
+                    // we need to determine who will lead for the next trick
+
+                    // first we determine who played what card
+                    var yourCard = null;
+                    var theirCard = null;
+                    if (that.page.name === cardInfo.playedBy) {
+
+                        yourCard = cardInfo.card;
+                        theirCard = this.inPlay[this.inPlay.length - 1].card;
+                    }
+                    else {
+                        yourCard = this.inPlay[this.inPlay.length - 1].card;
+                        theirCard = cardInfo.card;
+                    }
+
+                    // the player with the higher card leads the next trick
+                    if (yourCard.getValue() > theirCard.getValue()) {
+                        this.yourTricks = this.yourTricks + 1;
+                        this.IsYourTurn = true;
+                    } else if (yourCard.getValue() === theirCard.getValue()) {
+                        if (this.IsYourTurn === true) {
+                            this.IsYourTurn = false;
+                        }
+                        else
+                        {
+                            this.IsYourTurn = true;
+                        }
+                    } else {
+                        this.yourOppoTricks = this.yourOppoTricks + 1;
+                        this.IsYourTurn = false;
+                    }
+                }
+
+                this.inPlay.push(cardInfo);
+                
                 g.services.timeoutService.$timeout(function () { });
             
             },
             play: function (card) {
-                // oh shit
-                // we already have a method called play
-                // but it is a little different than what we want
-                // it is only for when you play a card
-                // we want our method to be when either player plays a card
-
-                // it is different
-                // because when you play a card you have to send a message to the other player that you played it
-
-                // whe they play a card no need to send any messages
-
-
-                // shall we test?
-
                 if (this.IsYourTurn !== true) {
                     return;
                 }
                 
-                // this is the code where you play a card.
-
-                // this line displays the card
-                // this line :
-                // we need to replace this line
-                // let me break down what this line did
-
-                // why is this here?
-                // where is the putCardInPlay method?
-                // what is it on?
-                // yeah
-                // what is 'this' in the code we are looking at now 
-                // naw, this is ok
-                // but putCardInPlay is on game and this is game
-                // so inPlay...
-                // what is inPlay?
-                // it is the list of cards inplay for a game of hearts
-                // the cards people have played 
-                // it is part of a game
-                // we can see it being defined 
-                // up a little line
-
-                // so. inPlay, does it have a putCardInPlay method?
-                // game has the putCardInPlay method
-                // they are both part of game
-
-                // so . are a bit like the \ in file explorer
-                // you have a game
-                // it has a bunch of stuff
-                // it has inPlay and it has putCardInPlay
-
-                // cool
-                // so this is good
-                // this method is going to be incharge updating IsYourTurn
-                // right now we update that a little lower in the code
-                // we should remove that
                 this.putCardInPlay( 
                     {
                         card: card, 
-                        playedBy: that.page.name 
-                        // up more
-                        // the number is in the card
-                        // card.getValue(), we would have to look it up
+                        playedBy: that.page.name
                     });
 
                 // this sends a message to the other play to let them know you played a card
@@ -417,43 +365,12 @@ ScottLeviHearts.component = function () {
                     playedBy: that.page.name
                 });
 
-                //yep!
-
-                // and this removes the card from our hand
-                // it goes through all the cards in your hand
                 for (var i = 0; i < hand.length; i++) {
-                    // finds the one that has the same id as the card played 
-                    // look at this if
                     if (hand[i].guid === card.guid) {
-                        // and removes it 
                         hand.splice(i, 1);
                     }
                 }
-
-                // so what was the issue
-                // and why did "this." fix it 
-                // somethings
-                // uhh
-
-                // somehow this. is telling it where to look for IsYourTurn
-                // but why we need a this I am not totally sure
-                // but yeah you got the gist
-
-                // let's not let players play when it is not there turn next
-                // oh actual
-                // we are tracking turns wrong
-                // it is not just ABABAB
-                // if you win you lead
-                // let's
-                // well
-                // let's block play when it is not your turn anyway
-
-                // we should actually move this in to the new method to
-                // you want to do that  now?
-                // this is the black magic line
-                // tells the UI it needs to update
-                // go for it
-                // yeah
+                
                 g.services.timeoutService.$timeout(function () { });
             }
         };

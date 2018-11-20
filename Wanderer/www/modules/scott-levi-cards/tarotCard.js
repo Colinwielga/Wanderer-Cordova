@@ -1,20 +1,66 @@
-﻿ScottLeviCards.Card = function (guid,name, text, value,inDefault,image) {
-    this.guid= guid;
-    this.name = name;
-    this.text = text;
-    this.deck = null;
-    this.value = value;
-    this.inDefault = inDefault;
-    this.image = image;
-    this.getImage = function () {
+﻿// here is where we define a card object
+// nevermind 'function (guid, name, text, value, inDefault, image)' it is a lie
+// this is an object
+// not a funtion
+// yeah ish
+// in JS they are sort of the same
+// but you can think of them that way if you want
+// an object is sort of a little dictionary
+// it has key-value pairs
+
+ScottLeviCards.Card = function (guid, name, text, value, inDefault, image) {
+    this.guid= guid;// and here we meet it's members (the things you .) // card.guid is it's id
+    this.name = name; // name of the card
+    this.text = text; // the text of the card
+    this.deck = null; // the deck the card belongs in
+    this.value = value; // the value of the card
+    this.inDefault = inDefault; // if the card is in the deck by defualt (it is not something you have to unlock)
+    this.image = image; // the image of the card
+    this.getImage = function () { // some of cards members are functions! getImage is a member of card, but is of type fuction (aka method)
+        // now it is a pretty boring method
+        // it just returns some text that tell you here to find the image for the card
+        // if you look in images/cards/ you will see the background images we use for the card 
         return "images/cards/" + image + ".jpg";
     };
     this.getHtml = function () {
+        // here is the layout of a card
+        // you could look in that find and find the card html
+        // this value is different for totes cards
+        // since his layout was different
         return "modules/scott-levi-cards/card.html";
     };
     this.getValue = function () {
-        return this.value;
-    };
+        // here is a method that returns the cards value
+        // not really sure why we have .getValue()
+        // and .value
+        // when .getValue()
+        // just returns .value
+        // if I was feeling pro-active
+        // I would fix it
+        // it is not good to have two ways to do things
+        // it is a good way to get bugs
+        // if you have two ways to do things
+        // someone come in and changes one
+        // but forgets to change the other
+        // and now you have two things that should both be a way to get the value
+        // but they do different things
+        // bad
+         return this.value;
+    }; 
+    // and there are more members
+    // but let's return to why were looking at this
+    // the code was 'cardInfo.card.playedBy'
+    // look around, playedBy is not here
+    // cards do not know who they were played by
+    //
+    // cardInfo.card.playedBy will return 'undefined'
+    // and undefined is almost never a good thing
+    // var yourCard = cardInfo.card.playedBy;
+    // would result in yourCard being undefined
+    // and that is not what we want
+     
+    // cool?
+    // 
     this.getSuitValue = function () {
         if (this.image < 22) return 0;
         else return Math.floor((this.image - 22) / 14 + 1);
