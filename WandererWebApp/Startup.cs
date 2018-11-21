@@ -8,16 +8,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using IdentityServer4.Models;
-using WandererWebAPI.Model;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 
-namespace WandererWebAPI
+namespace WandererWebApp
 {
+
     public class Startup
     {
-        const string clientScope = "clientApi";
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,47 +25,12 @@ namespace WandererWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
 
-            IEnumerable<Client> GetClients() {
-                // TODO this feel unfortunate
-                // I should be pulling this out of DI
-                using (var context = new DataContext(new DbContextOptionsBuilder<DataContext>().UseSqlite(Configuration.GetConnectionString("DefaultConnection")).Options)) {
-                    return context.Accounts.Select(x => new Client
-                    {
-                        ClientSecrets = { new Secret(x.Secret, null) },
-                        ClientId = x.Id.ToString(),
-                        AllowedScopes = { clientScope },
-                        AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    }).ToList();
-                }
-            }
+            services.AddCors();
 
-            IEnumerable<ApiResource> GetApiResources() {
-                return new List<ApiResource>
-                {
-                    new ApiResource(clientScope, "Client API")
-                };
-            }
-
-            services
-                .AddMvc();
-
-            services.AddDbContext<DataContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
-            services
-                .AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.Authority = "http://localhost:5000";
-                    options.RequireHttpsMetadata = false;
-                    options.ApiName = clientScope;
-                });
-
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryApiResources(GetApiResources())
-                .AddInMemoryClients(GetClients());
+            services.AddSignalR()
+                    .AddAzureSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,9 +40,19 @@ namespace WandererWebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-            app.UseIdentityServer();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .AllowAnyMethod());
+
             app.UseMvc();
+            app.UseFileServer();
+            app.UseAzureSignalR(routes =>
+            {
+                routes.MapHub<Chat>("/chat");
+            });
         }
     }
 }
