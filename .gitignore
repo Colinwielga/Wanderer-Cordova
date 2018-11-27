@@ -25,6 +25,8 @@ WandererWebApp/bin/*
 WandererWebApp/obj/*
 /WandererWebApp/bin/*
 /WandererWebApp/obj/*
+**/obj/
+**/bin/
 
 Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
 Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
@@ -47,3 +49,5 @@ Wanderer/simulation/sim-host.json
 *.pdb
 /WandererWebAPI/obj
 /WandererWebAPI/bin/Debug/netcoreapp2.0
+
+**/AWSConnectorKeys.js
