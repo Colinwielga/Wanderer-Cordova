@@ -1,32 +1,35 @@
 ﻿/*px are bad bad bad bad! plz fix*/
 
+html, body {
+    height: 100%;
+    width: 100%;
+}
 
-#header {
-	width: 100%;
+#content {
+    width: 100%;
+    flex: 1 1 auto;
+}
+
+#footer {
+    width: 100%;
+    flex: 0 1 auto;
 }
 
 /*﻿Rules area*/
 .rules-divider{
-	/*margin: 0 -8px;
 	padding: 0px 8px 10px 8px;*/
 	border: 0;
     margin-top:10px;
     margin-bottom:10px;
 	border-bottom: dashed #333333 1px;
-	/*border-style: dashed;*/
-	/*text-align: justify;*/
 }
 .rules-text{
 	font-style: italic;
 }
 
-/*Buttons area*/
 .card-buttons-container{
-	/*margin: 0 -8px;*/
 	padding: 8px 8px 8px 8px;
 	border: 0;
-/*	border-bottom: solid #333333 1px;*/
-/*	border-style: dashed;*/
 	box-shadow: 0 4px 3px gray;
 	align-content: center;
 }
@@ -35,7 +38,6 @@
 	height: 100%;
 	vertical-align: middle;
 }
-
 
 body {
     top: 0;
@@ -46,14 +48,15 @@ body {
     font-weight: 300;
     background-color: white;
     font-size: 18px;
+    height: 100%;
 }
 
 #all {
-    /*position: absolute;
-    width: 1500px;
-    left: 50%;
-    margin-left: -750px;
-    top: 0;*/
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
     padding: 5px;
     z-index: 2;
     -webkit-touch-callout: none; /* iOS Safari */
@@ -428,30 +431,25 @@ li {
 }
 
 .roll-result {
-    /*display:inline-block;*/
     width: 10%;
     -webkit-transition: all 0.3s ease;
     border-color: #000000;
     padding-right: 10px;
     text-align: right;
-    /*opacity: 0.0;*/
 }
 
     .roll-result.active {
         width: 90%;
-        /*opacity: 1;*/
     }
 
 .rolling .roll-result {
     width: 25%;
     border-right-width: 2px;
     border-right-style: solid;
-    /*opacity: 0.6;*/
 }
 
     .rolling .roll-result.active {
         width: 50%;
-        /*opacity: 1;*/
     }
 
 #traits-section, .tip, #goals-section { /*#cards-section, */
@@ -463,15 +461,6 @@ li {
 table {
     width: 100%;
 }
-
-/*.animate-enter {
-	-webkit-transition: 1s linear all;
-	opacity: 0;
-}
- 
-.animate-enter.animate-enter-active {
-	opacity: 1;
-}*/
 
 
 .ng-enter {
