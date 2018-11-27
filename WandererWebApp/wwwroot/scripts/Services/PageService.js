@@ -109,6 +109,11 @@ g.services.pageService.LoadWiki = function () {
     g.services.pageService.private.Pages.push(tempPage);
 };
 
+g.services.pageService.LoadTable = function () {
+    var tempPage = g.TablePageFactory();
+    g.services.pageService.private.Pages.push(tempPage);
+};
+
 g.services.pageService.OpenAccount = function (id) {
     var tempPage = g.LoadingPageFactory("loading account...");
     g.services.timeoutService.$timeout(function () {
