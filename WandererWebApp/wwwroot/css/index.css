@@ -6,6 +6,7 @@ html, body {
 }
 
 #content {
+    overflow-y:auto;
     width: 100%;
     flex: 1 1 auto;
 }
@@ -13,6 +14,10 @@ html, body {
 #header {
     width: 100%;
     flex: 0 1 auto;
+}
+
+#active-page {
+    height:100%;
 }
 
 /*﻿Rules area*/

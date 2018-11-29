@@ -32,35 +32,29 @@
     <script src="External/SignalR/signalr.js"></script>
 </head>
 <body data-ng-controller="wandererController">
-    <div id="all">
+    <div id="all" ng-hack="{{onUpdate()}}">
         <div id="header">
             <div id="page-tab-container">
                 <div class="page-tab" data-ng-repeat="page in Pages">
-                    <input
-                        class="left-part"
-                        data-ng-class="{'can-close':page.canClose(), 'cannot-close':!page.canClose()}"
-                        data-ng-disabled="Selected(page)"
-                        data-ng-click="Select(page)"
-                        value="{{page.displayName()}}"
-                        type="button"
-                    />
-                    <input
-                        class="right-part"
-                        data-ng-show="page.canClose()"
-                        data-ng-click="Close(page)"
-                        value="x"
-                        type="button"
-                    />
+                    <input class="left-part"
+                           data-ng-class="{'can-close':page.canClose(), 'cannot-close':!page.canClose()}"
+                           data-ng-disabled="Selected(page)"
+                           data-ng-click="Select(page)"
+                           value="{{page.displayName()}}"
+                           type="button" />
+                    <input class="right-part"
+                           data-ng-show="page.canClose()"
+                           data-ng-click="Close(page)"
+                           value="x"
+                           type="button" />
                 </div>
             </div>
         </div>
         <div id="content">
             <div id="active-page" data-ng-include="activePage().getHmtl()"></div>
         </div>
+        <!-- hack? atleast very ugly -->
     </div>
-
-    <!-- hack? atleast very ugly -->
-    <p style="visibility:hidden">{{onUpdate()}}</p>
 
     <scripts>
         <!-- cordova stuff goes first -->
