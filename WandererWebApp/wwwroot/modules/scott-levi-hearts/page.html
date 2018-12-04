@@ -1,30 +1,14 @@
 ﻿<!-- the cards in play go grey -->
 <link href="../scott-levi-cards/card.css" rel="stylesheet" />
 <link href="modules/scott-levi-hearts/stylesheet.css" rel="stylesheet" />
-<!--
 
-    these are paths
-    so scott-levi-cards is the folder name 
-   
-    let's run it again  <- crossed fingers emoji 
-
-    try that
-
-    yeah, let's run it
-
-    ^ this is the line to load css
-
-    we load the card style
-
-    but we do not load our own style
-
-    -->
 <!--players-->
 <div ng-show="module.joined" class="pad-me">
     <div data-ng-repeat="player in module.playersInRoom">
         <input type="button" value="Challenge {{player.name}}" ng-click="module.Challenge(player)" />
     </div>
 </div>
+
 <!-- challenges -->
 <div ng-show="module.joined" class="pad-me ">
     <div data-ng-repeat="challenge in module.challenges">
@@ -60,37 +44,7 @@
     <div data-ng-repeat="game in module.games" class="game">
         <!-- game area starts here -->
         <h3>Game with {{game.oppo}}</h3>        <!-- it knows who your opponent is "game.oppo"-->
-
         <p>your turn: {{game.IsYourTurn}}</p>  <!-- it knows if it is your opponent is "game.IsYourTurn"-->
-        <!--
-        so you should have game instead of yourTurn
-        this section is all about games
-        you can play more than one game at once
-        so we put the data for each game in a "game object"
-        this game object knows all the stuff about the game
-
-            haha, that will run
-            but it will not do what you want
-            yep
-            you can do what you want
-            {{yours}} {{theirs}}
-
-            let's run it!
-            cntrl shift s
-
-            or the 2 floppys
-
-            that is just fine
-            yeah
-    -->
-        <!--
-
-    ok so maybe this is a little complex
-    we need to css
-
-
-    -->
-
         <p>your Tricks: You- {{game.yourTricks}} Them- {{game.yourOppoTricks}}</p>  <!-- and it knows how many tricks you have won "game.tricks"-->
         <div class="card-cards-container discard-pile">
             <div data-ng-repeat="message in game.inPlay"

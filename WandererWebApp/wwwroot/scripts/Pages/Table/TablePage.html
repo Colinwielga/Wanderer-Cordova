@@ -2,6 +2,19 @@
 
 <div id="table">
     <h2>Welcome to the Wanderer virtual tabletop, or Table.  For more info go to wanderer-rpg.com/blog</h2>
-    <div class="table-top" >word word word </div>
+    <div class="table-top" > 
+        <p>World Map? Drop Down thing maybe? Ras, ze Red Planet.  I mean Mars. </p>
+        <div data-ng-repeat="tableObject in activePage().getController().tableObjects()">
+            <div class="testbox">
+                <h3>{{tableObject.text}} </h3>
+                <p>{{tableObject.occupation}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <img src="customtabletop.img" />
+        </div>
+    </div>
 </div>
 

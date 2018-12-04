@@ -1,6 +1,7 @@
 ﻿g.TablePageFactory = function (controller) {
     return {
         getController: function () {
+            console.debug("getController got called!");
             return controller;
         },
         getHmtl: function () {

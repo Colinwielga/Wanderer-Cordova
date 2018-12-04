@@ -105,12 +105,12 @@ g.services.pageService.GetAccount = function () {
 };
 
 g.services.pageService.LoadWiki = function () {
-    var tempPage = g.WikiPageFactory();
+    var tempPage = g.WikiPageFactory(g.getWikiController());
     g.services.pageService.private.Pages.push(tempPage);
 };
 
 g.services.pageService.LoadTable = function () {
-    var tempPage = g.TablePageFactory();
+    var tempPage = g.TablePageFactory(g.getTableController());
     g.services.pageService.private.Pages.push(tempPage);
 };
 
