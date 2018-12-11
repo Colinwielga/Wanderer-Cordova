@@ -18,7 +18,6 @@
     g.services.pageService.LoadTable();
     
     $scope.activePage = function () {
-        console.debug("active page called");
         return g.services.pageService.activePage();
     };
     
