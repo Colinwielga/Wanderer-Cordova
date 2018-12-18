@@ -1,49 +1,51 @@
 ﻿g.getTableController = function ($timeout, message) {
-    var thing = [
-        {
-            text: "spock",
-            occupation: "Officer",
-            x: "100px", 
-            y: "100px",
-            onDragComplete: function (data, event) {
-                this.x = (event.originalEvent.clientX - 50) + "px";
-                this.y = (event.originalEvent.clientY - 172.5)+ "px";
 
-                console.log("Event: ", event);
-                console.log("Data: ", data);
+    var createMiniature = function (name, occupation, xPosition, yPosition, img) {
+        return {
+            text: name,
+            occupation: occupation,
+            realX: xPosition,
+            realY: yPosition,
+            img: img,
+            x: function () { return this.realX + "px"; },
+            y: function () { return this.realY + "px"; },
+            onDragComplete: function (data, event) {
+                // we moved over by 110,110
+
+                var finalX = event.originalEvent.clientX; // number 210
+                var finalY = event.originalEvent.clientY; // number 285
+
+                var moveX = finalX - this.initX; // moveX is a number +110
+                var moveY = finalY - this.initY; // moveY is a number +110
+
+                this.realX = this.realX + moveX;
+                this.realY = this.realY + moveY;
+            },
+            onDragStart: function (data, event) {
+                this.initX = event.originalEvent.clientX;// number 100
+                this.initY = event.originalEvent.clientY;// number 175
             }
-        },
-        {
-            text: "hal 9000",
-            occupation: "Computer",
-            x: "500px",
-            y: "500px"
-        },
-        {
-            text: "yoda",
-            occupation: "Jedi Master",
-            x: "666px",
-            y: "333px"
-        },
-        {
-            text: "mace windu",
-            occupation: "Jedi Master",
-            x: "333px",
-            y: "666px"
-        },
-        {
-            text: "prince",
-            occupation: "Musician",
-            x: "250px",
-            y: "750px"
-        },
-        {
-            text: "einstein",
-            occupation: "Physicist",
-            x: "750px",
-            y: "250px"
-        }
+        };
+    };
+
+    var thing = [
+        createMiniature("hal 9000", "Computer", 100, 100, "images/cards/0.jpg"),
+        createMiniature("spock", "Science Officer", 200, 200, "images/cards/1.jpg"),
+        createMiniature("yoda", "Jedi Master", 666, 333, "images/cards/2.jpg"),
+        createMiniature("mace windu", "Jedi Master", 333, 666, "images/cards/3.jpg"),
+        createMiniature("prince", "Musician", 250, 750, "images/cards/4.jpg"),
+        createMiniature("einstein", "Physicist", 750, 250, "images/cards/5.jpg"),
     ];
+    
+    // ☣☣☣ warning! highly contagious. 
+    // one looper is started it can not be stopped
+    //var looper = function () {
+    //    thing.push(createMiniature("zombie", "undead", Math.random() * 1000, Math.random() * 1000,"images/cards/6.jpg"))
+    //    g.services.timeoutService.$timeout(looper, 1000)
+    //};
+
+    //looper();
+    // ☣☣☣ warning! highly contagious 
 
     var toReturn = {
         message: message,

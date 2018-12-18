@@ -3,17 +3,16 @@
 <div id="table">
     <h2>Welcome to the Wanderer virtual tabletop, or Table.  For more info go to wanderer-rpg.com/blog</h2>
     <div class="table-top">
-        <p>World Map? Drop Down thing maybe? Ras, ze Red Planet.  I mean Mars. </p>
-        <!--"-->
-        <div data-ng-repeat="tableObject in activePage().getController().tableObjects()" 
+        <img data-ng-repeat="tableObject in activePage().getController().tableObjects()" 
              class="testbox" 
              data-ng-center-anchor="true"
              data-ng-drag="true"
              data-ng-drag-stop="tableObject.onDragComplete($data,$event)"
-             data-ng-style="{left: tableObject.x,top: tableObject.y}">
-            <h3>{{tableObject.text}} </h3>
-            <p>{{tableObject.occupation}}</p>
-        </div>
+             data-ng-drag-start="tableObject.onDragStart($data,$event)"
+             data-ng-style="{left: tableObject.x() ,top: tableObject.y() }"
+             src="{{tableObject.img}}" />
+            <!--<h3>{{tableObject.text}} </h3>
+            <p>{{tableObject.occupation}}</p>-->
     </div>
 </div>
 

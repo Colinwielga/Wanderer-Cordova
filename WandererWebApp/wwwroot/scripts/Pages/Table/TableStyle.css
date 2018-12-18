@@ -26,4 +26,5 @@
     width: 100px;
     background-color: lightseagreen;
     position: absolute;
+    border-radius: 50%;
 }
