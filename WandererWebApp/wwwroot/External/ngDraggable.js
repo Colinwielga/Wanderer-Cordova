@@ -46,6 +46,7 @@ angular.module("ngDraggable", [])
                 var onDragStartCallback = $parse(attrs.ngDragStart) || null;
                 var onDragStopCallback = $parse(attrs.ngDragStop) || null;
                 var onDragSuccessCallback = $parse(attrs.ngDragSuccess) || null;
+                var onDragMoveCallback = $parse(attrs.ngDragMove) || null;
                 var allowTransform = angular.isDefined(attrs.allowTransform) ? scope.$eval(attrs.allowTransform) : true;
 
                 var getDragData = $parse(attrs.ngDragData);
@@ -212,7 +213,7 @@ angular.module("ngDraggable", [])
                     }
 
                     moveElement(_tx, _ty);
-
+                    onDragMoveCallback(scope, {$data: _data, $event: evt})
                     $rootScope.$broadcast('draggable:move', { x: _mx, y: _my, tx: _tx, ty: _ty, event: evt, element: element, data: _data, uid: _myid, dragOffset: _dragOffset });
                 };
 
