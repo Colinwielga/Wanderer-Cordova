@@ -1,15 +1,15 @@
 ﻿<link rel="stylesheet" type="text/css" href="scripts/Pages/Table/TableStyle.css" />
 
 <div id="table">
-    <h2>Welcome to the Wanderer virtual tabletop, or Table.  For more info go to wanderer-rpg.com/blog</h2>
     <div class="table-top">
         <img data-ng-repeat="tableObject in activePage().getController().tableObjects()" 
              class="testbox" 
-             data-ng-center-anchor="true"
-             data-ng-drag="true"
-             data-ng-drag-stop="tableObject.onDragComplete($data,$event)"
-             data-ng-drag-start="tableObject.onDragStart($data,$event)"
-             data-ng-style="{left: tableObject.x() ,top: tableObject.y() }"
+             ng-center-anchor="true"
+             ng-drag="true"
+             ng-drag-stop="tableObject.onDragComplete($data,$event)"
+             ng-drag-start="tableObject.onDragStart($data,$event)"
+             ng-drag-move="tableObject.onDragMove($data,$event)"
+             ng-style="{left: tableObject.x() ,top: tableObject.y() }"
              src="{{tableObject.img}}" />
             <!--<h3>{{tableObject.text}} </h3>
             <p>{{tableObject.occupation}}</p>-->

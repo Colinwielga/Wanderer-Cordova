@@ -2,6 +2,15 @@
 
     var allMiniatures = [];
 
+    var id = Math.random() + "";
+
+    var toReturn = {
+        message: message,
+        tableObjects: function () {
+            return allMiniatures;
+        }
+    };
+
     // first we join a colabrative session
     var key = "test key";
     var groupName = "test group";
@@ -11,7 +20,7 @@
 
     g.services.SingnalRService.setCallback(key,
         groupName,
-        function (message) { return message.module === "table"; },
+        function (message) { return message.module === "table" && message.SendBy !== id; },
         function (message) {
             g.services.timeoutService.$timeout(function () {
                 // logic
@@ -19,7 +28,7 @@
 
                 // for now we will just log
                 // run it!
-                console.log("got a message:", message);
+                //console.log("got a message:", message);
 
                 // check if the message is a move
                 if (message.message === "miniature moved") {
@@ -49,9 +58,6 @@
                         createMiniature(message.text, message.occupation, message.locationX, message.locationY, message.img, false)
                     }
                 }
-
-
-
             });
         });
 
@@ -66,14 +72,18 @@
             y: function () { return this.realY + "px"; },
             onDragComplete: function (data, event) {
 
-                var finalX = event.originalEvent.clientX; 
-                var finalY = event.originalEvent.clientY; 
+                var currentX = event.originalEvent.clientX; 
+                var currentY = event.originalEvent.clientY; 
 
-                var moveX = finalX - this.initX;
-                var moveY = finalY - this.initY; 
+                var moveX = currentX - this.lastX;
+                var moveY = currentY - this.lastY;
+                
+                this.lastX = currentX;
+                this.lastY = currentY;
 
                 this.realX = this.realX + moveX;
                 this.realY = this.realY + moveY;
+
 
                 // TODO send a message to tell the world we moved a miniature
 
@@ -83,13 +93,16 @@
                         message: "miniature moved",
                         text: name,
                         locationX: this.realX,
-                        locationY: this.realY
+                        locationY: this.realY,
+                        SendBy: id
                     });
-
+            },
+            onDragMove: function (data, event) {
+                this.onDragComplete(data, event);
             },
             onDragStart: function (data, event) {
-                this.initX = event.originalEvent.clientX;// number 100
-                this.initY = event.originalEvent.clientY;// number 175
+                this.lastX = event.originalEvent.clientX;// number 100
+                this.lastY = event.originalEvent.clientY;// number 175
             }
         };
 
@@ -104,7 +117,8 @@
                     img: img,
                     occupation: occupation,
                     locationX: xPosition,
-                    locationY: yPosition
+                    locationY: yPosition,
+                    SendBy: id
                 });
         }
     };
@@ -128,11 +142,6 @@
     //looper();
     // ☣☣☣ warning! highly contagious 
 
-    var toReturn = {
-        message: message,
-        tableObjects: function () {
-            return allMiniatures;
-        }
-    };
+
     return toReturn;
 };
