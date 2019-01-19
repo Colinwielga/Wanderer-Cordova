@@ -3,6 +3,7 @@
 <div id="table">
     <div class="table-top">
         <img data-ng-repeat="tableObject in activePage().getController().tableObjects()" 
+            id = "miniature-{{tableObject.miniatureId}}"
              class="testbox" 
              ng-center-anchor="true"
              ng-drag="true"
