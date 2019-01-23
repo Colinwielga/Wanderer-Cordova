@@ -29,7 +29,10 @@ namespace WandererWebApp
 
             services.AddCors();
 
-            services.AddSignalR()
+            services.AddSignalR(x=> {
+                x.KeepAliveInterval = TimeSpan.FromSeconds(10);
+                x.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
+            })
                     .AddAzureSignalR();
         }
 
@@ -52,6 +55,7 @@ namespace WandererWebApp
             app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<Chat>("/chat");
+                
             });
         }
     }
