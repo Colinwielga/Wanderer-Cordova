@@ -1,19 +1,26 @@
 ﻿<link rel="stylesheet" type="text/css" href="scripts/Pages/Table/TableStyle.css" />
 
 <div id="table">
+    <div class="side-bar">        
+        <input type="button" value="Zombie" ng-click="activePage().getController().addZombie()"/>
+    </div>
     <div class="table-top">
-        <img data-ng-repeat="tableObject in activePage().getController().tableObjects()" 
-            id = "miniature-{{tableObject.miniatureId}}"
-             class="testbox" 
-             ng-center-anchor="true"
-             ng-drag="true"
-             ng-drag-stop="tableObject.onDragComplete($data,$event)"
-             ng-drag-start="tableObject.onDragStart($data,$event)"
-             ng-drag-move="tableObject.onDragMove($data,$event)"
-             ng-style="{left: tableObject.x() ,top: tableObject.y() }"
-             src="{{tableObject.img}}" />
-            <!--<h3>{{tableObject.text}} </h3>
-            <p>{{tableObject.occupation}}</p>-->
+        <div class="table-cloth">
+            <div data-ng-repeat="tableObject in activePage().getController().tableObjects()"
+                 id="miniature-{{tableObject.miniatureId}}"
+                 class="testbox"
+                 ng-include="tableObject.getHtml()"
+                 ng-center-anchor="true"
+                 ng-drag="true"
+                 ng-drag-stop="tableObject.onDragComplete($data,$event)"
+                 ng-drag-start="tableObject.onDragStart($data,$event)"
+                 ng-drag-move="tableObject.onDragMove($data,$event)"
+                 ng-style="{left: tableObject.x() ,top: tableObject.y() }"
+                 >
+            </div>
+        <!--<h3>{{tableObject.text}} </h3>
+    <p>{{tableObject.occupation}}</p>-->
+        </div>
     </div>
 </div>
 

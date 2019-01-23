@@ -8,6 +8,15 @@
         message: message,
         tableObjects: function () {
             return allMiniatures;
+        },
+        addZombie: function () {
+            createMiniature(Math.random() + "",
+                "zombie" + Math.random(),
+                "undead",
+                Math.random() * 500,
+                Math.random() * 500,
+                "images/cards/6.jpg",
+                true);
         }
     };
 
@@ -70,6 +79,8 @@
             realY: yPosition,
             img: img,
             lastSent: 0,
+            getHtml: function () {
+                return "scripts/pages/Table/tableObject.html";},
             x: function () { return this.realX + "px"; },
             y: function () { return this.realY + "px"; },
             move: function (data, event,alwaysSend) {
@@ -130,9 +141,10 @@
                     SendBy: id
                 });
         }
+
     };
     
-    createMiniature("362834729","hal 9000", "Computer", 100, 100, "images/cards/0.jpg", false);
+    createMiniature("362834729","hal 9000", "Computer", 0, 0, "images/cards/0.jpg", false);
     createMiniature("758341938","spock", "Science Officer", 200, 200, "images/cards/1.jpg", false);
     createMiniature("789519764","yoda", "Jedi Master", 666, 333, "images/cards/2.jpg", false);
     createMiniature("249751635","mace windu", "Jedi Master", 333, 666, "images/cards/3.jpg", false);
@@ -141,15 +153,7 @@
     
     
     
-    // ☣☣☣ warning! highly contagious. 
-    // one looper is started it can not be stopped
-    //var looper = function () {
-    //    createMiniature("zombie" + Math.random(), "undead", Math.random() * 1000, Math.random() * 1000, "images/cards/6.jpg", true);
-    //    g.services.timeoutService.$timeout(looper, 1000);
-    //};
 
-    //looper();
-    // ☣☣☣ warning! highly contagious 
 
 
     return toReturn;
