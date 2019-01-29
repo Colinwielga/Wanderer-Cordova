@@ -9,14 +9,23 @@
         tableObjects: function () {
             return allMiniatures;
         },
+        addBossMonster: function () {
+            createMiniature(
+                Math.random() + "",
+                Math.random() * 500,
+                Math.random() * 500,
+                "images/cards/15.jpg",
+                true,
+                "scripts/Pages/Table/boss-monster.html");
+        },
         addZombie: function () {
-            createMiniature(Math.random() + "",
-                "zombie" + Math.random(),
-                "undead",
+            createMiniature(
+                Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
                 "images/cards/6.jpg",
-                true);
+                true, 
+                "scripts/Pages/Table/round-miniature.html");
         }
     };
 
@@ -64,23 +73,23 @@
                     }
 
                     if (isNewToUs) {
-                        createMiniature(message.miniatureId, message.text, message.occupation, message.locationX, message.locationY, message.img, false);
+                        createMiniature(message.miniatureId, message.locationX, message.locationY, message.img, false, message.htmlPath);
                     }
                 }
             });
         });
 
-    var createMiniature = function (miniatureId,name, occupation, xPosition, yPosition, img, sendMessage) {
+    var createMiniature = function (miniatureId, xPosition, yPosition, img, sendMessage, htmlPath) {
         var miniature = {
             miniatureId: miniatureId,
-            text: name,
-            occupation: occupation,
+         
             realX: xPosition,
             realY: yPosition,
             img: img,
             lastSent: 0,
             getHtml: function () {
-                return "scripts/pages/Table/tableObject.html";},
+                return htmlPath;
+            },
             x: function () { return this.realX + "px"; },
             y: function () { return this.realY + "px"; },
             move: function (data, event,alwaysSend) {
@@ -105,7 +114,6 @@
                             miniatureId: this.miniatureId,
                             module: "table",
                             message: "miniature moved",
-                            text: name,
                             locationX: this.realX,
                             locationY: this.realY,
                             SendBy: id
@@ -133,23 +141,22 @@
                     miniatureId: miniature.miniatureId,
                     module: "table",
                     message: "miniature created",
-                    text: name,
                     img: img,
-                    occupation: occupation,
                     locationX: xPosition,
                     locationY: yPosition,
-                    SendBy: id
+                    SendBy: id,
+                    hmtlPath: htmlPath
                 });
         }
 
     };
     
-    createMiniature("362834729","hal 9000", "Computer", 0, 0, "images/cards/0.jpg", false);
-    createMiniature("758341938","spock", "Science Officer", 200, 200, "images/cards/1.jpg", false);
-    createMiniature("789519764","yoda", "Jedi Master", 666, 333, "images/cards/2.jpg", false);
-    createMiniature("249751635","mace windu", "Jedi Master", 333, 666, "images/cards/3.jpg", false);
-    createMiniature("824691375","prince", "Musician", 250, 750, "images/cards/4.jpg", false);
-    createMiniature("548547623","einstein", "Physicist", 750, 250, "images/cards/5.jpg", false);
+    createMiniature("362834729", 0, 0, "images/cards/0.jpg", false, "scripts/Pages/Table/round-miniature.html");
+    createMiniature("758341938", 200, 200, "images/cards/1.jpg", false, "scripts/Pages/Table/round-miniature.html");
+    createMiniature("789519764", 666, 333, "images/cards/2.jpg", false, "scripts/Pages/Table/round-miniature.html");
+    createMiniature("249751635", 333, 666, "images/cards/3.jpg", false, "scripts/Pages/Table/round-miniature.html");
+    createMiniature("824691375", 250, 750, "images/cards/4.jpg", false, "scripts/Pages/Table/round-miniature.html");
+    createMiniature("548547623", 750, 250, "images/cards/5.jpg", false, "scripts/Pages/Table/round-miniature.html");
     
     
     

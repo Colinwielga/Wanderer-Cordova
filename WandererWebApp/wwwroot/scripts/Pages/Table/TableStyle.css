@@ -25,6 +25,12 @@
     border-radius: 50%;
 }
 
+.boss-monsters {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
 .side-bar {
     flex: 0 1 200px;
     background-color: gray;
