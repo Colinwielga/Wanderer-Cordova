@@ -4,6 +4,9 @@
     <div class="side-bar">
         <input type="button" value="Zombie" ng-click="activePage().getController().addZombie()" />
         <input type="button" value="Boss Monster" ng-click="activePage().getController().addBossMonster()" />
+        <input type="button" value="Wall" ng-click="activePage().getController().addWall()" />
+        <input type="button" value="Water" ng-click="activePage().getController().addTerrain('images/water.jpg')" />
+        <input type="button" value="Lava" ng-click="activePage().getController().addTerrain('images/lava.png')" />
     </div>
     <div class="table-top">
         <div class="table-cloth">
@@ -11,7 +14,6 @@
                  id="miniature-{{tableObject.miniatureId}}"
                  class="testbox"
                  ng-include="tableObject.getHtml()"
-                 ng-center-anchor="true"
                  ng-drag="true"
                  ng-drag-stop="tableObject.onDragComplete($data,$event)"
                  ng-drag-start="tableObject.onDragStart($data,$event)"
@@ -19,11 +21,6 @@
                  ng-style="{left: tableObject.x() ,top: tableObject.y() }"
                  >
             </div>
-        <!--<h3>{{tableObject.text}} </h3>
-    <p>{{tableObject.occupation}}</p>-->
         </div>
     </div>
 </div>
-
-
-

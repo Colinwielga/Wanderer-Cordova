@@ -18,22 +18,44 @@
                 true,
                 "scripts/Pages/Table/boss-monster.html");
         },
-        addZombie: function () {
+        addZombie: function () {// {
             createMiniature(
                 Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
                 "images/cards/6.jpg",
-                true, 
+                true,
                 "scripts/Pages/Table/round-miniature.html");
+        },
+        addTerrain: function (imagePath) { //
+            createMiniature(
+                Math.random() + "",
+                Math.random() * 500,
+                Math.random() * 500,
+                imagePath,
+                true, 
+                "scripts/Pages/Table/terrain.html");
+        },
+        addWall: function () {
+
+            var wallNumber = Math.round((Math.random() * 5) + 10); /*todo get random number between 1 and 6*/
+
+            createMiniature(
+                    Math.random() + "",
+                    Math.random() * 500,
+                    Math.random() * 500,
+                    'images/wall' + wallNumber + '.png',
+                    true,
+                    "scripts/Pages/Table/terrain.html");
         }
+
     };
 
     // first we join a colabrative session
     var key = "test key";
     var groupName = "test group";
     g.services.SingnalRService.Join(groupName, key);
-    
+
     g.services.SingnalRService.tryRemoveCallback(key);
 
     g.services.SingnalRService.setCallback(key,
@@ -59,7 +81,7 @@
                             miniature.realY = message.locationY;
                         }
                     }
-                    
+
                     // TODO update the position of the right miniature
                 }
                 if (message.message === "miniature created") {
@@ -82,7 +104,6 @@
     var createMiniature = function (miniatureId, xPosition, yPosition, img, sendMessage, htmlPath) {
         var miniature = {
             miniatureId: miniatureId,
-         
             realX: xPosition,
             realY: yPosition,
             img: img,
@@ -92,20 +113,25 @@
             },
             x: function () { return this.realX + "px"; },
             y: function () { return this.realY + "px"; },
-            move: function (data, event,alwaysSend) {
+            move: function (data, event, alwaysSend, rounded) {
 
-                var currentX = event.originalEvent.clientX; 
-                var currentY = event.originalEvent.clientY; 
+                var currentX = event.originalEvent.clientX;
+                var currentY = event.originalEvent.clientY;
 
                 var moveX = currentX - this.lastX;
                 var moveY = currentY - this.lastY;
-                
+
                 this.lastX = currentX;
                 this.lastY = currentY;
 
                 this.realX = this.realX + moveX;
                 this.realY = this.realY + moveY;
-
+                
+                if (rounded) {
+                    this.realX = Math.round(this.realX / 100) * 100;
+                    this.realY = Math.round(this.realY / 100) * 100;
+                }
+                
                 var now = (new Date).getTime();
 
                 if (now - this.lastSent > 100 || alwaysSend){
@@ -122,10 +148,10 @@
                 }
             },
             onDragComplete: function (data, event) {
-                this.move(data, event,true);
+                this.move(data, event, true, true);
             },
             onDragMove: function (data, event) {
-                this.move(data, event,false);
+                this.move(data, event, false, false);
             },
             onDragStart: function (data, event) {
                 this.lastX = event.originalEvent.clientX;// number 100

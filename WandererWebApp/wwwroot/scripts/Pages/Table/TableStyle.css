@@ -26,10 +26,30 @@
 }
 
 .boss-monsters {
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
 }
+
+.far-back {
+    margin-left: -2px;
+    margin-top: -2px;
+    margin-right: 0px;
+    margin-bottom: -2px;
+    z-index: -1;
+    padding: 2px;
+    border: 0px;
+    margin: 0px;
+    background-color: black;
+}
+
+.terrain {
+    height: 100px;
+    width: 100px;
+    border-radius: 0%;
+    filter: invert(0%);
+}
+
 
 .side-bar {
     flex: 0 1 200px;
@@ -42,7 +62,7 @@
     overflow: hidden;
     position: relative;
     background-image: linear-gradient(rgba(0,0,0,.05) 50%, transparent 50%), linear-gradient(-90deg, rgba(0,0,0,.05) 50%, transparent 50%);
-    background-size: 150px 150px;
+    background-size: 200px 200px;
     /*background-image: linear-gradient(#d95d16 2px, transparent 2px), linear-gradient(90deg, #d95d16 2px, transparent 2px), linear-gradient(rgba(150, 150, 150, .3) 1px, transparent 1px), linear-gradient(90deg, rgba(150, 150, 150, .3) 1px, transparent 1px);
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;*/
