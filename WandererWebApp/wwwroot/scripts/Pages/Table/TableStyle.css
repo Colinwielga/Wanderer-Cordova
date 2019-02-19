@@ -4,7 +4,6 @@
 
 #table .table-top {
     flex: 1 1 auto;
-
 }
 
 #table {
@@ -13,6 +12,16 @@
     align-items: stretch;
     height: 100%;
     width: 100%;
+}
+
+.label {
+    background-color: slategray;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    padding: 2px;
+    border-radius: 2px;
+    max-width: 200px;
 }
 
 .testbox {

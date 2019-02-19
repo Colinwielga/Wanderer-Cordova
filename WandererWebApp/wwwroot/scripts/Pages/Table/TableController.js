@@ -14,7 +14,9 @@
                 Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
-                "images/cards/15.jpg",
+                {
+                    imagePath: "images/cards/15.jpg"
+                },
                 true,
                 "scripts/Pages/Table/boss-monster.html");
         },
@@ -23,7 +25,9 @@
                 Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
-                "images/cards/6.jpg",
+                {
+                    imagePath: "images/cards/6.jpg"
+                },
                 true,
                 "scripts/Pages/Table/round-miniature.html");
         },
@@ -32,23 +36,52 @@
                 Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
-                imagePath,
+                {
+                    imagePath: imagePath
+                },
                 true, 
                 "scripts/Pages/Table/terrain.html");
         },
         addWall: function () {
 
-            var wallNumber = Math.round((Math.random() * 5) + 10); /*todo get random number between 1 and 6*/
+            var wallNumber = Math.round((Math.random() * 5) + 10); 
 
             createMiniature(
-                    Math.random() + "",
-                    Math.random() * 500,
-                    Math.random() * 500,
-                    'images/wall' + wallNumber + '.png',
-                    true,
-                    "scripts/Pages/Table/terrain.html");
+                Math.random() + "",
+                Math.random() * 500,
+                Math.random() * 500,
+                {
+                    imagePath: 'images/wall' + wallNumber + '.png'
+                },
+                true,
+                "scripts/Pages/Table/terrain.html");
+        },
+        addLabel: function () {
+            createMiniature(
+                Math.random() + "",
+                Math.random() * 500,
+                Math.random() * 500,
+                {
+                    text: this.labelText
+                }, 
+                false,
+                "scripts/Pages/Table/Label.html");
+        },
+        labelText: "",
+        removeAll: function () {
+            allMiniatures = [];
+            // todo publish 
+        },
+        remove: function (toRemove) { 
+            var nextList = [];
+            for (let miniature of allMiniatures) {
+                if (miniature.miniatureId !== toRemove.miniatureId) {
+                    nextList.push(miniature); 
+                }   
+            }
+            allMiniatures = nextList;
+            // todo publish
         }
-
     };
 
     // first we join a colabrative session
@@ -101,12 +134,12 @@
             });
         });
 
-    var createMiniature = function (miniatureId, xPosition, yPosition, img, sendMessage, htmlPath) {
+    var createMiniature = function (miniatureId, xPosition, yPosition, miniatureData, sendMessage, htmlPath) {
         var miniature = {
             miniatureId: miniatureId,
             realX: xPosition,
             realY: yPosition,
-            img: img,
+            miniatureData: miniatureData,
             lastSent: 0,
             getHtml: function () {
                 return htmlPath;
@@ -176,18 +209,6 @@
         }
 
     };
-    
-    createMiniature("362834729", 0, 0, "images/cards/0.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("758341938", 200, 200, "images/cards/1.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("789519764", 666, 333, "images/cards/2.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("249751635", 333, 666, "images/cards/3.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("824691375", 250, 750, "images/cards/4.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("548547623", 750, 250, "images/cards/5.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    
-    
-    
-
-
 
     return toReturn;
 };
