@@ -1,0 +1,26 @@
+﻿<link rel="stylesheet" type="text/css" href="scripts/Pages/Table/TableStyle.css" />
+
+<div id="table">
+    <div class="side-bar">
+        <input type="button" value="Zombie" ng-click="activePage().getController().addZombie()" />
+        <input type="button" value="Boss Monster" ng-click="activePage().getController().addBossMonster()" />
+        <input type="button" value="Wall" ng-click="activePage().getController().addWall()" />
+        <input type="button" value="Water" ng-click="activePage().getController().addTerrain('images/water.jpg')" />
+        <input type="button" value="Lava" ng-click="activePage().getController().addTerrain('images/lava.png')" />
+    </div>
+    <div class="table-top">
+        <div class="table-cloth">
+            <div data-ng-repeat="tableObject in activePage().getController().tableObjects()"
+                 id="miniature-{{tableObject.miniatureId}}"
+                 class="testbox"
+                 ng-include="tableObject.getHtml()"
+                 ng-drag="true"
+                 ng-drag-stop="tableObject.onDragComplete($data,$event)"
+                 ng-drag-start="tableObject.onDragStart($data,$event)"
+                 ng-drag-move="tableObject.onDragMove($data,$event)"
+                 ng-style="{left: tableObject.x() ,top: tableObject.y() }"
+                 >
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,17 @@ Wanderer\bld\*
 \Wanderer\AppPackages\*
 \Wanderer\bin\*
 \Wanderer\bld\*
+WandererWebApp\bin\*
+WandererWebApp\obj\*
+\WandererWebApp\bin\*
+\WandererWebApp\obj\*
+WandererWebApp/bin/*
+WandererWebApp/obj/*
+/WandererWebApp/bin/*
+/WandererWebApp/obj/*
+**/obj/
+**/bin/
+**/.vs/
 
 Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
 Wanderer/www/modules/colin-wielga-dynamo-save/AWSConnector.js
@@ -33,3 +44,11 @@ Wanderer/simulation/app-host.json
 Wanderer/simulation/sim-host.js
 Wanderer/simulation/sim-host.json
 /.vs
+/WandererWebApp/wwwroot/scripts/Services/AWSConnectorKeys.js
+*.dll
+*.exe
+*.pdb
+/WandererWebAPI/obj
+/WandererWebAPI/bin/Debug/netcoreapp2.0
+
+**/AWSConnectorKeys.js

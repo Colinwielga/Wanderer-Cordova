@@ -1,0 +1,152 @@
+﻿<!-- the cards in play go grey -->
+<link href="../scott-levi-cards/card.css" rel="stylesheet" />
+<link href="modules/scott-levi-hearts/stylesheet.css" rel="stylesheet" />
+
+<!--players-->
+<div ng-show="module.joined" class="pad-me">
+    <div data-ng-repeat="player in module.playersInRoom">
+        <input type="button" value="Challenge {{player.name}}" ng-click="module.Challenge(player)" />
+    </div>
+</div>
+
+<!-- challenges -->
+<div ng-show="module.joined" class="pad-me ">
+    <div data-ng-repeat="challenge in module.challenges">
+        <div ng-if="challenge.status == 'Received' || challenge.status == 'Sent'">
+            waiting for responce from: <b>{{challenge.challengeeName}}</b>
+            <input type="button" value="Revoke" ng-click="module.RevokeChallenge(challenge)" />
+        </div>
+        <div ng-if="challenge.status== 'Open'">
+            <b>{{challenge.challengerName}}</b> wants to play with you:
+            <input type="button" value="Play" ng-click="module.AcceptChallenge(challenge)" />
+            <input type="button" value="Don't play" ng-click="module.RejectChallenge(challenge)" />
+        </div>
+        <div ng-if="challenge.status== 'Expired'">
+            <b>{{challenge.challengeeName}}</b> could not be reached
+            <input type="button" value="Remove" ng-click="module.RemoveChallenge(challenge)" />
+        </div>
+        <div ng-if="challenge.status == 'Revoked'">
+            <b>{{challenge.challengerName}}</b> revoked their challange
+            <input type="button" value="Remove" ng-click="module.RemoveChallenge(challenge)" />
+        </div>
+        <div ng-if="challenge.status == 'Rejected'">
+            <b>
+                {{challenge.challengerName}}
+            </b> rejected your challange
+            <input type="button" value="Remove" ng-click="module.RemoveChallenge(challenge)" />
+        </div>
+    </div>
+</div>
+<!-- games -->
+<!-- we are going to add a class to our games -->
+<!-- ok I think that should be good -->
+<div ng-show="module.joined" class="pad-me">
+    <div data-ng-repeat="game in module.games" class="game">
+        <!-- game area starts here -->
+        <h3>Game with {{game.oppo}}</h3>        <!-- it knows who your opponent is "game.oppo"-->
+        <p>your turn: {{game.IsYourTurn}}</p>  <!-- it knows if it is your opponent is "game.IsYourTurn"-->
+        <p>your Tricks: You- {{game.yourTricks}} Them- {{game.yourOppoTricks}}</p>  <!-- and it knows how many tricks you have won "game.tricks"-->
+        <div class="card-cards-container discard-pile">
+            <div data-ng-repeat="message in game.inPlay"
+                 class="scott-levi-card-container wrapped-card"
+                 ng-init="card = message.card">
+                <div class="played-by">
+                    <!-- it also knows what cards have been played "game.inPlay"-->
+                    <!-- do you want to see where we make this game object? -->
+                    <!--
+                it is in the JS
+                we just set IsYourTurn
+                we were setting that on the game object
+                -->
+                    {{message.playedBy}}
+                </div>
+                <div ng-include="card.getHtml()">
+                </div>
+            </div>
+        </div>
+        <!--
+
+    here! - this is the cards you have in your hand
+    we are going to use something called ng-class
+    it let's you give a div a class when a condition is true
+
+    so we can give this a not-your-trun class
+
+    when it is not your turn
+
+    and we can tie our rule to it
+
+    and will be awesome
+
+    but I don't really remebmer how ng-class works
+
+    so we need to find an example
+
+    can you paste an example here?
+
+    I remember the syntax is strange
+
+
+        we need ng-class not ng-if
+                                                                another method
+                                                another class
+        ng-class="{'can-close':page.canClose(), 'cannot-close':!page.canClose()}"
+                    ^class     |
+                               ^a method, when the method is true the element will get the class
+        ok- so - weird syntax
+
+
+        we need to fill in those ??
+
+        I wish
+
+        just do the work for me
+            haha
+            naw, we got to do it the hard way
+
+        ng-class is confusing so I would not worry about it, if it does not make sense
+
+            we just need to go in our JS and find somehting that tells us if it is our turn
+
+            probably something on a game object
+
+            do you know the '!'?
+            it generally means not
+
+            so !game.IsYourTurn
+
+            means not game.IsYourTurn
+
+            yeah,
+
+            so this:
+
+            'not-your-turn':!game.IsYourTurn
+
+            reads:
+
+            when '!game.IsYourTurn' apply the class 'not-your-turn'
+
+            cool?
+
+            now we should add that class to our css
+
+
+    -->
+        <div class="card-cards-container" ng-class="{'not-your-turn':!game.IsYourTurn, 'your-turn':game.IsYourTurn}">
+            <div ng-repeat="card in game.hand"
+                 class="scott-levi-card-container wrapped-card"
+                 ng-click="game.play(card)"
+                 ng-include="card.getHtml()">
+            </div>
+        </div>
+        <input ng-if="game.alone == false" type="button" value="Leave" ng-click="module.LeaveGame(game)" />
+        <div ng-if="game.alone == true">
+            <b>
+                {{game.oppo}}
+            </b> has left the game
+            <input type="button" value="Leave" ng-click="module.LeaveAbandonedGame(game)" />
+        </div>
+        <!-- game area ends here -->
+    </div>
+</div>

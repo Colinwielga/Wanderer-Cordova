@@ -1,0 +1,8 @@
+﻿
+#scott-levi-hearts .game .scott-levi-card {
+    transition: opacity linear .4s;
+}
+
+#scott-levi-hearts .game .not-your-turn .scott-levi-card{
+    opacity: .5;
+}
