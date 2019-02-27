@@ -44,11 +44,10 @@
     margin-left: -2px;
     margin-top: -2px;
     margin-right: 0px;
-    margin-bottom: -2px;
+    margin-bottom: 0px;
     z-index: -1;
     padding: 2px;
     border: 0px;
-    margin: 0px;
     background-color: black;
 }
 
@@ -76,4 +75,10 @@
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;*/
     /*background-position: 0 0, 0 10px, 10px -10px, -10px 0px;*/
+}
+
+#canvas {
+    height: 100%;
+    width: 100%;
+    background: rgba(138, 88, 88, 0.075);
 }

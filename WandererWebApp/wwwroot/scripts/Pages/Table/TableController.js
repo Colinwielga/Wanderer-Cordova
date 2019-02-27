@@ -2,9 +2,62 @@
 
     var allMiniatures = [];
 
+    var startPoint = {x:25,y:100};
+    var midPoint = {x:50,y:120};
+    var endPoint = {x:75,y:100};
+    var smile = [startPoint, midPoint, endPoint];
+    var ltop ={x:25,y:20};
+    var lleft ={x:20,y:25};
+    var lright ={x:30,y:25};
+    var lbot ={x:25,y:30};
+    var leftEye =[ltop,lleft,lbot,lright,ltop];
+    var rtop ={x:75,y:20};
+    var rleft ={x:70,y:25};
+    var rright ={x:80,y:25};
+    var rbot ={x:75,y:30};
+    var rightEye= [rtop,rleft,rbot,rright,rtop];
+    var allStrokes = [smile,leftEye,rightEye];    
+
+    let reDraw = function (){
+        console.log("redraw start");
+        // 💩 TODO Colin
+        // the UI should reach in the controller for values
+        // bad form for the controller to reach in to the UI and monkey 🐵
+        let context = document.getElementById('canvas').getContext("2d");
+
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+  
+        context.strokeStyle = "#df4b26";
+        context.lineJoin = "round";
+        context.lineWidth = 5;
+
+        for (let stroke of allStrokes) {
+            context.beginPath();
+           
+            var first = true;
+            for (let point of stroke) {
+                
+                // add points to the path
+                if (first ){
+                    context.moveTo(point.x, point.y);
+                    first = false;
+                }else {
+                    context.lineTo(point.x, point.y);
+                }
+                                    
+            }
+            context.stroke();
+
+        }    
+        console.log("redraw stop");
+    };
+    
     var id = Math.random() + "";
 
+    // toReturn is the controller
     var toReturn = {
+        drawTool:false,
+        eraseTool:false,
         message: message,
         tableObjects: function () {
             return allMiniatures;
@@ -71,6 +124,16 @@
         removeAll: function () {
             allMiniatures = [];
             // todo publish 
+        },
+        activateDrawTool: function () {
+            this.drawTool = true;
+            this.eraseTool = false;
+            reDraw();
+        },
+        activateEraseTool: function () {
+            this.eraseTool = true;
+            this.drawTool = false;
+            reDraw();
         },
         remove: function (toRemove) { 
             var nextList = [];
