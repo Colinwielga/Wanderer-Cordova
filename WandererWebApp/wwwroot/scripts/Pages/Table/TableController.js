@@ -1,22 +1,10 @@
 ﻿g.getTableController = function ($timeout, message) {
 
-    var allMiniatures = [];
+    let allStrokes = [[
+        {x:0,y:0},{x:100,y:100}
+    ]];    
 
-    var startPoint = {x:25,y:100};
-    var midPoint = {x:50,y:120};
-    var endPoint = {x:75,y:100};
-    var smile = [startPoint, midPoint, endPoint];
-    var ltop ={x:25,y:20};
-    var lleft ={x:20,y:25};
-    var lright ={x:30,y:25};
-    var lbot ={x:25,y:30};
-    var leftEye =[ltop,lleft,lbot,lright,ltop];
-    var rtop ={x:75,y:20};
-    var rleft ={x:70,y:25};
-    var rright ={x:80,y:25};
-    var rbot ={x:75,y:30};
-    var rightEye= [rtop,rleft,rbot,rright,rtop];
-    var allStrokes = [smile,leftEye,rightEye];    
+    let allMiniatures = [];
 
     let reDraw = function (){
         console.log("redraw start");
@@ -24,6 +12,10 @@
         // the UI should reach in the controller for values
         // bad form for the controller to reach in to the UI and monkey 🐵
         let context = document.getElementById('canvas').getContext("2d");
+        // wtf canvas how do you work??!
+        // https://stackoverflow.com/questions/2892041/how-to-avoid-html-canvas-auto-stretching
+        document.getElementById('canvas').width = document.getElementById('table-cloth').width;
+        document.getElementById('canvas').height = document.getElementById('table-cloth').height;
 
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
   
@@ -123,6 +115,8 @@
         labelText: "",
         removeAll: function () {
             allMiniatures = [];
+            allStrokes = [];
+            reDraw();
             // todo publish 
         },
         activateDrawTool: function () {
@@ -144,6 +138,48 @@
             }
             allMiniatures = nextList;
             // todo publish
+        },
+        mouseIsDown: false,
+        mouseOver: function(event){
+            if (mouseIsDown === true){
+                var stroke = allStrokes[allStrokes.length - 1];
+
+                var point = {
+                    x: event.originalEvent.layerX,
+                    y: event.originalEvent.layerY
+                };
+
+                stroke.push(point);
+                reDraw();    
+            }
+        },
+        mouseUp: function(event){
+            
+            var stroke = allStrokes[allStrokes.length - 1];
+            mouseIsDown = false;       
+            var point = {
+                x: event.originalEvent.layerX,
+                y: event.originalEvent.layerY
+            };
+
+            stroke.push(point);
+
+            reDraw();
+        },
+        mouseDown: function(event){
+            
+            var stroke =[];
+            mouseIsDown = true;
+            allStrokes.push(stroke);
+            
+            var point = {
+                x: event.originalEvent.layerX,
+                y: event.originalEvent.layerY
+            };
+            
+            stroke.push(point);
+
+            reDraw();
         }
     };
 

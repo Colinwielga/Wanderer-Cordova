@@ -26,7 +26,7 @@
                 <input type="button" value="❌" ng-click="activePage().getController().remove(tableObject)" />
                 <div ng-include="tableObject.getHtml()"></div>
             </div>
-            <canvas id="canvas"> </canvas>
+            <canvas id="canvas" ng-mousedown="activePage().getController().mouseDown($event)" ng-mouseover="activePage().getController().mouseOver($event)" ng-mouseup="activePage().getController().mouseUp($event)"> </canvas>
         </div>
     </div>
 </div>

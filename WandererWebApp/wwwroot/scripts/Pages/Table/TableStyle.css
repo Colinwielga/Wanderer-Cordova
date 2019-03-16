@@ -78,7 +78,7 @@
 }
 
 #canvas {
-    height: 100%;
-    width: 100%;
+    /* height: 100%;
+    width: 100%; */
     background: rgba(138, 88, 88, 0.075);
 }
