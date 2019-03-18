@@ -33,7 +33,7 @@ namespace WandererWebApp
                 x.KeepAliveInterval = TimeSpan.FromSeconds(10);
                 x.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
             })
-                    .AddAzureSignalR();
+            .AddAzureSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

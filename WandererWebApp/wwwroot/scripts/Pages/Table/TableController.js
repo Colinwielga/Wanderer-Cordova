@@ -7,15 +7,17 @@
     let allMiniatures = [];
 
     let reDraw = function (){
-        console.log("redraw start");
         // 💩 TODO Colin
         // the UI should reach in the controller for values
         // bad form for the controller to reach in to the UI and monkey 🐵
-        let context = document.getElementById('canvas').getContext("2d");
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext("2d");
         // wtf canvas how do you work??!
         // https://stackoverflow.com/questions/2892041/how-to-avoid-html-canvas-auto-stretching
-        document.getElementById('canvas').width = document.getElementById('table-cloth').width;
-        document.getElementById('canvas').height = document.getElementById('table-cloth').height;
+        // TODO this only needs to be called once
+        let hackyHackyHackHack = document.getElementById('hacky-hacky-hack-hack');
+        canvas.width = hackyHackyHackHack.clientWidth;//4000;//
+        canvas.height = hackyHackyHackHack.clientHeight;//4000;//
 
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
   
@@ -40,8 +42,7 @@
             }
             context.stroke();
 
-        }    
-        console.log("redraw stop");
+        }
     };
     
     var id = Math.random() + "";
@@ -141,7 +142,7 @@
         },
         mouseIsDown: false,
         mouseOver: function(event){
-            if (mouseIsDown === true){
+            if (this.mouseIsDown === true) {
                 var stroke = allStrokes[allStrokes.length - 1];
 
                 var point = {
@@ -156,7 +157,7 @@
         mouseUp: function(event){
             
             var stroke = allStrokes[allStrokes.length - 1];
-            mouseIsDown = false;       
+            this.mouseIsDown = false;       
             var point = {
                 x: event.originalEvent.layerX,
                 y: event.originalEvent.layerY
@@ -169,7 +170,7 @@
         mouseDown: function(event){
             
             var stroke =[];
-            mouseIsDown = true;
+            this.mouseIsDown = true;
             allStrokes.push(stroke);
             
             var point = {
