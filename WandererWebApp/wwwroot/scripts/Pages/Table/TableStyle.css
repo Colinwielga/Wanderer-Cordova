@@ -35,15 +35,17 @@
     margin-left: -2px;
     margin-top: -2px;
     margin-right: 0px;
-    margin-bottom: -2px;
-    z-index: -1;
+    margin-bottom: 0px;
+    z-index: 0;
     padding: 2px;
     border: 0px;
-    margin: 0px;
     background-color: black;
+    position:absolute;
 }
 
 .terrain {
+    position: absolute;
+    z-index: 20;
     height: 100px;
     width: 100px;
     border-radius: 0%;
