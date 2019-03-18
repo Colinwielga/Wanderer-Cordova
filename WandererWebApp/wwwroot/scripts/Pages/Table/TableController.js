@@ -1,10 +1,55 @@
 ﻿g.getTableController = function ($timeout, message) {
 
-    var allMiniatures = [];
+    let allStrokes = [[
+        {x:0,y:0},{x:100,y:100}
+    ]];    
 
+    let allMiniatures = [];
+
+    let reDraw = function (){
+        console.log("redraw start");
+        // 💩 TODO Colin
+        // the UI should reach in the controller for values
+        // bad form for the controller to reach in to the UI and monkey 🐵
+        let context = document.getElementById('canvas').getContext("2d");
+        // wtf canvas how do you work??!
+        // https://stackoverflow.com/questions/2892041/how-to-avoid-html-canvas-auto-stretching
+        document.getElementById('canvas').width = document.getElementById('table-cloth').width;
+        document.getElementById('canvas').height = document.getElementById('table-cloth').height;
+
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+  
+        context.strokeStyle = "#df4b26";
+        context.lineJoin = "round";
+        context.lineWidth = 5;
+
+        for (let stroke of allStrokes) {
+            context.beginPath();
+           
+            var first = true;
+            for (let point of stroke) {
+                
+                // add points to the path
+                if (first ){
+                    context.moveTo(point.x, point.y);
+                    first = false;
+                }else {
+                    context.lineTo(point.x, point.y);
+                }
+                                    
+            }
+            context.stroke();
+
+        }    
+        console.log("redraw stop");
+    };
+    
     var id = Math.random() + "";
 
+    // toReturn is the controller
     var toReturn = {
+        drawTool:false,
+        eraseTool:false,
         message: message,
         tableObjects: function () {
             return allMiniatures;
@@ -14,7 +59,9 @@
                 Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
-                "images/cards/15.jpg",
+                {
+                    imagePath: "images/cards/15.jpg"
+                },
                 true,
                 "scripts/Pages/Table/boss-monster.html");
         },
@@ -23,7 +70,9 @@
                 Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
-                "images/cards/6.jpg",
+                {
+                    imagePath: "images/cards/6.jpg"
+                },
                 true,
                 "scripts/Pages/Table/round-miniature.html");
         },
@@ -32,23 +81,106 @@
                 Math.random() + "",
                 Math.random() * 500,
                 Math.random() * 500,
-                imagePath,
+                {
+                    imagePath: imagePath
+                },
                 true, 
                 "scripts/Pages/Table/terrain.html");
         },
         addWall: function () {
 
-            var wallNumber = Math.round((Math.random() * 5) + 10); /*todo get random number between 1 and 6*/
+            var wallNumber = Math.round((Math.random() * 5) + 10); 
 
             createMiniature(
-                    Math.random() + "",
-                    Math.random() * 500,
-                    Math.random() * 500,
-                    'images/wall' + wallNumber + '.png',
-                    true,
-                    "scripts/Pages/Table/terrain.html");
-        }
+                Math.random() + "",
+                Math.random() * 500,
+                Math.random() * 500,
+                {
+                    imagePath: 'images/wall' + wallNumber + '.png'
+                },
+                true,
+                "scripts/Pages/Table/terrain.html");
+        },
+        addLabel: function () {
+            createMiniature(
+                Math.random() + "",
+                Math.random() * 500,
+                Math.random() * 500,
+                {
+                    text: this.labelText
+                }, 
+                false,
+                "scripts/Pages/Table/Label.html");
+        },
+        labelText: "",
+        removeAll: function () {
+            allMiniatures = [];
+            allStrokes = [];
+            reDraw();
+            // todo publish 
+        },
+        activateDrawTool: function () {
+            this.drawTool = true;
+            this.eraseTool = false;
+            reDraw();
+        },
+        activateEraseTool: function () {
+            this.eraseTool = true;
+            this.drawTool = false;
+            reDraw();
+        },
+        remove: function (toRemove) { 
+            var nextList = [];
+            for (let miniature of allMiniatures) {
+                if (miniature.miniatureId !== toRemove.miniatureId) {
+                    nextList.push(miniature); 
+                }   
+            }
+            allMiniatures = nextList;
+            // todo publish
+        },
+        mouseIsDown: false,
+        mouseOver: function(event){
+            if (mouseIsDown === true){
+                var stroke = allStrokes[allStrokes.length - 1];
 
+                var point = {
+                    x: event.originalEvent.layerX,
+                    y: event.originalEvent.layerY
+                };
+
+                stroke.push(point);
+                reDraw();    
+            }
+        },
+        mouseUp: function(event){
+            
+            var stroke = allStrokes[allStrokes.length - 1];
+            mouseIsDown = false;       
+            var point = {
+                x: event.originalEvent.layerX,
+                y: event.originalEvent.layerY
+            };
+
+            stroke.push(point);
+
+            reDraw();
+        },
+        mouseDown: function(event){
+            
+            var stroke =[];
+            mouseIsDown = true;
+            allStrokes.push(stroke);
+            
+            var point = {
+                x: event.originalEvent.layerX,
+                y: event.originalEvent.layerY
+            };
+            
+            stroke.push(point);
+
+            reDraw();
+        }
     };
 
     // first we join a colabrative session
@@ -101,12 +233,12 @@
             });
         });
 
-    var createMiniature = function (miniatureId, xPosition, yPosition, img, sendMessage, htmlPath) {
+    var createMiniature = function (miniatureId, xPosition, yPosition, miniatureData, sendMessage, htmlPath) {
         var miniature = {
             miniatureId: miniatureId,
             realX: xPosition,
             realY: yPosition,
-            img: img,
+            miniatureData: miniatureData,
             lastSent: 0,
             getHtml: function () {
                 return htmlPath;
@@ -176,18 +308,6 @@
         }
 
     };
-    
-    createMiniature("362834729", 0, 0, "images/cards/0.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("758341938", 200, 200, "images/cards/1.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("789519764", 666, 333, "images/cards/2.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("249751635", 333, 666, "images/cards/3.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("824691375", 250, 750, "images/cards/4.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    createMiniature("548547623", 750, 250, "images/cards/5.jpg", false, "scripts/Pages/Table/round-miniature.html");
-    
-    
-    
-
-
 
     return toReturn;
 };

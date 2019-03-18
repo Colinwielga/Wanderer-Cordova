@@ -7,20 +7,26 @@
         <input type="button" value="Wall" ng-click="activePage().getController().addWall()" />
         <input type="button" value="Water" ng-click="activePage().getController().addTerrain('images/water.jpg')" />
         <input type="button" value="Lava" ng-click="activePage().getController().addTerrain('images/lava.png')" />
+        <input type="text" ng-model="activePage().getController().labelText" placeholder="Label" />
+        <input type="button" value="Label" ng-click="activePage().getController().addLabel()" />
+        <input type="button" value="Pen" ng-click="activePage().getController().activateDrawTool()" ng-disabled="activePage().getController().drawTool"/>
+        <input type="button" value="Eraser" ng-click="activePage().getController().activateEraseTool()" ng-disabled="activePage().getController().eraseTool" />
+        <input type="button" value="Clear Table" ng-click="activePage().getController().removeAll()" />
     </div>
     <div class="table-top">
         <div class="table-cloth">
             <div data-ng-repeat="tableObject in activePage().getController().tableObjects()"
                  id="miniature-{{tableObject.miniatureId}}"
                  class="testbox"
-                 ng-include="tableObject.getHtml()"
                  ng-drag="true"
                  ng-drag-stop="tableObject.onDragComplete($data,$event)"
                  ng-drag-start="tableObject.onDragStart($data,$event)"
                  ng-drag-move="tableObject.onDragMove($data,$event)"
-                 ng-style="{left: tableObject.x() ,top: tableObject.y() }"
-                 >
+                 ng-style="{left: tableObject.x() ,top: tableObject.y() }">
+                <input type="button" value="❌" ng-click="activePage().getController().remove(tableObject)" />
+                <div ng-include="tableObject.getHtml()"></div>
             </div>
+            <canvas id="canvas" ng-mousedown="activePage().getController().mouseDown($event)" ng-mouseover="activePage().getController().mouseOver($event)" ng-mouseup="activePage().getController().mouseUp($event)"> </canvas>
         </div>
     </div>
 </div>

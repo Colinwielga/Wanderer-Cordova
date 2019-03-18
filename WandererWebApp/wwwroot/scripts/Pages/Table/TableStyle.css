@@ -4,7 +4,6 @@
 
 #table .table-top {
     flex: 1 1 auto;
-
 }
 
 #table {
@@ -13,6 +12,16 @@
     align-items: stretch;
     height: 100%;
     width: 100%;
+}
+
+.label {
+    background-color: slategray;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    padding: 2px;
+    border-radius: 2px;
+    max-width: 200px;
 }
 
 .testbox {
@@ -36,7 +45,7 @@
     margin-top: -2px;
     margin-right: 0px;
     margin-bottom: 0px;
-    z-index: 0;
+    z-index: -1;
     padding: 2px;
     border: 0px;
     background-color: black;
@@ -69,4 +78,10 @@
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;*/
     /*background-position: 0 0, 0 10px, 10px -10px, -10px 0px;*/
+}
+
+#canvas {
+    /* height: 100%;
+    width: 100%; */
+    background: rgba(138, 88, 88, 0.075);
 }
