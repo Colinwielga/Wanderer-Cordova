@@ -52,16 +52,6 @@
     position:absolute;
 }
 
-.terrain {
-    position: absolute;
-    z-index: 20;
-    height: 100px;
-    width: 100px;
-    border-radius: 0%;
-    filter: invert(0%);
-}
-
-
 .side-bar {
     flex: 0 1 200px;
     background-color: gray;
@@ -82,6 +72,6 @@
 
 #canvas {
     /* height: 100%;
-    width: 100%; */
-    background: rgba(138, 88, 88, 0.075);
+    width: 100%; 
+    background: rgba(138, 88, 88, 0.075);*/
 }

@@ -4,12 +4,13 @@
     <div class="side-bar">
         <input type="button" value="Zombie" ng-click="activePage().getController().addZombie()" />
         <input type="button" value="Boss Monster" ng-click="activePage().getController().addBossMonster()" />
-        <input type="button" value="Wall" ng-click="activePage().getController().addWall()" />
-        <input type="button" value="Water" ng-click="activePage().getController().addTerrain('images/water.jpg')" />
-        <input type="button" value="Lava" ng-click="activePage().getController().addTerrain('images/lava.png')" />
         <input type="text" ng-model="activePage().getController().labelText" placeholder="Label" />
         <input type="button" value="Label" ng-click="activePage().getController().addLabel()" />
-        <input type="button" value="Pen" ng-click="activePage().getController().activateDrawTool()" ng-disabled="activePage().getController().drawTool"/>
+        <input type="button" value="Black Pen" ng-click="activePage().getController().activateDrawTool('#000000')" ng-disabled="activePage().getController().drawTool && activePage().getController().color === '#000000'" />
+        <input type="button" value="Red Pen" ng-click="activePage().getController().activateDrawTool('#ff0000')" ng-disabled="activePage().getController().drawTool && activePage().getController().color === '#ff0000'" />
+        <input type="button" value="Yellow Pen" ng-click="activePage().getController().activateDrawTool('#ffff00')" ng-disabled="activePage().getController().drawTool && activePage().getController().color === '#ffff00'" />
+        <input type="button" value="Blue Pen" ng-click="activePage().getController().activateDrawTool('#0000ff')" ng-disabled="activePage().getController().drawTool && activePage().getController().color === '#0000ff'" />
+        <input type="button" value="Magenta Pen" ng-click="activePage().getController().activateDrawTool('#ff00ff')" ng-disabled="activePage().getController().drawTool && activePage().getController().color === '#ff00ff'" />
         <input type="button" value="Eraser" ng-click="activePage().getController().activateEraseTool()" ng-disabled="activePage().getController().eraseTool" />
         <input type="button" value="Clear Table" ng-click="activePage().getController().removeAll()" />
     </div>
