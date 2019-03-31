@@ -7,65 +7,50 @@ ColinLombSkills.component = function () {
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
-        this.skills = ColinLombSkills.BuildSkills([["Spirit", []],
-        ["Body", []],
-        ["Mind", []],
-        ["People skills", []],
-        ["Strength", ["Body"]],
-        ["Precision", ["Body"]],
-        ["Balance", ["Body"]],
-        ["Reflexes", ["Body"]],
-        ["Awareness", ["Mind"]],
-        ["Intelligence", ["Mind"]],
-        ["Climb", ["Balance", "Strength"]],
-        ["Swim", ["Strength"]],
-        ["Jump", ["Strength"]],
-        ["Combat", []],
-        ["Dodge projectile", ["Reflexes", "Combat"]],
-        ["Melee Block", ["Reflexes", "Strength", "Combat"]],
-        ["Melee Attack", ["Strength", "Precision", "Combat"]],
-        ["Bow", ["Strength", "Precision", "Combat"]],
-        ["Shooting", ["Precision", "Combat"]],
-        ["Throw", ["Strength", "Precision", "Combat"]],
-        ["Wrestling", ["Strength", "Combat"]],
-        ["Act", ["People skills"]],
-        ["Intimidate", ["Act"]],
-        ["Ingratiate", ["People skills"]],
-        ["Track", ["Awareness"]],
-        ["Hide", ["Awareness"]],
-        ["Sneak", ["Balance", "Precision"]],
-        ["Mechanic", ["Precision", "Intelligence"]],
-        ["Drive", ["Precision", "Reflexes"]],
-        ["Craft", []],
-        ["Art", []],
-        ["Cooking", ["Smelling", "Craft", "Art"]],
-        ["Music", ["Art"]],
-        ["In the dark", []],
-        ["Stuff", []],
-        ["Weapon", ["Stuff"]],
-        ["Shield", ["Stuff"]],
-        ["Armor", ["Stuff"]],
-        ["Fly outfit", ["Stuff"]],
-        ["Smelling", ["Awareness"]],
-        ["Tracking by scent", ["Track", "Smelling"]],
-        ["Architecture", ["Intelligence"]],
-        ["Birdcalls", ["Craft"]],
-        ["Patience", []],
-        ["Omlette", ["Cooking"]],
-        ["Painting", ["Art"]],
-        ["Mud identification", ["Intelligence", "Craft"]],
-        ["Cigar rolling", ["Precision", "Craft"]],
-        ["Orienteering", []],
-        ["Field Crafting", ["Craft"]],
-        ["Botany", ["Intelligence"]],
-        ["Sketching", ["Precision", "Art"]],
-        ["Journaling", ["Awareness", "Intelligence"]],
-        ["Dissertation", ["Intelligence"]],
-        ["What is the worth of a man, I do not know", []],
-        ["Architecture", ["Intelligence"]],
-        ["Animal handling", ["People skills"]]]);
+        this.skills = ColinLombSkills.BuildSkills([
+            ["Body", []],
+            ["Mind", []],
+            ["People skills", ["Mind"]],
+            ["Strength", ["Body"]],
+            ["Precision", ["Body"]],
+            ["Balance", ["Body"]],
+            ["Reflexes", ["Body"]],
+            ["Awareness", ["Mind"]],
+            ["Intelligence", ["Mind"]],
+            ["Climb", ["Balance", "Strength"]],
+            ["Swim", ["Strength"]],
+            ["Jump", ["Strength"]],
+            ["Combat", []],
+            ["Dodge projectile", ["Reflexes", "Combat"]],
+            ["Melee Block", ["Reflexes", "Strength", "Combat"]],
+            ["Melee Attack", ["Strength", "Precision", "Combat"]],
+            ["Bow", ["Strength", "Precision", "Combat"]],
+            ["Shooting", ["Precision", "Combat"]],
+            ["Throw", ["Strength", "Precision", "Combat"]],
+            ["Wrestling", ["Strength", "Combat"]],
+            ["Act", ["People skills"]],
+            ["Intimidate", ["Act"]],
+            ["Ingratiate", ["People skills"]],
+            ["Track", ["Awareness"]],
+            ["Hide", ["Awareness"]],
+            ["Sneak", ["Balance", "Precision"]],
+            ["Mechanic", ["Craft","Intelligence"]],
+            ["Craft", ["Precision"]],
+            ["Cooking", ["Craft", "Smell"]],
+            ["Music", []],
+            ["In the dark", []],
+            ["Smell", []],
+            ["Track using smell", ["Smell"]],
+            ["Patience", ["Mind"]],
+            ["Architecture", ["Intelligence"]],
+            ["Birdcalls", []],
+            ["Cigar rolling", ["Precision", "Craft"]],
+            ["Botany", ["Intelligence"]],
+            ["Sketching", ["Craft"]],
+            ["Journaling", ["Awareness", "Intelligence"]],
+            ["Animal handling", ["People skills"]]]);
     };
-    this.OnNewCharacter = function () {};
+    this.OnNewCharacter = function () { };
     this.OnSave = function () { };
     this.OnLoad = function () { };
     this.OnUpdate = function () { };
@@ -97,7 +82,7 @@ ColinLombSkills.component = function () {
                 skillsToSum.push(skill);
             }
         }
-        return ColinLombSkills.SumSkills(ColinLombSkills.CollectSkills(skillsToSum));
+        return ColinLombSkills.SumSkills(ColinLombSkills.CollectSkills(skillsToSum))/10.0;
     };
     this.getTotalPower = function () {
         var res = 0;
@@ -122,7 +107,7 @@ ColinLombSkills.BuildSkills = function (skillList) {
     for (var skill of skillList) {
         var adding = ColinLombSkills.MakeSkill(skill[0]);
         res.push(adding);
-        skills[skill[0]] = adding; 
+        skills[skill[0]] = adding;
     }
     for (var skill2 of skillList) {
         var toRelateList = [ColinLombSkills.MakeInnerSkill(skill2[0])];
@@ -135,12 +120,12 @@ ColinLombSkills.BuildSkills = function (skillList) {
 
         for (var toRelatedItem of toRelateList) {
             skills[skill2[0]].Related.push({
-                weight: 1.0 / toRelateList.length,
+                weight: (toRelatedItem === toRelateList[0] ? 2.0 : 1.0) / (toRelateList.length + 1.0),
                 element: toRelatedItem
             });
         }
     }
-    
+
     return res;
 };
 
@@ -190,7 +175,7 @@ ColinLombSkills.MakeSkill = function (name) {
     return {
         Active: false,
         OutFlowSum: function () {
-            return ColinLombSkills.SumSkills(this.OutFlow());
+            return ColinLombSkills.SumSkills(this.OutFlow())/10;
         },
         OutFlow: function () {
             var elements = [];
@@ -204,8 +189,11 @@ ColinLombSkills.MakeSkill = function (name) {
                 related.element.Reset();
             }
         },
-        InFlow: function (x) {
+        DirectInFlow: function (x) {
             this.AssignedPoints += x;
+            this.InFlow(x);
+        },
+        InFlow: function (x) {
             for (var related of this.Related) {
                 related.element.InFlow(x * related.weight);
             }

@@ -8,12 +8,12 @@
             </span>
         </div>
         <span>
-            <input type="button" value="-" data-ng-click="skill.InFlow( -0.1)" />
+            <input data-ng-disabled="skill.AssignedPoints <= 0" type="button" value="-" data-ng-click="skill.DirectInFlow( -1)" />
         </span>
         <span>
-            <input type="button" value="+" data-ng-click="skill.InFlow( 0.1)" />
+            <input type="button" value="+" data-ng-click="skill.DirectInFlow( 1)" />
         </span>
-        <span class="bar" style="width:{{(skill.OutFlowSum() + 1)*50}}px; height:15px; display:inline-block;">        </span>
+        <span class="bar" style="width:{{(skill.OutFlowSum())*50}}px; height:15px; display:inline-block;">        </span>
     </div>
 
     <p> Total power: {{module.getTotalPower()}}</p>

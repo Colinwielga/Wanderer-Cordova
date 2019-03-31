@@ -21,7 +21,7 @@
     }
 
 .bar {
-    background-image: linear-gradient(90deg, #d95d16 2px, transparent 2px), linear-gradient(90deg, rgba(217, 93, 22, .3) 2px, transparent 2px);
+    background-image: linear-gradient(90deg, #000 2px, transparent 2px), linear-gradient(90deg, #fff 1px, transparent 1px);
     background-size: 50px 50px, 5px 5px;
     background-position: -2px -2px, -2px -2px;
 }
