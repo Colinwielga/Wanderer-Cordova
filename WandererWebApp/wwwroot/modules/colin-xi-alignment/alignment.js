@@ -93,6 +93,7 @@ ColinXiAlignment.alignments = [
         "Just do it -- when you draw this, you may take an action it much be the first thing that pops in to your head",
         "when you draw this card, discard another card, when you play this card draw a card",
     ], ,),
-    ColinXiAlignment.alignment("Emotional",[], ,),
+    ColinXiAlignment.alignment("Emotional", [], ,),
+    ColinXiAlignment.alignment("Ambishus", [], ,),
 ]
 

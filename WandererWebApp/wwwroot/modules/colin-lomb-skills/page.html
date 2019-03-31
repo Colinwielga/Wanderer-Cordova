@@ -1,0 +1,23 @@
+﻿<link href="modules/colin-lomb-skills/stylesheet.css" rel="stylesheet" type="text/css" />
+<div class="pad-me">
+    <div data-ng-repeat="skill in module.skills">
+        <div style="width:200px; display:inline-block;">
+            <span data-ng-class="{'switch-on':skill.Active, 'switch-off':!skill.Active}" data-ng-click="skill.Active = !skill.Active">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                {{skill.Name}}
+            </span>
+        </div>
+        <span>
+            <input type="button" value="-" data-ng-click="skill.InFlow( -0.1)" />
+        </span>
+        <span>
+            <input type="button" value="+" data-ng-click="skill.InFlow( 0.1)" />
+        </span>
+        <span class="bar" style="width:{{(skill.OutFlowSum() + 1)*50}}px; height:15px; display:inline-block;">        </span>
+    </div>
+
+    <p> Total power: {{module.getTotalPower()}}</p>
+    <p> Selected power: {{module.getSelectedPower()}}</p>
+
+    <input type="button" value="reset" data-ng-click="module.reset()" />
+</div>

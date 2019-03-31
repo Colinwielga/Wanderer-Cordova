@@ -1,0 +1,27 @@
+﻿#colin-lomb-skills .switch-off,
+#colin-lomb-skills .switch-on {
+    cursor: pointer;
+}
+
+    ﻿#colin-lomb-skills i.switch-on, 
+    #colin-lomb-skills .switch-on i {
+        color: #903;
+    }
+
+    #colin-lomb-skills i.switch-off:hover, 
+    #colin-lomb-skills .switch-off:hover i {
+        color: #333;
+        opacity: 1;
+    }
+
+    #colin-lomb-skills i.switch-off, 
+    #colin-lomb-skills .switch-off i {
+        color: #333;
+        opacity: .3;
+    }
+
+.bar {
+    background-image: linear-gradient(90deg, #d95d16 2px, transparent 2px), linear-gradient(90deg, rgba(217, 93, 22, .3) 2px, transparent 2px);
+    background-size: 50px 50px, 5px 5px;
+    background-position: -2px -2px, -2px -2px;
+}
