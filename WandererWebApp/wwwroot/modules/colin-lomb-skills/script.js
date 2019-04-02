@@ -72,7 +72,7 @@ ColinLombSkills.component = function () {
         return "modules/" + this.getId() + "/rules.html";
     };
     this.getTitle = function () {
-        return "lomb skills";
+        return "Lomb Skills";
     };
 
     this.getSelectedPower = function () {
