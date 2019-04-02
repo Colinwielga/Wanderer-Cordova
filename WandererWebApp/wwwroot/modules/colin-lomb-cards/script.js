@@ -1,8 +1,8 @@
-﻿ColinXiCards.component = function () {
+﻿ColinLombCards.component = function () {
     var that = this;
     this.decklist = ColinWielgaCards.decklist;
     this.getId = function () {
-        return "colin-xi-cards";
+        return "colin-lomb-cards";
     };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
@@ -43,10 +43,10 @@
         return true;
     };
     this.getTitle = function () {
-        return "Xi Hand";
+        return "Lomb Hand";
     };
     this.getRequires = function () {
-        return ["colin-xi-alignment"];
+        return ["colin-lomb-alignment"];
     };
 
     this.getPublic = function () {
@@ -88,4 +88,4 @@
     this.OnNewCharacter();
 };
 
-g.services.componetService.registerCharacter(ColinXiCards.component);
+g.services.componetService.registerCharacter(ColinLombCards.component);

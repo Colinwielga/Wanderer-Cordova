@@ -1,10 +1,10 @@
-﻿var ColinXiAlignment = {};
+﻿var ColinLombAlignment = {};
 
-ColinXiAlignment.component = function () {
+ColinLombAlignment.component = function () {
 
     // all component need a unique ID
     this.getId = function () {
-        return "colin-xi-alignment";
+        return "colin-lomb-alignment";
     };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
@@ -13,7 +13,7 @@ ColinXiAlignment.component = function () {
     };
     this.OnNewCharacter = function () {
         this.Weights = [];
-        for (let item in ColinXiAlignment) {
+        for (let item in ColinLombAlignment) {
             Weights.puh({
                 name: "Emotional",
                 weight: 1,
@@ -54,10 +54,10 @@ ColinXiAlignment.component = function () {
     };
 
     this.getTitle = function () {
-        return "Xi Alignment";
+        return "Lomb Alignment";
     };
 
     this.OnNewCharacter();
 };
 
-g.services.componetService.registerCharacter(ColinXiAlignment.component);
+g.services.componetService.registerCharacter(ColinLombAlignment.component);

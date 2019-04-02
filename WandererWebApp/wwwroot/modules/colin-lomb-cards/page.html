@@ -1,0 +1,16 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/colin-wielga-cards/stylesheet.css" />
+<div class="pad-me highlight-section">
+    <center>
+        <button data-ng-click="module.draw()"> draw </button>
+    </center>
+</div>
+<div>
+    <div data-ng-repeat="cardID in module.hand">
+        <span>
+            <input type="button" value="discard" data-ng-click="module.discard(cardID)" />
+        </span>
+        <span class="bar" style="width:50px; display:inline-block;">{{module.getCard(cardID).value}}</span>
+        <span> {{module.getCard(cardID).text}}</span>
+    </div>
+</div>
+
