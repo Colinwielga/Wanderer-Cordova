@@ -60,16 +60,27 @@ ColinLombSkills.component = function () {
             });
         }
 
-        this.communicator.write("skills", this.toSave);
+        this.communicator.write("skills", toSave);
     };
     this.OnLoad = function () {
         var version = this.communicator.lastVersion();
         this.OnNewCharacter();
         if (version === 1) {
             if (this.communicator.canRead("skills")) {
-                var loadedSkills = this.communicator.read("selectedDeck");
+                var loadedSkills = this.communicator.read("skills");
+
                 for (var skill of loadedSkills) {
-                    this.skills[skill.Name].DirectInFlow(skill.AssignedPoints);
+
+                    var targetSKill = null;
+                    for (var existingSkill of this.skills) {
+                        if (existingSkill.Name === skill.Name) {
+                            targetSKill = existingSkill;
+                        }
+                    }
+
+                    if (targetSKill !== null) {
+                        targetSKill.DirectInFlow(skill.AssignedPoints);
+                    }
                 }
             }
         }
@@ -93,7 +104,7 @@ ColinLombSkills.component = function () {
         return "modules/" + this.getId() + "/rules.html";
     };
     this.getTitle = function () {
-        return "lomb skills";
+        return "Lomb Skills";
     };
 
     this.getSelectedPower = function () {
