@@ -4,13 +4,14 @@
         <button data-ng-click="module.draw()"> draw </button>
     </center>
 </div>
-<div>
-    <div data-ng-repeat="cardID in module.hand">
-        <span>
-            <input type="button" value="discard" data-ng-click="module.discard(cardID)" />
-        </span>
-        <span class="bar" style="width:50px; display:inline-block;">{{module.getCard(cardID).value}}</span>
-        <span> {{module.getCard(cardID).text}}</span>
+<div class="pad-me">
+    <div data-ng-repeat="card in module.hand" class="pad-me">
+        
+            <span>
+                <input type="button" value="discard" data-ng-click="module.discard(card)" />
+            </span>
+            <span> {{card.value}}</span>
+            <span> {{card.text}}</span>
     </div>
 </div>
 
