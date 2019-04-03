@@ -51,8 +51,29 @@ ColinLombSkills.component = function () {
             ["Animal handling", ["People skills"]]]);
     };
     this.OnNewCharacter = function () { };
-    this.OnSave = function () { };
-    this.OnLoad = function () { };
+    this.OnSave = function () {
+        var toSave = [];
+        for (var skill of this.skills) {
+            toSave.push({
+                Name: skill.Name,
+                AssignedPoints: skill.AssignedPoints
+            });
+        }
+
+        this.communicator.write("skills", this.toSave);
+    };
+    this.OnLoad = function () {
+        var version = this.communicator.lastVersion();
+        this.OnNewCharacter();
+        if (version === 1) {
+            if (this.communicator.canRead("skills")) {
+                var loadedSkills = this.communicator.read("selectedDeck");
+                for (var skill of loadedSkills) {
+                    this.skills[skill.Name].DirectInFlow(skill.AssignedPoints);
+                }
+            }
+        }
+    };
     this.OnUpdate = function () { };
     this.getRequires = function () { return []; };
     this.getPublic = function () {
