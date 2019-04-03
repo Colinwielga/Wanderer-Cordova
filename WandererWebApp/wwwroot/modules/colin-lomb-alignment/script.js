@@ -13,13 +13,6 @@ ColinLombAlignment.component = function () {
     };
     this.OnNewCharacter = function () {
         this.Weights = [];
-        for (let item in ColinLombAlignment) {
-            Weights.puh({
-                name: "Emotional",
-                weight: 1,
-                getCard: item.getCard
-            });
-        }
     };
     this.OnSave = function () {
     };
@@ -30,6 +23,20 @@ ColinLombAlignment.component = function () {
     this.getRequires = function () {
         return [];
     };
+
+    this. alignments =[{
+        name:"Foolish",
+        weight:2,
+        maxWeight:3
+    },{
+        name:"Curious",
+        weight:3,
+        maxWeight:4
+    }];
+
+    this.getAlignments = function (){
+        return this.alignments;
+    }
 
     this.getPublic = function () {
         return {

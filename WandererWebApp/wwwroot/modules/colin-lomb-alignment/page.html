@@ -1,5 +1,12 @@
 ﻿<div class="pad-me">
 
-
-
+    <div data-ng-repeat="alignment in module.getAlignments()">
+        <div style="width:200px; display:inline-block;">
+           {{alignment.name}}
+        </div>
+        <input data-ng-disabled="alignment.weight <= 0" type="button" value="-" data-ng-click="alignment.weight=alignment.weight-1" />
+        <input data-ng-disabled="alignment.weight >= alignment.maxWeight" type="button" value="+" data-ng-click="alignment.weight=alignment.weight+1" />
+        <div style="width:{{alignment.weight*40}}px; height:15px; background-color:#333; display:inline-block;"></div>
+        
+    </div>
 </div>
