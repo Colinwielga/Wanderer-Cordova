@@ -11,12 +11,54 @@ ColinLombAlignment.component = function () {
         this.communicator = communicator;
         this.Dependencies = dependencies;
     };
+
     this.OnNewCharacter = function () {
-        this.Weights = [];
+        this.alignments = [{
+            name: "Foolish",
+            weight: 2,
+            maxWeight: 3
+        }, {
+            name: "Curious",
+            weight: 3,
+            maxWeight: 4
+        }];
     };
+
     this.OnSave = function () {
+        var toSave = [];
+        for (var alignment of this.alignments) {
+            toSave.push({
+                name: alignment.name,
+                weight: alignment.weight
+            });
+        }
+
+        this.communicator.write("alignments", toSave);
     };
     this.OnLoad = function () {
+        var version = this.communicator.lastVersion();
+        this.OnNewCharacter();
+        if (version === 1) {
+            if (this.communicator.canRead("alignments")) {
+                var loadedAlignments = this.communicator.read("alignments");
+
+                for (var alignment of loadedAlignments) {
+
+                    var targetAlignment = null;
+                    for (var existingAlignment of this.alignments) {
+                        if (existingAlignment.name === alignment.name) {
+                            targetAlignment = existingAlignment;
+                        }
+                    }
+
+                    if (targetAlignment !== null) {
+                        targetAlignment.weight = alignment.weight;
+                    } else {
+                        console.error("could not match alignment: " + alignment.name);
+                    }
+                }
+            }
+        }
     };
     this.OnUpdate = function () {
     };
@@ -24,15 +66,6 @@ ColinLombAlignment.component = function () {
         return [];
     };
 
-    this. alignments =[{
-        name:"Foolish",
-        weight:2,
-        maxWeight:3
-    },{
-        name:"Curious",
-        weight:3,
-        maxWeight:4
-    }];
 
     this.getAlignments = function (){
         return this.alignments;

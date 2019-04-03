@@ -80,6 +80,8 @@ ColinLombSkills.component = function () {
 
                     if (targetSKill !== null) {
                         targetSKill.DirectInFlow(skill.AssignedPoints);
+                    } else {
+                        console.error("could not match skill: " + skill.Name);
                     }
                 }
             }
