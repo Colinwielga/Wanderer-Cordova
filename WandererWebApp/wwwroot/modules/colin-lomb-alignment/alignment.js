@@ -1,106 +1,122 @@
-﻿
-ColinLombAlignment.alignment = function (name, powers, valuesource) {
+﻿var ColinLombAlignment = {};
+
+ColinLombAlignment.alignment = function (name, powers, valuesource, maxWeight) {
     return {
         name: name,
-        getNameText: function () {
-            return powers[Math.floor(Math.random() * powers.length)];
-        },
         getCard: function () {
-            var nameText = this.getNameText();
-            return ColinLombCards.Card(nameText, valuesource())
-        }
+            return ColinLombCards.Card(
+                powers[Math.floor(Math.random() * powers.length)],
+                valuesource());
+        },
+        maxWeight:maxWeight
     };
 };
 
 ColinLombAlignment.Standard = function () {
-
+    return Math.floor(1+Math.random()*20);
 };
 
+ColinLombAlignment.Low = function () {
+    return Math.floor(1+Math.random()*10);
+};
+
+
 ColinLombAlignment.alignments = [
-    ColinLombAlignment.alignment("Foolish", [
-        "do something stupid"
-    ], ColinLombAlignment.Standard),
+    ColinLombAlignment.alignment(
+        "Foolish", [
+            "do something stupid: +3",
+            "don't think it through: +3"
+    ], ColinLombAlignment.Standard, 2),
     ColinLombAlignment.alignment("Curious", [
-        "perform an experiment",
-        "see what happens"
-    ], ColinLombAlignment.Standard),
+        "perform an experiment: +3",
+        "see what happens: +3"
+    ], ColinLombAlignment.Standard, 3),
     ColinLombAlignment.alignment("Loyal", [
-        "+3 when Helping an allie"
-    ], ColinLombAlignment.Standard),
+        "Help an allie: +3",
+        "Stand up for an allie: +3"
+    ], ColinLombAlignment.Standard, 2),
     ColinLombAlignment.alignment("Lawful", [
-        "+3 when acting according to procedure",
-        "+3 when sticking to the script"
-    ], ColinLombAlignment.Standard),
+        "act according to procedure: +3",
+        "keep your word: +3"
+    ], ColinLombAlignment.Standard, 2),
     ColinLombAlignment.alignment("Selfish", [
-        "Behind the parties back",
-        "take something",
-        "for me and me alone",
-        "save your own skin"
-    ], ColinLombAlignment.Standard),
+        "act behind the parties back: +3",
+        "take something: +3",
+        "get out of a sticky situation: +3 "
+    ], ColinLombAlignment.Standard, 3),
     ColinLombAlignment.alignment("Spiteful", [
-        "+3 if no one benifits from your action",
-        "+3 if you accept loss to hurt another",
-        "+3 if your action is totally overkill",
-        "+3 when hurting someone against whom you have held a grudge for some time"
-    ], ColinLombAlignment.Standard),
+        "accept loss to hurt another: +3",
+        "totally overkill: +3",
+        "take revenge: +5"
+    ], ColinLombAlignment.Standard, 3),
     ColinLombAlignment.alignment("Selfless", [
-        "+3 when acting to help another"
-    ], ColinLombAlignment.Standard),
+        "help another: +3",
+        "help a stranger: +4",
+        "help someone who has wronged you: +5"
+    ], ColinLombAlignment.Standard, 3),
     ColinLombAlignment.alignment("Idealistic", [
-        "preach",
-        "talk about why",
-        "hold your ground",
-        "for the cause",
-        "make a sacrifice"
-    ], ColinLombAlignment.Standard),
+        "preach: +3",
+        "stick with it: +3",
+        "hold your ground: +3",
+        "make a sacrifice: +5"
+    ], ColinLombAlignment.Standard, 4),
     ColinLombAlignment.alignment("Determined", [
-        "Progress at any cost",
-        "This time it's different",
-        "declare intent", "when you draw this card say what you want to use it for"
-    ], ColinLombAlignment.Standard),
+        "progress at any cost: +3",
+        "continue when any reasonable person would turn back: +3",
+        "this time it's different: +3",
+        "when you draw this card show it and say what you want to use it for, if you use it for that +3"
+    ], ColinLombAlignment.Standard, 3),
     ColinLombAlignment.alignment("Pragmatic", [
-        "it will have to do",
-        "Change of plan",
-        "Hack it",
-        "calculated loss"
-    ], ColinLombAlignment.Standard),
+        "Change of plan: +3",
+        "Hack it: +3",
+        "calculated loss: +3"
+    ], ColinLombAlignment.Standard, 3),
     ColinLombAlignment.alignment("Loving", [
-        "protect someone",
-        "make a sacrifice",
-        "show affection",
-        "work together"
-    ], ColinLombAlignment.Standard),
+        "protect someone: +3",
+        "make a sacrifice: +5",
+        "show affection: +3",
+        "work together: +3"
+    ], ColinLombAlignment.Standard, 4),
     ColinLombAlignment.alignment("Angry", [
-        "escalate",
-        "over react",
-        "lose your cool",
-        "blind rage",
-        "smash something",
-        "yell",
-        "hurt someone"
-    ], ColinLombAlignment.Standard),
+        "escalate: +3",
+        "over react: +3",
+        "lose your cool: +3",
+        "blind rage: +3",
+        "smash something: +3",
+        "yell: +3",
+        "hurt someone: +3"
+    ], ColinLombAlignment.Standard, 7),
     ColinLombAlignment.alignment("Careful", [
-        "take unnecessary precautions",
-        "I planned it out",
-        "We all agree",
-        "defend",
-        "abort",
-        "slow and steady",
-        "conserve or gain resource",
-        "when you draw this card, draw a card, when you play this card discard a card"
-    ], ColinLombAlignment.Standard),
+        "take unnecessary precautions: +3",
+        "plan it out: +3",
+        "everyone agrees: +3",
+        "defend: +3",
+        "tacticle retreat: +3",
+        "slow and steady: +3",
+        "conserve or gain resource: +3",
+        "when you draw this card show it and say what you want to use it for, if you use it for that +3"
+    ], ColinLombAlignment.Standard, 7),
     ColinLombAlignment.alignment("Reckless", [
         "why waste time discussing",
-        "+2 when using a resource",
+        "use a resource: +3",
+        "couln't resist: +3",
+        "Just do it: +3",
         "when you play this flip a coin, on heads add +5 to the value of this card",
-        "Couldn't resist -- you must play this card if it is in your hand, if two cards claim you must play them you can choose",
-        "Just do it -- when you draw this, you may take an action it much be the first thing that pops in to your head",
+        "you must play this card if it is in your hand, if two cards claim you must play them you can choose",
+        "when you draw this, you may take a bonus action it much be the first thing that pops in to your head",
         "I am let you finish but... -- + 3 if you play this card to preform and action before the DM has finished describing the scene",
-        "when you draw this card, discard another card, when you play this card draw a card"
-    ], ColinLombAlignment.Standard),
-    ColinLombAlignment.alignment("Emotional", [], ColinLombAlignment.Standard),
-    ColinLombAlignment.alignment("Ambitious", [], ColinLombAlignment.Standard)
+    ], ColinLombAlignment.Standard, 8),
+    ColinLombAlignment.alignment("Emotional", [
+        "panic: +3",
+        "rage: +3",
+        "over react: +3",
+        "show affection: +3",
+        "don't hold it in: +3"
+    ], ColinLombAlignment.Standard, 5)
 ];
+
+// todo:
+// Ambitious
 
 
 

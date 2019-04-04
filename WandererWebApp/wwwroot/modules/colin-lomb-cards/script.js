@@ -65,7 +65,8 @@ ColinLombCards.component = function () {
     };
 
     this.draw = function () {
-        this.hand.push(ColinLombCards.Card("drawn", 3));
+        var card = this.godsPublic.getCardContent();
+        this.hand.push(card);
     };
 
     this.discard = function (card) {

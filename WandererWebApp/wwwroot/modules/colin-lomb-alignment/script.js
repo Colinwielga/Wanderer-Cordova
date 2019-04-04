@@ -1,6 +1,7 @@
-﻿var ColinLombAlignment = {};
+﻿
 
 ColinLombAlignment.component = function () {
+    var that = this;
 
     // all component need a unique ID
     this.getId = function () {
@@ -13,15 +14,15 @@ ColinLombAlignment.component = function () {
     };
 
     this.OnNewCharacter = function () {
-        this.alignments = [{
-            name: "Foolish",
-            weight: 2,
-            maxWeight: 3
-        }, {
-            name: "Curious",
-            weight: 3,
-            maxWeight: 4
-        }];
+        this.alignments = [];
+        for (var alignment of ColinLombAlignment.alignments) {
+            this.alignments.push({
+                name: alignment.name,
+                weight: 0,
+                maxWeight: alignment.maxWeight,
+                getCard: alignment.getCard
+            });
+        }
     };
 
     this.OnSave = function () {
@@ -65,19 +66,47 @@ ColinLombAlignment.component = function () {
     this.getRequires = function () {
         return [];
     };
-
-
-    this.getAlignments = function (){
+    this.getAlignments = function () {
         return this.alignments;
-    }
+    };
+
+    this.baseDeck = ColinLombAlignment.alignment("Base deck", [
+        ""
+    ], ColinLombAlignment.Standard);
+
+    this.metaDeck = ColinLombAlignment.alignment("Meta deck", [
+        "discard: fact"
+    ], ColinLombAlignment.Low);
 
     this.getPublic = function () {
         return {
             getVersion: function () {
                 return 1;
             },
-            getWeights: function () {
+            getCardContent: function () {
+                if (Math.random() < .2) {
+                    return that.metaDeck.getCard();
+                }
 
+                if (Math.random() < .5) {
+                    var sum = 0;
+                    for (var alignment of that.alignments) {
+                        sum += alignment.weight;
+                    }
+
+                    var pull = Math.random() * sum;
+
+                    for (var alignment2 of that.alignments) {
+                        if (alignment2.weight !== 0) {
+                            pull -= alignment2.weight;
+                            if (pull <= 0) {
+                                return alignment2.getCard();
+                            }
+                        }
+                    }
+                }
+
+                return that.baseDeck.getCard();
             }
         };
     };
