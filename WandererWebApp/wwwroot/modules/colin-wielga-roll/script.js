@@ -39,8 +39,8 @@
         return this.dc !== undefined;
     };
 
-    this.rollDC = function () {
-        return this.roll(this.dc - this.getBonus());
+    this.rollDC = function (dc) {
+        return this.roll(dc - this.getBonus());
     };
 
     // TODO
@@ -88,36 +88,34 @@
         };
 
         // place pass or hard choice
-        var includeHardChoice = flip(.25);
-        var includePass = includeHardChoice ? flip(.4) : true;
         var includeCriticalPass = flip(.3);
+        var includePass = includeCriticalPass ? flip(.8) : true;
         var showCriticalPass = flip();
-        var showPass = flip(.75) || showCriticalPass || includeHardChoice;
-        var includeMixed = !includeHardChoice && showPass ? flip(.3) : false;
+        var showPass = flip(.75) || showCriticalPass;
+        var includeHardChoice = flip(.2);
+        var includeMixed = !includeHardChoice && showPass ? flip(.35) : false;
         var DC = center +
             Math.round(Roll.roll(1.5)) +
             (includeHardChoice ? move(1) : 0) +
-            (includeMixed ? move(1) : 0);
+            (includeMixed ? move(2) : 0);
 
 
         var publicAbove = "";
         var privateAbove = "";
 
-        // sometime place critical pass
         if (includeCriticalPass) {
             var DCCriticalPass = DC + move(7);
-            // if it's bigger than 16 who cares
-            if (DCCriticalPass < 16) {
-                if (showCriticalPass) {
-                    publicOutcomes.push(new rollLevel(publicAbove, DCCriticalPass,
-                        "critical pass"));
-                    publicAbove = DCCriticalPass - 1;
-                } else {
-                    privateOutcomes.push(new rollLevel(privateAbove, DCCriticalPass,
-                        "critical pass"));
-                }
-                privateAbove = DCCriticalPass - 1;
+
+            if (showCriticalPass) {
+                publicOutcomes.push(new rollLevel(publicAbove, DCCriticalPass,
+                    "critical pass"));
+                publicAbove = DCCriticalPass - 1;
+            } else {
+                privateOutcomes.push(new rollLevel(privateAbove, DCCriticalPass,
+                    "critical pass"));
             }
+            privateAbove = DCCriticalPass - 1;
+
         }
 
         if (includePass) {
@@ -142,7 +140,7 @@
         }
 
         if (includeMixed) {
-            var DCPassAtACost = privateAbove - move(2);
+            var DCPassAtACost = privateAbove - move(3);
             publicOutcomes.push(new rollLevel(publicAbove,
                 DCPassAtACost,
                 "mixed or undetermine or escalation"));
@@ -153,24 +151,23 @@
         //what remains is fail and cirtical fail
         // fail just takes up the remaining space so the first thing we need to know is if there will be a critical fail
         if (flip(.3)) {
-            var DCCriticalFail = privateAbove - 1 - move(7);
+            var DCCriticalFail = privateAbove - 1 - move(4);
 
-            if (DCCriticalFail >= 0) {
 
-                if (DCCriticalFail !== DCCriticalFail) {
-                    var db = 0;
-                }
-
-                if (flip()) {
-                    if (DCCriticalFail + 1 <= publicAbove) {
-                        publicOutcomes.push(new rollLevel(publicAbove, DCCriticalFail + 1, "fail"));
-                    }
-                    publicOutcomes.push(new rollLevel(DCCriticalFail, "", "critical fail"));
-                } else {
-                    publicOutcomes.push(new rollLevel(publicAbove, "", "fail"));
-                    privateOutcomes.push(new rollLevel(DCCriticalFail, "", "critical fail"));
-                }
+            if (DCCriticalFail !== DCCriticalFail) {
+                var db = 0;
             }
+
+            if (flip()) {
+                if (DCCriticalFail + 1 <= publicAbove) {
+                    publicOutcomes.push(new rollLevel(publicAbove, DCCriticalFail + 1, "fail"));
+                }
+                publicOutcomes.push(new rollLevel(DCCriticalFail, "", "critical fail"));
+            } else {
+                publicOutcomes.push(new rollLevel(publicAbove, "", "fail"));
+                privateOutcomes.push(new rollLevel(DCCriticalFail, "", "critical fail"));
+            }
+            
         } else {
             publicOutcomes.push(new rollLevel(publicAbove, "",
                 "fail"));

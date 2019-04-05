@@ -16,8 +16,8 @@
         <span class="bar" style="width:{{(skill.OutFlowSum())*50}}px; height:15px; display:inline-block;"></span>
     </div>
 
-    <p> Total power: {{module.getTotalPower()}}</p>
-    <p> Selected power: {{module.getSelectedPower()}}</p>
+    <p> Total power: {{Number(module.getTotalPower()).toFixed()}}</p>
+    <p> Selected power: {{Number(module.getSelectedPower()).toFixed()}}</p>
 
     <input type="button" value="reset" data-ng-click="module.reset()" />
 </div>

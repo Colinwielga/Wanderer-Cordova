@@ -117,6 +117,8 @@ ColinLombAlignment.alignments = [
 
 // todo:
 // Ambitious
+// Navite 
+// impolisive 
 
 
 

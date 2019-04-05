@@ -34,17 +34,21 @@ ColinLombSkills.component = function () {
             ["Track", ["Awareness"]],
             ["Hide", ["Awareness"]],
             ["Sneak", ["Balance", "Precision"]],
-            ["Mechanic", ["Craft","Intelligence"]],
+            ["Mechanic", ["Craft", "Intelligence"]],
+            ["Traps", []],
+            ["Setting Traps", ["Traps","Mechanic"]],
+            ["Avoiding Traps", ["Traps","Reflexes"]],
             ["Craft", ["Precision"]],
             ["Cooking", ["Craft", "Smell"]],
             ["Music", []],
             ["In the dark", []],
             ["Smell", []],
-            ["Track using smell", ["Smell"]],
             ["Patience", ["Mind"]],
             ["Architecture", ["Intelligence"]],
             ["Birdcalls", []],
             ["Cigar rolling", ["Precision", "Craft"]],
+            ["Dissertation", ["Intelligence","People skills"]],
+            ["Mud Identification", ["Intelligence"]],
             ["Botany", ["Intelligence"]],
             ["Sketching", ["Craft"]],
             ["Journaling", ["Awareness", "Intelligence"]],
@@ -148,8 +152,9 @@ ColinLombSkills.BuildSkills = function (skillList) {
         for (var relatedSkillName of skill2[1]) {
             if (skills[relatedSkillName] === undefined) {
                 console.error("could not find: " + relatedSkillName);
+            } else {
+                toRelateList.push(skills[relatedSkillName]);
             }
-            toRelateList.push(skills[relatedSkillName]);
         }
 
         for (var toRelatedItem of toRelateList) {
@@ -209,7 +214,7 @@ ColinLombSkills.MakeSkill = function (name) {
     return {
         Active: false,
         OutFlowSum: function () {
-            return ColinLombSkills.SumSkills(this.OutFlow())/10;
+            return ColinLombSkills.SumSkills(this.OutFlow()) / 10;
         },
         OutFlow: function () {
             var elements = [];
@@ -219,6 +224,7 @@ ColinLombSkills.MakeSkill = function (name) {
             return ColinLombSkills.CollectSkills(elements);
         },
         Reset: function () {
+            this.AssignedPoints = 0;
             for (var related of this.Related) {
                 related.element.Reset();
             }
@@ -236,4 +242,4 @@ ColinLombSkills.MakeSkill = function (name) {
         Name: name,
         Related: []
     };
-}
+};
