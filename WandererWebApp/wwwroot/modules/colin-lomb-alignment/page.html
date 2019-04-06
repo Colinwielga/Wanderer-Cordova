@@ -6,7 +6,8 @@
         </div>
         <input data-ng-disabled="alignment.weight <= 0" type="button" value="-" data-ng-click="alignment.weight=alignment.weight-1" />
         <input data-ng-disabled="alignment.weight >= alignment.maxWeight" type="button" value="+" data-ng-click="alignment.weight=alignment.weight+1" />
-        <div style="width:{{alignment.weight*40}}px; height:15px; background-color:#333; display:inline-block;"></div>
-        
+        <div style="width:{{alignment.weight*50}}px; background-image: linear-gradient(90deg, #333 45px, transparent 5px);background-size: 50px 50px; display:inline-block;">
+            <span style="visibility:hidden">shhh</span>
+        </div>
     </div>
 </div>

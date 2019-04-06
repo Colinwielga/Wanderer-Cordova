@@ -1,23 +1,26 @@
 ﻿<link href="modules/colin-lomb-skills/stylesheet.css" rel="stylesheet" type="text/css" />
 <div class="pad-me">
-    <div data-ng-repeat="skill in module.skills">
-        <div style="width:200px; display:inline-block;">
-            <span data-ng-class="{'switch-on':skill.Active, 'switch-off':!skill.Active}" data-ng-click="skill.Active = !skill.Active">
+    <div data-ng-repeat="skill in module.skills"  data-tip="{{skill.ToolTip()}}">
+        <div style="width:350px; display:inline-block;">
+            <div data-ng-class="{'switch-on':skill.Active, 'switch-off':!skill.Active}" class="skill" data-ng-click="skill.Active = !skill.Active">
                 <i class="fa fa-check" aria-hidden="true"></i>
-                {{skill.Name}}
-            </span>
+                <div class="skill-name" style="display:inline-block;">{{skill.Name}}</div>
+                <div class="skill-tool-tip" style="display:inline-block;"> {{skill.ToolTip()}}</div>
+            </div>
         </div>
         <span>
-            <input data-ng-disabled="skill.AssignedPoints <= 0" type="button" value="-" data-ng-click="skill.DirectInFlow( -1)" />
+            <input data-ng-disabled="skill.AssignedPoints <= 0" type="button" value="-" data-ng-click="module.directInFlow(skill, -1)" />
         </span>
         <span>
-            <input type="button" value="+" data-ng-click="skill.DirectInFlow( 1)" />
+            <input type="button" value="+" data-ng-click="module.directInFlow(skill, 1)" />
         </span>
-        <span class="bar" style="width:{{(skill.OutFlowSum())*50}}px; height:15px; display:inline-block;"></span>
+        <div class="bar" style="width:{{(module.outFlowSum(skill))*50}}px; display:inline-block;">
+            <span style="visibility:hidden">shhh</span>
+        </div>
     </div>
 
-    <p> Total power: {{Number(module.getTotalPower()).toFixed()}}</p>
-    <p> Selected power: {{Number(module.getSelectedPower()).toFixed()}}</p>
+    <p> Total power: {{module.getTotalPower()}}</p>
+    <p> Selected power: {{module.getSelectedPower()}}</p>
 
     <input type="button" value="reset" data-ng-click="module.reset()" />
 </div>

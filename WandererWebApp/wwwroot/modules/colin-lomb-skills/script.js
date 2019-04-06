@@ -10,7 +10,13 @@ ColinLombSkills.component = function () {
         this.skills = ColinLombSkills.BuildSkills([
             ["Body", []],
             ["Mind", []],
-            ["People skills", ["Mind"]],
+            ["Nature", []],
+            ["Craft", []],
+            ["Music", []],
+            ["In the dark", []],
+            ["Smell", []],
+            ["Traps", []],
+            ["People skills", []],
             ["Strength", ["Body"]],
             ["Precision", ["Body"]],
             ["Balance", ["Body"]],
@@ -35,24 +41,18 @@ ColinLombSkills.component = function () {
             ["Hide", ["Awareness"]],
             ["Sneak", ["Balance", "Precision"]],
             ["Mechanic", ["Craft", "Intelligence"]],
-            ["Traps", []],
             ["Setting Traps", ["Traps","Mechanic"]],
             ["Avoiding Traps", ["Traps","Reflexes"]],
-            ["Craft", ["Precision"]],
             ["Cooking", ["Craft", "Smell"]],
-            ["Music", []],
-            ["In the dark", []],
-            ["Smell", []],
             ["Patience", ["Mind"]],
             ["Architecture", ["Intelligence"]],
-            ["Birdcalls", []],
-            ["Cigar rolling", ["Precision", "Craft"]],
+            ["Birdcalls", ["Nature"]],
             ["Dissertation", ["Intelligence","People skills"]],
-            ["Mud Identification", ["Intelligence"]],
-            ["Botany", ["Intelligence"]],
+            ["Mud Identification", ["Intelligence", "Nature"]],
+            ["Botany", ["Intelligence", "Nature"]],
             ["Sketching", ["Craft"]],
             ["Journaling", ["Awareness", "Intelligence"]],
-            ["Animal handling", ["People skills"]]]);
+            ["Animal handling", ["People skills", "Nature"]]]);
     };
     this.OnNewCharacter = function () { };
     this.OnSave = function () {
@@ -120,19 +120,29 @@ ColinLombSkills.component = function () {
                 skillsToSum.push(skill);
             }
         }
-        return ColinLombSkills.SumSkills(ColinLombSkills.CollectSkills(skillsToSum))/10.0;
+        return Number(ColinLombSkills.SumSkills(ColinLombSkills.CollectSkills(skillsToSum,this.cache)) / 10.0).toFixed(1);
     };
     this.getTotalPower = function () {
         var res = 0;
         for (var skill of this.skills) {
-            res += skill.OutFlowSum();
+            res += skill.OutFlowSum(this.cache);
         }
-        return res;
+        return Number(res).toFixed(1);
     };
     this.reset = function () {
+        this.cache = {};
         for (var skill of this.skills) {
             skill.Reset();
         }
+    };
+    this.cache = {};
+    this.directInFlow = function (skill, movement) {
+        this.cache = {};
+        skill.DirectInFlow(movement);
+
+    };
+    this.outFlowSum = function (skill) {
+        return skill.OutFlowSum(this.cache);
     };
     this.OnNewCharacter();
 };
@@ -186,10 +196,10 @@ ColinLombSkills.MakeInnerSkill = function (name) {
     };
 };
 
-ColinLombSkills.CollectSkills = function (skillList) {
+ColinLombSkills.CollectSkills = function (skillList,cache) {
     var res = [];
     for (var related of skillList) {
-        var relatedOut = related.OutFlow();
+        var relatedOut = related.OutFlow(cache);
         for (var relatedOutElement of relatedOut) {
             var already = false;
             for (var resElement of res) {
@@ -213,15 +223,21 @@ ColinLombSkills.SumSkills = function (skillList) {
 ColinLombSkills.MakeSkill = function (name) {
     return {
         Active: false,
-        OutFlowSum: function () {
-            return ColinLombSkills.SumSkills(this.OutFlow()) / 10;
+        OutFlowSum: function (cache) {
+            return ColinLombSkills.SumSkills(this.OutFlow(cache)) / 10;
         },
-        OutFlow: function () {
+        OutFlow: function (cache) {
+            if (cache[name] !== undefined) {
+                return cache[name];
+            }
+
             var elements = [];
             for (var element of this.Related) {
                 elements.push(element.element);
             }
-            return ColinLombSkills.CollectSkills(elements);
+            var res = ColinLombSkills.CollectSkills(elements, cache);
+            cache[name] = res;
+            return res;
         },
         Reset: function () {
             this.AssignedPoints = 0;
@@ -237,6 +253,19 @@ ColinLombSkills.MakeSkill = function (name) {
             for (var related of this.Related) {
                 related.element.InFlow(x * related.weight);
             }
+        },
+        ToolTip: function () {
+            var names = [];
+            for (var related of this.Related) {
+                if (related.element.Name !== undefined) {
+                    names.push(related.element.Name);
+                }
+            }
+            var joined = names.join(", ");
+            if (joined !== "") {
+                joined = "(" + joined + ")";
+            }
+            return joined;
         },
         AssignedPoints: 0,
         Name: name,
