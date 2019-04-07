@@ -54,9 +54,9 @@ g.services.SingnalRService.InnerConnection = function (time) {
         g.services.SingnalRService.connection = new signalR.HubConnectionBuilder()
             .withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();
-        g.services.SingnalRService.connection.on('BroadcastMessage', g.services.SingnalRService.Callback);
         g.services.SingnalRService.connection.start().then(function () {
             g.services.SingnalRService.connecting = false;
+            g.services.SingnalRService.connection.on('BroadcastMessage', g.services.SingnalRService.Callback);
             for (var key in g.services.SingnalRService.groupNames) {
                 if (g.services.SingnalRService.groupNames.hasOwnProperty(key)) {
                     g.services.SingnalRService.connection.send('JoinGame', g.services.SingnalRService.groupNames[key]);
@@ -69,9 +69,9 @@ g.services.SingnalRService.InnerConnection = function (time) {
         }).catch(function (err) {
             g.services.SingnalRService.connecting = false;
             console.error(err.toString());
-            if (time < 1000) {
-                g.services.SingnalRService.InnerConnection(time + 100);
-            }
+            //if (time < 1000) {
+            //    g.services.SingnalRService.InnerConnection(time + 100);
+            //}
         });
     }, time);
 };

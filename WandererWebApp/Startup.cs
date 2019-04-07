@@ -44,11 +44,11 @@ namespace WandererWebApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowCredentials()
-                .AllowAnyMethod());
+            //app.UseCors(builder => builder
+            //    .AllowAnyOrigin()
+            //    .AllowAnyHeader()
+            //    .AllowAnyMethod()
+            //    .DisallowCredentials());
 
             app.UseMvc();
             app.UseFileServer();

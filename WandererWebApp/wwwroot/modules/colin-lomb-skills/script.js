@@ -169,7 +169,7 @@ ColinLombSkills.BuildSkills = function (skillList) {
 
         for (var toRelatedItem of toRelateList) {
             skills[skill2[0]].Related.push({
-                weight: (toRelatedItem === toRelateList[0] ? 2.0 : 1.0) / (toRelateList.length + 1.0),
+                weight: (toRelatedItem === toRelateList[0] ? 3.0 : 1.0) / (toRelateList.length + 2.0),
                 element: toRelatedItem
             });
         }

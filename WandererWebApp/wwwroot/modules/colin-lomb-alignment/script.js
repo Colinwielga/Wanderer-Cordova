@@ -70,13 +70,15 @@ ColinLombAlignment.component = function () {
         return this.alignments;
     };
 
-    this.baseDeck = ColinLombAlignment.alignment("Base deck", [
-        ""
-    ], ColinLombAlignment.Standard);
+    this.baseDeck = ColinLombAlignment.alignment(
+        "Base deck",
+        [ColinLombAlignment.cardSource("", ColinLombAlignment.Standard)],
+        0);
 
-    this.metaDeck = ColinLombAlignment.alignment("Meta deck", [
-        "discard: fact"
-    ], ColinLombAlignment.Low);
+    this.metaDeck = ColinLombAlignment.alignment(
+        "Meta deck",
+        [ColinLombAlignment.cardSource("discard: fact", ColinLombAlignment.Low)],
+        0);
 
     this.getPublic = function () {
         return {
