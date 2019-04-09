@@ -262,9 +262,6 @@ ColinLombSkills.MakeSkill = function (name) {
                 }
             }
             var joined = names.join(", ");
-            if (joined !== "") {
-                joined = "(" + joined + ")";
-            }
             return joined;
         },
         AssignedPoints: 0,

@@ -1,11 +1,15 @@
 ﻿<link href="modules/colin-lomb-skills/stylesheet.css" rel="stylesheet" type="text/css" />
 <div class="pad-me">
     <div data-ng-repeat="skill in module.skills"  data-tip="{{skill.ToolTip()}}">
-        <div style="width:350px; display:inline-block;">
+        <div style="width:200px; display:inline-block;">
             <div data-ng-class="{'switch-on':skill.Active, 'switch-off':!skill.Active}" class="skill" data-ng-click="skill.Active = !skill.Active">
                 <i class="fa fa-check" aria-hidden="true"></i>
-                <div class="skill-name" style="display:inline-block;">{{skill.Name}}</div>
-                <div class="skill-tool-tip" style="display:inline-block;"> {{skill.ToolTip()}}</div>
+                <div class="skill-name">
+                    {{skill.Name}}
+                </div>
+                <div>
+                    <span class="skill-tool-tip"> {{skill.ToolTip()}}</span>
+                </div>
             </div>
         </div>
         <span>

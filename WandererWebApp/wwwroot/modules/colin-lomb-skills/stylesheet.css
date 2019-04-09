@@ -3,7 +3,7 @@
     cursor: pointer;
 }
 
-    ﻿#colin-lomb-skills i.switch-on, 
+    #colin-lomb-skills i.switch-on, 
     #colin-lomb-skills .switch-on i {
         color: #903;
     }
@@ -20,6 +20,8 @@
         opacity: .3;
     }
 
+    
+
 #colin-lomb-skills .bar {
     background-image: linear-gradient(90deg, #333 2px, transparent 2px), linear-gradient(90deg, #fff 1px, transparent 1px);
     background-size: 50px 50px, 5px 5px;
@@ -27,14 +29,26 @@
 }
 
 #colin-lomb-skills .skill .skill-tool-tip {
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s ease-in;
+    position: absolute;
+    z-index: 1;
+    background: #333;
+    color: white;
+    border-radius: 3px;
+    padding: 5px;
+    left:10px;
 }
 
     #colin-lomb-skills .skill:hover .skill-tool-tip{
-        visibility:visible;
+        opacity: 1;
     }
 
-/*#colin-lomb-skills .skill:hover .skill-name {
-    visibility:collapse;
-}*/
+/* .class #id tag */
+
+#colin-lomb-skills .skill .skill-name {
+    display: inline-block;
+}
+
+
 
