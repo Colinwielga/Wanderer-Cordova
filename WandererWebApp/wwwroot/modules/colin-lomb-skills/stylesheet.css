@@ -27,9 +27,10 @@
     background-size: 50px 50px, 5px 5px;
     background-position: -2px -2px, -2px -2px;
 }
-
-#colin-lomb-skills .skill .skill-tool-tip {
+/*transition: transform .3s ease-in;*/
+#colin-lomb-skills .skill-tool-tip {
     opacity: 0;
+    visibility: hidden;
     transition: opacity .3s ease-in;
     position: absolute;
     z-index: 1;
@@ -37,12 +38,14 @@
     color: white;
     border-radius: 3px;
     padding: 5px;
-    left:10px;
+    transform: translate(100px, 0px);
 }
 
-    #colin-lomb-skills .skill:hover .skill-tool-tip{
-        opacity: 1;
-    }
+#colin-lomb-skills .skill:hover + .skill-tool-tip {
+    transform: translate(0px, 0px);
+    opacity: 1;
+    visibility: visible;
+}
 
 /* .class #id tag */
 

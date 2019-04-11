@@ -7,10 +7,8 @@
                 <div class="skill-name">
                     {{skill.Name}}
                 </div>
-                <div>
-                    <span class="skill-tool-tip"> {{skill.ToolTip()}}</span>
-                </div>
             </div>
+            <span class="skill-tool-tip" data-ng-if="skill.ToolTip() != ''"> {{skill.ToolTip()}}</span>
         </div>
         <span>
             <input data-ng-disabled="skill.AssignedPoints <= 0" type="button" value="-" data-ng-click="module.directInFlow(skill, -1)" />

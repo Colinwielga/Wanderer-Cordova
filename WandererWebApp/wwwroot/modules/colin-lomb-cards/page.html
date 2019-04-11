@@ -6,17 +6,11 @@
 </div>
 <div class="pad-me">
     <div data-ng-repeat="card in module.hand" class="pad-me">
-        <div class="pad-me card" data-ng-click="module.discard(card)">
+        <div class="card" data-ng-click="module.discard(card)">
             <span class="pad-me number">{{card.value}}</span>
             <span class="pad-me text">{{card.text}} </span>
+            <div class="image" back-img="modules/colin-lomb-alignment/images/{{card.image}}.jpg"></div>
         </div>
-
-        
-            <!-- <span>
-                <input type="button" value="discard" data-ng-click="module.discard(card)" />
-            </span>
-            <span style="width:50px; display:inline-block;font-weight: bold; text-align:right;"> {{card.value}}</span>
-            <span> {{card.text}}</span> -->
     </div>
 </div>
 

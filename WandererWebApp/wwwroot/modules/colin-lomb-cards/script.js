@@ -1,9 +1,10 @@
 ﻿let ColinLombCards = {};
 
-ColinLombCards.Card = function (text, value) {
+ColinLombCards.Card = function (text, value, image) {
     return {
         text: text,
-        value: value
+        value: value,
+        image: image
     };
 };
 

@@ -71,12 +71,12 @@ ColinLombAlignment.component = function () {
     };
 
     this.baseDeck = ColinLombAlignment.alignment(
-        "Base deck",
+        "Base deck","default",
         [ColinLombAlignment.cardSource("", ColinLombAlignment.Standard)],
         0);
 
     this.metaDeck = ColinLombAlignment.alignment(
-        "Meta deck",
+        "Meta deck", "meta",
         [ColinLombAlignment.cardSource("discard: fact", ColinLombAlignment.Low)],
         0);
 
