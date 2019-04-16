@@ -20,7 +20,8 @@ ColinLombAlignment.component = function () {
                 name: alignment.name,
                 weight: 0,
                 maxWeight: alignment.maxWeight,
-                getCard: alignment.getCard
+                getCard: alignment.getCard,
+                image:  "modules/colin-lomb-alignment/images/" + alignment.image + ".jpg",
             });
         }
     };

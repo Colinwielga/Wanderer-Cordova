@@ -251,6 +251,8 @@
             x: function () { return this.realX + "px"; },
             y: function () { return this.realY + "px"; },
             move: function (data, event, alwaysSend, rounded) {
+                
+                console.log(event);
 
                 var currentX = event.originalEvent.clientX;
                 var currentY = event.originalEvent.clientY;
@@ -291,8 +293,8 @@
                 this.move(data, event, false, false);
             },
             onDragStart: function (data, event) {
-                this.lastX = event.originalEvent.clientX;// number 100
-                this.lastY = event.originalEvent.clientY;// number 175
+                this.lastX = event.originalEvent.clientX;
+                this.lastY = event.originalEvent.clientY;
             }
         };
 

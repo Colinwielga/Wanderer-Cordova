@@ -10,6 +10,7 @@ ColinLombAlignment.cardSource = function (power, valueSource) {
 ColinLombAlignment.alignment = function (name, image, cards, maxWeight) {
     return {
         name: name,
+        image: image,
         getCard: function () {
             var cardSource = cards[Math.floor(Math.random() * cards.length)];
             // we are reaching accross module here 😲
@@ -29,7 +30,6 @@ ColinLombAlignment.Standard = function () {
 ColinLombAlignment.Low = function () {
     return Math.floor(1+Math.random()*10);
 };
-
 
 ColinLombAlignment.alignments = [
     ColinLombAlignment.alignment(
@@ -132,7 +132,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("when you draw this card show it and say what you want to use it for, if you use it for that +3", ColinLombAlignment.Standard)],
         7),
     ColinLombAlignment.alignment(
-        "Reckless","reckless"
+        "Reckless","reckless",
         [
             ColinLombAlignment.cardSource("why waste time discussing", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("use a resource: +3", ColinLombAlignment.Standard),
@@ -144,7 +144,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("I am let you finish but... -- + 3 if you play this card to preform and action before the DM has finished describing the scene", ColinLombAlignment.Standard)],
         8),
     ColinLombAlignment.alignment(
-        "Emotional","emotional"
+        "Emotional","emotional",
         [
             ColinLombAlignment.cardSource("panic: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("rage: +3", ColinLombAlignment.Standard),

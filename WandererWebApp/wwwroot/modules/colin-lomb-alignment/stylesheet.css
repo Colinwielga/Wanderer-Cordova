@@ -3,3 +3,11 @@
     background-size: 50px 50px, 5px 5px;
     background-position: -2px -2px, -2px -2px;
 }
+
+#colin-lomb-alignment .alignment {
+    background-size: cover;
+    width: 200px;
+    border-radius: 3px;
+    
+}
+
