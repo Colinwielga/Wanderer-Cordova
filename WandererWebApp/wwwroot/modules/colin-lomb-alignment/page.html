@@ -1,16 +1,20 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/colin-lomb-alignment/stylesheet.css" />
 <div class="pad-me alignment-holder">
     <div data-ng-repeat="alignment in module.getAlignments()" class="pad-me" >
-        <div class="alignment" back-img="{{alignment.image}}" >
+        <div class="alignment" style="background-image: url({{alignment.image}});">
             <div class="white-layer pad-me">
                 <div class="title-line">
-                    <div >
+                    <div class="title">
                         {{alignment.name}}
                     </div> 
-                    <input class="right-aligned" data-ng-disabled="alignment.weight <= 0" type="button" value="-" data-ng-click="alignment.weight=alignment.weight-1" />
-                    <input class="right-aligned" data-ng-disabled="alignment.weight >= alignment.maxWeight" type="button" value="+" data-ng-click="alignment.weight=alignment.weight+1" />   
-                </div>
-                <div style="width:{{alignment.weight*25}}px; background-image: linear-gradient(90deg, #333 20px, transparent 5px);background-size: 25px 30px;">
+                    <div class="right-aligned">
+                        <input data-ng-disabled="alignment.weight <= 0" type="button" value="-" data-ng-click="alignment.weight=alignment.weight-1" />
+                    </div>
+                    <div class="right-aligned">
+                        <input data-ng-disabled="alignment.weight >= alignment.maxWeight" type="button" value="+" data-ng-click="alignment.weight=alignment.weight+1" />   
+                    </div>
+                </div>    
+                <div class="weight" style="width:{{alignment.weight*25}}px; background-image: linear-gradient(90deg, #333 20px, transparent 5px);background-size: 25px 30px;">
                     <span style="visibility:hidden">shhh</span>
                 </div>
             </div>

@@ -37,46 +37,46 @@ ColinLombAlignment.alignments = [
         [
             ColinLombAlignment.cardSource("do something stupid: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("don't think it through: +3", ColinLombAlignment.Standard)],
-        2),
+        8),
     ColinLombAlignment.alignment(
         "Curious","curious",
         [
             ColinLombAlignment.cardSource("perform an experiment: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("see what happens: +3", ColinLombAlignment.Standard)],
-        3),
+        8),
     ColinLombAlignment.alignment(
         "Loyal","loyal",
         [
             ColinLombAlignment.cardSource("Help an allie: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("Stand up for an allie: +3", ColinLombAlignment.Standard)],
-        2),
+        8),
     ColinLombAlignment.alignment(
         "Lawful","lawful",
         [
             ColinLombAlignment.cardSource("act according to procedure: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("keep your word: +3", ColinLombAlignment.Standard)],
-        2),
+        8),
     ColinLombAlignment.alignment(
         "Selfish","selfish",
         [
             ColinLombAlignment.cardSource("act behind the parties back: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("take something: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("get out of a sticky situation: +3 ", ColinLombAlignment.Standard)],
-        3),
+        8),
     ColinLombAlignment.alignment(
         "Spiteful","spiteful",
         [
             ColinLombAlignment.cardSource("accept loss to hurt another: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("totally overkill: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("take revenge: +5", ColinLombAlignment.Standard)],
-        3),
+        8),
     ColinLombAlignment.alignment(
         "Selfless","selfless",
         [
             ColinLombAlignment.cardSource("help another: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("help a stranger: +4", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("help someone who has wronged you: +5", ColinLombAlignment.Standard)],
-        3),
+        8),
     ColinLombAlignment.alignment(
         "Idealistic","idealist",
         [
@@ -84,7 +84,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("stick with it: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("hold your ground: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("make a sacrifice: +5", ColinLombAlignment.Standard)],
-        4),
+        8),
     ColinLombAlignment.alignment(
         "Determined","determined",
         [
@@ -92,14 +92,14 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("continue when any reasonable person would turn back: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("this time it's different: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("when you draw this card show it and say what you want to use it for, if you use it for that +3", ColinLombAlignment.Standard)],
-        3),
+        8),
     ColinLombAlignment.alignment(
         "Pragmatic","pragmatic",
         [
             ColinLombAlignment.cardSource("Change of plan: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("Hack it: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("calculated loss: +3", ColinLombAlignment.Standard)],
-        3),
+        8),
     ColinLombAlignment.alignment(
         "Loving","caring",
         [
@@ -107,7 +107,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("make a sacrifice: +5", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("show affection: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("work together: +3", ColinLombAlignment.Standard)],
-        4),
+        8),
     ColinLombAlignment.alignment(
         "Angry","angry",
         [
@@ -118,7 +118,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("smash something: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("yell: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("hurt someone: +3", ColinLombAlignment.Standard)],
-        7),
+        8),
     ColinLombAlignment.alignment(
         "Careful","careful",
         [
@@ -130,7 +130,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("slow and steady: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("conserve or gain resource: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("when you draw this card show it and say what you want to use it for, if you use it for that +3", ColinLombAlignment.Standard)],
-        7),
+        8),
     ColinLombAlignment.alignment(
         "Reckless","reckless",
         [
@@ -151,7 +151,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("over react: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("show affection: +3", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("don't hold it in: +3", ColinLombAlignment.Standard)],
-        5)
+        8)
 ];
 
 // todo:
