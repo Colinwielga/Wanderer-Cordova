@@ -43,27 +43,11 @@
         return this.roll(dc - this.getBonus());
     };
 
-    // TODO
-    // you should be able to get pass with hard choice
-    // I think I want to add indeterminate and roll it in with fail with some gain and pass with some loss
-    this.roll = function (center) {
+    this.generateRoll = function (center) {
 
         var publicOutcomes = [];
         var privateOutcomes = [];
-
-        var rollLevel = function (DCh, DCl, result) {
-            this.DCh = DCh;
-            this.DCl = DCl;
-            this.result = result;
-            this.getDC = function () {
-                if (DCh === DCl) {
-                    return DCh;
-                } else {
-                    return DCh + " to " + DCl;
-                }
-            };
-        };
-
+    
         var move = function (moveBy) {
             return Math.round(moveBy + Roll.roll(Math.sqrt(moveBy)));
         };
@@ -107,11 +91,11 @@
             var DCCriticalPass = DC + move(7);
 
             if (showCriticalPass) {
-                publicOutcomes.push(new rollLevel(publicAbove, DCCriticalPass,
+                publicOutcomes.push(ColinWielgaRoll.CreateOutcome(publicAbove, DCCriticalPass,
                     "critical pass"));
                 publicAbove = DCCriticalPass - 1;
             } else {
-                privateOutcomes.push(new rollLevel(privateAbove, DCCriticalPass,
+                privateOutcomes.push(ColinWielgaRoll.CreateOutcome(privateAbove, DCCriticalPass,
                     "critical pass"));
             }
             privateAbove = DCCriticalPass - 1;
@@ -120,11 +104,11 @@
 
         if (includePass) {
             if (showPass) {
-                publicOutcomes.push(new rollLevel(publicAbove, DC,
+                publicOutcomes.push(ColinWielgaRoll.CreateOutcome(publicAbove, DC,
                     "pass"));
                 publicAbove = DC - 1;
             } else {
-                privateOutcomes.push(new rollLevel(privateAbove, DC,
+                privateOutcomes.push(ColinWielgaRoll.CreateOutcome(privateAbove, DC,
                     "pass"));
             }
             privateAbove = DC - 1;
@@ -132,7 +116,7 @@
 
         if (includeHardChoice) {
             var DCHardChoice = includePass ? privateAbove - move(2) : DC;
-            publicOutcomes.push(new rollLevel(publicAbove,
+            publicOutcomes.push(ColinWielgaRoll.CreateOutcome(publicAbove,
                 DCHardChoice,
                 "hard choice"));
             publicAbove = DCHardChoice - 1;
@@ -141,7 +125,7 @@
 
         if (includeMixed) {
             var DCPassAtACost = privateAbove - move(3);
-            publicOutcomes.push(new rollLevel(publicAbove,
+            publicOutcomes.push(ColinWielgaRoll.CreateOutcome(publicAbove,
                 DCPassAtACost,
                 "mixed or undetermine or escalation"));
             publicAbove = DCPassAtACost - 1;
@@ -160,22 +144,34 @@
 
             if (flip()) {
                 if (DCCriticalFail + 1 <= publicAbove) {
-                    publicOutcomes.push(new rollLevel(publicAbove, DCCriticalFail + 1, "fail"));
+                    publicOutcomes.push(ColinWielgaRoll.CreateOutcome(publicAbove, DCCriticalFail + 1, "fail"));
                 }
-                publicOutcomes.push(new rollLevel(DCCriticalFail, "", "critical fail"));
+                publicOutcomes.push(ColinWielgaRoll.CreateOutcome(DCCriticalFail, "", "critical fail"));
             } else {
-                publicOutcomes.push(new rollLevel(publicAbove, "", "fail"));
-                privateOutcomes.push(new rollLevel(DCCriticalFail, "", "critical fail"));
+                publicOutcomes.push(ColinWielgaRoll.CreateOutcome(publicAbove, "", "fail"));
+                privateOutcomes.push(ColinWielgaRoll.CreateOutcome(DCCriticalFail, "", "critical fail"));
             }
             
         } else {
-            publicOutcomes.push(new rollLevel(publicAbove, "",
+            publicOutcomes.push(ColinWielgaRoll.CreateOutcome(publicAbove, "",
                 "fail"));
-        }
+        };
+        // we just made a method
+        // to create a dc
+        // use it here
+        // 
+        return ColinWielgaRoll.CreateDc(publicOutcomes, privateOutcomes);
+    }
 
+    // TODO
+    // you should be able to get pass with hard choice
+    // I think I want to add indeterminate and roll it in with fail with some gain and pass with some loss
+    this.roll = function (center) {
 
-        this.publicLastRoll = publicOutcomes;
-        this.privateLastRoll = privateOutcomes;
+        var dc = this.generateRoll(center)
+
+        this.publicLastRoll = dc.publicOutcomes;
+        this.privateLastRoll = dc.privateOutcomes;
     };
 
     this.getBonus = function () {
