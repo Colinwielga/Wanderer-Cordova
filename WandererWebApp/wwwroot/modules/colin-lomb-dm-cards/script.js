@@ -1,13 +1,5 @@
 ﻿let ColinLombDmCards = {};
 
-ColinLombDmCards.Card = function (text, value, image) {
-    return {
-        text: text,
-        value: value,
-        image: image
-    };
-};
-
 ColinLombDmCards.component = function () {
 
     this.getId = function () {
@@ -16,7 +8,7 @@ ColinLombDmCards.component = function () {
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
-        this.godsPublic = dependencies[0];
+        this.rollsPublic = dependencies[0];
     };
 
     this.OnNewCharacter = function () {
@@ -54,7 +46,7 @@ ColinLombDmCards.component = function () {
     };
 
     this.getRequires = function () {
-        return ["colin-lomb-alignment"];
+        return ["colin-wielga-roll"];
     };
 
     this.getPublic = function () {
@@ -66,8 +58,9 @@ ColinLombDmCards.component = function () {
     };
 
     this.draw = function () {
-        var card = this.godsPublic.getCardContent();
-        this.hand.push(card);
+        var center = Math.round(Math.random() * 20);
+        var dc = this.rollsPublic.generateRollObject(center);
+        this.hand.push(dc);
     };
 
     this.discard = function (card) {
@@ -76,6 +69,10 @@ ColinLombDmCards.component = function () {
             this.hand.splice(index, 1);
         }
     };
+
+    this.getDC = function (outcome) {
+        return ColinWielgaRoll.getDC(outcome);
+    }
 
     this.OnNewCharacter();
 };

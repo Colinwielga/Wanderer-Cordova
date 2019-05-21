@@ -7,9 +7,14 @@
 <div class="pad-me">
     <div data-ng-repeat="card in module.hand" class="pad-me">
         <div class="card" data-ng-click="module.discard(card)">
-            <span class="pad-me number">{{card.value}}</span>
-            <span class="pad-me text">{{card.text}} </span>
-            <div class="image" back-img="modules/colin-lomb-alignment/images/{{card.image}}.jpg"></div>
+            <h3>Public </h3>
+            <div data-ng-repeat="outcome in card.publicOutcomes">
+                {{module.getDC(outcome)}}: {{outcome.result}}
+            </div>
+            <h3>Private </h3>
+            <div data-ng-repeat="outcome in card.privateOutcomes">
+                {{module.getDC(outcome)}}: {{outcome.result}}
+            </div>
         </div>
     </div>
 </div>

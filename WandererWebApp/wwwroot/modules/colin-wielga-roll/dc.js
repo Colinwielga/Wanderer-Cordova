@@ -1,9 +1,9 @@
 ColinWielgaRoll = {};
 
-ColinWielgaRoll.CreateDc = function (publicOutcomes, pirvateOutcomes) {
+ColinWielgaRoll.CreateDc = function (publicOutcomes, privateOutcomes) {
     return {
         publicOutcomes: publicOutcomes,
-        pirvateOutcomes: pirvateOutcomes
+        privateOutcomes: privateOutcomes
     };
 };
 
@@ -11,13 +11,15 @@ ColinWielgaRoll.CreateOutcome = function (DCh, DCl, result) {
     return {
         DCh : DCh,
         DCl : DCl,
-        result : result,
-        getDC : function () {
-            if (DCh === DCl) {
-                return DCh;
-            } else {
-                return DCh + " to " + DCl;
-            }
-        }
+        result : result
     }
 };
+
+ColinWielgaRoll.getDC = function (outcome) {
+    console.log("get dc was called", outcome);
+    if (outcome.DCh === outcome.DCl) {
+        return outcome.DCh;
+    } else {
+        return outcome.DCh + " to " + outcome.DCl;
+    };
+}

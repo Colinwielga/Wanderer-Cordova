@@ -1,5 +1,6 @@
 ﻿var component = function () {
     this.dc = 8;
+    var that = this;
 
     this.getId = function () {
         return "colin-wielga-roll";
@@ -29,6 +30,9 @@
 
     this.getPublic = function () {
         return {
+            generateRollObject: function (center) {
+                return that.generateRoll (center);
+            },
             getVersion: function () {
                 return 1;
             }
@@ -42,6 +46,10 @@
     this.rollDC = function (dc) {
         return this.roll(dc - this.getBonus());
     };
+
+    this.getDC = function (outcome) {
+        return ColinWielgaRoll.getDC(outcome);
+    }
 
     this.generateRoll = function (center) {
 
