@@ -4,6 +4,7 @@ ColinLombSkills.component = function () {
     this.getId = function () {
         return "colin-lomb-skills";
     };
+    // todo give these ids so I can change names
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
@@ -52,7 +53,7 @@ ColinLombSkills.component = function () {
             ["Botany", ["Intelligence", "Nature"]],
             ["Sketching", ["Craft"]],
             ["Journaling", ["Awareness", "Intelligence"]],
-            ["Animal handling", ["People skills", "Nature"]]]);
+            ["Animal handling", ["Strength", "Nature"]]]);
     };
     this.OnNewCharacter = function () { };
     this.OnSave = function () {
