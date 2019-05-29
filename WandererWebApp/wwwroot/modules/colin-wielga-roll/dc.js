@@ -16,7 +16,6 @@ ColinWielgaRoll.CreateOutcome = function (DCh, DCl, result) {
 };
 
 ColinWielgaRoll.getDC = function (outcome) {
-    console.log("get dc was called", outcome);
     if (outcome.DCh === outcome.DCl) {
         return outcome.DCh;
     } else {

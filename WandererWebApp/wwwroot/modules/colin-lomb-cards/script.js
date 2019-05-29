@@ -9,6 +9,7 @@ ColinLombCards.Card = function (text, value, image) {
 };
 
 ColinLombCards.component = function () {
+    var that = this;
 
     this.getId = function () {
         return "colin-lomb-cards";
@@ -17,6 +18,7 @@ ColinLombCards.component = function () {
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.godsPublic = dependencies[0];
+        this.logger = logger;
     };
 
     this.OnNewCharacter = function () {
@@ -75,6 +77,11 @@ ColinLombCards.component = function () {
         if (index > -1) {
             this.hand.splice(index, 1);
         }
+
+        that.logger.infoWithAction("undo discard", "undo", function(){
+            that.hand.push(card);
+        });
+
     };
 
     this.OnNewCharacter();

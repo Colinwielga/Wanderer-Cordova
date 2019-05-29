@@ -99,6 +99,36 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
                 });
                 return res;
             },
+            
+            logWithAction: function (message, type, title, callBack) {
+                this.logs.push({
+                    action: {
+                        title: title,
+                        callBack: callBack    
+                    },
+                    message: message,
+                    type: type,
+                    displayType: displayTypeMap[type],
+                    closed: false,
+                    timeStamp: new Date().getTime()
+                });
+            },
+            debugWithAction: function (message, title, callBack) {
+                this.logWithAction(message, TypeEnum.DEBUG, title, callBack);
+            },
+            infoWithAction: function (message, title, callBack) {
+                this.logWithAction(message, TypeEnum.INFO, title, callBack);
+            },
+            warnWithAction: function (message, title, callBack) {
+                this.logWithAction(message, TypeEnum.WARN,  title, callBack);
+            },
+            errorWithAction: function (message, title, callBack) {
+                this.logWithAction(message, TypeEnum.ERROR, title, callBack);
+            },
+            wtfWithAction: function (message, title, callBack) {
+                this.logWithAction(message, TypeEnum.WTF, title, callBack);
+            },
+             
             log: function (message, type) {
                 this.logs.push({
                     message: message,

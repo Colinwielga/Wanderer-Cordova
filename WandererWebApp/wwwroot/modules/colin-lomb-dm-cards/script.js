@@ -1,6 +1,7 @@
 ﻿let ColinLombDmCards = {};
 
 ColinLombDmCards.component = function () {
+    var that = this;
 
     this.getId = function () {
         return "colin-lomb-dm-cards";
@@ -9,6 +10,7 @@ ColinLombDmCards.component = function () {
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.rollsPublic = dependencies[0];
+        this.logger = logger;
     };
 
     this.OnNewCharacter = function () {
@@ -67,7 +69,11 @@ ColinLombDmCards.component = function () {
         var index = this.hand.indexOf(card);
         if (index > -1) {
             this.hand.splice(index, 1);
-        }
+        };
+
+        that.logger.infoWithAction("undo dicard?", "undo", function(){
+            that.hand.push(card);
+        });
     };
 
     this.getDC = function (outcome) {
