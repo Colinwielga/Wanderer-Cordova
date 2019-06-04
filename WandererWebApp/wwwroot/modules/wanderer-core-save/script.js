@@ -77,18 +77,18 @@
             g.services.characterService.SaveCharacter(that.page.accessKey, that.page.name, angular.toJson(newJson),
                 function (data) {
                     g.services.timeoutService.$timeout(function () {
-                        that.logger.info("save successful!");
+                        that.logger.info("Save Successful!");
                     });
                     var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(that.page.accessKey, that.page.name));
                     if (changed) {
                         g.services.accountService.saveAccount(function () { }, function () {
-                            throw { message: "save failed" };
+                            throw { message: "Save Failed" };
                         });
                     }
                 },
                 function (error) {
                     g.services.timeoutService.$timeout(function () {
-                        that.logger.error("save failed " + error);
+                        that.logger.error("Save Failed " + error);
                     });
                 });
         };
@@ -99,7 +99,7 @@
                 that.page.updateLastLoaded(newJson);
             } else {
                 g.services.timeoutService.$timeout(function () {
-                    that.logger.warn("save failed, merge conflicts!");
+                    that.logger.warn("Save Failed, Merge Conflicts!");
                 });
             }
         },
@@ -108,7 +108,7 @@
             },
             function (error) {
                 g.services.timeoutService.$timeout(function () {
-                    that.logger.error("error: " + error);
+                    that.logger.error("Error: " + error);
                 });
             });
     };
