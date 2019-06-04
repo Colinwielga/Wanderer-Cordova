@@ -71,7 +71,7 @@ ColinLombDmCards.component = function () {
             this.hand.splice(index, 1);
         };
 
-        that.logger.infoWithAction("undo dicard?", "undo", function(){
+        that.logger.infoWithAction("Undo Discard?", "undo", function(){
             that.hand.push(card);
         });
     };

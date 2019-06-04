@@ -283,7 +283,7 @@ button, label.hide-button, input[type=button], input[type=submit], label.label-b
 
 input[type=text], input[type=password], textarea {
     outline: none;
-    border: 2px solid #222;
+    border: 2px solid #333;
     border-radius: 3px;
     margin: 2px;
 }
@@ -299,7 +299,7 @@ input[type=text], input[type=password], textarea {
 select {
     outline: none;
     background: transparent;
-    border: 2px solid #222;
+    border: 2px solid #333;
     font-size: 14px;
     padding: 5px 10px;
     width: 100px;
@@ -503,3 +503,8 @@ table {
         margin: 0 2em;
         color: #E0E0E0;
     }
+
+.notification {
+    background-color:#696969;
+    color: #FFFFFF; 
+}

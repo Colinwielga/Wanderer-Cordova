@@ -13,10 +13,10 @@
                     {{module.getDC(outcome)}}: {{outcome.result}}
                 </div>
             </div>
-            <div>
-                <h3>Private </h3>
+            <div class="alignRight">
+                <h3>Private</h3>
                 <div data-ng-repeat="outcome in card.privateOutcomes">
-                    {{module.getDC(outcome)}}: {{outcome.result}}
+                    {{outcome.result}}: {{module.getDC(outcome)}}
                 </div>
             </div>                        
         </div>

@@ -17,11 +17,11 @@
                         <div data-ng-include="module.getRulesHtml()" class="pad-me"></div>
                     </div>
                     <div class="loggin-container">
-                        <div class="notification notification-{{notification.displayType}}" data-ng-repeat="notification in module.injected.logger.displayLogs()">
+                        <div class="notification notification-{{notification.displayType}} pad-me" data-ng-repeat="notification in module.injected.logger.displayLogs()">
                             {{notification.message}}
                             <input 
                                 type="button" 
-                                value="x" 
+                                value="close" 
                                 data-ng-click="notification.closed = true" />
                             <input 
                                 type="button" 
