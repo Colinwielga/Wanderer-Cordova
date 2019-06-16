@@ -1,0 +1,31 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/tote-flosfulgur-tepals/stylesheet.css" />
+<div class="pad-me highlight-section">
+    <center>
+        <button data-ng-click="module.resetHave()"> reset </button>
+    </center>
+</div>
+<div class="pad-me">
+    <div class="tepal-section-title">
+        <span>Available tepals</span>
+    </div>
+    <div id="tepal-options-container" data-ng-repeat="tepal in module.options" class="pad-me">
+        <div class="tepal tepal-option" data-ng-click="module.pick(tepal)">
+            <span class="pad-me tepal-luminosity">{{tepal.luminosity}}</span>
+            <span class="pad-me tepal-name">{{tepal.name}}</span>
+            <span class="pad-me tepal-text" ng-bind-html="tepal.getHtml()"></span>
+        </div>
+    </div>
+    <div class="tepal-section-title">
+        <span>Your corollae</span>
+    </div>
+    <div class="tepal-section-subtitle">
+        <span>You have {{module.have.length}} tepals.</span>
+    </div>
+    <div id="tepal-have-container" data-ng-repeat="tepal in module.getShowTepals()" class="pad-me">
+        <div class="tepal tepal-have tepal-luminosity-{{tepal.luminosity}}">
+            <span class="pad-me tepal-luminosity">{{tepal.luminosity}}</span>
+            <span class="pad-me tepal-name">{{tepal.name}}</span>
+            <span class="pad-me tepal-text" ng-bind-html="tepal.getHtml()"></span>
+        </div>
+    </div>
+</div>

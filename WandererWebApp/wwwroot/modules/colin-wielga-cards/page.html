@@ -1,5 +1,6 @@
-﻿<link rel="stylesheet" type="text/css" href="modules/colin-wielga-cards/stylesheet.css"/>
-<link rel="stylesheet" type="text/css" href="modules/colin-wielga-cards/humours_stylesheet.css">
+﻿<link rel="stylesheet" href="modules/colin-wielga-cards/stylesheet.css"/>
+<link rel="stylesheet" href="modules/colin-wielga-cards/stylesheet-flosfulgur.css">
+<link rel="stylesheet" href="modules/colin-wielga-cards/humours_stylesheet.css">
 <div class="card-buttons-container pad-me highlight-section">
     <center>
         ﻿       <button data-ng-click="module.draw()"> draw </button>
@@ -18,7 +19,7 @@
     <div class="rules-divider"></div>
     <div class="deck-container">
         <label for="decks"> Repeat select: </label>
-        
+
             <select id="decks" data-ng-options="deck as deck.name for deck in module.decklist"
                     data-ng-model="module.selectedDeck" data-ng-change="module.deckSelected()"
                     ></select>
@@ -29,4 +30,3 @@
         </div>
     </div>
 </div>
-

@@ -1,0 +1,95 @@
+#tote-flosfulgur-tepals .tepal-section-title {
+    color: #333;
+    font-size: 120%;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+#tote-flosfulgur-tepals .tepal-section-subtitle {
+    color: #333;
+    font-size: 105%;
+    width: 100%;
+    text-align: center;
+}
+
+#tote-flosfulgur-tepals .tepal {
+    border: 2px solid #333;
+    border-radius: 3px;
+    border-width: 2px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+#tote-flosfulgur-tepals .tepal .tepal-luminosity {
+    font-size: 25pt;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#tote-flosfulgur-tepals .tepal .tepal-name {
+    font-weight: bold;
+    /* font-size: 110%; */
+    flex-basis: 100px;
+    padding: 10px 20px;
+}
+
+
+#tote-flosfulgur-tepals .tepal-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100px;
+    padding: 10px 20px;
+}
+
+#tote-flosfulgur-tepals .tepal-text ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+#tote-flosfulgur-tepals .tepal.tepal-option {
+    border: 2px dashed #333;
+}
+#tote-flosfulgur-tepals .tepal.tepal-option .tepal-name {
+    background-color: #999;
+    /* background-color: #333; */
+    color: #333;
+}
+#tote-flosfulgur-tepals .tepal.tepal-luminosity-0 {
+    background-color: #999;
+}
+#tote-flosfulgur-tepals .tepal.tepal-luminosity-0 .tepal-name {
+    background-color: #333;
+    color: #c2c2c2;
+}
+#tote-flosfulgur-tepals .tepal.tepal-luminosity-1 {
+    background-color: #99978f;
+}
+#tote-flosfulgur-tepals .tepal.tepal-luminosity-1 .tepal-name {
+    background-color: #333;
+    color: #c2c2c2;
+}
+#tote-flosfulgur-tepals .tepal.tepal-luminosity-2 {
+    background-color: #a5a08b;
+}
+#tote-flosfulgur-tepals .tepal.tepal-luminosity-2 .tepal-name {
+    background-color: #333;
+    color: #c2c2c2;
+}
+
+/* #tote-flosfulgur-tepals .card .text {
+    background-color: #333;
+    color: white;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+#tote-flosfulgur-tepals .card .image {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 100px;
+    background-size: cover;
+}
+
+#tote-flosfulgur-tepals .card:hover {
+    border-color:#903;
+
+} */
