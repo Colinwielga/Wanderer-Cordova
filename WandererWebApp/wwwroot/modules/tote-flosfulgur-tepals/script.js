@@ -90,8 +90,12 @@ ToteFlosfulgurTepals.component = function () {
                 tepals.push(tepal);
             }
         }
-        return tepals;
+        return this.sortTepals(tepals);
     }
+    this.sortTepals = function(tepals) {
+        return tepals.sort((a, b) => a.luminosity < b.luminosity || a.genus < b.genus || a.school < b.school);
+    }
+
 
     this.getShowTepals = function() {
         var haveTepalsDict = {};
@@ -109,8 +113,7 @@ ToteFlosfulgurTepals.component = function () {
             showTepals.push(haveTepalsDict[corolla].sort((a, b) => a.luminosity < b.luminosity)[0])
         }
 
-        showTepals.sort((a, b) => a.luminosity < b.luminosity)
-        return showTepals;
+        return this.sortTepals(showTepals);
     }
 
     this.getPossibleTepals = function() {
@@ -142,7 +145,7 @@ ToteFlosfulgurTepals.component = function () {
             maxOptions = 7;
         }
         var possible = this.getPossibleTepals();
-        possible.sort( function() { return 0.5 - Math.random() } );
+        shuffle(possible);
 
         var options = [];
         for (var possibleTepal of possible) {
@@ -166,7 +169,7 @@ ToteFlosfulgurTepals.component = function () {
             }
 
         }
-        this.options = options;
+        this.options = this.sortTepals(options);
     };
 
     this.pick = function (tepal) {
@@ -178,3 +181,22 @@ ToteFlosfulgurTepals.component = function () {
 };
 
 g.services.componetService.registerCharacter(ToteFlosfulgurTepals.component);
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
