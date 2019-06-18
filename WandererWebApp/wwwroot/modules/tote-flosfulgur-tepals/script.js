@@ -140,16 +140,17 @@ ToteFlosfulgurTepals.component = function () {
 
     this.fillOptions = function () {
         var haveLabels = this.getHaveLabels();
-        var maxOptions = 5;
+        var maxOptions = 6;
         if (haveLabels.length == 0) {
-            maxOptions = 7;
+            maxOptions = 10;
         }
+        var maxOptionsUpgrade = 3;
         var possible = this.getPossibleTepals();
         shuffle(possible);
 
         var options = [];
         for (var possibleTepal of possible) {
-            if (options.length < 3) {
+            if (options.length < maxOptionsUpgrade) {
                 if (possibleTepal.prerequisites.length > 0) {
                     options.push(possibleTepal);
                 }

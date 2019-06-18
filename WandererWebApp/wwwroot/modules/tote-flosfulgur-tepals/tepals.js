@@ -190,7 +190,7 @@ ToteFlosfulgurTepal.tepals = [
     ),
     // Sand:
     ToteFlosfulgurTepal.tepal(
-        "sand-0-0-0",
+        "sand-0-1-0",
         "Sand intuiting",
         "sand",
         0, 0, 0,
@@ -198,36 +198,36 @@ ToteFlosfulgurTepal.tepals = [
         []
     ),
     ToteFlosfulgurTepal.tepal(
-        "sand-1-0-0",
+        "sand-1-1-0",
         "Sand identifying",
         "sand",
-        1, 0, 0,
+        1, 1, 0,
         ["<b>+2</b> when sand or granular material is important.", "You can identify most sand types and patterns."],
-        [["sand-0-0-0"]]
+        [["sand-0-1-0"]]
     ),
     // Liquid:
     ToteFlosfulgurTepal.tepal(
-        "liquid-0-0-0",
+        "liquid-0-2-0",
         "Dowsing",
         "liquid",
-        0, 0, 0,
+        0, 2, 0,
         ["You can identify basic liquid types.", "You have a sense for where certain liquids might be located."],
         []
     ),
     ToteFlosfulgurTepal.tepal(
-        "liquid-1-0-0",
+        "liquid-1-2-0",
         "Dowsing expertly",
         "liquid",
-        1, 0, 0,
+        1, 2, 0,
         ["<b>+2</b> when liquids are involved in an important way.", "You can identify most liquid types.", "You have a sense for where certain liquids might be located."],
-        [["liquid-0-0-0"]]
+        [["liquid-0-2-0"]]
     ),
     // Lightning:
     ToteFlosfulgurTepal.tepal(
-        "lightning-0-0-0",
+        "lightning-0-3-0",
         "Lightning watching",
         "lightning",
-        0, 0, 0,
+        0, 3, 0,
         ["You can identify basic lightning variations and have a sense for predicting when and where it will strike."],
         []
     ),
@@ -264,7 +264,7 @@ ToteFlosfulgurTepal.tepals = [
         "Manipulating",
         "hand",
         0, 0, 0,
-        ["<b>+1</b> when handling or aiming things."],
+        ["<b>+1</b> when handling objects."],
         []
     ),
     // focus:
@@ -290,7 +290,7 @@ ToteFlosfulgurTepal.tepals = [
         "Biological understanding",
         "biology",
         1, 0, 0,
-        ["<b>+2</b> when directly relating to animals, plants, or other biological systems.", "You have a good understanding of biological matters.", "You feel like a vague pull toward living material."],
+        ["<b>+2</b> when directly relating to animals, plants, or other biological systems.", "You have a good understanding of biological matters.", "You feel a vague pull toward living material."],
         [["biology-0-0-0"]]
     ),
     // heal:
