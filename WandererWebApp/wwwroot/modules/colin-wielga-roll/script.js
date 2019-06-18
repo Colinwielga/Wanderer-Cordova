@@ -49,7 +49,7 @@
 
     this.getDC = function (outcome) {
         return ColinWielgaRoll.getDC(outcome);
-    }
+    };
 
     this.generateRoll = function (center) {
 

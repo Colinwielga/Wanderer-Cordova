@@ -60,7 +60,7 @@ ColinLombDmCards.component = function () {
     };
 
     this.draw = function () {
-        var center = Math.round(Math.random() * 20);
+        var center = Math.round(5 + (Math.random() * 13));
         var dc = this.rollsPublic.generateRollObject(center);
         this.hand.push(dc);
     };

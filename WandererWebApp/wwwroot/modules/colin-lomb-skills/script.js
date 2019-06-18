@@ -53,7 +53,7 @@ ColinLombSkills.component = function () {
             ["Botany", ["Intelligence", "Nature"]],
             ["Sketching", ["Craft"]],
             ["Journaling", ["Awareness", "Intelligence"]],
-            ["Animal handling", ["Strength", "Nature"]]]);
+            ["Animal handling", ["Wrestling", "Nature"]]]);
     };
     this.OnNewCharacter = function () { };
     this.OnSave = function () {
