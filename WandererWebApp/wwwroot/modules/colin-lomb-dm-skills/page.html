@@ -1,0 +1,16 @@
+﻿<link href="modules/colin-lomb-dm-skills/stylesheet.css" rel="stylesheet" type="text/css" />
+<div class="pad-me">
+    <div data-ng-repeat="skill in module.DMSkills" >
+        <div data-ng-class="{'switch-on':skill.isChecked, 'switch-off':!skill.isChecked}" class="skill" data-ng-click="skill.isChecked = !skill.isChecked">
+            <i class="fa fa-check pad-me" aria-hidden="true"></i> 
+            <div class="skill-weight pad-me">
+                {{skill.weight}}
+            </div>
+            <div class="skill-name pad-me">
+                {{skill.name}}
+            </div>
+        </div>    
+    </div>
+
+    <p> DM Skill Modifier: {{module.SkillTotal()}}</p>
+</div>
