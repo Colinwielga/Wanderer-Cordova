@@ -22,7 +22,7 @@
         <span>You have {{module.have.length}} tepals.</span>
     </div>
     <div id="tepal-have-container" data-ng-repeat="tepal in module.getShowTepals()" class="pad-me">
-        <div class="tepal tepal-have tepal-luminosity-{{tepal.luminosity}}">
+        <div class="tepal tepal-have tepal-luminosity-{{tepal.luminosity}}-{{tepal.school}}">
             <span class="pad-me tepal-luminosity">{{tepal.luminosity}}</span>
             <span class="pad-me tepal-name">{{tepal.name}}</span>
             <span class="pad-me tepal-text" ng-bind-html="tepal.getHtml()"></span>

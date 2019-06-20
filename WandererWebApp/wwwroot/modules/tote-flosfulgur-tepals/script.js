@@ -93,7 +93,9 @@ ToteFlosfulgurTepals.component = function () {
         return this.sortTepals(tepals);
     }
     this.sortTepals = function(tepals) {
-        return tepals.sort((a, b) => a.luminosity < b.luminosity || a.genus < b.genus || a.school < b.school);
+        tepals.sort((a, b) => a.luminosity < b.luminosity);
+        // tepals.sort((a, b) => a.genus < b.genus);
+        return tepals.sort((a, b) => a.school < b.school);
     }
 
 
