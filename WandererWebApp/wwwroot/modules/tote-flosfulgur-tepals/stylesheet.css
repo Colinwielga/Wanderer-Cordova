@@ -18,7 +18,6 @@
     border-width: 2px;
     display: flex;
     flex-direction: row;
-    cursor: pointer;
 }
 #tote-flosfulgur-tepals .tepal .tepal-luminosity {
     font-size: 25pt;
@@ -48,7 +47,12 @@
 }
 
 #tote-flosfulgur-tepals .tepal.tepal-option {
-    border: 2px dashed #333;
+    border: 1px dashed #333;
+    cursor: pointer;
+}
+#tote-flosfulgur-tepals .tepal.tepal-option:hover {
+    opacity: 0.90;
+    box-shadow: 0px 0px 20px #888888;
 }
 #tote-flosfulgur-tepals .tepal.tepal-option .tepal-name {
     background-color: #999;
