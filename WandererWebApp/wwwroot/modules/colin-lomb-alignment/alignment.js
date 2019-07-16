@@ -14,6 +14,7 @@ ColinLombAlignment.alignment = function (name, image, cards, maxWeight) {
         getCard: function () {
             var cardSource = cards[Math.floor(Math.random() * cards.length)];
             // we are reaching accross module here 😲
+            // probably should not do it directly like this
             return ColinLombCards.Card(
                 cardSource.power,
                 cardSource.valueSource(),

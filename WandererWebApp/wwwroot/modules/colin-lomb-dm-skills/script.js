@@ -12,13 +12,15 @@ ColinLombDMSkills.component = function () {
     this.getId = function () {
         return "colin-lomb-dm-skills";
     };
-    // todo give these ids so I can change names
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.DMSkills =  [
             ColinLombDMSkills.DMSkill("Really Hard", 6),
             ColinLombDMSkills.DMSkill("Hard", 3),
             ColinLombDMSkills.DMSkill("Easy", -3),
             ColinLombDMSkills.DMSkill("Really Easy", -6),
+            ColinLombDMSkills.DMSkill("Player is chashing in on pervious work", -3),
+            ColinLombDMSkills.DMSkill("Players are working together", -3),
+            ColinLombDMSkills.DMSkill("Player is doing something cool", -3)
         ];
     };
     this.OnNewCharacter = function () { };
@@ -54,8 +56,8 @@ ColinLombDMSkills.component = function () {
         for (var skill of this.DMSkills) {
             if (skill.isChecked === true){
                 sum  += skill.weight;
-            };  
-        };
+            }
+        }
 
         return sum; 
     };
