@@ -52,3 +52,4 @@ Wanderer/simulation/sim-host.json
 /WandererWebAPI/bin/Debug/netcoreapp2.0
 
 **/AWSConnectorKeys.js
+/WandererWebApp/wwwroot/.vscode
