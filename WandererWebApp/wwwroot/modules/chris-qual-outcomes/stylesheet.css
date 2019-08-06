@@ -25,14 +25,15 @@
 }
 
 #chris-qual-outcomes #success {
-    background-color: #33ff33;
+    background-color: #33cc33;
 }
 
 #chris-qual-outcomes #uncertainty {
     background-color: #333333;
+    color: #cccccc;
 }
 
 #chris-qual-outcomes #failure {
-    background-color: #ff3333;
+    background-color: #cc3333;
 }
 

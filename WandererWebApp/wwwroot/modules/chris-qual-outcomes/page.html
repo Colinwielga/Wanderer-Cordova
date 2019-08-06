@@ -16,9 +16,9 @@
 <div class="pad-me">
 
     <div class="uncertainty-visualization">
-        <div id="uncertainty"style="flex-grow:{{(module.uncertain/100.0)}}"></div>
-        <div id="success" style="flex-grow:{{((100 - module.uncertain)/100.0) * ((module.success)/100.0)}}"></div>
-        <div id="failure" style="flex-grow:{{((100 - module.uncertain)/100.0) * ((100 - module.success)/100.0)}}"></div>
+        <div id="uncertainty"style="flex-grow:{{(module.uncertain/100.0)}}">uncertain {{module.uncertain}}%</div>
+        <div id="success" style="flex-grow:{{((100 - module.uncertain)/100.0) * ((module.success)/100.0)}}">success {{((100 - module.uncertain)/100.0) * ((module.success)/100.0) * 100}}%</div>
+        <div id="failure" style="flex-grow:{{((100 - module.uncertain)/100.0) * ((100 - module.success)/100.0)}}">failure {{((100 - module.uncertain)/100.0) * ((100 - module.success)/100.0) * 100}}%</div>
     </div>
 
     <div class="slider-container">
