@@ -21,7 +21,7 @@ ColinLombAlignment.component = function () {
                 weight: 0,
                 maxWeight: alignment.maxWeight,
                 getCard: alignment.getCard,
-                image:  "modules/colin-lomb-alignment/images/" + alignment.image + ".jpg",
+                image:  "modules/colin-lomb-alignment/images/" + alignment.image + ".jpg"
             });
         }
     };

@@ -1,5 +1,38 @@
 ﻿#chris-qual-outcomes
-#QUALTABLE
-td
-{border: 1px solid black;}
+#qual-table {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, auto);
+    grid-auto-flow: column;
+}
+
+
+#chris-qual-outcomes .qual-header {
+    background-color: #888;
+}
+    
+#chris-qual-outcomes .uncertainty-visualization {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+}
+
+#chris-qual-outcomes .uncertainty-visualization div {
+    flex-basis: 0;
+    flex-shrink: 0;
+    height: 50px;
+}
+
+#chris-qual-outcomes #success {
+    background-color: #33ff33;
+}
+
+#chris-qual-outcomes #uncertainty {
+    background-color: #333333;
+}
+
+#chris-qual-outcomes #failure {
+    background-color: #ff3333;
+}
 

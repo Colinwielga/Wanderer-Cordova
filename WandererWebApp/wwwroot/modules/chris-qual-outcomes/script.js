@@ -5,22 +5,18 @@ ChrisQualOutcomes.component = function () {
 
     this.prob = function (outcome) {
         var proboutcome = 0;
-        if (outcome.cat === "Positive") { proboutcome = outcome.weight * this.success; }
-        else if (outcome.cat === "Negative") { proboutcome = outcome.weight * this.failure; }
-        else if (outcome.cat === "Other") { proboutcome = outcome.weight * this.uncertain; }
+        if (outcome.cat === "Positive") { proboutcome = outcome.weight * ((100 - this.uncertain)/100.0) * (this.success/100.0); }
+        else if (outcome.cat === "Negative") { proboutcome = outcome.weight * ((100 - this.uncertain)  /  100.0) * ((100 - this.success)  /  100.0); }
+        else if (outcome.cat === "Other") { proboutcome = outcome.weight * (this.uncertain/100.0); }
         return proboutcome;
     };
 
     this.role = function () {
 
-        this.failure = 100 - this.success - this.uncertain;
-
         var mass = 0;
 
         for (i = 0; i < this.OutcomeList.length; i++) {
             mass += this.prob(this.OutcomeList[i]);
-
-
         }
 
         var r = mass * Math.random();
@@ -43,18 +39,20 @@ ChrisQualOutcomes.component = function () {
 
     this.OutcomeList = [
         { name: "Success", cat: "Positive", resolved: true, weight: 50 },
-        { name: "Brilliant Succes", cat: "Positive", resolved: true, weight: 15 },
+        { name: "Brilliant Success", cat: "Positive", resolved: true, weight: 15 },
         { name: "An Easy Choice", cat: "Positive", resolved: true, weight: 10 },
         { name: "Divine Intervention", cat: "Positive", resolved: true, weight: 5 },
         { name: "A costly success", cat: "Positive", resolved: true, weight: 5 },
         { name: "An Unexpected Bonus", cat: "Positive", resolved: true, weight: 5 },
         { name: "An Opportunity with a cost", cat: "Positive", resolved: true, weight: 5 },
         { name: "A New Friend", cat: "Positive", resolved: false, weight: 5 },
+
         { name: "Failure", cat: "Negative", resolved: true, weight: 60 },
         { name: "Simple Bad Luck", cat: "Negative", resolved: true, weight: 10 },
         { name: "Catastrophe", cat: "Negative", resolved: true, weight: 10 },
         { name: "A New Enemy", cat: "Negative", resolved: false, weight: 10 },
         { name: "Failure, But With A Consolation Prize", cat: "Negative", resolved: true, weight: 10 },
+
         { name: "A Difficult Choice", cat: "Other", resolved: true, weight: 30 },
         { name: "A Perplexing Situation", cat: "Other", resolved: false, weight: 10 },
         { name: "Something New Gets In The Way", cat: "Other", resolved: false, weight: 10 },
@@ -70,7 +68,10 @@ ChrisQualOutcomes.component = function () {
     // all events are optional
     this.OnStart = function (communicator, logger, page, dependencies) { };
     // called when a new character is created
-    this.OnNewCharacter = function () { };
+    this.OnNewCharacter = function () {
+        this.success = 50;
+        this.uncertain = 20;
+    };
     // called when a character is saved
     this.OnSave = function () { };
     // called when a characrer is loaded 
