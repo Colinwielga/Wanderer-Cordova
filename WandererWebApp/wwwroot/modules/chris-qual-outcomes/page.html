@@ -3,22 +3,27 @@
 <div class="highlight-section pad-me">
     <div id="qual-table" style="grid-template-rows: repeat({{module.OutcomeList.length + 1}}, auto);" >
         <div class="qual-header">Result</div>
-        <div data-ng-repeat="outcome in module.OutcomeList">{{outcome.name}}</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.name}}</div>
         <div class="qual-header">Outcome</div>
-        <div data-ng-repeat="outcome in module.OutcomeList">{{outcome.cat}}</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.cat}}</div>
         <div class="qual-header">Resolved</div>
-        <div data-ng-repeat="outcome in module.OutcomeList">{{outcome.resolved ? "True" : "False"}}</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.resolved ? "True" : "False"}}</div>
         <div class="qual-header">Success</div>
-        <div data-ng-repeat="outcome in module.OutcomeList">{{outcome.weight}}</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.weight}}</div>
     </div>
 </div>
 
 <div class="pad-me">
-
     <div class="uncertainty-visualization">
-        <div id="uncertainty"style="flex-grow:{{(module.uncertain/100.0)}}">uncertain {{module.uncertain}}%</div>
-        <div id="success" style="flex-grow:{{((100 - module.uncertain)/100.0) * ((module.success)/100.0)}}">success {{((100 - module.uncertain)/100.0) * ((module.success)/100.0) * 100}}%</div>
-        <div id="failure" style="flex-grow:{{((100 - module.uncertain)/100.0) * ((100 - module.success)/100.0)}}">failure {{((100 - module.uncertain)/100.0) * ((100 - module.success)/100.0) * 100}}%</div>
+        <div style="flex-grow:{{module.getUncertain()}}">uncertain {{module.getUncertain()}}%</div>
+        <div style="flex-grow:{{module.getSuccess()}}">success {{module.getSuccess()}}%</div>
+        <div style="flex-grow:{{module.getFailure()}}">failure {{module.getFailure()}}%</div>
+    </div>
+    
+    <div class="uncertainty-visualization">
+        <div id="uncertainty" style="flex-grow:{{module.getUncertain()}}"></div>
+        <div id="success" style="flex-grow:{{module.getSuccess()}}"></div>
+        <div id="failure" style="flex-grow:{{module.getFailure()}}"></div>
     </div>
 
     <div class="slider-container">
@@ -26,12 +31,11 @@
         <input type="range" min="0" max="100" value="50" class="qual-slider" id="success-failure-slider" data-ng-model="module.success" />
         <label>Chance of uncertain</label>
         <input type="range" min="0" max="100" value="20" class="qual-slider" id="uncertain-slider" data-ng-model="module.uncertain" />
-
     </div>
 
     <div>
-        <input type="button" value="Output:" data-ng-click="module.role()" />
-        <p>{{module.output}}</p>
+        <input type="button" value="Output:" data-ng-click="module.roll()" />
+        <p>{{module.output.name}}</p>
     </div>
 
 </div>

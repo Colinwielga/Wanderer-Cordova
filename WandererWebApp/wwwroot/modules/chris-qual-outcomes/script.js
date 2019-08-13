@@ -3,15 +3,26 @@
 ChrisQualOutcomes.component = function () {
 
 
+    this.getSuccess = function () {
+        return Math.round(((100.0 - this.uncertain)/100.0) * ((this.success)/100.0) * 100.0);
+    };
+    this.getFailure = function () {
+        return Math.round(((100.0 - this.uncertain)/100.0) * ((100.0 - this.success)/100.0) * 100.0);
+    };
+    this.getUncertain = function () {
+        return Math.round(this.uncertain);
+    };
+ 
+ 
     this.prob = function (outcome) {
         var proboutcome = 0;
-        if (outcome.cat === "Positive") { proboutcome = outcome.weight * ((100 - this.uncertain)/100.0) * (this.success/100.0); }
-        else if (outcome.cat === "Negative") { proboutcome = outcome.weight * ((100 - this.uncertain)  /  100.0) * ((100 - this.success)  /  100.0); }
-        else if (outcome.cat === "Other") { proboutcome = outcome.weight * (this.uncertain/100.0); }
+        if (outcome.cat === "Positive") { proboutcome = outcome.weight * this.getSuccess(); }
+        else if (outcome.cat === "Negative") { proboutcome = outcome.weight * this.getFailure(); }
+        else if (outcome.cat === "Other") { proboutcome = outcome.weight * this.getUncertain(); }
         return proboutcome;
     };
 
-    this.role = function () {
+    this.roll = function () {
 
         var mass = 0;
 
@@ -26,7 +37,7 @@ ChrisQualOutcomes.component = function () {
         for (i = 0; i < this.OutcomeList.length; i++) {
             at += this.prob(this.OutcomeList[i]);
             if (r < at) {
-                this.output = this.OutcomeList[i].name;
+                this.output = this.OutcomeList[i];
                 break;
             }
         }

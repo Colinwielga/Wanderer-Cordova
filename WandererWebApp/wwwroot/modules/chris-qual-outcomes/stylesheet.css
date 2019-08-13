@@ -8,7 +8,7 @@
 
 
 #chris-qual-outcomes .qual-header {
-    background-color: #888;
+    font-weight: bold;
 }
     
 #chris-qual-outcomes .uncertainty-visualization {
@@ -37,3 +37,6 @@
     background-color: #cc3333;
 }
 
+#chris-qual-outcomes .chosen {
+    background-color: #888;
+}
