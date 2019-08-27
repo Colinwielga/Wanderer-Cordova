@@ -1,9 +1,9 @@
-﻿var ScottLeviNpcGen = {};
+﻿var ScottLeviPathfinder2e = {};
 
-ScottLeviNpcGen.component = function () {
+ScottLeviPathfinder2e.component = function () {
 
     this.getId = function () {
-        return "scott-levi-npc-gen";
+        return "scott-levi-pathfinder-2e";
     };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
@@ -154,19 +154,22 @@ ScottLeviNpcGen.component = function () {
             {
                 name: 'Trash Sorters Guild', attrs: ['Living life on the edge of a manmade,  miniaturized, blackhole']
             },
-            { name: 'Writers Guild', attrs: ['Lowpaid workers making society function'] }
+            { 
+                name: 'Writers Guild', attrs: ['Lowpaid workers making society function'] 
+            }
         ];
         var societyEntry = this.randomFromList(societies);
         this.secretSociety = societyEntry.name + " - " + this.randomFromList(societyEntry.attrs);
 
-        var genres = [{ name: "Electronic", color: "White", attrs: ["House", "Industrial", "Dance", "EDM", "Dubstep", "Samples", "Trance"] },
-        { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
-        { name: "Jazz ", color: "Orange", attrs: ["Strings", "Woodwinds", "Electronic", "Brass", "Swing", "Big Band", "Funk"] },
-        { name: "Worldly Folk", color: "Yellow", attrs: ["Pop", "Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
-        { name: "Blue", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
-        { name: "Rock", color: "Indigo", attrs: ["Grunge", "Classic", "Jam Band", "Synth Rock", "Stadium", "Festival"] },
-        { name: "Punk", color: "Violet", attrs: ["Proto", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
-        { name: "Metal", color: "Black", attrs: ["Heavy", "Speed", "Death", "Crust", "Stoner"] }
+        var genres = [
+            { name: "Electronic", color: "White", attrs: ["House", "Industrial", "Dance", "EDM", "Dubstep", "Samples", "Trance"] },
+            { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
+            { name: "Jazz ", color: "Orange", attrs: ["Strings", "Woodwinds", "Electronic", "Brass", "Swing", "Big Band", "Funk"] },
+            { name: "Worldly Folk", color: "Yellow", attrs: ["Pop", "Country", "Klezmer", "Bluegrass", "Calypso", "Reggae"] },
+            { name: "Blue", color: "Blues", attrs: ["Guitar", "Harmonica", "Singer", "Choir", "Piano"] },
+            { name: "Rock", color: "Indigo", attrs: ["Grunge", "Classic", "Jam Band", "Synth Rock", "Stadium", "Festival"] },
+            { name: "Punk", color: "Violet", attrs: ["Proto", "Pop / Dance", "Ska", "Screamo", "Hardcore"] },
+            { name: "Metal", color: "Black", attrs: ["Heavy", "Speed", "Death", "Crust", "Stoner"] }
         ];
         var genreEntry = this.randomFromList(genres);
         this.genre = genreEntry.name + " - " + this.randomFromList(genreEntry.attrs);
@@ -216,10 +219,10 @@ ScottLeviNpcGen.component = function () {
     };
 
     this.getTitle = function () {
-        return "NPC Generator";
+        return "Pathfinder 2nd Edition";
     };
 
     this.OnNewCharacter();
 };
 
-g.services.componetService.registerCharacter(ScottLeviNpcGen.component);
+g.services.componetService.registerCharacter(ScottLeviPathfinder2e.component);

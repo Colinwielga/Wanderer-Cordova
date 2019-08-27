@@ -10,7 +10,7 @@ WandererCoreActivities.component = function () {
     var that = this;
 
     this.Join = function () {
-        g.services.SingnalRService.setCallback(this.key,
+        g.services.SignalRService.setCallback(this.key,
             this.GroupName,
             function (x) { return true; },
             function (message) {
@@ -22,12 +22,12 @@ WandererCoreActivities.component = function () {
                     });
                 }
             });
-        g.services.SingnalRService.Join(this.GroupName, this.key);
+        g.services.SignalRService.Join(this.GroupName, this.key);
         this.Joined = true;
     };
 
     this.Send = function () {
-        g.services.SingnalRService.Send(this.key, {
+        g.services.SignalRService.Send(this.key, {
             callbackName: "Message",
             Message: that.Message,
             Sender: that.page.name
@@ -83,7 +83,7 @@ WandererCoreActivities.component = function () {
                 that.callbacks[name] = method;
             },
             publish: function (thing) {
-                g.services.SingnalRService.Send(that.key, thing);
+                g.services.SignalRService.Send(that.key, thing);
             }
         };
     };

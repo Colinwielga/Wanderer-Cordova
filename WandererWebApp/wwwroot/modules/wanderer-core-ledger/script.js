@@ -4,18 +4,45 @@
         return "wanderer-core-ledger";
     };
 
-    this.OnStart = function (communicator, logger, page, dependencies) {};
-    this.OnNewCharacter = function () {
+    this.OnStart = function (communicator, logger, page, dependencies) {
+        // this.key = Math.random() + "";
+        // dependencies[0].onJoin(groupName => {
+        //     g.services.SignalRService.tryRemoveCallback(that.key);
+        //     g.services.SignalRService.setCallback(that.key,
+        //         groupName,
+        //         function (message) {return true;},
+        //         function (message) {
+                    
+
+
+
+        //          }
+        //         );
+            
+        // });
+    };
+    
+    this.AddToLedger = function (sender, text, timestamp){ 
         var message = {};
-        message.sender = "Colin";
-        message.timestamp = "12:45";
-        message.text = "Hello World!";
-        this.messages = [message]; 
+        message.sender = sender;
+        message.text = text;
+        message.timestamp = timestamp;
+        this.messages.push(message);
+        console.log("logged")
+    } 
+
+    this.OnNewCharacter = function () {
+        this.messages = []; 
+        var that = this;
+        g.services.timeoutService.$timeout(function(){
+            that.AddToLedger("sender", "text", "timestamp");
+        })
+        
     };
     this.OnSave = function () {};
     this.OnLoad = function () {};
     this.getRequires = function () {
-        return [];
+        return ["wanderer-core-save"];
     };
     this.getPublic = function () {
         var that = this;
