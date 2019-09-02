@@ -1,5 +1,6 @@
 ﻿let ColinLombCards = {};
 
+//factory pattern 
 ColinLombCards.Card = function (text, value, image) {
     return {
         text: text,

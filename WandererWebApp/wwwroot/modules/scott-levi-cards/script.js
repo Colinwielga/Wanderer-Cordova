@@ -279,8 +279,8 @@ ScottLeviCards.component = function () {
                 that.discardPile = [];
                 that.joined = true;
             });
-            g.services.SingnalRService.tryRemoveCallback(that.key);
-            g.services.SingnalRService.setCallback(that.key,
+            g.services.SignalRService.tryRemoveCallback(that.key);
+            g.services.SignalRService.setCallback(that.key,
                 groupName,
                 function (message) { return message.module === that.getId(); },
                 function (message) {
@@ -460,8 +460,8 @@ ScottLeviCards.component = function () {
         for (var i = 0; i < this.hand.length; i++) {
             if (this.hand[i] === cardID) {
                 this.hand.splice(i, 1);
-                if (g.services.SingnalRService.HasCallback(that.key)) {
-                    g.services.SingnalRService.Send(that.key, {
+                if (g.services.SignalRService.HasCallback(that.key)) {
+                    g.services.SignalRService.Send(that.key, {
                         module: that.getId(),
                         callbackName: "card-played",
                         playedBy: that.page.name,
