@@ -55,7 +55,7 @@ namespace WandererWebApp
             app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<Chat>("/chat");
-                
+
             });
         }
     }

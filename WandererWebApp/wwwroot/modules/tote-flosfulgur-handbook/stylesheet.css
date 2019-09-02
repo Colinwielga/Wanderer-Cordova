@@ -1,0 +1,66 @@
+#tote-flosfulgur-handbook #handbook-title-container {
+    margin-bottom: 15px;
+}
+#tote-flosfulgur-handbook .handbook-title {
+    color: #333;
+    font-size: 170%;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+#tote-flosfulgur-handbook .handbook-subtitle {
+    color: #333;
+    font-size: 150%;
+    font-weight: bold;
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+}
+#tote-flosfulgur-handbook .handbook-author {
+    color: #333;
+    font-size: 120%;
+    font-weight: normal;
+    width: 100%;
+    text-align: center;
+}
+#tote-flosfulgur-handbook .handbook-section {
+    /* width: 100%; */
+    margin-bottom: 25px;
+    text-align: justify;
+    padding: 5px 10px;
+    border-top: 2px dashed #333;
+    border-width: 2px;
+}
+#tote-flosfulgur-handbook .handbook-section-title {
+    color: #333;
+    font-size: 120%;
+    font-weight: bold;
+    width: 100%;
+}
+
+#tote-flosfulgur-handbook .handbook-button-container {
+    width: 100%;
+    padding: 10px 0;
+}
+
+#tote-flosfulgur-handbook .page-name {
+    padding-right: 10px;
+    font-weight: bold;
+}
+
+
+#tote-flosfulgur-handbook .page {
+    padding: 5px;
+}
+
+#tote-flosfulgur-handbook .page.page-luminosity-1-0 {
+    background-color: #aeaeae;
+}
+
+#tote-flosfulgur-handbook .page.page-luminosity-2-0 {
+    background-color: #a5a08b;
+}
+
+#tote-flosfulgur-handbook .page.page-luminosity-3-0 {
+    background-color: #aaa27e;
+}
