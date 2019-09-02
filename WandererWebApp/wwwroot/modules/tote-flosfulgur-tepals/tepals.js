@@ -252,7 +252,7 @@ ToteFlosfulgurTepal.tepals = [
         "Spark substantiating",
         "create-0-3",
         1, 0, 3,
-        ["You can make sparks come out of your fingers.", "You believe that electricity is an emergent language of some fundamental complexity. You have some intuition for this language."],
+        ["You can make sparks come out of your fingers.", "You believe that electricity is a language used to communicate with some fundamental complexity. You have some intuition for this language."],
         [["lightning-2-0-0"]]
     ),
     //nauscopy
@@ -426,7 +426,7 @@ ToteFlosfulgurTepal.tepals = [
         "Speaking expertly",
         "speak",
         1, 0, 0,
-        ["<b>+2</b> when making a verbal argument.", "It's often remarked that you have a beautiful voice.", "You can be a professional rhetorician.", "You suspect that there're new and deeply meaningful words hiding in the spaces between other words."],
+        ["<b>+2</b> when making a verbal argument.", "It's remarked that you have a beautiful voice.", "You can be a professional rhetorician.", "You suspect that there're new and deeply meaningful words hiding in the spaces between other words."],
         [["speak-0-0-0"]]
     ),
     //storytelling
