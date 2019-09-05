@@ -111,7 +111,7 @@ ColinLombAlignment.alignments = [
             ColinLombAlignment.cardSource("protect someone: +6", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("make a sacrifice: +8", ColinLombAlignment.Standard),
             ColinLombAlignment.cardSource("show affection: +6", ColinLombAlignment.Standard),
-            ColinLombAlignment.cardSource("work together: +36", ColinLombAlignment.Standard)],
+            ColinLombAlignment.cardSource("work together: +6", ColinLombAlignment.Standard)],
         8),
     ColinLombAlignment.alignment(
         "Angry","angry",

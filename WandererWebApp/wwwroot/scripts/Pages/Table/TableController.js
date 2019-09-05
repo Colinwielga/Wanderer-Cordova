@@ -191,11 +191,11 @@
     // first we join a colabrative session
     var key = "test key";
     var groupName = "test group";
-    g.services.SingnalRService.Join(groupName, key);
+    g.services.SignalRService.Join(groupName, key);
 
-    g.services.SingnalRService.tryRemoveCallback(key);
+    g.services.SignalRService.tryRemoveCallback(key);
 
-    g.services.SingnalRService.setCallback(key,
+    g.services.SignalRService.setCallback(key,
         groupName,
         function (message) { return message.module === "table" && message.SendBy !== id; },
         function (message) {
@@ -274,7 +274,7 @@
                 var now = (new Date).getTime();
 
                 if (now - this.lastSent > 100 || alwaysSend) {
-                    g.services.SingnalRService.Send(key,
+                    g.services.SignalRService.Send(key,
                         {
                             miniatureId: this.miniatureId,
                             module: "table",
@@ -301,7 +301,7 @@
         allMiniatures.push(miniature);
 
         if (sendMessage) {
-            g.services.SingnalRService.Send(key,
+            g.services.SignalRService.Send(key,
                 {
                     miniatureId: miniature.miniatureId,
                     module: "table",

@@ -1,56 +1,42 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules\chris-qual-outcomes\stylesheet.css">
-<div id="QUALTABLE" class="">
-    <table style="width:100%">
 
-        <tr>
-            <th>Result</th>
-            <th>Outcome</th>
-            <th>Resolved</th>
-            <th>Success</th>
-        </tr>
-        
-        <tr data-ng-repeat="outcome in module.OutcomeList">
-              
-        <td>{{outcome.name}}</td>
-        <td>{{outcome.cat}}</td>
-        <td>{{outcome.resolved? "True" : "False"}}</td>
-        <td>{{outcome.weight}}</td>
-
-    </table>
-</div>
-
-
-
-
-
-
-<div id="chanceofsuccess" >
-    <span class="descriptor">Chance Of Success</span>
-    <input value="" data-ng-model="module.success" />
-</div>
-
-
-<div id="chanceoffailure">
-    <span class="descriptor">Chance Of Failure</span>
-    <input value="" data-ng-model="module.failure" />
-</div>
-
-<div id="chanceofuncertain" >
-    <span class="descriptor">Chance Of an Uncertain Outcome</span>
-    <input value="" data-ng-model="module.uncertain" />
-</div>
-
-
-
-<div id="AdjustSuccess" >
-    <button data-ng-click="module.facts=module.facts+1">+</button>
-    <button data-ng-click="module.facts=module.facts-1">-</button>
+<div class="highlight-section pad-me">
+    <div id="qual-table" style="grid-template-rows: repeat({{module.OutcomeList.length + 1}}, auto);" >
+        <div class="qual-header">Result</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.name}}</div>
+        <div class="qual-header">Outcome</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.cat}}</div>
+        <div class="qual-header">Resolved</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.resolved ? "True" : "False"}}</div>
+        <div class="qual-header">Success</div>
+        <div data-ng-repeat="outcome in module.OutcomeList" ng-class="{'chosen':outcome===module.output}">{{outcome.weight}}</div>
+    </div>
 </div>
 
 <div class="pad-me">
+    <div class="uncertainty-visualization">
+        <div style="flex-grow:{{module.getUncertain()}}">uncertain {{module.getUncertain()}}%</div>
+        <div style="flex-grow:{{module.getSuccess()}}">success {{module.getSuccess()}}%</div>
+        <div style="flex-grow:{{module.getFailure()}}">failure {{module.getFailure()}}%</div>
+    </div>
+    
+    <div class="uncertainty-visualization">
+        <div id="uncertainty" style="flex-grow:{{module.getUncertain()}}"></div>
+        <div id="success" style="flex-grow:{{module.getSuccess()}}"></div>
+        <div id="failure" style="flex-grow:{{module.getFailure()}}"></div>
+    </div>
 
-    <input type="button" value="Output:" data-ng-click="module.role()" />
-    <p>{{module.output}}</p>
+    <div class="slider-container">
+        <label>Chance of success</label>
+        <input type="range" min="0" max="100" value="50" class="qual-slider" id="success-failure-slider" data-ng-model="module.success" />
+        <label>Chance of uncertain</label>
+        <input type="range" min="0" max="100" value="20" class="qual-slider" id="uncertain-slider" data-ng-model="module.uncertain" />
+    </div>
+
+    <div>
+        <input type="button" value="Output:" data-ng-click="module.roll()" />
+        <p>{{module.output.name}}</p>
+    </div>
 
 </div>
 

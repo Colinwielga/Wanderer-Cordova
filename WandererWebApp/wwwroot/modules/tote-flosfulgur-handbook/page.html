@@ -1,0 +1,37 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/tote-flosfulgur-handbook/stylesheet.css" />
+<div class="pad-me">
+    <div id="handbook-title-container">
+        <div class="handbook-title">{{module.getManualTitle()}}</div>
+        <div style="width: 100%; text-align: center;">or</div>
+        <div class="handbook-subtitle">{{module.getManualSubtitle()}}</div>
+        <div style="width: 100%; text-align: center;">by</div>
+        <div class="handbook-author">{{module.getManualAuthor()}}, "{{module.getManualSubauthor()}}"</div>
+    </div>
+    <div class="handbook-section">
+        <div class="handbook-section-title">Introduction</div>
+        <span id="text-container-intro" ng-bind-html="module.getManualIntroduction()"></span>
+    </div>
+    <div class="handbook-section">
+        <div class="handbook-section-title">A few things to know</div>
+        <span ng-bind-html="module.getManualKnow()"></span>
+    </div>
+    <div class="handbook-section">
+        <div class="handbook-section-title">The rest of the handbook</div>
+        <div class="handbook-button-container">
+            <button data-ng-click="module.getNewPage()">flip to a new page</button>
+            <button style="float:right;" data-ng-click="module.resetPages()">close pages (no going back)</button>
+        </div>
+        <div id="page-have-container" data-ng-repeat="page in module.getHavePages() track by $index" class="pad-me">
+            <div class="page page-have page-luminosity-{{page.luminosity}}-{{page.school}} page-genus-{{page.genus}}">
+                <span class="page-name">Page {{module.havePages.length - $index}}: {{page.name}}</span>
+                <span class="page-text" ng-bind-html="page.text"></span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="handbook-section-title">
+        <span>Quick reference</span>
+    </div>
+    <div class="handbook-section-title">
+        <span>Instructions</span>
+    </div> -->
+</div>

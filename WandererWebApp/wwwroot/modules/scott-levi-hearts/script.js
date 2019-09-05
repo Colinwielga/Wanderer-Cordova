@@ -25,8 +25,8 @@ ScottLeviHearts.component = function () {
                 that.games = [];
                 that.joined = true;
             });
-            g.services.SingnalRService.tryRemoveCallback(that.key);
-            g.services.SingnalRService.setCallback(that.key,
+            g.services.SignalRService.tryRemoveCallback(that.key);
+            g.services.SignalRService.setCallback(that.key,
                 groupName,
                 function (message) { return message.module === that.getId(); },
                 function (message) {
@@ -36,7 +36,7 @@ ScottLeviHearts.component = function () {
                             g.services.timeoutService.$timeout(function () {
                                 that.AddPlayer(message.id, message.name);
                             });
-                            g.services.SingnalRService.Send(that.key, {
+                            g.services.SignalRService.Send(that.key, {
                                 module: that.getId(),
                                 type: "In Room",
                                 name: that.page.name,
@@ -60,7 +60,7 @@ ScottLeviHearts.component = function () {
                                     challengerId: message.challengerId
                                 });
                             });
-                            g.services.SingnalRService.Send(that.key, {
+                            g.services.SignalRService.Send(that.key, {
                                 module: that.getId(),
                                 type: "Challenge Recived",
                                 challengerName: that.page.challengerName,
@@ -151,8 +151,8 @@ ScottLeviHearts.component = function () {
                         }
                     }
                 });
-            g.services.SingnalRService.Join(groupName, this.key);
-            g.services.SingnalRService.Send(that.key, {
+            g.services.SignalRService.Join(groupName, this.key);
+            g.services.SignalRService.Send(that.key, {
                 module: that.getId(),
                 type: "joined Game",
                 name: that.page.name,
@@ -197,7 +197,7 @@ ScottLeviHearts.component = function () {
             status: "Sent",
             challengeeName: player.name
         });
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge",
             challengee: player.name,
@@ -232,7 +232,7 @@ ScottLeviHearts.component = function () {
     };
 
     this.AcceptChallenge = function (challenge) {
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge Accepted",
             challengeId: challenge.challengeId,
@@ -256,7 +256,7 @@ ScottLeviHearts.component = function () {
                 that.games.splice(i, 1);
             }
         }
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Left Game",
             gameId: game.gameId,
@@ -356,7 +356,7 @@ ScottLeviHearts.component = function () {
                     });
 
                 // this sends a message to the other play to let them know you played a card
-                g.services.SingnalRService.Send(that.key, {
+                g.services.SignalRService.Send(that.key, {
                     module: that.getId(),
                     type: "Played Card",
                     gameId: gameId,
@@ -377,7 +377,7 @@ ScottLeviHearts.component = function () {
     };
 
     this.RejectChallenge = function (challenge) {
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge Rejected",
             challengeId: challenge.challengeId,
@@ -388,7 +388,7 @@ ScottLeviHearts.component = function () {
     };
 
     this.RevokeChallenge = function (challenge) {
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge Revoked",
             challengeId: challenge.challengeId,
