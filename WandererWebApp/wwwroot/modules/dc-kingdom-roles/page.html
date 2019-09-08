@@ -1,1 +1,17 @@
-﻿<div class="pad-me"></div>
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-kingdom-roles/stylesheet.css">
+<div class="pad-me">
+	<div class="role_button_container">
+		<div class="role_button" data-ng-repeat="role in module.roles">
+			<input type="radio"
+			       id={{::'radioRole'+role}}"
+			       data-ng-model="module.selected_role"
+			       value="{{role}}">
+			<!-- <div class="role_button_border {{role}}"></div> -->
+			<label for="{{::'radioRole'+role}}"
+			       class="{{'label_'+role}}">
+					<span>{{role}}</span>
+			</label>
+		</div>
+	</div>
+	{{module.selected_role}}
+</div>

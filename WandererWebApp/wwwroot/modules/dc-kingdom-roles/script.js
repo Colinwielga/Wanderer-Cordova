@@ -19,8 +19,7 @@ DCKingdomRoles.component = function () {
     };
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+	this.selected_role = "";
     };
     // called when a character is saved
     this.OnSave = function () {
@@ -72,6 +71,8 @@ DCKingdomRoles.component = function () {
     };
 
     this.OnNewCharacter();
+
+    this.roles = ["power", "perspective", "touchstone"];
 };
 
 g.services.componetService.registerCharacter(DCKingdomRoles.component);
