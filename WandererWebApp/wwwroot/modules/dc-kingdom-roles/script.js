@@ -68,7 +68,7 @@ DCKingdomRoles.component = function () {
     };
 
     this.getTitle = function () {
-        return "title";
+        return "Kingdom Roles";
     };
 
     this.OnNewCharacter();
