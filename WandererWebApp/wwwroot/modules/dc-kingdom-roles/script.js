@@ -23,7 +23,7 @@ DCKingdomRoles.component = function () {
     };
     // called when a new character is created
     this.OnNewCharacter = function () {
-	this.selected_role = "";
+        this.selected_role = "";
     };
     // called when a character is saved
     this.OnSave = function () {
