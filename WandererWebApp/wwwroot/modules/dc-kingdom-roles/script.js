@@ -1,6 +1,10 @@
 ﻿var DCKingdomRoles = {};
 
 DCKingdomRoles.component = function () {
+    
+    /* LOCAL FUNCTIONS AND DEFINITIONS */
+    this.roles = ["power", "perspective", "touchstone"];
+
 
     // all component need a unique ID
     this.getId = function () {
@@ -72,7 +76,6 @@ DCKingdomRoles.component = function () {
 
     this.OnNewCharacter();
 
-    this.roles = ["power", "perspective", "touchstone"];
 };
 
 g.services.componetService.registerCharacter(DCKingdomRoles.component);
