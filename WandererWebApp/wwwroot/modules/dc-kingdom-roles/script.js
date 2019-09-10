@@ -5,7 +5,14 @@ DCKingdomRoles.component = function () {
     /* LOCAL FUNCTIONS AND DEFINITIONS */
     this.roles = ["power", "perspective", "touchstone"];
 
+    this.roleRulesRevealed = false;
+    this.toggleRoleRules = function () {
+        this.roleRulesRevealed = !this.roleRulesRevealed;
+        angular.element(document).find('#dc-kingdom-roles .role_explanation_container p:not(:first-child)').toggleClass('revealed', this.roleRulesRevealed);
+    };
 
+    ///////////////////////////////////////////////////////
+    
     // all component need a unique ID
     this.getId = function () {
         return "dc-kingdom-roles";
