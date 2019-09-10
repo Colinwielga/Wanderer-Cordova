@@ -2,9 +2,6 @@
     display: flex;
     flex-direction: row;
     text-align: center;
-    /* justify-content: center; */
-    /* align-self: center; */
-    /* width: 50%; */
     height: 6em;
 }
 	#dc-kingdom-roles .role_button_container .role_button{
@@ -12,22 +9,8 @@
         display: inline-block;
         border-radius: 50%;
         width: 100%;
-        height: 100%;
-        margin: 5px;
+        margin: 0.5em;
 	}
-
-	/* #dc-kingdom-roles .role_button_container .role_button_border{ */
-        /* position: absolute; */
-        /* top: -3px; */
-        /* left: -3px; */
-        /* display: block; */
-        /* border-radius: 50%; */
-        /* width: 2em; */
-        /* height: 2em; */
-        /* background: #C2C2C2; */
-        /* border-style: solid; */
-        /* border-color: #C2C2C2; */
-	/* } */
 
 	#dc-kingdom-roles .role_button_container label{
         position: absolute;
@@ -36,7 +19,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border: 2px solid #666;
         border-radius: 2%;
+        background: #666;	    
         width: 100%;
         height: 100%;
         cursor: pointer;
@@ -45,24 +30,30 @@
             font-size: 2em;
             text-align: center;
             text-transform: uppercase;
+            color: white;
         }
-	    #dc-kingdom-roles .role_button_container .label_power{
-            background: rgb(200, 100, 100);
-        }
-	    #dc-kingdom-roles .role_button_container .label_perspective{
-            background: rgb(100, 100, 200);
-        }
-	    #dc-kingdom-roles .role_button_container .label_touchstone{
-            background: rgb(100, 200, 100);
+
+            #dc-kingdom-roles .role_button_container input[type='radio']:checked ~ .label_power span {
+                text-shadow: rgb(250, 50, 50) 0 0 5px;
+            }
+            #dc-kingdom-roles .role_button_container input[type='radio']:checked ~ .label_perspective span {
+                text-shadow: rgb(50, 50, 250) 0 0 5px;
+            }
+            #dc-kingdom-roles .role_button_container input[type='radio']:checked ~ .label_touchstone span {
+                text-shadow: rgb(50, 250, 50) 0 0 5px;
+            }
+
+        #dc-kingdom-roles .role_button_container label:hover{
+            background: #999;
+            border-color: #999;
         }
 
 
 #dc-kingdom-roles .role_button_container input[type='radio']{
     display: none;
 }
-    /* #dc-kingdom-roles .role_button_container input[type='radio']:checked ~ .role_button_border{ */
     #dc-kingdom-roles .role_button_container input[type='radio']:checked ~ label{
-        border-style: solid;
-        border-color: black;
-        background: black;
+        border-color: #333;
+        background: #333;	    
     }
+
