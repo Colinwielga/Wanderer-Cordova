@@ -8,5 +8,11 @@
     <span class="category">Background: </span>{{module.background}}<br />
     <span class="category">Ancestry: </span>{{module.ancestry}}<br />
     <span class="category">Class: </span>{{module.charClass}}<br />
-    <span class="category">Spells: </span>{{module.charSpells}}<br /> 
+    <span class="category">Level: </span>{{module.characterLevel}}<br />
+    <span class="category">Spells: </span><br />
+    <ol>
+        <li ng-repeat="spell in module.characterSpellList">
+            {{spell.spell}}
+        </li>
+    </ol>
 </div>
