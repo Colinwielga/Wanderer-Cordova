@@ -157,7 +157,7 @@ ScottLeviNpcGen.component = function () {
             { name: 'Writers Guild', attrs: ['Lowpaid workers making society function'] }
         ];
         var societyEntry = this.randomFromList(societies);
-        this.secretSociety = societyEntry.name + " - " + this.randomFromList(societyEntry.attrs);
+        this.societies = societyEntry.name + " - " + this.randomFromList(societyEntry.attrs);
 
         var genres = [{ name: "Electronic", color: "White", attrs: ["House", "Industrial", "Dance", "EDM", "Dubstep", "Samples", "Trance"] },
         { name: "Hip-Hop", color: "Red", attrs: ["Classic 'Golden' Era", "Instrumental Beats", "Experimental", "Regional Flavored"] },
