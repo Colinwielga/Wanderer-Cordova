@@ -32,7 +32,6 @@ WandererCoreActivities.component = function () {
             Message: that.Message,
             Sender: that.page.name
         });
-        this.Message = "";
     };
 
     this.getId = function () {

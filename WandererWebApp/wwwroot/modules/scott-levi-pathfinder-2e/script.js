@@ -148,7 +148,7 @@ ScottLeviPathfinder2e.component = function () {
             { name: "Fighter", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Monk", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Ranger", traditions: ["arcane", "occult", "divine", "primal"] },
-            { name: "Rouge", traditions: ["arcane", "occult", "divine", "primal"] },
+            { name: "Rogue", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Sorcerer", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Wizard", traditions: ["arcane", "occult", "divine", "primal"] },
         ];

@@ -4,40 +4,53 @@
         return "wanderer-core-ledger";
     };
 
+    var that =this;
+    this.key = Math.random() + "";
+
     this.OnStart = function (communicator, logger, page, dependencies) {
-        // this.key = Math.random() + "";
-        // dependencies[0].onJoin(groupName => {
-        //     g.services.SignalRService.tryRemoveCallback(that.key);
-        //     g.services.SignalRService.setCallback(that.key,
-        //         groupName,
-        //         function (message) {return true;},
-        //         function (message) {
-                    
-
-
-
-        //          }
-        //         );
-            
-        // });
+        this.page = page;
+        dependencies[0].onJoin(this.OnJoinCallBack);
     };
-    
-    this.AddToLedger = function (sender, text, timestamp){ 
-        var message = {};
-        message.sender = sender;
-        message.text = text;
-        message.timestamp = timestamp;
-        this.messages.push(message);
-        console.log("logged")
-    } 
+
+    this.OnJoinCallBack = function(groupName){
+
+        g.services.SignalRService.tryRemoveCallback(that.key);
+        g.services.SignalRService.setCallback(
+            that.key,
+            groupName,
+            that.ShouldHandleMessage,
+            that.OnMessageCallBack);
+    };
+
+    this.ShouldHandleMessage =function(message){
+        return true;
+    };
+
+    // assume:
+    // message= {
+    //    sender = "",
+    //    text ="",
+    //    timestamp = "",
+    // }
+    this.WrittenMessage = "";
+
+    this.OnMessageCallBack = function(message){
+        g.services.timeoutService.$timeout(function() {
+            that.messages.push(message);
+        });
+    };
+
+    this.SendMessage = function (){
+        g.services.SignalRService.Send(this.key, {
+            text: that.WrittenMessage,
+            timestamp: Date.now(),
+            sender: that.page.name
+        });
+    };
 
     this.OnNewCharacter = function () {
         this.messages = []; 
         var that = this;
-        g.services.timeoutService.$timeout(function(){
-            that.AddToLedger("sender", "text", "timestamp");
-        })
-        
     };
     this.OnSave = function () {};
     this.OnLoad = function () {};
@@ -64,6 +77,8 @@
     this.getTitle = function () {
         return "Ledger";
     };
+
+    this.OnNewCharacter();
 };
 
 g.services.componetService.registerCharacter(component);

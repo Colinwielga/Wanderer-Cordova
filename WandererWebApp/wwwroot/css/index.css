@@ -296,11 +296,8 @@ input[type=text], input[type=password], textarea {
 
 select {
     outline: none;
-    background: transparent;
     border: 2px solid #333;
-    font-size: 14px;
     padding: 5px 10px;
-    width: 100px;
     border-radius: 3px;
 }
 
