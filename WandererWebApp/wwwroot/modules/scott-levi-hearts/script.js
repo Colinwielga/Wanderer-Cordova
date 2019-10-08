@@ -28,7 +28,9 @@ ScottLeviHearts.component = function () {
             g.services.SignalRService.tryRemoveCallback(that.key);
             g.services.SignalRService.setCallback(that.key,
                 groupName,
-                function (message) { return message.module === that.getId(); },
+                function (message) { 
+                    return message.module === that.getId(); 
+                },
                 function (message) {
                     console.log("got message:", message);
                     if (message.type === "joined Game") {

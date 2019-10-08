@@ -4,7 +4,7 @@
         return "wanderer-core-ledger";
     };
 
-    var that =this;
+    var that = this;
     this.key = Math.random() + "";
 
     this.OnStart = function (communicator, logger, page, dependencies) {
@@ -22,16 +22,10 @@
             that.OnMessageCallBack);
     };
 
-    this.ShouldHandleMessage =function(message){
-        return true;
+    this.ShouldHandleMessage = function(message){
+        return message.module === that.getId();
     };
 
-    // assume:
-    // message= {
-    //    sender = "",
-    //    text ="",
-    //    timestamp = "",
-    // }
     this.WrittenMessage = "";
 
     this.OnMessageCallBack = function(message){
@@ -44,7 +38,8 @@
         g.services.SignalRService.Send(this.key, {
             text: that.WrittenMessage,
             timestamp: Date.now(),
-            sender: that.page.name
+            sender: that.page.name,
+            module: that.getId(),
         });
     };
 

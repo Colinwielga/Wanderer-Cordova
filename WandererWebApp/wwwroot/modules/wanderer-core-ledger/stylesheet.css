@@ -1,1 +1,8 @@
-﻿
+﻿#wanderer-core-ledger .messagebox {
+    background-color: #aeaeae; 
+}
+
+#wanderer-core-ledger .sender {
+    color: black;
+    font-weight: bold;
+}
