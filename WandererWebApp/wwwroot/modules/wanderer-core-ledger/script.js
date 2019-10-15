@@ -57,6 +57,14 @@
         return {
             getVersion: function () {
                 return 1;
+            },
+            PublicSendMessage: function (message) {
+                g.services.SignalRService.Send(that.key, {
+                    text: message,
+                    timestamp: Date.now(),
+                    sender: that.page.name,
+                    module: that.getId(),
+                });
             }
         };
     };

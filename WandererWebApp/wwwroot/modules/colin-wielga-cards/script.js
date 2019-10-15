@@ -6,7 +6,7 @@
     };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
-        this.godsPublic = dependencies[0];
+        this.ledgerPublic = dependencies[0]; 
     };
     this.OnNewCharacter = function () {
         this.hand = [];
@@ -72,7 +72,7 @@
         return "Hand";
     };
     this.getRequires = function () {
-        return [];//"colin-wielga-gods"
+        return ["wanderer-core-ledger"];//"colin-wielga-gods"
     };
 
     this.getPublic = function () {
@@ -143,6 +143,7 @@
                 this.hand.splice(i, 1);
             }
         }
+        this.ledgerPublic.PublicSendMessage("a card was discarded");
     };
     this.OnNewCharacter();
 };

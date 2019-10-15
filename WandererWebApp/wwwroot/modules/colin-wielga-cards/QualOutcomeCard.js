@@ -1,12 +1,54 @@
-﻿ColinWielgaCards.QualOutcomeCard = function (guid, name, text, oddsOfSuccess, oddsOfUncertainty) {
+﻿ColinWielgaCards.imageList = [
+    "Adelaide",
+    "BackyardAirShelter",
+    "Broadside",
+    "ConcertParty",
+    "CookRations",
+    "DisplacedPersonsCamp",
+    "EgyptianWomen",
+    "Electricty",
+    "ExhibitionBuildingMelbourne",
+    "Explosion",
+    "FarouksCarriage",
+    "Fountain",
+    "FrankSFriendsTatura",
+    "Harvesting",
+    "KarnakLuxor",
+    "Lifeboats",
+    "Maps",
+    "Marching",
+    "ModelMaking",
+    "MohammadAliMosque",
+    "Mortars",
+    "MurchisonDistrictVictoria",
+    "NearMissPerth",
+    "NellDIsabelPWearingGasMasks",
+    "OldHouseCairo",
+    "PerianGardens",
+    "POWFuneral",
+    "PrisonerOfWarCamp",
+    "Puckapunyal",
+    "RedCross",
+    "Sailing",
+    "StrategyMeeting",
+    "StreetSceneGaze",
+    "SupplyQueueSalzgitter",
+    "TankWelding",
+]
+
+ColinWielgaCards.QualOutcomeCard = function (guid, name, text, oddsOfSuccess, oddsOfUncertainty) {
     this.guid = guid;
     this.name = name;
     this.text = text;
     this.oddsOfSuccess = oddsOfSuccess;
     this.oddsOfUncertainty = oddsOfUncertainty;
     this.deck = null;
+    this.GetImage = function () {
+        return ColinWielgaCards.imageList[Math.floor(Math.random() * ColinWielgaCards.imageList.length)];
+    };
+    this.image = this.GetImage();
     this.getImage = function () {
-        return "images/qual-cards/" + image + ".jpg";
+        return "images/ww2Photos/" + this.image + ".jpg";
     };
     this.getHtml = function () {
         return "modules/colin-wielga-cards/QualOutcomeCard.html";
@@ -16,16 +58,16 @@
 
 var cardList = [
 
-    new ColinWielgaCards.QualOutcomeCard("{B602D13C-FEC9-471D-A6BC-9BD520CAB607}", "ATLANTACE", "Counts as a critical failure.", 45,0),
-    new ColinWielgaCards.QualOutcomeCard("{4EEC15F2-21BB-4821-86FD-5AD9B2C2131D}", "ATLANTAS", "", 45,1),
-    new ColinWielgaCards.QualOutcomeCard("{7046335B-224C-4EA5-A862-F853661E27B0}", "ATLANTUS", "", 45,2),
-    new ColinWielgaCards.QualOutcomeCard("{2AF06522-6235-4968-A8F3-AFAAA7AF78DC}", "ATLANTOS", "", 45,3),
-    new ColinWielgaCards.QualOutcomeCard("{5F960058-B513-4D9A-A0ED-A0A43C8CBCBD}", "ATLANTYS", "", 45,4),
-    new ColinWielgaCards.QualOutcomeCard("{60A78845-8762-4FDE-A4C0-4F15ACAB0CFF}", "ATLANTES", "+5 When navigating or gathering knowledge.", 45,5),
-    new ColinWielgaCards.QualOutcomeCard("{0A20CEF3-1EC2-4C28-9030-F58E9B3869E2}", "ATLANTA", "", 45,6),
-    new ColinWielgaCards.QualOutcomeCard("{5AD1139D-FA32-4A2A-B678-C3466081E7B5}", "ATLANTS", "", 45,7),
-    new ColinWielgaCards.QualOutcomeCard("{F31F0B29-BDB0-4C7B-9D4E-2A23A9E440EF}", "ATLANTIAN", "+2 When making a skill check within Atlantis.", 45,8),
-    new ColinWielgaCards.QualOutcomeCard("{05E19267-BAC8-4972-9E24-A4ECC5876779}", "ATLANTIC", "Wrong ocean buddy, if you fail this check you must additionally discard the highest value card in your hand and draw a new card.", 45,9),
+    new ColinWielgaCards.QualOutcomeCard("{B602D13C-FEC9-471D-A6BC-9BD520CAB607}", "ATLANTACE", "Result counts as hard choice.", .1,0),
+    new ColinWielgaCards.QualOutcomeCard("{4EEC15F2-21BB-4821-86FD-5AD9B2C2131D}", "ATLANTAS", "", .2,.2),
+    new ColinWielgaCards.QualOutcomeCard("{7046335B-224C-4EA5-A862-F853661E27B0}", "ATLANTUS", "", .3,.2),
+    new ColinWielgaCards.QualOutcomeCard("{2AF06522-6235-4968-A8F3-AFAAA7AF78DC}", "ATLANTOS", "", .4,.2),
+    new ColinWielgaCards.QualOutcomeCard("{5F960058-B513-4D9A-A0ED-A0A43C8CBCBD}", "ATLANTYS", "+20% Success when making a skill check within Atlantis.", .5,.2),
+    new ColinWielgaCards.QualOutcomeCard("{60A78845-8762-4FDE-A4C0-4F15ACAB0CFF}", "ATLANTES", "+5 When navigating or gathering knowledge.", .6,.2),
+    new ColinWielgaCards.QualOutcomeCard("{0A20CEF3-1EC2-4C28-9030-F58E9B3869E2}", "ATLANTA", "", .7,.3),
+    new ColinWielgaCards.QualOutcomeCard("{5AD1139D-FA32-4A2A-B678-C3466081E7B5}", "ATLANTS", "", .8,.2),
+    new ColinWielgaCards.QualOutcomeCard("{F31F0B29-BDB0-4C7B-9D4E-2A23A9E440EF}", "ATLANTIAN", "Wrong ocean buddy, if you fail this check you must additionally discard the highest value card in your hand and draw a new card.", .9,.1),
+    new ColinWielgaCards.QualOutcomeCard("{05E19267-BAC8-4972-9E24-A4ECC5876779}", "ATLANTIC", "", 1,0),
     
     new ColinWielgaCards.QualOutcomeCard("{12AC575C-FC97-4472-A80C-88A8E02C1B99}", "ACE", "Critical failure is so catastrophic that you accidentally succeed.", 45,0),
     new ColinWielgaCards.QualOutcomeCard("{19EED157-F42D-4E1A-BA93-6A9A1422E836}", "APPRENTICE", "", 45,1),
