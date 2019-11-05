@@ -143,7 +143,8 @@
                 this.hand.splice(i, 1);
             }
         }
-        this.ledgerPublic.PublicSendMessage("a card was discarded");
+        var card = this.getCard(cardID);
+        this.ledgerPublic.PublicSendMessage("discarded " + card.discardMessage);
     };
     this.OnNewCharacter();
 };

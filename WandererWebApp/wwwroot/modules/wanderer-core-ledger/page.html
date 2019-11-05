@@ -1,16 +1,27 @@
 ﻿<link href="modules/wanderer-core-ledger/stylesheet.css" rel="stylesheet" type="text/css" />
-<div class="pad-me">
-    <input type="button" ng-click="module.SendMessage()" value="Make Some Noise!" />
-    
+
+<div class="scroll-length">
     <div data-ng-repeat="message in module.messages" >
         <div class="pad-me">
             <div class="messagebox">
                 <div class="pad-me">
-                    <span class="sender" > {{message.sender}}</span>
+                    <span class="sender" > {{message.sender}}:</span>
                     <span class="text" >{{message.text}}</span>
                 </div>
             </div>
         </div>  
-    </div> 
-    <textarea data-ng-model="module.WrittenMessage" placeholder="text message" class="char-text auto-resize"></textarea>
+    </div>
+</div>     
+<div class="pad-me">  
+    <div class="flex"> 
+        <textarea 
+            data-ng-model="module.WrittenMessage" 
+            placeholder="text message" 
+            class="message-text auto-resize"></textarea>
+        <input 
+            class="message-send"
+            type="button" 
+            ng-click="module.SendMessage()" 
+            value=">" />
+    </div>
 </div>

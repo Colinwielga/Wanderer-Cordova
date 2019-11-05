@@ -41,6 +41,7 @@
             sender: that.page.name,
             module: that.getId(),
         });
+        this.WrittenMessage = "";
     };
 
     this.OnNewCharacter = function () {

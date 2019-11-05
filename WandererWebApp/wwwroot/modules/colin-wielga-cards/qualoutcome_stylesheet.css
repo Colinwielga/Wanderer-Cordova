@@ -136,7 +136,8 @@
     flex: 1 0 auto;
 }
 
-#colin-wielga-cards .card-in-deck-true {
+#colin-wielga-cards .card-value-color {
+	color: #ffffff;
 }
 
 #colin-wielga-cards .card-in-deck-false {

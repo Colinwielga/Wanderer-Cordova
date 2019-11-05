@@ -1,4 +1,11 @@
-﻿ColinWielgaCards.FlosfulgurCard = function (guid, name, polyID, polyPoints, value, adjective, ability, inDefault, color) {
+﻿ColinWielgaCards.FlosfulgurColors = {
+    "0":"gold",
+    "1":"red",
+    "2":"green",
+    "3":"purple",
+    "4":"red"}
+
+ColinWielgaCards.FlosfulgurCard = function (guid, name, polyID, polyPoints, value, adjective, ability, inDefault, color) {
     this.inDefault = inDefault;
     this.guid = guid;
     this.name = name;
@@ -12,6 +19,11 @@
     this.getHtml = function () {
         return "modules/colin-wielga-cards/FlosfulgurCard.html";
     };
+    this.discardMessage = name + ":\n" 
+                            + " Adjective: " + adjective + "\n" 
+                            + " Value: " + value + "\n"
+                            + " Ability: " + ability + "\n"
+                            + " Color: " + ColinWielgaCards.FlosfulgurColors[color] + "\n"
 };
 
 var cardList =

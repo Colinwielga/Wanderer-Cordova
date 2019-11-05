@@ -21,6 +21,7 @@
     this.getValue = function () {
         return this.value;
     };
+    this.discardMessage = name + " - " + value;
 };
 
 // decrease by 3, keep it until it hits 0

@@ -21,7 +21,7 @@ var component = function () {
     };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
-
+        this.ledgerPublic = dependencies[0];
     };
     this.OnNewCharacter = function () {
         this.hp = this.MaxHP;
@@ -68,7 +68,7 @@ var component = function () {
         return "HP";
     };
     this.getRequires = function () {
-        return [];
+        return ["wanderer-core-ledger"];
     };
     this.Alive = function () {
         return this.hp + this.encounterHP > 0;
@@ -88,17 +88,71 @@ var component = function () {
     this.hit = function () {
         var x = this.MoveEncounterHP(-hpMover());
         this.MoveHP(x);
+        this.ledgerPublic.PublicSendMessage("took a hit! status: " + this.getStatus());
     };
 
     this.FullHeal = function () {
         var x = this.MoveEncounterHP(1000);
         this.MoveHP(x);
+        this.ledgerPublic.PublicSendMessage("fully restored their health! status: " + this.getStatus());
     };
 
     this.recoverEncounterHP = function () {
         this.MoveEncounterHP(1000);
         this.MoveHP(hpMover() / 2.0);
+        this.ledgerPublic.PublicSendMessage("Survived the encounter. status: " + this.getStatus());
     };
+
+    this.getStatus = function () {
+        var totalHP = this.encounterHP + this.hp;
+        if (totalHP === 12){
+            return this.randomFromList(["chipper","spritely","vivacious"]);
+        }
+        if (totalHP < 12 && totalHP >= 11){
+            return this.randomFromList(["winded","shaken","stunned"]); 
+        }
+        if (totalHP < 11 && totalHP >= 10){
+            return this.randomFromList(["scratched","shaken", "stunned"]); 
+        }
+        if (totalHP < 10 && totalHP >= 9){
+            return this.randomFromList(["scratched","bruised"]);
+        }
+        if (totalHP < 9 && totalHP >= 8){
+            return this.randomFromList(["bruised","exhausted"]);
+        }
+        if (totalHP < 8 && totalHP >= 7){
+            return this.randomFromList(["bloodied","exhausted","bleeding"]);
+        }
+        if (totalHP < 7 && totalHP >= 6){
+            return this.randomFromList(["bloodied","bleeding", "wounded","battered"]);
+        }
+        if (totalHP < 6 && totalHP >= 5){
+            return this.randomFromList(["wounded","broken","limping","battered"]);
+        }
+        if (totalHP < 5 && totalHP >= 4){
+            return this.randomFromList(["limping","broken","battered","bleeding profusely"]);
+        }
+        if (totalHP < 4 && totalHP >= 3){
+            return this.randomFromList(["bleeding profusely","broken","covered in blood"]);   
+        }   
+        if (totalHP < 3 && totalHP >= 2){
+            return this.randomFromList(["covered in blood","staggering"]);   
+        }   
+        if (totalHP < 2 && totalHP >= 1){
+            return this.randomFromList(["badly hurt","staggering"]);   
+        }   
+        if (totalHP < 1 && totalHP > 0){
+            return this.randomFromList(["barely conscious"]);
+        }
+        if (totalHP <= 0){
+            return this.randomFromList(["unconscious"]);
+        }
+    };
+    
+    this.randomFromList = function (list) {
+        return list[Math.floor(Math.random() * list.length)];
+    };
+
 
     this.OnNewCharacter();
 
