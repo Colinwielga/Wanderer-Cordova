@@ -1,5 +1,8 @@
 ﻿ColinWielgaCards.component = function () {
     var that = this;
+
+
+
     this.decklist = ColinWielgaCards.decklist;
     this.getId = function () {
         return "colin-wielga-cards";
@@ -7,6 +10,21 @@
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.ledgerPublic = dependencies[0]; 
+
+        var cardDisplayableMaker = {
+            CanDisplay: function(message){
+                return message.displayerModule === that.getId();
+            },
+            ConvertToDisplayable:function(message){
+                var card = that.getCard(message.cardId);
+                var html =card.getHtml();
+                return {
+                    getHtml: function(){return html;},
+                    getModel: function(){ return card;}
+                };
+            }
+        };
+        this.ledgerPublic.AddDisplayableMaker(cardDisplayableMaker);
     };
     this.OnNewCharacter = function () {
         this.hand = [];
@@ -143,8 +161,12 @@
                 this.hand.splice(i, 1);
             }
         }
-        var card = this.getCard(cardID);
-        this.ledgerPublic.PublicSendMessage("discarded " + card.discardMessage);
+        //var card = this.getCard(cardID);
+        //this.ledgerPublic.PublicSendMessage("discarded " + card.discardMessage);
+        this.ledgerPublic.PublicSendDisplayableMessage({
+            displayerModule: this.getId(),   
+            cardId: cardID,
+        });
     };
     this.OnNewCharacter();
 };

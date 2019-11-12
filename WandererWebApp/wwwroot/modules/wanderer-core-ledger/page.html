@@ -1,14 +1,10 @@
 ﻿<link href="modules/wanderer-core-ledger/stylesheet.css" rel="stylesheet" type="text/css" />
 
 <div class="scroll-length">
-    <div data-ng-repeat="message in module.messages" >
+    <div data-ng-repeat="displayable in module.displayables" >
         <div class="pad-me">
-            <div class="messagebox">
-                <div class="pad-me">
-                    <span class="sender" > {{message.sender}}:</span>
-                    <span class="text" >{{message.text}}</span>
-                </div>
-            </div>
+            {{displayable.getHtml()}}
+            <div data-ng-include="displayable.getHtml()" data-ng-init="model = displayable.getModel()"></div>
         </div>  
     </div>
 </div>     
@@ -18,9 +14,9 @@
             data-ng-model="module.WrittenMessage" 
             placeholder="text message" 
             class="message-text auto-resize"></textarea>
-        <input 
+        <input
             class="message-send"
-            type="button" 
+            type="button"  
             ng-click="module.SendMessage()" 
             value=">" />
     </div>

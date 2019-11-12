@@ -1,5 +1,22 @@
 ﻿var component = function () {
 
+    var messageDisplayableMaker = {
+        CanDisplay: function(message){
+            return message.displayerModule === that.getId();
+        },
+        ConvertToDisplayable:function(message){
+            return {
+                getHtml: function(){ return "modules/wanderer-core-ledger/message.html";},
+                getModel: function(){ return message;}
+            };
+        }
+    };
+
+    // a list of things that know how to display messages 
+    this.displayableMakers = [messageDisplayableMaker];  
+
+    this.displayables =[];
+
     this.getId = function () {
         return "wanderer-core-ledger";
     };
@@ -30,7 +47,13 @@
 
     this.OnMessageCallBack = function(message){
         g.services.timeoutService.$timeout(function() {
-            that.messages.push(message);
+            for (let displayableMaker of that.displayableMakers) {
+                if (displayableMaker.CanDisplay(message)){
+                    var displayable = displayableMaker.ConvertToDisplayable(message);
+                    that.displayables.push(displayable);
+                    return;
+                }
+            }
         });
     };
 
@@ -40,6 +63,7 @@
             timestamp: Date.now(),
             sender: that.page.name,
             module: that.getId(),
+            displayerModule : that.getId()
         });
         this.WrittenMessage = "";
     };
@@ -65,7 +89,15 @@
                     timestamp: Date.now(),
                     sender: that.page.name,
                     module: that.getId(),
+                    displayerModule : that.getId()
                 });
+            },
+            PublicSendDisplayableMessage: function(message){
+                message.module = that.getId();
+                g.services.SignalRService.Send(that.key,message);
+            },
+            AddDisplayableMaker: function(displayableMaker){
+                that.displayableMakers.push(displayableMaker);
             }
         };
     };

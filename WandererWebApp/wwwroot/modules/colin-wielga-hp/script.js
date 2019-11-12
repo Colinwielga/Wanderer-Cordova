@@ -25,7 +25,8 @@ var component = function () {
     };
     this.OnNewCharacter = function () {
         this.hp = this.MaxHP;
-        this.encounterHP = this.MaxEncounterHP;
+        this.encounterHP = this.MaxEncounterHP;    
+        this.status = this.getStatus();
     };
     this.OnSave = function () {
         this.communicator.write("hp", this.hp);
@@ -85,22 +86,26 @@ var component = function () {
         return 1 + Math.min(Math.max(-.75, Roll.roll(1) / 2.0), .75);
     };
 
+
     this.hit = function () {
         var x = this.MoveEncounterHP(-hpMover());
         this.MoveHP(x);
-        this.ledgerPublic.PublicSendMessage("took a hit! status: " + this.getStatus());
+        this.status = this.getStatus();
+        this.ledgerPublic.PublicSendMessage("took a hit! status: " + this.status);  
     };
 
     this.FullHeal = function () {
         var x = this.MoveEncounterHP(1000);
         this.MoveHP(x);
-        this.ledgerPublic.PublicSendMessage("fully restored their health! status: " + this.getStatus());
+        this.status = this.getStatus();
+        this.ledgerPublic.PublicSendMessage("fully restored their health! status: " + this.status);
     };
 
     this.recoverEncounterHP = function () {
         this.MoveEncounterHP(1000);
         this.MoveHP(hpMover() / 2.0);
-        this.ledgerPublic.PublicSendMessage("Survived the encounter. status: " + this.getStatus());
+        this.status = this.getStatus();
+        this.ledgerPublic.PublicSendMessage("Survived the encounter. status: " + this.status);
     };
 
     this.getStatus = function () {
