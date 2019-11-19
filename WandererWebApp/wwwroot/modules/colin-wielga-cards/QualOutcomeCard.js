@@ -57,8 +57,8 @@
     "TankWelding",
     "TugBoat",
     "USSSouthDakota",
-    "WaterBuffalo",
-]
+    "WaterBuffalo"
+];
 
 ColinWielgaCards.QualOutcomeCard = function (guid, name, text, oddsOfSuccess, oddsOfUncertainty) {
     this.guid = guid;
@@ -130,8 +130,7 @@ var cardList = [
     new ColinWielgaCards.QualOutcomeCard("{A8585373-497A-476C-B909-57FEBED9BB3D}", "GENETICIST", "", 45,6),   
     new ColinWielgaCards.QualOutcomeCard("{581CFD80-1B9E-4B86-B3D7-88F8EB1854EB}", "PROPAGANDIST", "+3 When throwing.", 45,7),
     new ColinWielgaCards.QualOutcomeCard("{CE0C01BD-D9EB-47A3-BDEF-C424D0C5DE94}", "ANTEDILUVIAN", "+2 When making a skill check in water.", 45,8),
-    new ColinWielgaCards.QualOutcomeCard("{872A37B4-549D-49D9-BC06-D2D63A9276A0}", "OUTLANDISH", "If you fail this check, your reputation is irrevocably changed for the worse.", 45,9),
-
+    new ColinWielgaCards.QualOutcomeCard("{872A37B4-549D-49D9-BC06-D2D63A9276A0}", "OUTLANDISH", "If you fail this check, your reputation is irrevocably changed for the worse.", 45,9)
 ];
 
 ColinWielgaCards.QualOutcomeDeck = new ColinWielgaCards.Deck("{81FB0469-1679-46E4-A47A-D40A31B44784}", "Qualitative Outcome Deck", cardList);
