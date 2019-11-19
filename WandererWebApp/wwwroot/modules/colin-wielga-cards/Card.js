@@ -7,12 +7,6 @@
     this.inDefault = inDefault;
     this.image = image;
     this.getImage = function () {
-        //var id = this.id();
-        //// this feels like a hack
-        //// can i just use the name?
-        //while (id >= 100) {
-        //    id -= 100;
-        //}
         return "images/cards/" + image + ".jpg";
     };
     this.getHtml = function () {
@@ -180,36 +174,3 @@ var cardList =[
 ColinWielgaCards.AhlosainDeck = new ColinWielgaCards.Deck("{53799C64-1547-4FF7-9C00-E8D9AE22C6CE}", "Ahlos Deck", cardList);
 
 ColinWielgaCards.decklist.push(ColinWielgaCards.AhlosainDeck);
-
-
-//Card.getCard = function (id) {
-//    return ColinWielgaCards.AhlosDeck.allCards[id];
-//}
-
-//Card.deckSize = function () {
-//    var count = 0;
-//    for (var i in ColinWielgaCards.AhlosDeck.allCards) {
-//        if (ColinWielgaCards.AhlosDeck.allCards.hasOwnProperty(i)) count++;
-//    }
-//    return count;
-//}
-
-//Card.draw = function (gods) {
-//    // list of ids
-//    var deck = [];
-
-//    // add the standard cards
-//    for (var i = 22; i <= 77; i++) {
-//        deck.push(i);
-//    }
-
-//    // add the god cards 
-//    // TODO this is a weird dependency 
-//    // and it's breaking cards 
-//    gods.forEach(function (god) {
-//        deck.push(God.getCardId(god));
-//    });
-
-
-//    return deck[Math.floor(Math.random() * deck.length)];
-//}

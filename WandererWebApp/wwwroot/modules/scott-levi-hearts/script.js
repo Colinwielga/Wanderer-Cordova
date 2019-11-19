@@ -153,7 +153,7 @@ ScottLeviHearts.component = function () {
                         }
                     }
                 });
-            g.services.SignalRService.Join(groupName, this.key);
+            //g.services.SignalRService.Join(groupName, this.key);
             g.services.SignalRService.Send(that.key, {
                 module: that.getId(),
                 type: "joined Game",
@@ -289,7 +289,7 @@ ScottLeviHearts.component = function () {
             putCardInPlay: function (cardInfo) {
                 // when there are two cards already out
                 // clear the table a start a new trick
-                if (this.inPlay.length == 2) {
+                if (this.inPlay.length === 2) {
                     this.inPlay = [];
                 }
 
@@ -297,7 +297,7 @@ ScottLeviHearts.component = function () {
                 // managing turn is simple
                 // if you played the card it is their turn
                 // if they played the card it is your turn
-                if (this.inPlay.length == 0) {
+                if (this.inPlay.length === 0) {
 
                     if (that.page.name === cardInfo.playedBy) {
                         this.IsYourTurn = false;

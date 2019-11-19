@@ -189,9 +189,9 @@
     };
 
     // first we join a colabrative session
-    var key = "test key";
-    var groupName = "test group";
-    g.services.SignalRService.Join(groupName, key);
+    //var key = "test key";
+    //var groupName = "test group";
+    //g.services.SignalRService.Join(groupName, key);
 
     g.services.SignalRService.tryRemoveCallback(key);
 
