@@ -32,7 +32,6 @@ ScottLeviHearts.component = function () {
                     return message.module === that.getId(); 
                 },
                 function (message) {
-                    console.log("got message:", message);
                     if (message.type === "joined Game") {
                         if (message.id !== that.id) {
                             g.services.timeoutService.$timeout(function () {
