@@ -169,7 +169,7 @@ var cardList =[
      new ColinWielgaCards.AhlosainCard("{C2A002C5-0577-4850-B349-BA34A8771DD8}", "THE SUN (blessing)", "(blessing) 15 if acting deceptively", "10",false,19),
      new ColinWielgaCards.AhlosainCard("{66B15EDF-5A14-41B6-B782-4605B8540489}", "JUDGEMENT (blessing)", "(blessing) or 15 and take a hit", "12",false,20),
      new ColinWielgaCards.AhlosainCard("{8625F075-C76D-4AE3-B5F0-C1462925ED25}", "THE WORLD (blessing)", "(blessing) heal 2 clicks", "13",false,21)
-    ];
+];
 
 ColinWielgaCards.AhlosainDeck = new ColinWielgaCards.Deck("{53799C64-1547-4FF7-9C00-E8D9AE22C6CE}", "Ahlos Deck", cardList);
 

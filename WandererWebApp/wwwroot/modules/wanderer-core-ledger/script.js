@@ -17,6 +17,8 @@
 
     this.displayables =[];
 
+    this.joined = false;
+
     this.getId = function () {
         return "wanderer-core-ledger";
     };
@@ -37,6 +39,9 @@
             groupName,
             that.ShouldHandleMessage,
             that.OnMessageCallBack);
+        g.services.timeoutService.$timeout(function () {
+            that.joined = true;
+        })
     };
 
     this.ShouldHandleMessage = function(message){
