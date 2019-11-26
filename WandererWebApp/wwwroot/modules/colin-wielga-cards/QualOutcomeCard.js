@@ -57,8 +57,8 @@
     "TankWelding",
     "TugBoat",
     "USSSouthDakota",
-    "WaterBuffalo",
-]
+    "WaterBuffalo"
+];
 
 ColinWielgaCards.QualOutcomeCard = function (guid, name, text, oddsOfSuccess, oddsOfUncertainty) {
     this.guid = guid;
@@ -89,17 +89,17 @@ ColinWielgaCards.QualOutcomeCard = function (guid, name, text, oddsOfSuccess, od
 var cardList = [
 
     new ColinWielgaCards.QualOutcomeCard("{B602D13C-FEC9-471D-A6BC-9BD520CAB607}", "ATLANTACE", "Discard another card in addition to this card, draw two cards.", "10%", "5%"),
-    new ColinWielgaCards.QualOutcomeCard("{4EEC15F2-21BB-4821-86FD-5AD9B2C2131D}", "ATLANTAS", "If you fail, move the Uncertainty Clock forward one hour.", "20%","10%"),
+    new ColinWielgaCards.QualOutcomeCard("{4EEC15F2-21BB-4821-86FD-5AD9B2C2131D}", "ATLANTAS", "If you fail, add 10% uncertainty to your next roll.", "20%","10%"),
     new ColinWielgaCards.QualOutcomeCard("{7046335B-224C-4EA5-A862-F853661E27B0}", "ATLANTUS", "", "30%","15%"),
     new ColinWielgaCards.QualOutcomeCard("{2AF06522-6235-4968-A8F3-AFAAA7AF78DC}", "ATLANTOS", "", "40%","20%"),
     new ColinWielgaCards.QualOutcomeCard("{5F960058-B513-4D9A-A0ED-A0A43C8CBCBD}", "ATLANTYS", "+25% success when making a skill check within Atlantis.", "50%","25%"),
-    new ColinWielgaCards.QualOutcomeCard("{60A78845-8762-4FDE-A4C0-4F15ACAB0CFF}", "ATLANTES", "+20% success when navigating or gathering knowledge.", "60%","30%"),
+    new ColinWielgaCards.QualOutcomeCard("{60A78845-8762-4FDE-A4C0-4F15ACAB0CFF}", "ATLANTES", "+20% success when navigating.", "60%","30%"),
     new ColinWielgaCards.QualOutcomeCard("{0A20CEF3-1EC2-4C28-9030-F58E9B3869E2}", "ATLANTA", "+15% Uncertainty", "40%","35%"),
-    new ColinWielgaCards.QualOutcomeCard("{5AD1139D-FA32-4A2A-B678-C3466081E7B5}", "ATLANTS", "If you succeed, move the Uncertainty Clock backward one hour.", "20%","40%"),
-    new ColinWielgaCards.QualOutcomeCard("{F31F0B29-BDB0-4C7B-9D4E-2A23A9E440EF}", "ATLANTIAN", "Wrong ocean buddy, if you fail this check you must lose an item.", "15%","55%"),
+    new ColinWielgaCards.QualOutcomeCard("{5AD1139D-FA32-4A2A-B678-C3466081E7B5}", "ATLANTS", "If you succeed, add 10% chance of success to your next roll.", "20%","40%"),
+    new ColinWielgaCards.QualOutcomeCard("{F31F0B29-BDB0-4C7B-9D4E-2A23A9E440EF}", "ATLANTIAN", "Wrong ocean buddy, if you fail this check you must lose an important item.", "15%","55%"),
     new ColinWielgaCards.QualOutcomeCard("{05E19267-BAC8-4972-9E24-A4ECC5876779}", "ATLANTIC", "Fact", "50%","50%"),
     
-    new ColinWielgaCards.QualOutcomeCard("{12AC575C-FC97-4472-A80C-88A8E02C1B99}", "ACE", "Critical failure is so catastrophic that you accidentally succeed.", 45,0),
+    new ColinWielgaCards.QualOutcomeCard("{12AC575C-FC97-4472-A80C-88A8E02C1B99}", "ACE", "Failing with this card counts as plain simple failure.", "10%","5%"),
     new ColinWielgaCards.QualOutcomeCard("{19EED157-F42D-4E1A-BA93-6A9A1422E836}", "APPRENTICE", "", 45,1),
     new ColinWielgaCards.QualOutcomeCard("{92AC6554-AE63-4779-AAC6-73582A32070C}", "ANARCHIST", "", 45,2),
     new ColinWielgaCards.QualOutcomeCard("{3D083342-9F22-47B9-8148-E1AC7D053D98}", "ABSTRACTIONIST", "", 45,3),
@@ -121,17 +121,16 @@ var cardList = [
     new ColinWielgaCards.QualOutcomeCard("{75D52CDB-E3CE-4BD2-882D-2B2C9ACBD6FC}", "ATLAS", "-20% uncertainty when referring to a map.", 45,8),
     new ColinWielgaCards.QualOutcomeCard("{046C06DE-2CF1-4017-A647-B2E23E500D1E}", "ANTAGONIST", "Swim with the fishes, draw an addtional card if you discard this card to betray someone.", 45,9),
     
-    new ColinWielgaCards.QualOutcomeCard("{15D3D15F-6025-4488-AB1B-85C0E6EF1684}", "EPHEMERAL", "Counts as value 10 if critical failure is so catastrophic that you accidentally succeed.", 45,0),
-    new ColinWielgaCards.QualOutcomeCard("{7A554276-8F9F-422F-AAC2-E3CA2B575788}", "CATALYST", "", 45,1),
-    new ColinWielgaCards.QualOutcomeCard("{EE8F0CAB-5873-4530-BC54-014000CE64ED}", "BICAMERAL", "", 45,2),
-    new ColinWielgaCards.QualOutcomeCard("{DBDC3767-C275-4838-A472-077D7C162D93}", "DYNASTIC", "", 45,3),
-    new ColinWielgaCards.QualOutcomeCard("{AC8E6BC9-8C7E-4C23-9CF5-0A053F9CA029}", "ADVANTAGE", "", 45,4),
-    new ColinWielgaCards.QualOutcomeCard("{5DF25620-5369-41DE-AD94-DA84CCCD7F34}", "PHYSICS", "", 45,5),
-    new ColinWielgaCards.QualOutcomeCard("{A8585373-497A-476C-B909-57FEBED9BB3D}", "GENETICIST", "", 45,6),   
-    new ColinWielgaCards.QualOutcomeCard("{581CFD80-1B9E-4B86-B3D7-88F8EB1854EB}", "PROPAGANDIST", "+3 When throwing.", 45,7),
-    new ColinWielgaCards.QualOutcomeCard("{CE0C01BD-D9EB-47A3-BDEF-C424D0C5DE94}", "ANTEDILUVIAN", "+2 When making a skill check in water.", 45,8),
-    new ColinWielgaCards.QualOutcomeCard("{872A37B4-549D-49D9-BC06-D2D63A9276A0}", "OUTLANDISH", "If you fail this check, your reputation is irrevocably changed for the worse.", 45,9),
-
+    new ColinWielgaCards.QualOutcomeCard("{15D3D15F-6025-4488-AB1B-85C0E6EF1684}", "EPHEMERAL", "All failures count as catastrophic.", "40%","20%"),
+    new ColinWielgaCards.QualOutcomeCard("{7A554276-8F9F-422F-AAC2-E3CA2B575788}", "CATALYST", "", "40%","20%"),
+    new ColinWielgaCards.QualOutcomeCard("{EE8F0CAB-5873-4530-BC54-014000CE64ED}", "ADONIS", "", "40%","20%",
+    new ColinWielgaCards.QualOutcomeCard("{DBDC3767-C275-4838-A472-077D7C162D93}", "DYNASTIC", "", "40%","20%"),
+    new ColinWielgaCards.QualOutcomeCard("{AC8E6BC9-8C7E-4C23-9CF5-0A053F9CA029}", "ADVANTAGEOUS", "", "40%","20%"),
+    new ColinWielgaCards.QualOutcomeCard("{5DF25620-5369-41DE-AD94-DA84CCCD7F34}", "PHYSICS", "", "40%","20%"),
+    new ColinWielgaCards.QualOutcomeCard("{A8585373-497A-476C-B909-57FEBED9BB3D}", "GENETICIST", "", "40%","20%"),   
+    new ColinWielgaCards.QualOutcomeCard("{581CFD80-1B9E-4B86-B3D7-88F8EB1854EB}", "PROPAGANDIST", "+3 When throwing.", "40%","20%"),
+    new ColinWielgaCards.QualOutcomeCard("{CE0C01BD-D9EB-47A3-BDEF-C424D0C5DE94}", "ANTEDILUVIAN", "-20% uncertainty when making a skill check involving water.", "40%","20%"),
+    new ColinWielgaCards.QualOutcomeCard("{872A37B4-549D-49D9-BC06-D2D63A9276A0}", "OUTLANDISH", "If you fail this check, your reputation is irrevocably changed for the worse.", "40%","20%"),
 ];
 
 ColinWielgaCards.QualOutcomeDeck = new ColinWielgaCards.Deck("{81FB0469-1679-46E4-A47A-D40A31B44784}", "Qualitative Outcome Deck", cardList);
