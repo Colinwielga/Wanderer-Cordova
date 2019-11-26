@@ -15,7 +15,7 @@
 
     g.services.pageService.GetAccount();
     g.services.pageService.LoadWiki();
-    g.services.pageService.LoadTable();
+    //g.services.pageService.LoadTable();
     
     $scope.activePage = function () {
         return g.services.pageService.activePage();

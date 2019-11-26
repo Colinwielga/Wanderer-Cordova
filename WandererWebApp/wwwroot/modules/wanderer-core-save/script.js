@@ -8,7 +8,7 @@
     };
 
     this.Join = function () {
-        g.services.SignalRService.Join(that.GroupName, that.key);
+        g.services.SignalRService.Join(that.groupName, that.key);
         for (var callback of that.OnJoindCallbacks) {
             callback(that.groupName);
         }

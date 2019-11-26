@@ -13,15 +13,28 @@
 
         var cardDisplayableMaker = {
             CanDisplay: function(message){
-                return message.displayerModule === that.getId();
+                if (message.displayerModule === that.getId()) {
+                    for (var deck of that.decklist) {
+                        if (deck.guid === message.deckId) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             },
-            ConvertToDisplayable:function(message){
-                var card = that.getCard(message.cardId);
-                var html =card.getHtml();
-                return {
-                    getHtml: function(){return html;},
-                    getModel: function(){ return card;}
-                };
+            ConvertToDisplayable: function (message) {
+                for (var deck of that.decklist) {
+                    if (deck.guid === message.deckId) {
+                        var card = deck.allCards[message.cardId];
+                        var html = card.getHtml();
+                        return {
+                            getHtml: function () { return html; },
+                            getModel: function () { return card; },
+                            getId: function () { return "colin-wielga-cards"; }
+                        };
+                    }
+                }
+                throw { message: "deck not found"}
             }
         };
         this.ledgerPublic.AddDisplayableMaker(cardDisplayableMaker);
@@ -166,6 +179,7 @@
         this.ledgerPublic.PublicSendDisplayableMessage({
             displayerModule: this.getId(),   
             cardId: cardID,
+            deckId: this.selectedDeck.guid
         });
     };
     this.OnNewCharacter();

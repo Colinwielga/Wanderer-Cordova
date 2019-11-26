@@ -1,13 +1,11 @@
-﻿<div class="classic-card card card-color-dark" data-ng-click="module.discard(cardID)" data-ng-init="card = module.getCard(cardID)">
-
-    <div class="card-border" back-img="{{card.getImage()}}">
-    
+﻿<div class="classic-card card card-color-dark">
+    <div class="card-border" back-img="{{model.getImage()}}">
         <div class="card-padding"></div>
         <div class="card-number-container">
             <div class="card-value-color">
-                <span class="card-ability">{{card.text}}</span>
-                <span class="card-chance-success">{{card.oddsOfSuccess}}</span>
-                <span class="card-chance-uncertainty">{{card.oddsOfUncertainty}}</span>
+                <span class="card-ability">{{model.text}}</span>
+                <span class="card-chance-success">{{model.oddsOfSuccess}}</span>
+                <span class="card-chance-uncertainty">{{model.oddsOfUncertainty}}</span>
             </div>
         </div>
     </div>

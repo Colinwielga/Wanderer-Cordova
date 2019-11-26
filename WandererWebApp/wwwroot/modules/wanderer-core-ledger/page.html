@@ -3,8 +3,7 @@
 <div class="scroll-length">
     <div data-ng-repeat="displayable in module.displayables" >
         <div class="pad-me">
-            {{displayable.getHtml()}}
-            <div data-ng-include="displayable.getHtml()" data-ng-init="model = displayable.getModel()"></div>
+            <div data-ng-include="displayable.getHtml()" id="{{displayable.getId()}}" data-ng-init="model = displayable.getModel()"></div>
         </div>  
     </div>
 </div>     
