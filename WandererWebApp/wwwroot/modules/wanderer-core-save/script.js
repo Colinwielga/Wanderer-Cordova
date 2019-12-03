@@ -12,6 +12,8 @@
         for (var callback of that.OnJoindCallbacks) {
             callback(that.groupName);
         }
+        that.logger.info("Join Successful!");
+        that.lastJoined = that.groupName;
     };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
@@ -70,6 +72,13 @@
     };
     this.getTitle = function () {
         return "Save";
+    };
+    this.copyId = async function () {
+        var ID = this.page.accessKey;
+        await navigator.clipboard.writeText(ID);
+        g.services.timeoutService.$timeout(function () {
+            that.logger.info("Copy Successful!");
+        });
     };
     this.save = function () {
         var newJson = that.page.getJSON();

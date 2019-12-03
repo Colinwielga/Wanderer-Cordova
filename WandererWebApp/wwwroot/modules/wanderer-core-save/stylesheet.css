@@ -1,1 +1,7 @@
-﻿
+﻿#wanderer-core-save .flex{
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}

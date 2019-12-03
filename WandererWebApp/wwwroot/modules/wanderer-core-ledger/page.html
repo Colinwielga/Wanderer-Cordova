@@ -10,17 +10,19 @@
         </div>  
     </div>
 </div>    
- 
+
 <div ng-show="module.join" class="pad-me">  
     <div class="flex"> 
-        <textarea 
-            data-ng-model="module.WrittenMessage" 
-            placeholder="text message" 
-            class="message-text auto-resize"></textarea>
-        <input
-            class="message-send"
-            type="button"  
-            ng-click="module.SendMessage()" 
-            value=">" />
+        <form>
+            <input type="text" 
+                data-ng-model="module.WrittenMessage" 
+                placeholder="text message" 
+                class="message-text auto-resize"></textarea>
+            <input
+                class="message-send"
+                type="submit"  
+                ng-click="module.SendMessage()" 
+                value=">" />
+        </form>
     </div>
 </div>
