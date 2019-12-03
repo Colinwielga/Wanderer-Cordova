@@ -1,6 +1,13 @@
 ﻿var DCKingdomLocations = {};
 
 DCKingdomLocations.component = function () {
+    this.default_locations = [{
+        name: "",
+        desc: ""
+    }, {
+        name: "",
+        desc: ""
+    }];
 
     // all component need a unique ID
     this.getId = function () {
@@ -19,22 +26,19 @@ DCKingdomLocations.component = function () {
     };
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.personal_locations = this.default_locations;
     };
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("personal_locations", this.personal_locations);
     };
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+         if (this.communicator.canRead("personal_locations")){
+             this.personal_locations = this.communicator.read("personal_locations");
+        }else{
+            this.personal_locations = default_locations;
+        }
     };
     this.OnUpdate = function () {
     };
