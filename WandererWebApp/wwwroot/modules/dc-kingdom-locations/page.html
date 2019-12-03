@@ -1,1 +1,6 @@
-﻿<div class="pad-me"></div>
+﻿<div class="pad-me">
+	<div class="location_section" data-ng-repeat="location in module.personal_locations">
+		<input type="text" name="Location" data-ng-model="location['name']"></input>
+		<textarea placeholder="Description goes here" data-ng-model="location['desc']"></textarea>
+	</div>
+</div>
