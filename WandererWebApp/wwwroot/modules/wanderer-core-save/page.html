@@ -7,7 +7,7 @@
         </form>
         <form>
             <input type="text" ng-model="module.groupName" />
-            <input type="submit" value="Join" data-ng-disabled="module.lastJoined === module.groupName" ng-click="module.Join()" ng-disabled="module.groupName == null" />
+            <input type="submit" value="{{module.joinedButtonText()}}" data-ng-disabled="module.lastJoined === module.groupName" ng-click="module.Join()" ng-disabled="module.groupName == null" />
         </form>
         <input type="button" value="Copy ID" data-ng-click="module.copyId()"/>
     </div>
