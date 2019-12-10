@@ -11,18 +11,16 @@
     </div>
 </div>    
 
-<div ng-show="module.joined" class="pad-me">  
-    <div class="flex"> 
-        <form>
-            <input type="text" 
-                data-ng-model="module.WrittenMessage" 
-                placeholder="text message" 
-                class="message-text auto-resize"/>
-            <input
-                class="message-send"
-                type="submit"  
-                ng-click="module.SendMessage()" 
-                value=">" />
-        </form>
-    </div>
+<div class="pad-me">
+    <form ng-show="module.joined" class="flex">  
+        <input type="text" 
+            data-ng-model="module.WrittenMessage" 
+            placeholder="text message" 
+            class="message-text auto-resize"/>
+        <input
+            class="message-send"
+            type="submit"  
+            ng-click="module.SendMessage()" 
+            value="send" />
+    </form>
 </div>
