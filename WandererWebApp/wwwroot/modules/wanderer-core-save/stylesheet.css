@@ -5,3 +5,7 @@
     justify-content: space-evenly;
     width: 100%;
 }
+
+#wanderer-core-save .inner-flex {
+    display: flex;
+}

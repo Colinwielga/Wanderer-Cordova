@@ -1,11 +1,11 @@
 ﻿<link href="modules/wanderer-core-save/stylesheet.css" rel="stylesheet" />
 <div class ="pad-me">
     <div class="flex">
-        <form>
+        <form class="inner-flex">
             <input type="text" data-ng-model="module.page.name" />
             <input type="submit" value="Save" data-ng-click="module.save()" />
         </form>
-        <form>
+        <form class="inner-flex">
             <input type="text" ng-model="module.groupName" />
             <input type="submit" value="{{module.joinedButtonText()}}" data-ng-disabled="module.lastJoined === module.groupName" ng-click="module.Join()" ng-disabled="module.groupName == null" />
         </form>
