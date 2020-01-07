@@ -531,5 +531,10 @@ table {
 
 .notification {
     background-color:#696969;
-    color: #FFFFFF; 
+    color: #FFFFFF;
+    display: flex;  
+}
+
+.notification-message {
+    flex-grow: 1;
 }

@@ -68,7 +68,7 @@ ScottLeviCloudOfUncertainty.component = function () {
     };
 
     this.getTitle = function () {
-        return "title";
+        return "Cloud of Uncertainty";
     };
 
     this.OnNewCharacter();
