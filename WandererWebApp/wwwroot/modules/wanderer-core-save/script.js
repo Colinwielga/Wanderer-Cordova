@@ -7,13 +7,6 @@
         return "wanderer-core-save";
     };
 
-    this.Join = function () {
-        g.services.SignalRService.Join(that.GroupName, that.key);
-        for (var callback of that.OnJoindCallbacks) {
-            callback(that.groupName);
-        }
-    };
-
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.logger = logger;
         this.page = page;
@@ -70,6 +63,32 @@
     };
     this.getTitle = function () {
         return "Save";
+    };
+
+    this.Join = function () {
+        g.services.SignalRService.Join(that.groupName, that.key);
+        for (var callback of that.OnJoindCallbacks) {
+            callback(that.groupName);
+        }
+        that.logger.info("Join Successful!");
+        that.lastJoined = that.groupName;
+    };
+
+    this.joinedButtonText = function () {
+        if (that.lastJoined === that.groupName) { 
+            return "Joined"; 
+        } else { 
+            return "Join";
+        } 
+    };
+    
+    
+    this.copyId = async function () {
+        var ID = this.page.accessKey;
+        await navigator.clipboard.writeText(ID);
+        g.services.timeoutService.$timeout(function () {
+            that.logger.info("Copy Successful!");
+        });
     };
     this.save = function () {
         var newJson = that.page.getJSON();

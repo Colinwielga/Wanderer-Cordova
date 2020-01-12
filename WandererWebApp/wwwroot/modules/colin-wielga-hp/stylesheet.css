@@ -14,17 +14,12 @@
     transition: width .2s ease-out, background .2s ease-out;
 }
 
-#colin-wielga-hp .dead {
+#colin-wielga-hp .status {
     position: absolute;
     transition: opacity 1s ease-out;
-    opacity: 0;
     height: 30px;
     line-height: 30px;
     width: calc(100% - 12px);
     text-align: center;
     color: white;
-}
-
-#colin-wielga-hp .dead.show {
-    opacity: 1;
 }

@@ -18,16 +18,18 @@
                     </div>
                     <div class="loggin-container">
                         <div class="notification notification-{{notification.displayType}} pad-me" data-ng-repeat="notification in module.injected.logger.displayLogs()">
-                            {{notification.message}}
-                            <input 
-                                type="button" 
-                                value="close" 
-                                data-ng-click="notification.closed = true" />
+                            <div class="notification-message">
+                                {{notification.message}}
+                            </div>
                             <input 
                                 type="button" 
                                 value="{{notification.action.title}}" 
                                 data-ng-if="notification.action != null" 
                                 data-ng-click="notification.action.callBack();notification.closed = true "/>
+                            <input 
+                                type="button" 
+                                value="close" 
+                                data-ng-click="notification.closed = true" />
                         </div>
                     </div>
                     <div data-ng-show="module.injected.dataManager.remote != null">

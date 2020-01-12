@@ -1,8 +1,26 @@
 ﻿<link href="modules/wanderer-core-ledger/stylesheet.css" rel="stylesheet" type="text/css" />
+<div ng-show="!module.joined" class="pad-me">
+    Please join a game.
+</div>
+
+<div ng-show="module.joined" class="scroll-length">
+    <div data-ng-repeat="displayable in module.displayables" >
+        <div class="pad-me">
+            <div data-ng-include="displayable.getHtml()" id="{{displayable.getId()}}" data-ng-init="model = displayable.getModel()"></div>
+        </div>  
+    </div>
+</div>    
+
 <div class="pad-me">
-    <div data-ng-repeat="message in module.messages" >
-        <div class="timestamp" > {{message.timestamp}}</div>
-        <div class="sender" > {{message.sender}}</div>       
-        <div class="text" >{{message.text}}</div>  
-    </div> 
+    <form ng-show="module.joined" class="flex">  
+        <input type="text" 
+            data-ng-model="module.WrittenMessage" 
+            placeholder="text message" 
+            class="message-text"/>
+        <input
+            class="message-send"
+            type="submit"  
+            ng-click="module.SendMessage()" 
+            value="send" />
+    </form>
 </div>

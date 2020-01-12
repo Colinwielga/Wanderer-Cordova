@@ -9,6 +9,7 @@ ColinWielgaCards.HumoursCard = function (guid, name, first_humour, second_humour
     this.getHtml = function () {
         return "modules/colin-wielga-cards/HumoursCard.html";
     };
+    this.discardMessage = first_humour + " - " + second_humour + " - " + "decrease " + decrease_humour;
 };
 
 //This big, gangling object describes the ratios of the different card types in the deck.

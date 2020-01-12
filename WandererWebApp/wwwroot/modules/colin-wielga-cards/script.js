@@ -1,12 +1,43 @@
 ﻿ColinWielgaCards.component = function () {
     var that = this;
+
+
+
     this.decklist = ColinWielgaCards.decklist;
     this.getId = function () {
         return "colin-wielga-cards";
     };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
-        this.godsPublic = dependencies[0];
+        this.ledgerPublic = dependencies[0]; 
+
+        var cardDisplayableMaker = {
+            CanDisplay: function(message){
+                if (message.displayerModule === that.getId()) {
+                    for (var deck of that.decklist) {
+                        if (deck.guid === message.deckId) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            },
+            ConvertToDisplayable: function (message) {
+                for (var deck of that.decklist) {
+                    if (deck.guid === message.deckId) {
+                        var card = deck.allCards[message.cardId];
+                        var html = card.getHtml();
+                        return {
+                            getHtml: function () { return html; },
+                            getModel: function () { return card; },
+                            getId: function () { return "colin-wielga-cards"; }
+                        };
+                    }
+                }
+                throw { message: "deck not found"}
+            }
+        };
+        this.ledgerPublic.AddDisplayableMaker(cardDisplayableMaker);
     };
     this.OnNewCharacter = function () {
         this.hand = [];
@@ -72,7 +103,7 @@
         return "Hand";
     };
     this.getRequires = function () {
-        return [];//"colin-wielga-gods"
+        return ["wanderer-core-ledger"];//"colin-wielga-gods"
     };
 
     this.getPublic = function () {
@@ -143,6 +174,13 @@
                 this.hand.splice(i, 1);
             }
         }
+        //var card = this.getCard(cardID);
+        //this.ledgerPublic.PublicSendMessage("discarded " + card.discardMessage);
+        this.ledgerPublic.PublicSendDisplayableMessage({
+            displayerModule: this.getId(),   
+            cardId: cardID,
+            deckId: this.selectedDeck.guid
+        });
     };
     this.OnNewCharacter();
 };

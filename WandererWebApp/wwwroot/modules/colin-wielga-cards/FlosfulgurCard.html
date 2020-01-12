@@ -1,19 +1,19 @@
-﻿<div class="flosfulgur-card card flosfulgur-school-{{card.color}}" data-ng-click="module.discard(cardID)" data-ng-init="card = module.getCard(cardID)">
+﻿<div class="flosfulgur-card card flosfulgur-school-{{model.color}}" >
     <div class="card-border">
         <div class="card-name-container">
-            <span class="card-name">{{card.name}}</span>
-            <span class="card-adjective">{{card.adjective}}</span>
+            <span class="card-name">{{model.name}}</span>
+            <span class="card-adjective">{{model.adjective}}</span>
         </div>
         <div class="card-poly-container">
             <span class="positioner"></span>
-            <svg class="card-poly poly-{{card.polyID}}">
+            <svg class="card-poly poly-{{model.polyID}}">
                 <!-- ng-attr-point is ugly. Here is a bit about why it exists: https://docs.angularjs.org/guide/interpolation  -->
-                <polygon ng-attr-points="{{card.polyPoints}}"></polygon>
+                <polygon ng-attr-points="{{model.polyPoints}}"></polygon>
             </svg>
         </div>
         <div class="card-number-container">
-            <span class="card-number">{{card.value}}</span>
-            <span class="card-ability">{{card.ability}}</span>
+            <span class="card-number">{{model.value}}</span>
+            <span class="card-ability">{{model.ability}}</span>
         </div>
     </div>
 </div>
