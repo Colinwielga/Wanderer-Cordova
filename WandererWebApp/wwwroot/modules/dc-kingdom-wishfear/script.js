@@ -1,6 +1,15 @@
 ﻿var DCKingdomWishFear = {};
 
 DCKingdomWishFear.component = function () {
+    /* LOCAL FUNCTIONS AND DEFINITIONS */
+    this.toggleWishFear = function () {
+        if(this.wishorfear === "wish"){
+            this.wishorfear = "fear";
+        } else {
+            this.wishorfear = "wish";
+        }
+    };
+    ////////////////////////////////////
 
     // all component need a unique ID
     this.getId = function () {
@@ -19,8 +28,8 @@ DCKingdomWishFear.component = function () {
     };
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.wishtext = "";
+        this.wishorfear = "wish";
     };
     // called when a character is saved
     this.OnSave = function () {
