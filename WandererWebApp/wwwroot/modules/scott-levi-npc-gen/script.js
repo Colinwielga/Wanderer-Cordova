@@ -6,6 +6,11 @@ ScottLeviNpcGen.component = function () {
         return "scott-levi-npc-gen";
     };
 
+    this.getSystem = function () {
+        return "Fools"
+    };
+
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;

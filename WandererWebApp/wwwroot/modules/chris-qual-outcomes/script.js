@@ -12,6 +12,10 @@ ChrisQualOutcomes.component = function () {
     this.getUncertain = function () {
         return Math.round(this.uncertain);
     };
+
+    this.getSystem = function () {
+        return "Qualitative Outcomes"
+    };
  
  
     this.prob = function (outcome) {

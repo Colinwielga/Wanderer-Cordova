@@ -3,6 +3,10 @@
 ColinLombDmCards.component = function () {
     var that = this;
 
+    this.getSystem = function () {
+        return "Lomb"
+    };
+
     this.getId = function () {
         return "colin-lomb-dm-cards";
     };

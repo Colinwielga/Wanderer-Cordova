@@ -2,7 +2,9 @@
     var that = this;
 
 
-
+    this.getSystem = function () {
+        return "Core"
+    };
     this.decklist = ColinWielgaCards.decklist;
     this.getId = function () {
         return "colin-wielga-cards";

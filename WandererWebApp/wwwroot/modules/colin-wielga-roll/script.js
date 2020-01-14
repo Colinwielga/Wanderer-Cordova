@@ -1,7 +1,9 @@
 ﻿var component = function () {
     this.dc = 8;
     var that = this;
-
+    this.getSystem = function () {
+        return "Core"
+    };
     this.getId = function () {
         return "colin-wielga-roll";
     };

@@ -16,6 +16,10 @@ var component = function () {
         return num - (this.hp - start);
     };
 
+    this.getSystem = function () {
+        return "Core"
+    };
+
     this.getId = function () {
         return "colin-wielga-hp";
     };

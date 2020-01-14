@@ -9,6 +9,9 @@ ColinLombDMSkills.DMSkill = function(name, weight) {
 }
 
 ColinLombDMSkills.component = function () {
+    this.getSystem = function () {
+        return "Lomb"
+    };
     this.getId = function () {
         return "colin-lomb-dm-skills";
     };

@@ -11,6 +11,11 @@ ScottLeviHearts.component = function () {
         return "scott-levi-hearts";
     };
 
+    this.getSystem = function () {
+        return "Fools"
+    };
+
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;

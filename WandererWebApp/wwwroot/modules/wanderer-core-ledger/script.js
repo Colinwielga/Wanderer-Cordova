@@ -22,6 +22,10 @@
     this.getId = function () {
         return "wanderer-core-ledger";
     };
+    
+    this.getSystem = function () {
+        return "Core"
+    };
 
     var that = this;
     this.key = Math.random() + "";

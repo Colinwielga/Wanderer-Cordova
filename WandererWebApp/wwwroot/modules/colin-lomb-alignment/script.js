@@ -3,6 +3,10 @@
 ColinLombAlignment.component = function () {
     var that = this;
 
+    this.getSystem = function () {
+        return "Lomb"
+    };
+
     // all component need a unique ID
     this.getId = function () {
         return "colin-lomb-alignment";

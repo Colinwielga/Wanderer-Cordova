@@ -2,6 +2,11 @@
     this.getId = function () {
         return "tote-hughes-questions";
     };
+    
+    this.getSystem = function () {
+        return "Ousichor"
+    };
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
     };

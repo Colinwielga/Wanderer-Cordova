@@ -24,6 +24,10 @@ DCHumoursPlayerQuestions.component = function () {
             q_choice.chosen = q_choice === choices;
         });
     };
+    
+    this.getSystem = function () {
+        return "Humors"
+    };
 
     this.questionlist = [
         {

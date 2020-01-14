@@ -7,6 +7,10 @@
         return "wanderer-core-save";
     };
 
+    this.getSystem = function () {
+        return "Core"
+    };
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.logger = logger;
         this.page = page;

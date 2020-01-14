@@ -7,6 +7,10 @@ ToteFlosfulgurTepals.component = function () {
         return "tote-flosfulgur-tepals";
     };
 
+    this.getSystem = function () {
+        return "Flosfulgur"
+    };
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;

@@ -1,6 +1,9 @@
 ﻿var ColinLombSkills = {};
 
 ColinLombSkills.component = function () {
+    this.getSystem = function () {
+        return "Lomb"
+    };
     this.getId = function () {
         return "colin-lomb-skills";
     };

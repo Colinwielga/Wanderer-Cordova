@@ -4,6 +4,10 @@ CoreStartSwitchAccount.component = function () {
     this.getId = function () {
         return "core-start-switch-account";
     };
+    
+    this.getSystem = function () {
+        return "Core"
+    };
     var that = this;
     this.copyId = async function () {
         var ID = this.getAccountId();

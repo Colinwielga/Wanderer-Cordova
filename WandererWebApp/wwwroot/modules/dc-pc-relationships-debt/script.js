@@ -25,6 +25,11 @@
         this.debts.push({ name: "", debt: 0 });
     };
 
+    this.getSystem = function () {
+        return "Humors"
+    };
+
+
     // all component need a unique ID
     this.getId = function () {
         return "dc-pc-relationships-debt";

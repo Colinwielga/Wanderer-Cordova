@@ -309,6 +309,10 @@ DCHumoursAdvancements.component = function () {
         return "Advancements";
     };
 
+    this.getSystem = function () {
+        return "Humors"
+    };
+
     this.OnNewCharacter();
 };
 

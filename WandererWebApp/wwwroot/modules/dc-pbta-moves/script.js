@@ -169,6 +169,13 @@
         return ["dc-pbta-moves"];
     };
 
+
+    this.getSystem = function () {
+        return "Humors"
+    };
+
+
+    
     this.getPublic = function () {
         return {
             getDescription: function () {

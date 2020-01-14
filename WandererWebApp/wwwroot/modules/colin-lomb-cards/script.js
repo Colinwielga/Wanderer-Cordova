@@ -12,6 +12,10 @@ ColinLombCards.Card = function (text, value, image) {
 ColinLombCards.component = function () {
     var that = this;
 
+    this.getSystem = function () {
+        return "Lomb"
+    };
+
     this.getId = function () {
         return "colin-lomb-cards";
     };

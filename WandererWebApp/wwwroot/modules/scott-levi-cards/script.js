@@ -9,6 +9,11 @@ ScottLeviCards.component = function () {
         return "scott-levi-cards";
     };
 
+    this.getSystem = function () {
+        return "Fools"
+    };
+
+
     this.pickUp = function (ev) {
     };
     this.dropEmptyHand = function (data, event) {

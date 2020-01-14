@@ -13,7 +13,9 @@
 	this.initseed = Date.now();
 	mymt.init_genrand(this.initseed);
 	
-	
+    this.getSystem = function () {
+        return "Core"
+    };
 
     this.getId = function () {
         return "manuchehr-aminian-dice";

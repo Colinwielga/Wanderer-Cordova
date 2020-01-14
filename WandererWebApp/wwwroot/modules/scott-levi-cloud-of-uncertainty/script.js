@@ -7,6 +7,11 @@ ScottLeviCloudOfUncertainty.component = function () {
         return "scott-levi-cloud-of-uncertainty";
     };
 
+    this.getSystem = function () {
+        return "Qualitive Outcomes"
+    };
+
+
     // A component should know how to handle some events
     // called when Wanderer is ready to talk to us
     // a component talks to the rest of the app throught a communicator

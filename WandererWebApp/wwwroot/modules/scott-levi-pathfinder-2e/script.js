@@ -5,6 +5,10 @@ ScottLeviPathfinder2e.component = function () {
     this.getId = function () {
         return "scott-levi-pathfinder-2e";
     };
+    
+    this.getSystem = function () {
+        return "Pathfinder"
+    };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;

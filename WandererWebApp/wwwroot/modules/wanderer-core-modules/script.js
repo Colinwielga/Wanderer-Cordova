@@ -4,6 +4,12 @@
         return "wanderer-core-modules";
     };
 
+
+    this.getSystem = function () {
+        return "Core"
+    };
+
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
         this.communicator = communicator;
@@ -64,7 +70,17 @@
             return "hide";
         }
     };
-
+    this.getComponents = function () {
+        var result = {}
+        for (let component of that.page.getComponent) {
+            let system = component.getSystem();
+            if (result[system] === undefined) {
+                result[system] = [];
+            }
+            result[system] .push(component);
+        }
+        return result;
+    }
     this.components = function () {
         return that.page.getComponents();
     };

@@ -5,6 +5,9 @@ ColinWielgaTemplate.component = function () {
     this.getId = function () {
         return "core-start-account-settings";
     };
+    this.getSystem = function () {
+        return "Core"
+    };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.logger = logger;
         this.communicator = communicator;

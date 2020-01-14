@@ -5,6 +5,9 @@ CoreStartAddCharacters.component = function () {
     this.getId = function () {
         return "core-start-add-character";
     };
+    this.getSystem = function () {
+        return "Core"
+    };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
