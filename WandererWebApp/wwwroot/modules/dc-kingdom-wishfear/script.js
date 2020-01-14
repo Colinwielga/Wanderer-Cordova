@@ -68,7 +68,7 @@ DCKingdomWishFear.component = function () {
     };
 
     this.getTitle = function () {
-        return "title";
+        return "Kingdom Wish or Fear";
     };
 
     this.OnNewCharacter();
