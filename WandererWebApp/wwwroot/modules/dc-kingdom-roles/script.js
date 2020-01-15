@@ -28,24 +28,19 @@ DCKingdomRoles.component = function () {
         this.communicator = communicator;
         this.Dependencies = dependencies;
     };
-    // called when a new character is created
+
     this.OnNewCharacter = function () {
         this.selected_role = "";
     };
-    // called when a character is saved
+    
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("selected_role",this.selected_role);
     };
-    // called when a characrer is loaded 
+
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        this.selected_role = this.communicator.canRead("selected_role") ? this.communicator.read("selected_role") : ""
     };
+
     this.OnUpdate = function () {
     };
 
