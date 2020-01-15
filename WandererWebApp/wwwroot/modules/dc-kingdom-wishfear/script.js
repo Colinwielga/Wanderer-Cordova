@@ -38,17 +38,8 @@ DCKingdomWishFear.component = function () {
     };
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        if (this.communicator.canRead("wishorfear")){
-            this.wishorfear = this.communicator.read("wishorfear");
-        }else{
-            this.wishorfear = "wish";
-        }
-
-        if (this.communicator.canRead("wishtext")){
-            this.wishtext = this.communicator.read("wishtext");
-        }else{
-            this.wishtext = "";
-        }
+        this.wishorfear = this.communicator.canRead("wishorfear") ? this.communicator.read("wishorfear") : "wish";
+        this.wishtext = this.communicator.canRead("wishtext") ? this.communicator.read("wishtext") : "";
     };
     this.OnUpdate = function () {
     };
