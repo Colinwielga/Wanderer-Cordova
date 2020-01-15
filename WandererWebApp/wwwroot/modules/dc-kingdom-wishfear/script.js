@@ -33,17 +33,22 @@ DCKingdomWishFear.component = function () {
     };
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("wishorfear", this.wishorfear)
+        this.communicator.write("wishtext", this.wishtext)
     };
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        if (this.communicator.canRead("wishorfear")){
+            this.wishorfear = this.communicator.read("wishorfear");
+        }else{
+            this.wishorfear = "wish";
+        }
+
+        if (this.communicator.canRead("wishtext")){
+            this.wishtext = this.communicator.read("wishtext");
+        }else{
+            this.wishtext = "";
+        }
     };
     this.OnUpdate = function () {
     };
