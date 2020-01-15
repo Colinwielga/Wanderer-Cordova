@@ -2,40 +2,38 @@
 
 DCKingdomBonds.component = function () {
 
+    /* LOCAL FUNCTIONS AND DEFINITIONS */
+
+    /////////////////////////////////////
+
     // all component need a unique ID
     this.getId = function () {
         return "dc-kingdom-bonds";
     };
 
-    // A component should know how to handle some events
-    // called when Wanderer is ready to talk to us
-    // a component talks to the rest of the app throught a communicator
-    // the communicator will call the components methods like OnNewCharacter and OnSave at the appropreat time
-    // the communicator also allows know what to have to write also holds the infomation 
-    // all events are optional
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
     };
-    // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.left_name = "";
+        this.left_description = "";
+        this.right_name = "";
+        this.right_description = "";
     };
-    // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("left_name",this.left_name);
+        this.communicator.write("left_description",this.left_description);
+        this.communicator.write("right_name",this.right_name);
+        this.communicator.write("right_description",this.right_description);
     };
-    // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        this.left_name = this.communicator.canRead("left_name") ? this.communicator.read("left_name") : ""
+        this.left_description = this.communicator.canRead("left_description") ? this.communicator.read("left_description") : ""
+        this.right_name = this.communicator.canRead("right_name") ? this.communicator.read("right_name") : ""
+        this.right_description = this.communicator.canRead("right_description") ? this.communicator.read("right_description") : ""
     };
+
     this.OnUpdate = function () {
     };
 
