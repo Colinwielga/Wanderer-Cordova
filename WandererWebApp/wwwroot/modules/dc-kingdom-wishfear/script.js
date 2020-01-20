@@ -1,21 +1,19 @@
-﻿var DCKingdomRoles = {};
+﻿var DCKingdomWishFear = {};
 
-DCKingdomRoles.component = function () {
-    
+DCKingdomWishFear.component = function () {
     /* LOCAL FUNCTIONS AND DEFINITIONS */
-    this.roles = ["power", "perspective", "touchstone"];
-
-    this.roleRulesRevealed = false;
-    this.toggleRoleRules = function () {
-        this.roleRulesRevealed = !this.roleRulesRevealed;
-        angular.element(document).find('#dc-kingdom-roles .role_explanation_container p:not(:first-child)').toggleClass('revealed', this.roleRulesRevealed);
+    this.toggleWishFear = function () {
+        if(this.wishorfear === "wish"){
+            this.wishorfear = "fear";
+        } else {
+            this.wishorfear = "wish";
+        }
     };
+    ////////////////////////////////////
 
-    ///////////////////////////////////////////////////////
-    
     // all component need a unique ID
     this.getId = function () {
-        return "dc-kingdom-roles";
+        return "dc-kingdom-wishfear";
     };
 
     // A component should know how to handle some events
@@ -28,19 +26,21 @@ DCKingdomRoles.component = function () {
         this.communicator = communicator;
         this.Dependencies = dependencies;
     };
-
+    // called when a new character is created
     this.OnNewCharacter = function () {
-        this.selected_role = "";
+        this.wishtext = "";
+        this.wishorfear = "wish";
     };
-    
+    // called when a character is saved
     this.OnSave = function () {
-        this.communicator.write("selected_role",this.selected_role);
+        this.communicator.write("wishorfear", this.wishorfear)
+        this.communicator.write("wishtext", this.wishtext)
     };
-
+    // called when a characrer is loaded 
     this.OnLoad = function () {
-        this.selected_role = this.communicator.canRead("selected_role") ? this.communicator.read("selected_role") : ""
+        this.wishorfear = this.communicator.canRead("wishorfear") ? this.communicator.read("wishorfear") : "wish";
+        this.wishtext = this.communicator.canRead("wishtext") ? this.communicator.read("wishtext") : "";
     };
-
     this.OnUpdate = function () {
     };
 
@@ -73,11 +73,10 @@ DCKingdomRoles.component = function () {
     };
 
     this.getTitle = function () {
-        return "Kingdom Roles";
+        return "Kingdom Wish or Fear";
     };
 
     this.OnNewCharacter();
-
 };
 
-g.services.componetService.registerCharacter(DCKingdomRoles.component);
+g.services.componetService.registerCharacter(DCKingdomWishFear.component);
