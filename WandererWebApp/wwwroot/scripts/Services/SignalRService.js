@@ -81,6 +81,7 @@ g.services.SignalRService.groupNames = {};
 
 g.services.SignalRService.Join = function (groupName, key) {
     g.services.SignalRService.groupNames[key] = groupName;
+    console.log("sending group name: " + groupName);
     try {
         g.services.SignalRService.connection.send('JoinGame', groupName);
     } catch (err) {

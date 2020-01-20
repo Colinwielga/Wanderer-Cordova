@@ -13,16 +13,29 @@ ScottLeviPathfinder2e.component = function () {
 
     this.ancestry = "";
     this.background = "";
-    this.genre = "";
-    this.charClasses = "";
-    this.charSpells = "";
-    this.charLevel = "";
     this.firstName = "";
     this.lastName = "";
+
 
     this.randomFromList = function (list) {
         return list[Math.floor(Math.random() * list.length)];
     };
+
+    this.characterLevelList = [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+    ];
+
+    this.charLevel = this.characterLevelList[5];
 
     this.gen = function () {
         var backgrounds = [
@@ -135,31 +148,13 @@ ScottLeviPathfinder2e.component = function () {
             { name: "Fighter", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Monk", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Ranger", traditions: ["arcane", "occult", "divine", "primal"] },
-            { name: "Rouge", traditions: ["arcane", "occult", "divine", "primal"] },
+            { name: "Rogue", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Sorcerer", traditions: ["arcane", "occult", "divine", "primal"] },
             { name: "Wizard", traditions: ["arcane", "occult", "divine", "primal"] },
         ];
         var charClassEntry = this.randomFromList(charClasses);
         var charTradition = this.randomFromList(charClassEntry.traditions)
         this.charClass = charClassEntry.name + " - " + charTradition;
-
-        var charLevels = [
-            { charLevel: 0 },
-            { charLevel: 1 },
-            { charLevel: 2 },
-            { charLevel: 3 },
-            { charLevel: 4 },
-            { charLevel: 5 },
-            { charLevel: 6 },
-            { charLevel: 7 },
-            { charLevel: 8 },
-            { charLevel: 9 },
-            { charLevel: 10 },
-        ];
-        var charLevelEntry = this.randomFromList(charLevels); /*I want this to be a drop down menu*/
-        this.characterLevel = charLevelEntry.charLevel;
-
-
 
         var charSpellList = [
             { spell: "Summon Construct", traditions: ["arcane"], level: 01 }, 	
@@ -579,7 +574,7 @@ ScottLeviPathfinder2e.component = function () {
 
         var spellsOfTradition = orderedSpellList[charTradition];
         
-        for (var i = 1; i <= this.characterLevel; i++) {
+        for (var i = 1; i <= this.charLevel; i++) {
             this.characterSpellList.push(this.randomFromList(spellsOfTradition[i]));
         };
         

@@ -13,6 +13,7 @@
         //return "modules/colin-wielga-cards/card.html"
         return "modules/colin-wielga-cards/TitanagonCard.html";
     };
+    this.discardMessage = name + " - " + color;
 };
 
 var cardList =

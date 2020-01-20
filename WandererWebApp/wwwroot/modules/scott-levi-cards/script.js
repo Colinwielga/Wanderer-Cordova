@@ -396,41 +396,8 @@ ScottLeviCards.component = function () {
         };
     };
 
-    this.deckSelected = function () {
-        this.hand = [];
-        this.activeDeck = this.selectedDeck.defaultActive();
-    };
-
     this.getCard = function (id) {
         return this.selectedDeck.allCards[id];
-    };
-
-    this.toggleCardActive = function (id) {
-        var at = this.activeDeck.indexOf(id);
-        if (at === -1) {
-            this.activeDeck.push(id);
-        } else {
-            this.activeDeck.splice(at, 1);
-        }
-    };
-
-    this.inDeck = function (id) {
-        return this.activeDeck.indexOf(id) !== -1;
-    };
-
-    this.possibleCards = function () {
-        var keys = [];
-        for (var key in this.selectedDeck.allCards) {
-            // what is this if for??
-            if (this.selectedDeck.allCards.hasOwnProperty(key)) {
-                keys.push(key);
-            }
-        }
-        return keys;
-    };
-
-    this.startingDeck = function () {
-        return this.possibleCards();
     };
 
     this.draw = function () {
@@ -456,6 +423,7 @@ ScottLeviCards.component = function () {
             this.hand.push(num);
         }
     };
+
     this.discard = function (cardID) {
         for (var i = 0; i < this.hand.length; i++) {
             if (this.hand[i] === cardID) {

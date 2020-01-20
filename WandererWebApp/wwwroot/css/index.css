@@ -16,6 +16,7 @@ html, body {
     flex: 0 1 auto;
 }
 
+
 #active-page {
     height:100%;
 }
@@ -290,17 +291,43 @@ input[type=text], input[type=password], textarea {
         border-color: #903;
     }
 
+    input[type=text].right-part,
+    input[type=password].right-part,
+    textarea.right-part{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        margin-left: 0;
+    }
+    
+    input[type=text].left-part,
+    input[type=password].left-part,
+    textarea.left-part{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: 0;
+    }
+
+/* input[type=text].conjoined-left, input[type=button].conjoined-left, input[type=submit].conjoined-left {
+    margin-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 0;
+}
+
+input[type=text].conjoined-right, input[type=button].conjoined-right, input[type=submit].conjoined-right {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 0;
+} */
 
 /*input.input-element {
     }*/
 
 select {
     outline: none;
-    background: transparent;
     border: 2px solid #333;
-    font-size: 14px;
     padding: 5px 10px;
-    width: 100px;
     border-radius: 3px;
 }
 
@@ -504,5 +531,10 @@ table {
 
 .notification {
     background-color:#696969;
-    color: #FFFFFF; 
+    color: #FFFFFF;
+    display: flex;  
+}
+
+.notification-message {
+    flex-grow: 1;
 }

@@ -3,8 +3,8 @@
     <!--  -->
     
     <div class="hp-bar-holder">
-        <div class="dead" data-ng-class="{show: !module.Alive()}">
-            you have been killed
+        <div class="status" >
+            {{module.status}}
         </div>
         <div class="hp-bar" data-ng-style="{ 'width' : module.HPString(), 'background' : module.ColorString() }">
         </div>
