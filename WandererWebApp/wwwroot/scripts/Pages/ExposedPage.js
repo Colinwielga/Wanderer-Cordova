@@ -74,7 +74,7 @@
         });
 
         var toLoad = [];
-        if (that.lastLoaded !== null) {
+        if (that.lastLoaded != null) {
             for (var property in json) {
                 if (json.hasOwnProperty(property)) {
                     if (angular.toJson(json[property]) !== angular.toJson(that.lastLoaded[property])) {
