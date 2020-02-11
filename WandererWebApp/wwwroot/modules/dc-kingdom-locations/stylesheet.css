@@ -1,0 +1,12 @@
+﻿#dc-kingdom-locations .location_section{
+    display: flex;
+    flex-direction: column;
+}
+
+    #dc-kingdom-locations .location_section input{
+        width: 33%;
+    }
+
+    #dc-kingdom-locations .location_section textarea{
+        height: 6em;
+    }
