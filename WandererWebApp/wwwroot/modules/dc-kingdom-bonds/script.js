@@ -69,6 +69,10 @@ DCKingdomBonds.component = function () {
         return "Kingdom Bonds";
     };
 
+    this.getSystem = function () {
+        return "Kingdom";
+    };
+    
     this.OnNewCharacter();
 };
 

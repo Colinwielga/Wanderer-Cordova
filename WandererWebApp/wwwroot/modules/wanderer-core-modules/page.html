@@ -1,3 +1,6 @@
-﻿<div class="pad-me">
-        <input type="button" value="{{mod.getTitle()}}" data-ng-click="module.toggle(mod)" data-ng-repeat="mod in module.components()" data-ng-show="module.show(mod)"/>
+﻿<div >
+        <div data-ng-repeat="category in module.getCategories()" class="pad-me">
+                <div>{{category.name}}</div>
+                <input type="button" value="{{mod.getTitle()}}" data-ng-click="module.toggle(mod)" data-ng-repeat="mod in category.modules" data-ng-show="module.show(mod)">
+        </div>
 </div>

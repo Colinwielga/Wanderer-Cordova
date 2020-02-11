@@ -75,6 +75,10 @@ DCKingdomLocations.component = function () {
         return "Kingdom Locations";
     };
 
+    this.getSystem = function () {
+        return "Kingdom";
+    };
+
     this.OnNewCharacter();
 };
 

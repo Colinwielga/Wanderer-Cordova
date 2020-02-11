@@ -5,8 +5,48 @@
     };
 
 
+    
+
+    // on the js side we need:
+    // -getCategories function returns a list of categories
+    // -each category has to have a name
+    // -each category has a modules
+    
+             
+    
     this.getSystem = function () {
         return "Core"
+    };
+
+    this.getCategories = function() {
+        let systems = [];
+        for (let moduleObject of that.page.getComponents()) {
+
+            let systemName;
+            if (moduleObject.getSystem !== undefined){
+                systemName = moduleObject.getSystem(); 
+            }
+            if (moduleObject.getSystem === undefined){
+                systemName = "unspecified";
+            }  
+
+            var foundMatch = false;
+            for (let systemObject of systems){
+                if (systemObject.name == systemName){
+                    systemObject.modules.push(moduleObject);
+                    foundMatch = true;
+                }
+            }
+
+            if (!foundMatch){
+                systems.push({
+                    name: systemName, 
+                    modules: [moduleObject],
+                });
+            }
+        }
+
+        return systems;
     };
 
 
@@ -70,20 +110,7 @@
             return "hide";
         }
     };
-    this.getComponents = function () {
-        var result = {}
-        for (let component of that.page.getComponent) {
-            let system = component.getSystem();
-            if (result[system] === undefined) {
-                result[system] = [];
-            }
-            result[system] .push(component);
-        }
-        return result;
-    }
-    this.components = function () {
-        return that.page.getComponents();
-    };
+
 
     this.show = function (mod) {
         return that.page.getActiveComponentsIds().indexOf(mod.getId()) === -1;

@@ -76,6 +76,10 @@ DCKingdomRoles.component = function () {
         return "Kingdom Roles";
     };
 
+    this.getSystem = function () {
+        return "Kingdom";
+    };
+
     this.OnNewCharacter();
 
 };

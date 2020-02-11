@@ -8,8 +8,14 @@ ScottLeviCloudOfUncertainty.component = function () {
     };
 
     this.getSystem = function () {
-        return "Qualitive Outcomes"
+        return "Qualitative Outcomes"
     };
+
+    // universalUncertainty 40 levels, 2.5% per increase, going to 0 or 100 is a lose condition.
+    this.universalUncertainty = function () {
+        var universalUncertainty = []
+
+    }
 
 
     // A component should know how to handle some events

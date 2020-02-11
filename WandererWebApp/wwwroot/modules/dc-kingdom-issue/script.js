@@ -44,6 +44,10 @@ var component = function () {
         };
     };
 
+    this.getSystem = function () {
+        return "Kingdom";
+    };
+
     this.OnNewCharacter();
 };
 

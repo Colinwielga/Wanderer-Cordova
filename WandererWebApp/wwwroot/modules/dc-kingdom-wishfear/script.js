@@ -76,6 +76,10 @@ DCKingdomWishFear.component = function () {
         return "Kingdom Wish or Fear";
     };
 
+    this.getSystem = function () {
+        return "Kingdom";
+    };
+
     this.OnNewCharacter();
 };
 
