@@ -15,11 +15,12 @@
              
     
     this.getSystem = function () {
-        return "Core"
+        return "Core";
     };
 
+    this.systems = [];
     this.getCategories = function() {
-        let systems = [];
+
         for (let moduleObject of that.page.getComponents()) {
 
             let systemName;
@@ -31,22 +32,24 @@
             }  
 
             var foundMatch = false;
-            for (let systemObject of systems){
-                if (systemObject.name == systemName){
-                    systemObject.modules.push(moduleObject);
+            for (let systemObject of this.systems){
+                if (systemObject.name === systemName) {
+                    if (systemObject.modules.indexOf(moduleObject) === -1) {
+                        systemObject.modules.push(moduleObject);
+                    }
                     foundMatch = true;
                 }
             }
 
             if (!foundMatch){
-                systems.push({
+                this.systems.push({
                     name: systemName, 
                     modules: [moduleObject],
                 });
             }
         }
 
-        return systems;
+        return this.systems;
     };
 
 
