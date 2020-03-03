@@ -19,6 +19,7 @@
     };
 
     this.systems = [];
+
     this.getCategories = function() {
 
         for (let moduleObject of that.page.getComponents()) {
@@ -45,6 +46,7 @@
                 this.systems.push({
                     name: systemName, 
                     modules: [moduleObject],
+                    show: true,
                 });
             }
         }
@@ -52,6 +54,24 @@
         return this.systems;
     };
 
+    this.showCategory = function (system) {
+        if (system.show === true) {
+            system.show = false;
+        }
+        else if (system.show === false) {
+            system.show = true;
+        }
+        
+    };
+
+    this.addButton = function (system) {
+        if (system.show === true){
+            return " - ";
+        }
+        else if (system.show === false){
+            return " + ";
+        }       
+    }   
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
@@ -113,7 +133,6 @@
             return "hide";
         }
     };
-
 
     this.show = function (mod) {
         return that.page.getActiveComponentsIds().indexOf(mod.getId()) === -1;
