@@ -10,14 +10,20 @@ ScottLeviCloudOfUncertainty.component = function () {
     this.getSystem = function () {
         return "Qualitative Outcomes"
     };
+        
+    this.increase = function () {
+        this.uncertaintyLevels = this.uncertaintyLevels + 1;
+           
+    };   
+    
+    this.decrease = function () {
+        this.uncertaintyLevels = this.uncertaintyLevels - 1;
+        
+    };
 
-    // universalUncertainty 40 levels, 2.5% per increase, going to 0 or 100 is a lose condition.
-    this.universalUncertainty = function () {
-        var universalUncertainty = []
-
-    }
-
-
+    this.uncertainty = function () {
+        return  this.uncertaintyLevels * 2.5; 
+    } 
     // A component should know how to handle some events
     // called when Wanderer is ready to talk to us
     // a component talks to the rest of the app throught a communicator
@@ -30,23 +36,19 @@ ScottLeviCloudOfUncertainty.component = function () {
     };
     // called when a new character is created
     this.OnNewCharacter = function () {
-        // something like:
-        //this.key = "value";
+        this.uncertaintyLevels = 1;
     };
     // called when a character is saved
     this.OnSave = function () {
-        // something like:
-        //this.communicator.write("key",this.key);
+        this.communicator.write("uncertaintyLevels", this.uncertaintyLevels); 
     };
     // called when a characrer is loaded 
     this.OnLoad = function () {
-        // something like:
-        // if (this.communicator.canRead("key")){
-        //this.key = this.communicator.read("key");
-        //}else{
-        //this.key = "default value"
-        //}
+        if (this.communicator.canRead("uncertaintyLevels")){
+            this.uncertaintyLevels = this.communicator.read("uncertaintyLevels");
+        };
     };
+
     this.OnUpdate = function () {
     };
 
@@ -83,6 +85,8 @@ ScottLeviCloudOfUncertainty.component = function () {
     };
 
     this.OnNewCharacter();
+   
 };
 
 g.services.componetService.registerCharacter(ScottLeviCloudOfUncertainty.component);
+

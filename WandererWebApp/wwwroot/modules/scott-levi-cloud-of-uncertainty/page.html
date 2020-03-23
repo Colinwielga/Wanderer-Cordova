@@ -1,7 +1,8 @@
 ﻿<div class="pad-me">
-    <div class="cloud">
+    <div class ="qualOutcomes"> </div>    
+        <h3>Cloud of Uncertainty {{module.uncertainty()}}</h3>
         
-        <input type="button" value="+" data-ng-click="module.directInFlow(uncertainty, 1)" />
-        <input type="button" value="-" data-ng-click="module.directInFlow(uncertainty, -1)" />
+        <input type="button" value="+" data-ng-click="module.increase()" />
+        <input type="button" value="-" data-ng-click="module.decrease()" />
     </div>
 </div>
