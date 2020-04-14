@@ -280,20 +280,31 @@ button, label.hide-button, input[type=button], input[type=submit], label.label-b
         border: 2px solid #333;
     }
 
-input[type=text], input[type=password], textarea {
+input[type=text], 
+input[type=password],
+input[type=number],
+textarea
+ {
     outline: none;
     border: 2px solid #333;
     border-radius: 3px;
     margin: 2px;
 }
 
-    input[type=text]:focus, input[type=password]:focus, textarea:focus {
+    input[type=text]:focus, 
+    input[type=password]:focus, 
+    input[type=number]:focus,
+    textarea:focus
+
+    {
         border-color: #903;
     }
 
     input[type=text].right-part,
     input[type=password].right-part,
-    textarea.right-part{
+    input[type=number].right-part,
+    textarea.right-part
+    {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         margin-left: 0;
@@ -301,7 +312,9 @@ input[type=text], input[type=password], textarea {
     
     input[type=text].left-part,
     input[type=password].left-part,
-    textarea.left-part{
+    input[type=number].left.part,
+    textarea.left-part
+    {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         margin-right: 0;
