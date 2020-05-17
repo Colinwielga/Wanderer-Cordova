@@ -33,7 +33,7 @@ namespace WandererWebApp
             Clients.Groups(groupPrefix + groupName).SendAsync("BroadcastMessage", groupName, message);
         }
 
-        public void SubscriptToEntityChanges(string entityName) {
+        public void SubscribToEntityChanges(string entityName) {
             Groups.AddToGroupAsync(Context.ConnectionId, entityPrefix + entityName);
         }
 
