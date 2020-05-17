@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Azure.Cosmos.Table;
 
 namespace WandererWebApp
 {
@@ -35,6 +36,8 @@ namespace WandererWebApp
                 x.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
             })
             .AddAzureSignalR();
+
+            services.AddSingleton(typeof(ItemCache));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +59,6 @@ namespace WandererWebApp
             app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<Chat>("/chat");
-
             });
         }
     }
