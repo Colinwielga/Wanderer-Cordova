@@ -18,6 +18,13 @@ g.SharedEntity.MakeTrackedEntity = function () {
             }
             res.push(string);
             return res;
+        },
+        Publish: function (name) {
+            var thing = {
+                OperationSplit = this.GetEntityChanges()
+            };
+            g.services.SignalRService.connection.send('UpdateSharedEntity', name, thing);
+            changeList = [];
         }
     };
 
@@ -239,16 +246,16 @@ g.SharedEntity.CopyElements = function (fromList, toList) {
 }
 
 
-var test = g.SharedEntity.ToTrackedEntity({
-    w: "test",
-    x: 5,
-    y: [1, 2, 3],
-    z: {
-        a: {
-            aa: 10
-        }
-    }
-})
+//var test = g.SharedEntity.ToTrackedEntity({
+//    w: "test",
+//    x: 5,
+//    y: [1, 2, 3],
+//    z: {
+//        a: {
+//            aa: 10
+//        }
+//    }
+//})
 
 // tests 
 //console.log("result:", test)
