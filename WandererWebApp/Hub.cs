@@ -15,7 +15,8 @@ namespace WandererWebApp
     {
         private const string groupPrefix = "group-";
         private const string entityPrefix = "entity-";
-
+        // need to think about this
+        private const string EntityOwner = "{7362FB24-EE6A-4D46-AF13-C6343A3C21FF}";
         private readonly ItemCache cache;
 
         public Chat(ItemCache cache)
@@ -33,8 +34,13 @@ namespace WandererWebApp
             Clients.Groups(groupPrefix + groupName).SendAsync("BroadcastMessage", groupName, message);
         }
 
-        public void SubscribToEntityChanges(string entityName) {
-            Groups.AddToGroupAsync(Context.ConnectionId, entityPrefix + entityName);
+
+        public async Task RequestEntity(string entityName) {
+            await Groups.AddToGroupAsync(Context.ConnectionId, entityPrefix + entityName);
+
+            var jsonString = await cache.Get(entityName, EntityOwner);
+
+            await Clients.Groups(groupPrefix + entityName).SendAsync("EntityState", entityName, jsonString);
         }
 
         public async Task UpdateSharedEntity(string entityName, EntityChanges entityChanges) {

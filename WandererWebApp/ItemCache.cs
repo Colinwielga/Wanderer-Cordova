@@ -20,8 +20,35 @@ namespace WandererWebApp
 
         private MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<JObject>>> cache = new MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<JObject>>>();
 
+        public async Task<string> Get(string entityName, string entityOwner) {
+            var jumpBall = await PrivateGet(entityName, entityOwner);
+            var jobjectResult = jumpBall.Read();
+            return jobjectResult.ToString();
+        }
 
-        public async Task<string> Do(string entityName, string entityOwner, Func<JObject, JObject> modify) {
+        public async Task<string> Do(string entityName, string entityOwner, Func<JObject, JObject> modify)
+        {
+
+
+            var jumpBall = await PrivateGet(entityName, entityOwner);
+
+            var jobjectResult = await jumpBall.RunAsync(async jobject =>
+            {
+                jobject = modify(jobject);
+
+                var result = await (await table).ExecuteAsync(TableOperation.InsertOrReplace(new Entity(entityName, entityOwner)
+                {
+                    JSON = jobject.ToString(),
+                }));
+
+                return JObject.Parse(result.Result.SafeCastTo<object, Entity>().JSON);
+            });
+
+            return jobjectResult.ToString();
+        }
+
+        private async Task<JumpBallConcurrent<JObject>> PrivateGet(string entityName, string entityOwner)
+        {
             if (entityName is null)
             {
                 throw new ArgumentNullException(nameof(entityName));
@@ -39,7 +66,8 @@ namespace WandererWebApp
                 var retrieveOperation = TableOperation.Retrieve<Entity>(entityName, entityOwner);
                 var result = await (await table).ExecuteAsync(retrieveOperation);
                 var entity = result.Result.SafeCastTo<object, Entity>();
-                if (entity == null) {
+                if (entity == null)
+                {
                     entity = new Entity(entityName, entityOwner)
                     {
                         JSON = new JObject().ToString(),
@@ -51,20 +79,7 @@ namespace WandererWebApp
                 mine.SetResult(new JumpBallConcurrent<JObject>(JObject.Parse(entity.JSON)));
             }
             var jumpBall = await current;
-
-            var jobjectResult = await jumpBall.RunAsync(async jobject =>
-            {
-                jobject = modify(jobject);
-
-                var result = await (await table).ExecuteAsync(TableOperation.InsertOrReplace(new Entity(entityName, entityOwner)
-                {
-                    JSON = jobject.ToString(),
-                }));
-
-                return JObject.Parse(result.Result.SafeCastTo<object, Entity>().JSON);
-            });
-
-            return jobjectResult.ToString();
+            return jumpBall;
         }
     }
 

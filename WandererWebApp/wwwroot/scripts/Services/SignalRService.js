@@ -15,6 +15,26 @@ g.services.SignalRService.Callback = function (groupName, x) {
     }
 };
 
+g.services.SignalRService.EntityUpdateCallback = function (entityName, jsonString) {
+    var listeners = g.services.SignalRService.entityListeners[entityName];
+    if (listeners) {
+        var newSharedEntity = g.SharedEntity.ToTrackedEntity(JSON.parse(jsonString));
+        for (var listener of listeners) {
+            listener(newSharedEntity);
+        }
+    }
+}
+
+g.services.SignalRService.SubscribeToEntity = function (entityName, callback) {
+    if (g.services.SignalRService.entityListeners[entityName] === undefined) {
+        g.services.SignalRService.entityListeners[entityName] = [];
+    }
+    g.services.SignalRService.entityListeners[entityName].push(callback)
+}
+
+// entityName -> list of call backs for that entity
+g.services.SignalRService.entityListeners = {}
+
 g.services.SignalRService.setCallback = function (name, groupName, accept, act) {
     g.services.SignalRService.groupNames[name] = groupName;
     g.services.SignalRService.callbacks[name] = { Accept: accept, GroupName: groupName, Act: act };
@@ -56,6 +76,8 @@ g.services.SignalRService.InnerConnection = function (time) {
             .build();
         g.services.SignalRService.connection.start().then(function () {
             g.services.SignalRService.connecting = false;
+
+            // manually messages 
             g.services.SignalRService.connection.on('BroadcastMessage', g.services.SignalRService.Callback);
             for (var key in g.services.SignalRService.groupNames) {
                 if (g.services.SignalRService.groupNames.hasOwnProperty(key)) {
@@ -66,6 +88,16 @@ g.services.SignalRService.InnerConnection = function (time) {
                 g.services.SignalRService.onConnectCallbacks[i]();
             }
             g.services.SignalRService.onConnectCallbacks = [];
+
+            // tracked entities
+            g.services.SignalRService.connection.on('EntityUpdate', g.services.SignalRService.EntityUpdateCallback);
+            g.services.SignalRService.connection.on('EntityState', g.services.SignalRService.EntityUpdateCallback);
+            for (var key in g.services.SignalRService.entityListeners) {
+                if (g.services.SignalRService.entityListeners.hasOwnProperty(key)) {
+                    g.services.SignalRService.connection.send('RequestEntity', key);
+                }
+            }
+
         }).catch(function (err) {
             g.services.SignalRService.connecting = false;
             console.error(err.toString());

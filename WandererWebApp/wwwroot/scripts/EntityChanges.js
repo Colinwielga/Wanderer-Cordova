@@ -250,12 +250,13 @@ var test = g.SharedEntity.ToTrackedEntity({
     }
 })
 
-console.log("result:", test)
+// tests 
+//console.log("result:", test)
 
-var testList = test.SetList("v");
-testList.AppendNumber(1);
-testList.AppendNumber(2);
-testList.AppendNumber(3);
+//var testList = test.SetList("v");
+//testList.AppendNumber(1);
+//testList.AppendNumber(2);
+//testList.AppendNumber(3);
 
-console.log("result:", test.entityChanges.GetEntityChanges());
-console.log("result:", test.FromTracked());
+//console.log("result:", test.entityChanges.GetEntityChanges());
+//console.log("result:", test.FromTracked());
