@@ -10,9 +10,7 @@
     // on the js side we need:
     // -getCategories function returns a list of categories
     // -each category has to have a name
-    // -each category has a modules
-    
-             
+    // -each category has a modules             
     
     this.getSystem = function () {
         return "Core";
@@ -21,9 +19,10 @@
     this.systems = [];
 
     this.getCategories = function() {
-
         for (let moduleObject of that.page.getComponents()) {
-
+            //if (moduleObject.getSystem() === "Core"
+            
+            //}
             let systemName;
             if (moduleObject.getSystem !== undefined){
                 systemName = moduleObject.getSystem(); 
@@ -49,6 +48,7 @@
                     show: true,
                 });
             }
+
         }
 
         return this.systems;
@@ -71,7 +71,7 @@
         else if (system.show === false){
             return " + ";
         }       
-    }   
+    };   
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
@@ -93,7 +93,9 @@
                 toActivate.push(item);
             });
         }
-
+        if (toActivate["wanderer-core-modules"] === undefined) {
+            toActivate.unshift("wanderer-core-modules")
+        }
         for (var i = 0, len = toActivate.length; i < len; i++) {
             that.page.activate(toActivate[i]);
         }
