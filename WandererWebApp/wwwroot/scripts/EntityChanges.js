@@ -21,7 +21,7 @@ g.SharedEntity.MakeTrackedEntity = function () {
         },
         Publish: function (name) {
             var thing = {
-                OperationSplit = this.GetEntityChanges()
+                OperationSplit : this.GetEntityChanges()
             };
             g.services.SignalRService.connection.send('UpdateSharedEntity', name, thing);
             changeList = [];

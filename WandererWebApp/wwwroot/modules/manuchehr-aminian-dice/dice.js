@@ -30,6 +30,7 @@
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
         this.communicator = communicator;
+        this.ledgerPublic = dependencies[0];
     }
     this.OnNewCharacter = function () { }
     this.OnSave = function () { }
@@ -47,7 +48,7 @@
         return "Dice";
     }
     this.getRequires = function () {
-        return [];
+        return ["wanderer-core-ledger"];
     }
 
     this.getPublic = function () {
@@ -70,6 +71,7 @@
     this.diceRoll = function () {
 
         this.drolls = [];
+        this.drollstext = "";
         this.ndrolls = Number(document.getElementById("ndicerolls").value);
         this.hi = Number(document.getElementById("dicerangehi").value);
 
@@ -81,6 +83,7 @@
         }
 
         this.drollstext = this.drolls.join(", ");
+        this.ledgerPublic.PublicSendMessage("rolled a " + this.drollstext + " for a total of " + this.drollsum);
 
         return 0;
     }
