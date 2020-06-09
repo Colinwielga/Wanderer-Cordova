@@ -37,7 +37,7 @@ DCKingdomLocations.component = function () {
          if (this.communicator.canRead("personal_locations")){
              this.personal_locations = this.communicator.read("personal_locations");
         }else{
-            this.personal_locations = default_locations;
+            this.personal_locations = this.default_locations;
         }
     };
     this.OnUpdate = function () {
