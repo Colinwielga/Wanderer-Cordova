@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Prototypist.TaskChain;
 using Prototypist.Toolbox.Object;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WandererWebApp
@@ -12,6 +13,22 @@ namespace WandererWebApp
     {
 
         private readonly Task<CloudTable> table;
+        private Job timer;
+
+        private class Job {
+            private readonly ItemCache itemCache;
+
+            public Job(ItemCache itemCache)
+            {
+                this.itemCache = itemCache;
+            }
+
+            public async Task Do() {
+                await Task.Delay(TimeSpan.FromSeconds(10));
+
+                await itemCache.PassoverToSaveAsync();
+            }
+        }
 
         public ItemCache(IConfiguration config)
         {
@@ -20,21 +37,25 @@ namespace WandererWebApp
 
         private class DataToSave
         {
-            string entityName;
-            string entityOwner;
-            bool dirty;
-            DateTime lastUpdate;
-            JObject jObject;
-            ItemCache itemCache;
+            private readonly string entityName;
+            private readonly string entityOwner;
+            private readonly ItemCache itemCache;
+            private JObject jObject;
+            private bool dirty;
+            private DateTime lastUpdate;
+            private DateTime firstUpdate;
 
-            public DataToSave(JObject jObject, ItemCache itemCache)
+            public DataToSave(JObject jObject, ItemCache itemCache, string entityName, string entityOwner)
             {
-                this.jObject = jObject;
+                this.jObject = jObject ?? throw new ArgumentNullException(nameof(jObject));
+                this.itemCache = itemCache ?? throw new ArgumentNullException(nameof(itemCache));
+                this.entityName = entityName ?? throw new ArgumentNullException(nameof(entityName));
+                this.entityOwner = entityOwner ?? throw new ArgumentNullException(nameof(entityOwner));
             }
 
             internal async Task SaveIfNeeded(CloudTable table)
             {
-                if (dirty && DateTime.UtcNow - lastUpdate > TimeSpan.FromMinutes(1)) {
+                if (dirty && (DateTime.UtcNow - lastUpdate > TimeSpan.FromMinutes(1)|| DateTime.UtcNow - firstUpdate > TimeSpan.FromMinutes(3))) {
                     // save
                      await table.ExecuteAsync(TableOperation.InsertOrReplace(new Entity(entityName, entityOwner)
                     {
@@ -59,6 +80,7 @@ namespace WandererWebApp
             internal void Update(Func<JObject,JObject> update, JumpBallConcurrent<DataToSave> self) {
                 this.jObject = update(jObject);
                 if (!dirty) {
+                    firstUpdate = DateTime.UtcNow;
                     itemCache.ToSaves.Add(self);
                 }
                 dirty = true;
@@ -68,7 +90,6 @@ namespace WandererWebApp
 
         private ConcurrentLinkedList<JumpBallConcurrent<DataToSave>> ToSaves = new ConcurrentLinkedList<JumpBallConcurrent<DataToSave>>();
 
-
         private MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>> cache = new MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>>();
 
         public async Task<string> Get(string entityName, string entityOwner) {
@@ -77,7 +98,8 @@ namespace WandererWebApp
             return jobjectResult.ToString();
         }
 
-        public async Task PassoverToSave() {
+        public async Task PassoverToSaveAsync() {
+            timer = null;
             var readyTable = await table;
 
             foreach (var toSave in ToSaves)
@@ -92,6 +114,10 @@ namespace WandererWebApp
                     return x;
                 });
             }
+            var myJob = new Job(this);
+            if (ToSaves.TryGetFirst(out var _) && null == Interlocked.CompareExchange(ref timer, myJob, null)) {
+                var dontWait = Task.Run(myJob.Do);
+            }
         }
 
         public async Task<string> Do(string entityName, string entityOwner, Func<JObject, JObject> modify)
@@ -100,9 +126,10 @@ namespace WandererWebApp
 
             var jumpBall = await PrivateGet(entityName, entityOwner);
 
-            var jobjectResult = await jumpBall.RunAsync(async dts =>
+            JObject res = null;
+
+            var jobjectResult = jumpBall.Run(dts =>
             {
-                JObject res;
                 dts.Update(x=> {
 
                     res = (JObject)modify(x).DeepClone();
@@ -113,7 +140,13 @@ namespace WandererWebApp
                 return dts;
             });
 
-            return jobjectResult.ToString();
+            var myJob = new Job(this);
+            if (null == Interlocked.CompareExchange(ref timer, myJob, null))
+            {
+                var dontWait = Task.Run(myJob.Do);
+            }
+
+            return res.ToString();
         }
 
         private async Task<JumpBallConcurrent<DataToSave>> PrivateGet(string entityName, string entityOwner)
@@ -145,7 +178,7 @@ namespace WandererWebApp
                 }
                 // TODO get from db
                 // or put in db
-                mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(JObject.Parse(entity.JSON),this)));
+                mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(JObject.Parse(entity.JSON),this,entityName,entityOwner)));
             }
             var jumpBall = await current;
             return jumpBall;
