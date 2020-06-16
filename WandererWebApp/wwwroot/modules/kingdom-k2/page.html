@@ -1,5 +1,17 @@
 ﻿<div class="pad-me">
+    <h3> Players : </h3> 
     <div data-ng-repeat="player in module.trackedEntity.backing.playerVotes.backing">
         {{player.backing.name.backing}} : {{player.backing.votes.backing}}
     </div>
+    <h3>Active Bills : </h3> 
+    <div data-ng-repeat="bill in module.trackedEntity.backing.activeBills.backing">
+        {{bill.backing.name.backing}} {{bill.backing.opposing.backing}} : {{bill.backing.supporting.backing}}
+    </div>
+    <h3>Proposed Bills : </h3>
+    <div data-ng-repeat="proposal in module.trackedEntity.backing.proposedBills.backing">
+        {{proposal.backing.name.backing}} : {{proposal.backing.support.backing}}
+    </div>
+
+    <input type="button" value="propose bill" data-ng-click="module.proposeBill()"/> 
+    <input type="text" data-ng-model="module.proposedBillText"/>
 </div>
