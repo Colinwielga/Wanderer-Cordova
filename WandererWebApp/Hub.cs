@@ -90,6 +90,16 @@ namespace WandererWebApp
                         }
                         at.Switch(x => throw new Exception("cannot append to object"), x => x[int.Parse(clear.Path.Last())] = new JArray());
                     }
+                    else if (item.Name == nameof(AddToNumberOperation))
+                    {
+                        var addToNumber = JsonConvert.DeserializeObject<AddToNumberOperation>(item.JSON);
+                        var at = OrType.Make<JObject, JArray>(entity); ;
+                        foreach (var pathPart in addToNumber.Path.SkipLast(1))
+                        {
+                            at = at.SwitchReturns(x => Navigate(x, pathPart), x => Navigate(x, pathPart));
+                        }
+                        at.Switch(x => x[int.Parse(addToNumber.Path.Last())] = ((double)x[int.Parse(addToNumber.Path.Last())]) + addToNumber.Add, x => x[addToNumber.Path.Last()] = ((double)x[addToNumber.Path.Last()]) + addToNumber.Add);
+                    }
                     else
                     {
                         throw new Exception($"unexpected operation {item.Name}");
@@ -208,5 +218,9 @@ namespace WandererWebApp
     public class ClearListOperation
     {
         public string[] Path;
+    }
+    public class AddToNumberOperation {
+        public string[] Path;
+        public double Add;
     }
 }

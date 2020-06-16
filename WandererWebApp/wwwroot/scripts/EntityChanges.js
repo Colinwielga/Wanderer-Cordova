@@ -53,8 +53,18 @@ g.SharedEntity.MakeTrackedEntity = function () {
                         Value: this.ToValue()
                     })
                 });
+            },
+            Add: function (number) {
+                this.backing += number;
+                this.entityChanges.changeList.push({
+                    Name: "AddToNumberOperation",
+                    JSON: JSON.stringify({
+                        Path: this.path,
+                        Number: number
+                    })
+                });
             }
-        }
+        };
     };
     res.MakeString = function (path, string) {
         return {
@@ -82,7 +92,7 @@ g.SharedEntity.MakeTrackedEntity = function () {
                     })
                 });
             }
-        }
+        };
     };
     res.MakeList = function (path) {
         return {
@@ -109,7 +119,7 @@ g.SharedEntity.MakeTrackedEntity = function () {
                 this.entityChanges.changeList.push({
                     Name: "ClearListOperation",
                     JSON: JSON.stringify({
-                        Path: this.path,
+                        Path: this.path
                     })
                 });
             },
@@ -140,7 +150,7 @@ g.SharedEntity.MakeTrackedEntity = function () {
                 var added = this.entityChanges.MakeObject(this.entityChanges.MakePath(this.path, this.backing.length + ""));
                 return this.AppendShared(added);
             }
-        }
+        };
     };
     res.MakeObject = function (path) {
         return {
@@ -174,7 +184,7 @@ g.SharedEntity.MakeTrackedEntity = function () {
                 var that = this;
                 added.Delete = function () {
                     delete that.backing[member];
-                }
+                };
                 return added;
             },
             SetString: function (member, string) {
@@ -193,57 +203,57 @@ g.SharedEntity.MakeTrackedEntity = function () {
                 var added = this.entityChanges.MakeObject(this.entityChanges.MakePath(this.path, member));
                 return this.SetShared(member, added);
             }
-        }
+        };
     };
 
     return res.MakeObject([]);
 };
 
 g.SharedEntity.ToTrackedEntity = function (obj) {
-    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity())
+    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity());
     res.entityChanges.changeList = [];
     return res;
-}
+};
 
-g.SharedEntity.CopyMembers = function (fromObject,toObject) {
+g.SharedEntity.CopyMembers = function (fromObject, toObject) {
     for (var member in fromObject) {
-        if (typeof fromObject[member] == "number") {
-            toObject.SetNumber(member,fromObject[member]);
+        if (typeof fromObject[member] === "number") {
+            toObject.SetNumber(member, fromObject[member]);
         }
-        if (typeof fromObject[member] == "string") {
-            toObject.SetString(member,fromObject[member]);
+        if (typeof fromObject[member] === "string") {
+            toObject.SetString(member, fromObject[member]);
         }
         if (Array.isArray(fromObject[member])) {
             var newList = toObject.SetList(member);
-            g.SharedEntity.CopyElements(fromObject[member], newList)
+            g.SharedEntity.CopyElements(fromObject[member], newList);
         }
-        if (typeof fromObject[member] == "object") {
+        if (typeof fromObject[member] === "object") {
             var newObject = toObject.SetObject(member);
-            g.SharedEntity.CopyMembers(fromObject[member], newObject)
+            g.SharedEntity.CopyMembers(fromObject[member], newObject);
         }
     }
     return toObject;
-}
+};
 
 g.SharedEntity.CopyElements = function (fromList, toList) {
     for (var item of fromList) {
-        if (typeof item == "number") {
+        if (typeof item === "number") {
             toList.AppendNumber(item);
         }
-        if (typeof item == "string") {
+        if (typeof item === "string") {
             toList.AppendString(item);
         }
         if (Array.isArray(item)) {
             var newList = toList.AppendList();
-            g.SharedEntity.CopyElements(item, newList)
+            g.SharedEntity.CopyElements(item, newList);
         }
-        if (typeof item == "object") {
+        if (typeof item === "object") {
             var newObject = toList.AppendObject();
-            g.SharedEntity.CopyMembers(item, newObject)
+            g.SharedEntity.CopyMembers(item, newObject);
         }
     }
     return toList;
-}
+};
 
 
 //var test = g.SharedEntity.ToTrackedEntity({
