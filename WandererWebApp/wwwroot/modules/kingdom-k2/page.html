@@ -6,12 +6,24 @@
     <h3>Active Bills : </h3> 
     <div data-ng-repeat="bill in module.trackedEntity.backing.activeBills.backing">
         {{bill.backing.name.backing}} {{bill.backing.opposing.backing}} : {{bill.backing.supporting.backing}}
+        <input type="button" value="against" data-ng-click="module.againstActiveBill(bill)"/>
+        <input type="button" value="for" data-ng-click="module.forActiveBill(bill)"/>
     </div>
     <h3>Proposed Bills : </h3>
     <div data-ng-repeat="proposal in module.trackedEntity.backing.proposedBills.backing">
         {{proposal.backing.name.backing}} : {{proposal.backing.support.backing}}
+        <input type="button" value="for" data-ng-click="module.forProposedBill(proposal)" />
+        
     </div>
+    
+    <!-- 
+        end session
+            - move top n proposed bills to active
+            - delete all the active bills (post results to ledger)
+            - reset votes
+    -->
 
     <input type="button" value="propose bill" data-ng-click="module.proposeBill()"/> 
     <input type="text" data-ng-model="module.proposedBillText"/>
+    <input type="button" value="end session" data-ng-click="module.endSession()"/>
 </div>

@@ -64,15 +64,36 @@ KingdomK2.component = function () {
         //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
         //  }
         
+        // TODO standarize on supporting or support
 
     };
     
     this.proposeBill = function () {
         if (this.ourPlayer.backing.votes.backing > 0) {
-
             var offerBill = this.proposedBills.AppendObject();
             offerBill.SetString("name", this.proposedBillText);
             offerBill.SetNumber("support", 1);
+            this.ourPlayer.backing.votes.Add(-1);
+        }
+    };
+
+    this.forProposedBill = function (proposal) {
+        if (this.ourPlayer.backing.votes.backing > 0) {
+            proposal.backing.support.Add(1);
+            this.ourPlayer.backing.votes.Add(-1);
+        }
+    };
+
+    this.forActiveBill = function (bill) {
+        if (this.ourPlayer.backing.votes.backing > 0) {
+            bill.backing.supporting.Add(1);
+            this.ourPlayer.backing.votes.Add(-1);
+        }
+    };
+
+    this.againstActiveBill = function (bill) {
+        if (this.ourPlayer.backing.votes.backing > 0) {
+            bill.backing.opposing.Add(1);
             this.ourPlayer.backing.votes.Add(-1);
         }
     };
