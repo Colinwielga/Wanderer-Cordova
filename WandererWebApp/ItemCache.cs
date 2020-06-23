@@ -4,11 +4,27 @@ using Newtonsoft.Json.Linq;
 using Prototypist.TaskChain;
 using Prototypist.Toolbox.Object;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace WandererWebApp
 {
+    public class Payload { 
+        public JObject JObject { get; set; }
+        public List<string> RecentChanges { get; set; }
+
+        internal Payload Clone()
+        {
+            return new Payload
+            {
+                JObject = (JObject)JObject.DeepClone(),
+                RecentChanges = RecentChanges.ToList()
+            };
+        }
+    }
+
     public class ItemCache
     {
 
@@ -40,12 +56,12 @@ namespace WandererWebApp
             private readonly string entityName;
             private readonly string entityOwner;
             private readonly ItemCache itemCache;
-            private JObject jObject;
+            public Payload jObject;
             private bool dirty;
             private DateTime lastUpdate;
             private DateTime firstUpdate;
 
-            public DataToSave(JObject jObject, ItemCache itemCache, string entityName, string entityOwner)
+            public DataToSave(Payload jObject, ItemCache itemCache, string entityName, string entityOwner)
             {
                 this.jObject = jObject ?? throw new ArgumentNullException(nameof(jObject));
                 this.itemCache = itemCache ?? throw new ArgumentNullException(nameof(itemCache));
@@ -77,7 +93,7 @@ namespace WandererWebApp
                 return false;
             }
 
-            internal void Update(Func<JObject,JObject> update, JumpBallConcurrent<DataToSave> self) {
+            internal void Update(Func<Payload, Payload> update, JumpBallConcurrent<DataToSave> self) {
                 this.jObject = update(jObject);
                 if (!dirty) {
                     firstUpdate = DateTime.UtcNow;
@@ -92,10 +108,10 @@ namespace WandererWebApp
 
         private MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>> cache = new MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>>();
 
-        public async Task<string> Get(string entityName, string entityOwner) {
+        public async Task<Payload> Get(string entityName, string entityOwner) {
             var jumpBall = await PrivateGet(entityName, entityOwner);
             var jobjectResult = jumpBall.Read();
-            return jobjectResult.ToString();
+            return jobjectResult.jObject;
         }
 
         public async Task PassoverToSaveAsync() {
@@ -120,20 +136,25 @@ namespace WandererWebApp
             }
         }
 
-        public async Task<string> Do(string entityName, string entityOwner, Func<JObject, JObject> modify)
+        public async Task<Payload> Do(string entityName, string entityOwner, Func<JObject, JObject> modify, string changeId)
         {
 
 
             var jumpBall = await PrivateGet(entityName, entityOwner);
 
-            JObject res = null;
+            Payload res = null;
 
             var jobjectResult = jumpBall.Run(dts =>
             {
                 dts.Update(x=> {
 
-                    res = (JObject)modify(x).DeepClone();
-                    return res;
+                    x.JObject = modify(x.JObject);
+                    x.RecentChanges.Add(changeId);
+                    if (x.RecentChanges.Count > 100) {
+                        x.RecentChanges.RemoveAt(0);
+                    }
+                    res = x.Clone();
+                    return x;
 
                     }, jumpBall);
 
@@ -146,7 +167,7 @@ namespace WandererWebApp
                 var dontWait = Task.Run(myJob.Do);
             }
 
-            return res.ToString();
+            return res;
         }
 
         private async Task<JumpBallConcurrent<DataToSave>> PrivateGet(string entityName, string entityOwner)
@@ -178,7 +199,7 @@ namespace WandererWebApp
                 }
                 // TODO get from db
                 // or put in db
-                mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(JObject.Parse(entity.JSON),this,entityName,entityOwner)));
+                mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(new Payload { JObject = JObject.Parse(entity.JSON), RecentChanges = new List<string>() },this,entityName,entityOwner)));
             }
             var jumpBall = await current;
             return jumpBall;

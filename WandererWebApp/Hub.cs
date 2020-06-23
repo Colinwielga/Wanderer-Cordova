@@ -35,17 +35,25 @@ namespace WandererWebApp
         }
 
 
-        public async Task RequestEntity(string entityName) {
-            await Groups.AddToGroupAsync(Context.ConnectionId, entityPrefix + entityName);
+        public async Task RequestEntity(string key1, string key2) {
+            if (key1.Contains("|")) {
+                throw new Exception($"invalid key: \"{key1}\", key cannot contain \"|\"");
+            }
+            if (key2.Contains("|"))
+            {
+                throw new Exception($"invalid key: \"{key2}\", key cannot contain \"|\"");
+            }
 
-            var jsonString = await cache.Get(entityName, EntityOwner);
+            await Groups.AddToGroupAsync(Context.ConnectionId, key1 +"|" + key2);
 
-            await Clients.Groups(groupPrefix + entityName).SendAsync("EntityState", entityName, jsonString);
+            var jsonString = await cache.Get(key1, key2);
+
+            await Clients.Client(Context.ConnectionId).SendAsync("EntityState", key1,key2, jsonString);
         }
 
-        public async Task UpdateSharedEntity(string entityName, EntityChanges entityChanges) {
+        public async Task UpdateSharedEntity(string key1, string key2, EntityChanges entityChanges) {
 
-            var jsonString = await cache.Do(entityName, "{7362FB24-EE6A-4D46-AF13-C6343A3C21FF}", entity =>
+            var jsonString = await cache.Do(key1, key2, entity =>
             {
 
                 foreach (var item in entityChanges.Operations)
@@ -106,9 +114,9 @@ namespace WandererWebApp
                     }
                 }
                 return entity;
-            });
+            }, entityChanges.ChangeId);
 
-            await Clients.Groups(groupPrefix + entityName).SendAsync("EntityUpdate", entityName, jsonString);
+            await Clients.Groups(key1 + "|" + key2).SendAsync("EntityUpdate", key1, key2, jsonString);
         }
 
         private static OrType<JObject, JArray> Navigate(JObject x, string pathPart)
@@ -168,6 +176,7 @@ namespace WandererWebApp
     public class EntityChanges {
         // in order
         public OperationSplit[] Operations;
+        public string ChangeId;
     }
 
     public class ValueSplit

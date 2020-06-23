@@ -1,6 +1,6 @@
 ﻿g.SharedEntity = {};
 
-g.SharedEntity.MakeTrackedEntity = function () {
+g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
 
     var res = {
         GetEntityChanges: function () {
@@ -8,8 +8,10 @@ g.SharedEntity.MakeTrackedEntity = function () {
             for (var item of this.changeList) {
                 res.push(item);
             }
-            return { Operations: res };
+            return { Operations: res, ChangeId: Math.floor(Math.random() * 1000000) + "" };
         },
+        key1: key1,
+        key2: key2,
         changeList: [],
         MakePath: function (path, string) {
             var res = [];
@@ -19,12 +21,37 @@ g.SharedEntity.MakeTrackedEntity = function () {
             res.push(string);
             return res;
         },
-        Publish: function (name) {
-            var thing = {
-                OperationSplit : this.GetEntityChanges()
-            };
-            g.services.SignalRService.connection.send('UpdateSharedEntity', name, thing);
+        waitFor: null,
+        lastSend: 0,
+        PossiblyUpdateTrackedEntity: function (payload, key1,key2) {
+            // we are not waiting
+            if (this.waitFor === null) {
+                return g.SharedEntity.ToTrackedEntity(payload.JObject,key1,key2);
+            }
+
+            // try have what we are waiting for
+            var waitFor = this.waitFor;
+            if (payload.RecentChanges.find(item => { return item === waitFor })) {
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+            }
+
+            // we have been waiting a long time
+            if ((new Date().getTime() - this.lastSend) > 10*1000) {
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+            }
+
+            return this.root;
+        },
+        Publish: function () {
+            var thing = this.GetEntityChanges();
+            g.services.SignalRService.connection.send('UpdateSharedEntity', key1, key2, thing);
             changeList = [];
+            this.waitFor = thing.ChangeId;    
+            if (this.lastSend === 0) {
+                var d = new Date();
+                this.lastSend = d.getTime();
+
+            }
         }
     };
 
@@ -206,11 +233,12 @@ g.SharedEntity.MakeTrackedEntity = function () {
         };
     };
 
-    return res.MakeObject([]);
+    res.root = res.MakeObject([]);
+    return res.root;
 };
 
-g.SharedEntity.ToTrackedEntity = function (obj) {
-    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity());
+g.SharedEntity.ToTrackedEntity = function (obj,key1,key2) {
+    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity(key1, key2));
     res.entityChanges.changeList = [];
     return res;
 };
@@ -254,7 +282,6 @@ g.SharedEntity.CopyElements = function (fromList, toList) {
     }
     return toList;
 };
-
 
 //var test = g.SharedEntity.ToTrackedEntity({
 //    w: "test",
