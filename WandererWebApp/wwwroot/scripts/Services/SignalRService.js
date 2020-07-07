@@ -1,7 +1,7 @@
 ﻿g.services.SignalRService = {
 };
 
-g.services.SignalRService.callbacks = {}
+g.services.SignalRService.callbacks = {};
 
 g.services.SignalRService.Callback = function (groupName, x) {
     for (var key in g.services.SignalRService.callbacks) {
@@ -15,25 +15,19 @@ g.services.SignalRService.Callback = function (groupName, x) {
     }
 };
 
-g.services.SignalRService.EntityUpdateCallback = function (entityName, jsonString) {
-    var listeners = g.services.SignalRService.entityListeners[entityName];
-    if (listeners) {
-        var newSharedEntity = g.SharedEntity.ToTrackedEntity(JSON.parse(jsonString));
-        for (var listener of listeners) {
-            listener(newSharedEntity);
-        }
+g.services.SignalRService.EntityUpdateCallback = function (key1,key2, payload) {
+    var listener = g.services.SignalRService.entityListeners[key1 +"|" + key2];
+    if (listener) {
+        listener(key1, key2, payload);
     }
-}
+};
 
-g.services.SignalRService.SubscribeToEntity = function (entityName, callback) {
-    if (g.services.SignalRService.entityListeners[entityName] === undefined) {
-        g.services.SignalRService.entityListeners[entityName] = [];
-    }
-    g.services.SignalRService.entityListeners[entityName].push(callback)
-}
+g.services.SignalRService.SubscribeToEntity = function (key1, key2, callback) {
+    g.services.SignalRService.entityListeners[key1 + "|" + key2] = callback;
+};
 
 // entityName -> list of call backs for that entity
-g.services.SignalRService.entityListeners = {}
+g.services.SignalRService.entityListeners = {};
 
 g.services.SignalRService.setCallback = function (name, groupName, accept, act) {
     g.services.SignalRService.groupNames[name] = groupName;
@@ -94,7 +88,10 @@ g.services.SignalRService.InnerConnection = function (time) {
             g.services.SignalRService.connection.on('EntityState', g.services.SignalRService.EntityUpdateCallback);
             for (var key in g.services.SignalRService.entityListeners) {
                 if (g.services.SignalRService.entityListeners.hasOwnProperty(key)) {
-                    g.services.SignalRService.connection.send('RequestEntity', key);
+                    var splitKey = key.split("|");
+                    var key1 = splitKey[0];
+                    var key2 = splitKey[1];
+                    g.services.SignalRService.connection.send('RequestEntity', key1,key2);
                 }
             }
 
