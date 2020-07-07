@@ -58,13 +58,25 @@ KingdomK2.component = function () {
         nextProposedBill.SetString("name", "make momentus king");
         nextProposedBill.SetNumber("support", 0);
 
+        this.enactedBills = this.trackedEntity.SetList("enactedBills");
+        var enactLaw = this.enactedBills.AppendObject();
+        enactLaw.SetString("name", "Large subsidy for newspaper industry");
+        
         //  {
         //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
-        //      activeBills: [{name:"kill the lizard people", supportingVotes: 100, opposingVots: 100},{name:"kill the empire", supportingVotes: 100, opposingVots: 100}]
+        //      activeBills: [{name:"kill the lizard people", supporting: 100, opposing: 100},{name:"kill the empire", supporting: 100, opposing: 100}]
         //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
         //  }
         
         // TODO standarize on supporting or support
+
+        // update the entitys
+        // var that = this;
+        // g.services.SignalRService.SubscribeToEntity("12345","54321", function (key1,key2,payload){
+        //     g.services.timeoutService.$timeout(function(){
+        //         that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(key1,key2,payload);
+        //     });
+        // });
 
     };
     
@@ -98,7 +110,63 @@ KingdomK2.component = function () {
         }
     };
 
-    
+    this.endSession = function () {
+        // this.trackedEntity = {
+        //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
+        //      activeBills: [{name:"kill the lizard people", supportingVotes: 100, opposingVots: 100},{name:"kill the empire", supportingVotes: 100, opposingVots: 100}]
+        //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
+        //  }
+        // + a lot of ".backing"
+
+        for (var passingBill of this.trackedEntity.backing.activeBills.backing){
+            if (passingBill.backing.supporting.backing > passingBill.backing.opposing.backing) {
+                var enactLaw = this.enactedBills.AppendObject();
+                enactLaw.SetString("name", passingBill.backing.name.backing );    
+            };
+        }
+        //TODO clear active, then top five proposed bills move to active        
+        //clear(this.trackedEntity.backing.activeBills.backing)
+        //this.trackedEntity.backing.proposedBills.backing[0,1,2,3,4]
+        //var enactLaw = this.enactedBills.AppendObject();
+        //enactLaw.SetString("name", pro);
+        
+        }
+    };
+
+    this.showPlayers = true;
+    this.showActiveBills = true;
+    this.showProposedBills = true;
+    this.showEnactedBills = true;
+
+    this.toggleShowPlayers = function () {
+        if (this.showPlayers === false) {
+            this.showPlayers = true            
+        } else {
+            this.showPlayers = false
+        }
+    };
+    this.toggleShowActiveBills = function () {
+        if (this.showActiveBills === false) {
+            this.showActiveBills = true            
+        } else {
+            this.showActiveBills = false
+        }
+    };
+    this.toggleShowProposedBills = function () {
+        if (this.showProposedBills === false) {
+            this.showProposedBills = true            
+        } else {
+            this.showProposedBills = false
+        }
+    };
+    this.toggleShowEnactedBills = function () {
+        if (this.showEnactedBills === false) {
+            this.showEnactedBills = true            
+        } else {
+            this.showEnactedBills = false
+        }
+    };    
+
     this.OnSave = function () {
     };
     this.OnLoad = function () {
