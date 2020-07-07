@@ -121,6 +121,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             }
         };
     };
+    // list is really a set
     res.MakeList = function (path) {
         return {
             entityChanges: res,

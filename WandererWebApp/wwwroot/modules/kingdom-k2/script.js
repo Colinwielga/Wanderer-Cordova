@@ -111,26 +111,48 @@ KingdomK2.component = function () {
     };
 
     this.endSession = function () {
-        // this.trackedEntity = {
-        //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
-        //      activeBills: [{name:"kill the lizard people", supportingVotes: 100, opposingVots: 100},{name:"kill the empire", supportingVotes: 100, opposingVots: 100}]
-        //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
-        //  }
-        // + a lot of ".backing"
 
+        // take passing bills and add them to active
         for (var passingBill of this.trackedEntity.backing.activeBills.backing){
             if (passingBill.backing.supporting.backing > passingBill.backing.opposing.backing) {
                 var enactLaw = this.enactedBills.AppendObject();
                 enactLaw.SetString("name", passingBill.backing.name.backing );    
             };
         }
-        //TODO clear active, then top five proposed bills move to active        
-        //clear(this.trackedEntity.backing.activeBills.backing)
-        //this.trackedEntity.backing.proposedBills.backing[0,1,2,3,4]
-        //var enactLaw = this.enactedBills.AppendObject();
-        //enactLaw.SetString("name", pro);
-        
+
+        // clear active, 
+        this.trackedEntity.backing.activeBills.Clear();    
+        //then top five proposed bills move to active   
+
+        this.trackedEntity.backing.proposedBills.backing.sort(function(a, b) {
+            var supportA = a.support;
+            var supportB = b.support;
+            if (supportA < supportB) { 
+                return 1; 
+            }
+            if (supportA > supportB) {
+                return -1; 
+            }
+            return 0 ;
+        });
+
+        // 3
+        var billsToActivate = this.trackedEntity.backing.proposedBills.backing.length;
+
+        for (var i = 0; i < 5 && i < billsToActivate; i++){
+            var newBills = this.trackedEntity.backing.activeBills.AppendObject(); 
+            newBills.SetString("name", this.trackedEntity.backing.proposedBills.backing[i].backing.name.backing);
+            newBills.SetNumber("opposing", 0);
+            newBills.SetNumber("supporting", 0);
         }
+        
+        this.trackedEntity.backing.proposedBills.Clear(); 
+        //  {
+        //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
+        //      activeBills: [{name:"kill the lizard people", supporting: 100, opposing: 100},{name:"kill the empire", supporting: 100, opposing: 100}]
+        //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
+        //  }
+        
     };
 
     this.showPlayers = true;
