@@ -1,5 +1,11 @@
 ﻿g.SharedEntity = {};
 
+g.SharedEntity.uuidv4 = function() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
+
 g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
 
     var res = {
@@ -121,10 +127,11 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             }
         };
     };
-    res.MakeList = function (path) {
+    res.MakeSet = function (path) {
         return {
             entityChanges: res,
-            backing: [],
+            backingList: [],
+            backingDict: {},
             path: path,
             FromTracked: function () {
                 var res = [];
@@ -137,45 +144,63 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             },
             ToValue: function () {
                 return {
-                    Name: "ListValue",
+                    Name: "SetValue",
                     JSON: JSON.stringify({})
                 };
             },
             Clear: function () {
                 this.backing = [];
                 this.entityChanges.changeList.push({
-                    Name: "ClearListOperation",
+                    Name: "ClearSetOperation",
                     JSON: JSON.stringify({
                         Path: this.path
                     })
                 });
             },
-            AppendShared: function (added) {
+            AddShared: function (added,id) {
                 this.backing.push(added);
+                this.backingDict[id] = this.backing.length;
                 this.entityChanges.changeList.push({
-                    Name: "AppendToListOperation",
+                    Name: "AddToSetOperation",
                     JSON: JSON.stringify({
                         Path: this.path,
+                        Id: id,
                         Value: added.ToValue()
                     })
                 });
+                return { Id: id, Item: added };
+            },
+            AddString: function (string) {
+                var id = g.SharedEntity.uuidv4();
+                var added = this.entityChanges.MakeString(this.entityChanges.MakePath(this.path, id), string);
+                return this.AddShared(added, id);
+            },
+            AddNumber: function (number) {
+                var id = g.SharedEntity.uuidv4();
+                var added = this.entityChanges.MakeNumber(this.entityChanges.MakePath(this.path, id), number);
+                return this.AddShared(added, id);
+            },
+            AddSet: function () {
+                var id = g.SharedEntity.uuidv4();
+                var added = this.entityChanges.MakeSet(this.entityChanges.MakePath(this.path, id));
+                return this.AddShared(added, id);
+            },
+            AddObject: function () {
+                var id = g.SharedEntity.uuidv4();
+                var added = this.entityChanges.MakeObject(this.entityChanges.MakePath(this.path, id));
+                return this.AddShared(added, id);
+            },
+            Remove: function (id) {
+                var index = this.backingDict[id];
+                this.backing.splice(index, 1)
+                this.entityChanges.changeList.push({
+                    Name: "RemoveFromSetOperation",
+                    JSON: JSON.stringify({
+                        Path: this.path,
+                        Id: id
+                    })
+                });
                 return added;
-            },
-            AppendString: function (string) {
-                var added = this.entityChanges.MakeString(this.entityChanges.MakePath(this.path, this.backing.length + ""), string);
-                return this.AppendShared(added);
-            },
-            AppendNumber: function (number) {
-                var added = this.entityChanges.MakeNumber(this.entityChanges.MakePath(this.path, this.backing.length + ""), number);
-                return this.AppendShared(added);
-            },
-            AppendList: function () {
-                var added = this.entityChanges.MakeList(this.entityChanges.MakePath(this.path, this.backing.length + ""));
-                return this.AppendShared(added);
-            },
-            AppendObject: function () {
-                var added = this.entityChanges.MakeObject(this.entityChanges.MakePath(this.path, this.backing.length + ""));
-                return this.AppendShared(added);
             }
         };
     };
@@ -222,8 +247,8 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 var added = this.entityChanges.MakeNumber(this.entityChanges.MakePath(this.path, member), number);
                 return this.SetShared(member, added);
             },
-            SetList: function (member) {
-                var added = this.entityChanges.MakeList(this.entityChanges.MakePath(this.path, member));
+            SetSet: function (member) {
+                var added = this.entityChanges.MakeSet(this.entityChanges.MakePath(this.path, member));
                 return this.SetShared(member, added);
             },
             SetObject: function (member) {
@@ -252,8 +277,8 @@ g.SharedEntity.CopyMembers = function (fromObject, toObject) {
             toObject.SetString(member, fromObject[member]);
         }
         if (Array.isArray(fromObject[member])) {
-            var newList = toObject.SetList(member);
-            g.SharedEntity.CopyElements(fromObject[member], newList);
+            var newSet = toObject.SetSet(member);
+            g.SharedEntity.CopyElements(fromObject[member], newSet);
         }
         if (typeof fromObject[member] === "object") {
             var newObject = toObject.SetObject(member);
@@ -263,24 +288,24 @@ g.SharedEntity.CopyMembers = function (fromObject, toObject) {
     return toObject;
 };
 
-g.SharedEntity.CopyElements = function (fromList, toList) {
-    for (var item of fromList) {
+g.SharedEntity.CopyElements = function (fromSet, toSet) {
+    for (var item of fromSet) {
         if (typeof item === "number") {
-            toList.AppendNumber(item);
+            toSet.AddNumber(item);
         }
         if (typeof item === "string") {
-            toList.AppendString(item);
+            toSet.AddString(item);
         }
         if (Array.isArray(item)) {
-            var newList = toList.AppendList();
-            g.SharedEntity.CopyElements(item, newList);
+            var newSet = toSet.AddSet();
+            g.SharedEntity.CopyElements(item, newSet);
         }
         if (typeof item === "object") {
-            var newObject = toList.AppendObject();
+            var newObject = toSet.AddObject();
             g.SharedEntity.CopyMembers(item, newObject);
         }
     }
-    return toList;
+    return toSet;
 };
 
 //var test = g.SharedEntity.ToTrackedEntity({
@@ -297,10 +322,10 @@ g.SharedEntity.CopyElements = function (fromList, toList) {
 // tests 
 //console.log("result:", test)
 
-//var testList = test.SetList("v");
-//testList.AppendNumber(1);
-//testList.AppendNumber(2);
-//testList.AppendNumber(3);
+//var testSet = test.SetSet("v");
+//testSet.AddNumber(1);
+//testSet.AddNumber(2);
+//testSet.AddNumber(3);
 
 //console.log("result:", test.entityChanges.GetEntityChanges());
 //console.log("result:", test.FromTracked());

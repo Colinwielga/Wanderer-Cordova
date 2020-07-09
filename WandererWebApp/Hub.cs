@@ -61,52 +61,62 @@ namespace WandererWebApp
                     if (item.Name == nameof(AddOrSetOperation))
                     {
                         var addOrSet = JsonConvert.DeserializeObject<AddOrSetOperation>(item.JSON);
-                        var at = OrType.Make<JObject, JArray>(entity);
+                        var at = entity;
                         foreach (var pathPart in addOrSet.Path.SkipLast(1))
                         {
-                            at = at.SwitchReturns(x => Navigate(x, pathPart), x => Navigate(x, pathPart));
+                            at = Navigate(at, pathPart);
                         }
-                        at.Switch(x => x[addOrSet.Path.Last()] = ToValue(addOrSet.Value), x => x[int.Parse(addOrSet.Path.Last())] = ToValue(addOrSet.Value));
+                        at[addOrSet.Path.Last()] = ToValue(addOrSet.Value);
                     }
                     if (item.Name == nameof(DeleteOperation))
                     {
                         var deleteOperation = JsonConvert.DeserializeObject<DeleteOperation>(item.JSON);
-                        var at = OrType.Make<JObject, JArray>(entity);
+                        var at = entity;
                         foreach (var pathPart in deleteOperation.Path.SkipLast(1))
                         {
-                            at = at.SwitchReturns(x => Navigate(x, pathPart), x => Navigate(x, pathPart));
+                            at =Navigate(at, pathPart);
                         }
-                        at.Switch(x => x.Remove(deleteOperation.Path.Last()), x => throw new Exception("cannot delete from list"));
+                        at.Remove(deleteOperation.Path.Last());
                     }
-                    else if (item.Name == nameof(AppendToListOperation))
+                    else if (item.Name == nameof(AddToSetOperation))
                     {
-                        var append = JsonConvert.DeserializeObject<AppendToListOperation>(item.JSON);
-                        var at = OrType.Make<JObject, JArray>(entity); ;
+                        var append = JsonConvert.DeserializeObject<AddToSetOperation>(item.JSON);
+                        var at = entity; ;
                         foreach (var pathPart in append.Path)
                         {
-                            at = at.SwitchReturns(x => Navigate(x, pathPart), x => Navigate(x, pathPart));
+                            at =Navigate(at, pathPart);
                         }
-                        at.Switch(x => throw new Exception("cannot append to object"), x => x.Append(ToValue(append.Value)));
+                        at[append.Id] = ToValue(append.Value);
                     }
-                    else if (item.Name == nameof(ClearListOperation))
+                    else if (item.Name == nameof(RemoveFromSetOperation))
                     {
-                        var clear = JsonConvert.DeserializeObject<ClearListOperation>(item.JSON);
-                        var at = OrType.Make<JObject, JArray>(entity); ;
+                        var removeFromSet = JsonConvert.DeserializeObject<RemoveFromSetOperation>(item.JSON);
+                        var at = entity; ;
+                        foreach (var pathPart in removeFromSet.Path)
+                        {
+                            at = Navigate(at, pathPart);
+                        }
+                        at.Remove(removeFromSet.Id.ToString());
+                    }
+                    else if (item.Name == nameof(ClearSetOperation))
+                    {
+                        var clear = JsonConvert.DeserializeObject<ClearSetOperation>(item.JSON);
+                        var at = entity; ;
                         foreach (var pathPart in clear.Path.SkipLast(1))
                         {
-                            at = at.SwitchReturns(x => Navigate(x, pathPart), x => Navigate(x, pathPart));
+                            at =Navigate(at, pathPart);
                         }
-                        at.Switch(x => throw new Exception("cannot append to object"), x => x[int.Parse(clear.Path.Last())] = new JArray());
+                        at[clear.Path.Last()] = new JObject();
                     }
                     else if (item.Name == nameof(AddToNumberOperation))
                     {
                         var addToNumber = JsonConvert.DeserializeObject<AddToNumberOperation>(item.JSON);
-                        var at = OrType.Make<JObject, JArray>(entity); ;
+                        var at = entity; ;
                         foreach (var pathPart in addToNumber.Path.SkipLast(1))
                         {
-                            at = at.SwitchReturns(x => Navigate(x, pathPart), x => Navigate(x, pathPart));
+                            at =Navigate(at, pathPart);
                         }
-                        at.Switch(x => x[int.Parse(addToNumber.Path.Last())] = ((double)x[int.Parse(addToNumber.Path.Last())]) + addToNumber.Add, x => x[addToNumber.Path.Last()] = ((double)x[addToNumber.Path.Last()]) + addToNumber.Add);
+                        at[addToNumber.Path.Last()] = ((double)at[addToNumber.Path.Last()]) + addToNumber.Add;
                     }
                     else
                     {
@@ -119,30 +129,12 @@ namespace WandererWebApp
             await Clients.Groups(key1 + "|" + key2).SendAsync("EntityUpdate", key1, key2, jsonString);
         }
 
-        private static OrType<JObject, JArray> Navigate(JObject x, string pathPart)
+        private static JObject Navigate(JObject x, string pathPart)
         {
             var thing = x[pathPart];
             if (thing is JObject jObject)
             {
-                return OrType.Make<JObject, JArray>(jObject);
-            }
-            if (thing is JArray jArray)
-            {
-                return OrType.Make<JObject, JArray>(jArray);
-            }
-            throw new Exception($"unexpected type of thing {thing.GetType()}");
-        }
-
-        private static OrType<JObject, JArray> Navigate(JArray x, string pathPart)
-        {
-            var thing = x[int.Parse(pathPart)];
-            if (thing is JObject jObject)
-            {
-                return OrType.Make<JObject, JArray>(jObject);
-            }
-            if (thing is JArray jArray)
-            {
-                return OrType.Make<JObject, JArray>(jArray);
+                return jObject;
             }
             throw new Exception($"unexpected type of thing {thing.GetType()}");
         }
@@ -161,7 +153,7 @@ namespace WandererWebApp
             }
             else if (value.Name == nameof(ListValue))
             {
-                return new JArray();
+                return new JObject();
             }
             else if (value.Name == nameof(ObjectValue))
             {
@@ -219,12 +211,18 @@ namespace WandererWebApp
         public string[] Path;
     }
 
-    public class AppendToListOperation
+    public class AddToSetOperation
     {
         public string[] Path;
+        public Guid Id;
         public ValueSplit Value;
     }
-    public class ClearListOperation
+    public class RemoveFromSetOperation
+    {
+        public string[] Path;
+        public Guid Id;
+    }
+    public class ClearSetOperation
     {
         public string[] Path;
     }
