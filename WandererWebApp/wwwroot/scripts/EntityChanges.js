@@ -14,7 +14,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             for (var item of this.changeList) {
                 res.push(item);
             }
-            return { Operations: res, ChangeId: Math.floor(Math.random() * 1000000) + "" };
+            return { Operations: res, ChangeId: g.SharedEntity.uuidv4() };
         },
         key1: key1,
         key2: key2,
@@ -49,10 +49,10 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             return this.root;
         },
         Publish: function () {
-            var thing = this.GetEntityChanges();
-            g.services.SignalRService.connection.send('UpdateSharedEntity', key1, key2, thing);
+            var changes = this.GetEntityChanges();
+            g.services.SignalRService.connection.send('UpdateSharedEntity', key1, key2, changes);
             changeList = [];
-            this.waitFor = thing.ChangeId;    
+            this.waitFor = changes.ChangeId;    
             if (this.lastSend === 0) {
                 var d = new Date();
                 this.lastSend = d.getTime();
@@ -93,7 +93,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                     Name: "AddToNumberOperation",
                     JSON: JSON.stringify({
                         Path: this.path,
-                        Number: number
+                        Add: number
                     })
                 });
             }
@@ -130,7 +130,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
     res.MakeSet = function (path) {
         return {
             entityChanges: res,
-            backingList: [],
+            backing: [],
             backingDict: {},
             path: path,
             FromTracked: function () {
@@ -163,32 +163,48 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 this.entityChanges.changeList.push({
                     Name: "AddToSetOperation",
                     JSON: JSON.stringify({
-                        Path: this.path,
+                        Path: this.entityChanges.MakePath(this.path, id),
                         Id: id,
                         Value: added.ToValue()
                     })
                 });
-                return { Id: id, Item: added };
+                // this fields very weird to me
+                // have object of verying shape
+                // but I bet it is ok in javascript world
+                added.id = id;
+                return added;
             },
-            AddString: function (string) {
-                var id = g.SharedEntity.uuidv4();
+            AddStringWithId: function (id,string) {
                 var added = this.entityChanges.MakeString(this.entityChanges.MakePath(this.path, id), string);
                 return this.AddShared(added, id);
             },
-            AddNumber: function (number) {
-                var id = g.SharedEntity.uuidv4();
+            AddNumberWithId: function (id,number) {
                 var added = this.entityChanges.MakeNumber(this.entityChanges.MakePath(this.path, id), number);
                 return this.AddShared(added, id);
             },
-            AddSet: function () {
-                var id = g.SharedEntity.uuidv4();
+            AddSetWithId: function (id) {
                 var added = this.entityChanges.MakeSet(this.entityChanges.MakePath(this.path, id));
                 return this.AddShared(added, id);
             },
-            AddObject: function () {
-                var id = g.SharedEntity.uuidv4();
+            AddObjectWithId: function (id) {
                 var added = this.entityChanges.MakeObject(this.entityChanges.MakePath(this.path, id));
                 return this.AddShared(added, id);
+            },
+            AddString: function (string) {
+                var id = g.SharedEntity.uuidv4();
+                return this.AddStringWithId(id, string);
+            },
+            AddNumber: function (number) {
+                var id = g.SharedEntity.uuidv4();
+                return this.AddNumberWithId(id, number);
+            },
+            AddSet: function () {
+                var id = g.SharedEntity.uuidv4();
+                return this.AddSetWithId(id);
+            },
+            AddObject: function () {
+                var id = g.SharedEntity.uuidv4();
+                return this.AddObjectWithId(id);
             },
             Remove: function (id) {
                 var index = this.backingDict[id];
@@ -196,8 +212,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 this.entityChanges.changeList.push({
                     Name: "RemoveFromSetOperation",
                     JSON: JSON.stringify({
-                        Path: this.path,
-                        Id: id
+                        Path: this.entityChanges.MakePath(this.path, id),
                     })
                 });
                 return added;
@@ -208,7 +223,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
         return {
             entityChanges: res,
             backing: {},
-            path: path,
+            path: path,   
             FromTracked: function () {
                 var res = {};
 
@@ -273,14 +288,14 @@ g.SharedEntity.CopyMembers = function (fromObject, toObject) {
         if (typeof fromObject[member] === "number") {
             toObject.SetNumber(member, fromObject[member]);
         }
-        if (typeof fromObject[member] === "string") {
+        else if (typeof fromObject[member] === "string") {
             toObject.SetString(member, fromObject[member]);
         }
-        if (Array.isArray(fromObject[member])) {
+        else if (typeof fromObject[member] === "object" && fromObject[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] == "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652" ) {
             var newSet = toObject.SetSet(member);
             g.SharedEntity.CopyElements(fromObject[member], newSet);
         }
-        if (typeof fromObject[member] === "object") {
+        else if (typeof fromObject[member] === "object") {
             var newObject = toObject.SetObject(member);
             g.SharedEntity.CopyMembers(fromObject[member], newObject);
         }
@@ -289,20 +304,23 @@ g.SharedEntity.CopyMembers = function (fromObject, toObject) {
 };
 
 g.SharedEntity.CopyElements = function (fromSet, toSet) {
-    for (var item of fromSet) {
-        if (typeof item === "number") {
-            toSet.AddNumber(item);
+    for (var member in fromSet) {
+        if (member == "is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652") {
+            // we don't track the special magic set member on the JS side
         }
-        if (typeof item === "string") {
-            toSet.AddString(item);
+        else if (typeof fromSet[member] === "number") {
+            toSet.AddNumberWithId(member,fromSet[member]);
         }
-        if (Array.isArray(item)) {
-            var newSet = toSet.AddSet();
-            g.SharedEntity.CopyElements(item, newSet);
+        else if (typeof fromSet[member] === "string") {
+            toSet.AddStringWithId(member,fromSet[member]);
         }
-        if (typeof item === "object") {
-            var newObject = toSet.AddObject();
-            g.SharedEntity.CopyMembers(item, newObject);
+        else if (typeof fromSet[member] === "object" && fromSet[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] == "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652") {
+            var newSet = toSet.AddSetWithId(member);
+            g.SharedEntity.CopyElements(fromSet[member], newSet);
+        }
+        else if (typeof fromSet[member] === "object") {
+            var newObject = toSet.AddObjectWithId(member);
+            g.SharedEntity.CopyMembers(fromSet[member], newObject);
         }
     }
     return toSet;

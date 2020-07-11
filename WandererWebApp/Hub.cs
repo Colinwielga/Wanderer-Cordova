@@ -35,99 +35,104 @@ namespace WandererWebApp
         }
 
 
-        public async Task RequestEntity(string key1, string key2) {
-            if (key1.Contains("|")) {
-                throw new Exception($"invalid key: \"{key1}\", key cannot contain \"|\"");
+        public async Task RequestEntity(string rowKey, string partitionKey, EntityChanges fallback) {
+            if (rowKey.Contains("|")) {
+                throw new Exception($"invalid key: \"{rowKey}\", key cannot contain \"|\"");
             }
-            if (key2.Contains("|"))
+            if (partitionKey.Contains("|"))
             {
-                throw new Exception($"invalid key: \"{key2}\", key cannot contain \"|\"");
+                throw new Exception($"invalid key: \"{partitionKey}\", key cannot contain \"|\"");
             }
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, key1 +"|" + key2);
+            await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey);
 
-            var jsonString = await cache.Get(key1, key2);
+            var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, ModifyObject(fallback)));
 
-            await Clients.Client(Context.ConnectionId).SendAsync("EntityState", key1,key2, jsonString);
+            await Clients.Client(Context.ConnectionId).SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
         }
 
-        public async Task UpdateSharedEntity(string key1, string key2, EntityChanges entityChanges) {
+        public async Task UpdateSharedEntity(string rowKey, string partitionKey, EntityChanges entityChanges) {
 
-            var jsonString = await cache.Do(key1, key2, entity =>
+            var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges), entityChanges.ChangeId));
+
+            await Clients.Groups(rowKey + "|" + partitionKey).SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
+        }
+
+        private static Func<JObject, JObject> ModifyObject(EntityChanges entityChanges) => entity =>
+        {
+
+            foreach (var item in entityChanges.Operations)
             {
-
-                foreach (var item in entityChanges.Operations)
+                if (item.Name == nameof(AddOrSetOperation))
                 {
-                    if (item.Name == nameof(AddOrSetOperation))
+                    var addOrSet = JsonConvert.DeserializeObject<AddOrSetOperation>(item.JSON);
+                    var at = entity;
+                    foreach (var pathPart in addOrSet.Path.SkipLast(1))
                     {
-                        var addOrSet = JsonConvert.DeserializeObject<AddOrSetOperation>(item.JSON);
-                        var at = entity;
-                        foreach (var pathPart in addOrSet.Path.SkipLast(1))
-                        {
-                            at = Navigate(at, pathPart);
-                        }
-                        at[addOrSet.Path.Last()] = ToValue(addOrSet.Value);
+                        at = Navigate(at, pathPart);
                     }
-                    if (item.Name == nameof(DeleteOperation))
-                    {
-                        var deleteOperation = JsonConvert.DeserializeObject<DeleteOperation>(item.JSON);
-                        var at = entity;
-                        foreach (var pathPart in deleteOperation.Path.SkipLast(1))
-                        {
-                            at =Navigate(at, pathPart);
-                        }
-                        at.Remove(deleteOperation.Path.Last());
-                    }
-                    else if (item.Name == nameof(AddToSetOperation))
-                    {
-                        var append = JsonConvert.DeserializeObject<AddToSetOperation>(item.JSON);
-                        var at = entity; ;
-                        foreach (var pathPart in append.Path)
-                        {
-                            at =Navigate(at, pathPart);
-                        }
-                        at[append.Id] = ToValue(append.Value);
-                    }
-                    else if (item.Name == nameof(RemoveFromSetOperation))
-                    {
-                        var removeFromSet = JsonConvert.DeserializeObject<RemoveFromSetOperation>(item.JSON);
-                        var at = entity; ;
-                        foreach (var pathPart in removeFromSet.Path)
-                        {
-                            at = Navigate(at, pathPart);
-                        }
-                        at.Remove(removeFromSet.Id.ToString());
-                    }
-                    else if (item.Name == nameof(ClearSetOperation))
-                    {
-                        var clear = JsonConvert.DeserializeObject<ClearSetOperation>(item.JSON);
-                        var at = entity; ;
-                        foreach (var pathPart in clear.Path.SkipLast(1))
-                        {
-                            at =Navigate(at, pathPart);
-                        }
-                        at[clear.Path.Last()] = new JObject();
-                    }
-                    else if (item.Name == nameof(AddToNumberOperation))
-                    {
-                        var addToNumber = JsonConvert.DeserializeObject<AddToNumberOperation>(item.JSON);
-                        var at = entity; ;
-                        foreach (var pathPart in addToNumber.Path.SkipLast(1))
-                        {
-                            at =Navigate(at, pathPart);
-                        }
-                        at[addToNumber.Path.Last()] = ((double)at[addToNumber.Path.Last()]) + addToNumber.Add;
-                    }
-                    else
-                    {
-                        throw new Exception($"unexpected operation {item.Name}");
-                    }
+                    at[addOrSet.Path.Last()] = ToValue(addOrSet.Value);
                 }
-                return entity;
-            }, entityChanges.ChangeId);
-
-            await Clients.Groups(key1 + "|" + key2).SendAsync("EntityUpdate", key1, key2, jsonString);
-        }
+                //else if (item.Name == nameof(DeleteOperation))
+                //{
+                //    var deleteOperation = JsonConvert.DeserializeObject<DeleteOperation>(item.JSON);
+                //    var at = entity;
+                //    foreach (var pathPart in deleteOperation.Path.SkipLast(1))
+                //    {
+                //        at = Navigate(at, pathPart);
+                //    }
+                //    at.Remove(deleteOperation.Path.Last());
+                //}
+                else if (item.Name == nameof(AddToSetOperation))
+                {
+                    var append = JsonConvert.DeserializeObject<AddToSetOperation>(item.JSON);
+                    var at = entity; ;
+                    foreach (var pathPart in append.Path.SkipLast(1))
+                    {
+                        at = Navigate(at, pathPart);
+                    }
+                    at[append.Path.Last()] = ToValue(append.Value);
+                }
+                else if (item.Name == nameof(RemoveFromSetOperation))
+                {
+                    var removeFromSet = JsonConvert.DeserializeObject<RemoveFromSetOperation>(item.JSON);
+                    var at = entity; ;
+                    foreach (var pathPart in removeFromSet.Path.SkipLast(1))
+                    {
+                        at = Navigate(at, pathPart);
+                    }
+                    at.Remove(removeFromSet.Path.Last());
+                }
+                else if (item.Name == nameof(ClearSetOperation))
+                {
+                    var clear = JsonConvert.DeserializeObject<ClearSetOperation>(item.JSON);
+                    var at = entity; ;
+                    foreach (var pathPart in clear.Path.SkipLast(1))
+                    {
+                        at = Navigate(at, pathPart);
+                    }
+                    at[clear.Path.Last()] = new JObject();
+                    // duplicate code
+                    // since sets are just object with need some way identify them
+                    at[clear.Path.Last()]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] = "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652";
+                }
+                else if (item.Name == nameof(AddToNumberOperation))
+                {
+                    var addToNumber = JsonConvert.DeserializeObject<AddToNumberOperation>(item.JSON);
+                    var at = entity; ;
+                    foreach (var pathPart in addToNumber.Path.SkipLast(1))
+                    {
+                        at = Navigate(at, pathPart);
+                    }
+                    at[addToNumber.Path.Last()] = ((double)at[addToNumber.Path.Last()]) + addToNumber.Add;
+                }
+                else
+                {
+                    throw new Exception($"unexpected operation {item.Name}");
+                }
+            }
+            return entity;
+        };
 
         private static JObject Navigate(JObject x, string pathPart)
         {
@@ -139,7 +144,7 @@ namespace WandererWebApp
             throw new Exception($"unexpected type of thing {thing.GetType()}");
         }
 
-        private JToken ToValue(ValueSplit value)
+        private static JToken ToValue(ValueSplit value)
         {
             if (value.Name == nameof(StringValue))
             {
@@ -151,9 +156,13 @@ namespace WandererWebApp
                 var numberValue = JsonConvert.DeserializeObject<NumberValue>(value.JSON);
                 return numberValue.Value; // implict conversion... if I did not know those were a thing I would be really freaked out
             }
-            else if (value.Name == nameof(ListValue))
+            else if (value.Name == nameof(SetValue))
             {
-                return new JObject();
+                var res = new JObject();
+                // duplicate code
+                // since sets are just object with need some way identify them
+                res["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] = "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652";
+                return res;
             }
             else if (value.Name == nameof(ObjectValue))
             {
@@ -167,26 +176,26 @@ namespace WandererWebApp
 
     public class EntityChanges {
         // in order
-        public OperationSplit[] Operations;
-        public string ChangeId;
+        public OperationSplit[] Operations { get; set; }
+        public string ChangeId { get; set; }
     }
 
     public class ValueSplit
     {
-        public string Name;
-        public string JSON;
+        public string Name { get; set; }
+        public string JSON { get; set; }
     }
 
     public class StringValue {
-        public string Value;
+        public string Value { get; set; }
     }
 
     public class NumberValue
     {
-        public double Value;
+        public double Value { get; set; }
     }
 
-    public class ListValue
+    public class SetValue
     {
         // is empty
     }
@@ -197,37 +206,35 @@ namespace WandererWebApp
     }
 
     public class OperationSplit {
-        public string Name;
-        public string JSON;
+        public string Name { get; set; }
+        public string JSON { get; set; }
     }
 
     public class AddOrSetOperation {
-        public string[] Path;
-        public ValueSplit Value; 
+        public string[] Path { get; set; }
+        public ValueSplit Value { get; set; }
     }
 
-    public class DeleteOperation
-    {
-        public string[] Path;
-    }
+    //public class DeleteOperation
+    //{
+    //    public string[] Path { get; set; }
+    //}
 
     public class AddToSetOperation
     {
-        public string[] Path;
-        public Guid Id;
-        public ValueSplit Value;
+        public string[] Path { get; set; }
+        public ValueSplit Value { get; set; }
     }
     public class RemoveFromSetOperation
     {
-        public string[] Path;
-        public Guid Id;
+        public string[] Path { get; set; }
     }
     public class ClearSetOperation
     {
-        public string[] Path;
+        public string[] Path { get; set; }
     }
     public class AddToNumberOperation {
-        public string[] Path;
-        public double Add;
+        public string[] Path { get; set; }
+        public double Add { get; set; }
     }
 }

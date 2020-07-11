@@ -18,12 +18,22 @@ g.services.SignalRService.Callback = function (groupName, x) {
 g.services.SignalRService.EntityUpdateCallback = function (key1,key2, payload) {
     var listener = g.services.SignalRService.entityListeners[key1 +"|" + key2];
     if (listener) {
-        listener(key1, key2, payload);
+        listener.callback(key1, key2, JSON.parse(payload));
     }
 };
 
-g.services.SignalRService.SubscribeToEntity = function (key1, key2, callback) {
-    g.services.SignalRService.entityListeners[key1 + "|" + key2] = callback;
+g.services.SignalRService.SubscribeToEntity = function (key1, key2, fallback, callback) {
+    g.services.SignalRService.entityListeners[key1 + "|" + key2] = {
+        callback: callback,
+        fallback: fallback
+    };
+    try {
+        g.services.SignalRService.connection.send('RequestEntity', key1, key2, fallback);
+    } catch (err) {
+        console.error(err.toString());
+        console.log("attempting to reconnect");
+        g.services.SignalRService.Connect(function () { });
+    }
 };
 
 // entityName -> list of call backs for that entity
@@ -66,7 +76,8 @@ g.services.SignalRService.Connect = function (callback) {
 g.services.SignalRService.InnerConnection = function (time) {
     setTimeout(function () {
         g.services.SignalRService.connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://wandererwebapp.azurewebsites.net/chat")
+            .withUrl("/chat")
+            //.withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();
         g.services.SignalRService.connection.start().then(function () {
             g.services.SignalRService.connecting = false;
@@ -85,13 +96,12 @@ g.services.SignalRService.InnerConnection = function (time) {
 
             // tracked entities
             g.services.SignalRService.connection.on('EntityUpdate', g.services.SignalRService.EntityUpdateCallback);
-            g.services.SignalRService.connection.on('EntityState', g.services.SignalRService.EntityUpdateCallback);
             for (var key in g.services.SignalRService.entityListeners) {
                 if (g.services.SignalRService.entityListeners.hasOwnProperty(key)) {
                     var splitKey = key.split("|");
                     var key1 = splitKey[0];
                     var key2 = splitKey[1];
-                    g.services.SignalRService.connection.send('RequestEntity', key1,key2);
+                    g.services.SignalRService.connection.send('RequestEntity', key1, key2, g.services.SignalRService.entityListeners[key].fallback);
                 }
             }
 

@@ -18,49 +18,52 @@ KingdomK2.component = function () {
     this.OnNewCharacter = function () {
 
         // {}
-        this.trackedEntity = g.SharedEntity.MakeTrackedEntity();
+        var fallbackEntity = g.SharedEntity.MakeTrackedEntity();
         // { playerVotes: [] }
-        var playerVotes = this.trackedEntity.SetList("playerVotes");  
+        //var playerVotes = 
+        fallbackEntity.SetSet("playerVotes");  
         // {playerVotes: [{}]} 
-        this.ourPlayer = playerVotes.AppendObject();
+        //this.ourPlayer = playerVotes.AddObject();
         // {playerVotes: [{name:"scott"}]}
-        this.ourPlayer.SetString("name", "scott");
+        //this.ourPlayer.SetString("name", "scott");
         // {playerVotes: [{name:"scott", votes: 100}]}
-        this.ourPlayer.SetNumber("votes", 100); 
+        //this.ourPlayer.SetNumber("votes", 100); 
         // {playerVotes: [{name:"scott", votes: 100},{}]}
-        var ourNextPlayer = playerVotes.AppendObject();
+        //var ourNextPlayer = playerVotes.AddObject();
         // {playerVotes: [{name:"scott", votes: 100},{name:"colin"}]}
-        ourNextPlayer.SetString("name", "colin");
+        //ourNextPlayer.SetString("name", "colin");
         // {playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}]}
-        ourNextPlayer.SetNumber("votes", 100);
+        //ourNextPlayer.SetNumber("votes", 100);
 
         // { activeBills: [] }
-        var activeBills = this.trackedEntity.SetList("activeBills");  
+        // var activeBills =
+        fallbackEntity.SetSet("activeBills");  
         // {activeBills: [{}]} 
-        var ourBill = activeBills.AppendObject();
+        //var ourBill = activeBills.AddObject();
         // {activeBills: [{name:"declare war on the natives"}]}
-        ourBill.SetString("name", "declare war on the natives");
+        //ourBill.SetString("name", "declare war on the natives");
         // {activeBills: [{name:"declare war on the natives", opposing:0}]}
-        ourBill.SetNumber("opposing", 0); 
+        //ourBill.SetNumber("opposing", 0); 
         // {activeBills: [{name:"declare war on the natives", opposing:0, supporting:0}]}
-        ourBill.SetNumber("supporting", 0);
+        //ourBill.SetNumber("supporting", 0);
         // {activeBills: [{name:"declare war on the natives", opposing:0, supporting:0},{}]}
-        var ourNextBill = activeBills.AppendObject();
-        ourNextBill.SetString("name", "arrest courderoy");
-        ourNextBill.SetNumber("opposing", 0);
-        ourNextBill.SetNumber("supporting", 0);
+        //var ourNextBill = activeBills.AddObject();
+        //ourNextBill.SetString("name", "arrest courderoy");
+        //ourNextBill.SetNumber("opposing", 0);
+        //ourNextBill.SetNumber("supporting", 0);
         
-        this.proposedBills = this.trackedEntity.SetList("proposedBills");
-        var billProposal = this.proposedBills.AppendObject();
-        billProposal.SetString("name", "ally with the Empire");
-        billProposal.SetNumber("support", 1);
-        var nextProposedBill = this.proposedBills.AppendObject();
-        nextProposedBill.SetString("name", "make momentus king");
-        nextProposedBill.SetNumber("support", 0);
+        // var proposedBills =
+        fallbackEntity.SetSet("proposedBills");
+        //var billProposal = proposedBills.AddObject();
+        //billProposal.SetString("name", "ally with the Empire");
+        //billProposal.SetNumber("support", 1);
+        //var nextProposedBill = proposedBills.AddObject();
+        //nextProposedBill.SetString("name", "make momentus king");
+        //nextProposedBill.SetNumber("support", 0);
 
-        this.enactedBills = this.trackedEntity.SetList("enactedBills");
-        var enactLaw = this.enactedBills.AppendObject();
-        enactLaw.SetString("name", "Large subsidy for newspaper industry");
+        //this.enactedBills = this.trackedEntity.SetSet("enactedBills");
+        //var enactLaw = this.enactedBills.AddObject();
+        //enactLaw.SetString("name", "Large subsidy for newspaper industry");
         
         //  {
         //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
@@ -71,43 +74,50 @@ KingdomK2.component = function () {
         // TODO standarize on supporting or support
 
         // update the entitys
-        // var that = this;
-        // g.services.SignalRService.SubscribeToEntity("12345","54321", function (key1,key2,payload){
-        //     g.services.timeoutService.$timeout(function(){
-        //         that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(key1,key2,payload);
-        //     });
-        // });
-
+        var that = this;
+        g.services.SignalRService.SubscribeToEntity("D77A54E8-77ED-4F5D-A61D-B2BFF6F7B9B7", "8B4EE593-BF96-4A18-80DA-8A8BE40F949D", fallbackEntity.entityChanges.GetEntityChanges() , function (key1,key2,payload){
+            g.services.timeoutService.$timeout(function () {
+                if (that.trackedEntity === undefined) {
+                    that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2)
+                } else {
+                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                }
+             });
+         });
     };
     
     this.proposeBill = function () {
-        if (this.ourPlayer.backing.votes.backing > 0) {
-            var offerBill = this.proposedBills.AppendObject();
+        //if (this.ourPlayer.backing.votes.backing > 0) {
+            var offerBill = this.trackedEntity.backing.proposedBills.AddObject();
             offerBill.SetString("name", this.proposedBillText);
             offerBill.SetNumber("support", 1);
-            this.ourPlayer.backing.votes.Add(-1);
-        }
+        //    this.ourPlayer.backing.votes.Add(-1);
+            this.trackedEntity.entityChanges.Publish();
+        //}
     };
 
     this.forProposedBill = function (proposal) {
-        if (this.ourPlayer.backing.votes.backing > 0) {
+        //if (this.ourPlayer.backing.votes.backing > 0) {
             proposal.backing.support.Add(1);
-            this.ourPlayer.backing.votes.Add(-1);
-        }
+        //    this.ourPlayer.backing.votes.Add(-1);
+            this.trackedEntity.entityChanges.Publish();
+        //}
     };
 
     this.forActiveBill = function (bill) {
-        if (this.ourPlayer.backing.votes.backing > 0) {
+        //if (this.ourPlayer.backing.votes.backing > 0) {
             bill.backing.supporting.Add(1);
-            this.ourPlayer.backing.votes.Add(-1);
-        }
+        //    this.ourPlayer.backing.votes.Add(-1);
+            this.trackedEntity.entityChanges.Publish();
+        //}
     };
 
     this.againstActiveBill = function (bill) {
-        if (this.ourPlayer.backing.votes.backing > 0) {
+        //if (this.ourPlayer.backing.votes.backing > 0) {
             bill.backing.opposing.Add(1);
-            this.ourPlayer.backing.votes.Add(-1);
-        }
+        //    this.ourPlayer.backing.votes.Add(-1);
+            this.trackedEntity.entityChanges.Publish();
+        //}
     };
 
     this.endSession = function () {
@@ -115,7 +125,7 @@ KingdomK2.component = function () {
         // take passing bills and add them to active
         for (var passingBill of this.trackedEntity.backing.activeBills.backing){
             if (passingBill.backing.supporting.backing > passingBill.backing.opposing.backing) {
-                var enactLaw = this.enactedBills.AppendObject();
+                var enactLaw = this.trackedEntity.backing.enactedBills.AddObject();
                 enactLaw.SetString("name", passingBill.backing.name.backing );    
             };
         }
@@ -140,7 +150,7 @@ KingdomK2.component = function () {
         var billsToActivate = this.trackedEntity.backing.proposedBills.backing.length;
 
         for (var i = 0; i < 5 && i < billsToActivate; i++){
-            var newBills = this.trackedEntity.backing.activeBills.AppendObject(); 
+            var newBills = this.trackedEntity.backing.activeBills.AddObject(); 
             newBills.SetString("name", this.trackedEntity.backing.proposedBills.backing[i].backing.name.backing);
             newBills.SetNumber("opposing", 0);
             newBills.SetNumber("supporting", 0);
@@ -152,6 +162,9 @@ KingdomK2.component = function () {
         //      activeBills: [{name:"kill the lizard people", supporting: 100, opposing: 100},{name:"kill the empire", supporting: 100, opposing: 100}]
         //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
         //  }
+
+
+        this.trackedEntity.entityChanges.Publish();
         
     };
 

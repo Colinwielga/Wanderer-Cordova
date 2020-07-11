@@ -69,7 +69,6 @@
                         });
 
                 } else { 
-                    console.log("you didn't change anything");
                     saving = false;
                 }
             }

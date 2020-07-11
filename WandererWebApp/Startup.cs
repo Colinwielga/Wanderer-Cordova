@@ -34,8 +34,8 @@ namespace WandererWebApp
             {
                 x.KeepAliveInterval = TimeSpan.FromSeconds(10);
                 x.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
-            })
-            .AddAzureSignalR();
+            });
+            //.AddAzureSignalR();
 
             services.AddSingleton(typeof(ItemCache));
         }
@@ -56,10 +56,14 @@ namespace WandererWebApp
 
             //app.UseMvc();
             app.UseFileServer();
-            app.UseAzureSignalR(routes =>
+            app.UseSignalR(routes =>
             {
                 routes.MapHub<Chat>("/chat");
             });
+            //app.UseAzureSignalR(routes =>
+            //{
+            //    routes.MapHub<Chat>("/chat");
+            //});
         }
     }
 }
