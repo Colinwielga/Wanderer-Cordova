@@ -150,6 +150,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             },
             Clear: function () {
                 this.backing = [];
+                this.backingDict = {};
                 this.entityChanges.changeList.push({
                     Name: "ClearSetOperation",
                     JSON: JSON.stringify({
