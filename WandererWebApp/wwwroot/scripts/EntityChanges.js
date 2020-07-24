@@ -131,7 +131,6 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
         return {
             entityChanges: res,
             backing: [],
-            backingDict: {},
             path: path,
             FromTracked: function () {
                 var res = [];
@@ -150,7 +149,6 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             },
             Clear: function () {
                 this.backing = [];
-                this.backingDict = {};
                 this.entityChanges.changeList.push({
                     Name: "ClearSetOperation",
                     JSON: JSON.stringify({
@@ -160,7 +158,6 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             },
             AddShared: function (added,id) {
                 this.backing.push(added);
-                this.backingDict[id] = this.backing.length;
                 this.entityChanges.changeList.push({
                     Name: "AddToSetOperation",
                     JSON: JSON.stringify({
@@ -208,7 +205,16 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 return this.AddObjectWithId(id);
             },
             Remove: function (id) {
-                var index = this.backingDict[id];
+                var index = -1
+                for (var i = 0; i < this.backing.length; i++) {
+                    if (this.backing[i].id === id) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index == -1) {
+                    throw { message: "idem not found"} 
+                }
                 this.backing.splice(index, 1)
                 this.entityChanges.changeList.push({
                     Name: "RemoveFromSetOperation",
