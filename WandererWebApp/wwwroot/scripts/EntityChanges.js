@@ -209,14 +209,14 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             },
             Remove: function (id) {
                 var index = this.backingDict[id];
-                this.backing.splice(index, 1)
+                this.backing.splice(index, 1);
+                delete this.backingDict[id];
                 this.entityChanges.changeList.push({
                     Name: "RemoveFromSetOperation",
                     JSON: JSON.stringify({
                         Path: this.entityChanges.MakePath(this.path, id),
                     })
                 });
-                return added;
             }
         };
     };

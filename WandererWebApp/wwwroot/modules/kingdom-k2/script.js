@@ -79,12 +79,18 @@ KingdomK2.component = function () {
 
     this.endSession = function () {
 
+        if (this.trackedEntity.backing.enactedBills === undefined) {
+           this.trackedEntity.SetSet("enactedBills"); 
+        }
+
+        
         // take passing bills and add them to active
-        for (var passingBill of this.trackedEntity.backing.activeBills.backing){
-            if (passingBill.backing.supporting.backing > passingBill.backing.opposing.backing) {
+        for (var activeBill of this.trackedEntity.backing.activeBills.backing){
+            if (activeBill.backing.supporting.backing > activeBill.backing.opposing.backing) {
+                console.log(activeBill);
                 var enactLaw = this.trackedEntity.backing.enactedBills.AddObject();
-                enactLaw.SetString("name", passingBill.backing.name.backing );    
-            };
+                enactLaw.SetString("name", activeBill.backing.name.backing );    
+            }
         }
 
         // clear active, 
@@ -92,8 +98,10 @@ KingdomK2.component = function () {
         //then top five proposed bills move to active   
 
         this.trackedEntity.backing.proposedBills.backing.sort(function(a, b) {
-            var supportA = a.support;
-            var supportB = b.support;
+            // a.support
+            // a.backing.support.backing 
+            var supportA = a.backing.support.backing;
+            var supportB = b.backing.support.backing;
             if (supportA < supportB) { 
                 return 1; 
             }
@@ -103,22 +111,19 @@ KingdomK2.component = function () {
             return 0 ;
         });
 
-        // 3
         var billsToActivate = this.trackedEntity.backing.proposedBills.backing.length;
 
         for (var i = 0; i < 5 && i < billsToActivate; i++){
-            var newBills = this.trackedEntity.backing.activeBills.AddObject(); 
-            newBills.SetString("name", this.trackedEntity.backing.proposedBills.backing[i].backing.name.backing);
-            newBills.SetNumber("opposing", 0);
-            newBills.SetNumber("supporting", 0);
-            
+            var newBill = this.trackedEntity.backing.activeBills.AddObject(); 
+            newBill.SetString("name", this.trackedEntity.backing.proposedBills.backing[0].backing.name.backing);
+            newBill.SetNumber("opposing", 0);
+            newBill.SetNumber("supporting", 0);
+            this.trackedEntity.backing.proposedBills.Remove(this.trackedEntity.backing.proposedBills.backing[0].id);
         }
         // id is:
         // this.trackedEntity.backing.proposedBills.backing[i].id
         // to remove
         // this.trackedEntity.backing.proposedBills.Remove(id )
-        this.trackedEntity.backing.proposedBills.Remove(this.trackedEntity.backing.proposedBills.backing[i].id);
-        
         this.trackedEntity.backing.proposedBills.Clear(); 
         //  {
         //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
