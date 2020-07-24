@@ -205,11 +205,6 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 return this.AddObjectWithId(id);
             },
             Remove: function (id) {
-<<<<<<< HEAD
-                var index = this.backingDict[id];
-                this.backing.splice(index, 1);
-                delete this.backingDict[id];
-=======
                 var index = -1
                 for (var i = 0; i < this.backing.length; i++) {
                     if (this.backing[i].id === id) {
@@ -221,7 +216,6 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                     throw { message: "idem not found"} 
                 }
                 this.backing.splice(index, 1)
->>>>>>> 6a03361a2887d45e1352b12671d26bbd14234c27
                 this.entityChanges.changeList.push({
                     Name: "RemoveFromSetOperation",
                     JSON: JSON.stringify({
