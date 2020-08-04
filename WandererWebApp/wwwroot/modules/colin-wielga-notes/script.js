@@ -1,5 +1,8 @@
 ﻿var component = function () {
     this.notes = "";
+    this.getSystem = function () {
+        return "Core"
+    };
     this.getId = function () {
         return "colin-wielga-notes";
     };

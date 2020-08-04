@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Azure.Cosmos.Table;
 
 namespace WandererWebApp
 {
@@ -29,11 +30,14 @@ namespace WandererWebApp
 
             services.AddCors();
 
-            services.AddSignalR(x=> {
+            services.AddSignalR(x =>
+            {
                 x.KeepAliveInterval = TimeSpan.FromSeconds(10);
                 x.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
-            })
-                    .AddAzureSignalR();
+            });
+            //.AddAzureSignalR();
+
+            services.AddSingleton(typeof(ItemCache));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,19 +48,22 @@ namespace WandererWebApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowCredentials()
-                .AllowAnyMethod());
+            //app.UseCors(builder => builder
+            //    .AllowAnyOrigin()
+            //    .AllowAnyHeader()
+            //    .AllowAnyMethod()
+            //    .DisallowCredentials());
 
-            app.UseMvc();
+            //app.UseMvc();
             app.UseFileServer();
-            app.UseAzureSignalR(routes =>
+            app.UseSignalR(routes =>
             {
                 routes.MapHub<Chat>("/chat");
-                
             });
+            //app.UseAzureSignalR(routes =>
+            //{
+            //    routes.MapHub<Chat>("/chat");
+            //});
         }
     }
 }

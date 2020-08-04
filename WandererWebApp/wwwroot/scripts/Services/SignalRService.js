@@ -1,13 +1,13 @@
-﻿g.services.SingnalRService = {
+﻿g.services.SignalRService = {
 };
 
-g.services.SingnalRService.callbacks = {}
+g.services.SignalRService.callbacks = {};
 
-g.services.SingnalRService.Callback = function (groupName, x) {
-    for (var key in g.services.SingnalRService.callbacks) {
+g.services.SignalRService.Callback = function (groupName, x) {
+    for (var key in g.services.SignalRService.callbacks) {
         // check if the property/key is defined in the object itself, not in parent
-        if (g.services.SingnalRService.callbacks.hasOwnProperty(key)) {
-            const currentCallback = g.services.SingnalRService.callbacks[key];
+        if (g.services.SignalRService.callbacks.hasOwnProperty(key)) {
+            const currentCallback = g.services.SignalRService.callbacks[key];
             if (groupName === currentCallback.GroupName && currentCallback.Accept(x)) {
                 currentCallback.Act(x);
             }
@@ -15,92 +15,132 @@ g.services.SingnalRService.Callback = function (groupName, x) {
     }
 };
 
-g.services.SingnalRService.setCallback = function (name, groupName, accept, act) {
-    g.services.SingnalRService.groupNames[name] = groupName;
-    g.services.SingnalRService.callbacks[name] = { Accept: accept, GroupName: groupName, Act: act };
+g.services.SignalRService.EntityUpdateCallback = function (key1,key2, payload) {
+    var listener = g.services.SignalRService.entityListeners[key1 +"|" + key2];
+    if (listener) {
+        listener.callback(key1, key2, JSON.parse(payload));
+    }
+};
+
+g.services.SignalRService.SubscribeToEntity = function (key1, key2, fallback, callback) {
+    g.services.SignalRService.entityListeners[key1 + "|" + key2] = {
+        callback: callback,
+        fallback: fallback
+    };
+    try {
+        g.services.SignalRService.connection.send('RequestEntity', key1, key2, fallback);
+    } catch (err) {
+        console.error(err.toString());
+        console.log("attempting to reconnect");
+        g.services.SignalRService.Connect(function () { });
+    }
+};
+
+// entityName -> list of call backs for that entity
+g.services.SignalRService.entityListeners = {};
+
+g.services.SignalRService.setCallback = function (name, groupName, accept, act) {
+    g.services.SignalRService.groupNames[name] = groupName;
+    g.services.SignalRService.callbacks[name] = { Accept: accept, GroupName: groupName, Act: act };
 };
 
 
-g.services.SingnalRService.HasCallback = function (name) {
-    return g.services.SingnalRService.callbacks[name] !== undefined;
+g.services.SignalRService.HasCallback = function (name) {
+    return g.services.SignalRService.callbacks[name] !== undefined;
 };
 
-g.services.SingnalRService.tryRemoveCallback = function (name) {
-    if (g.services.SingnalRService.HasCallback(name)) {
-        g.services.SingnalRService.removeCallback(name);
+g.services.SignalRService.tryRemoveCallback = function (name) {
+    if (g.services.SignalRService.HasCallback(name)) {
+        g.services.SignalRService.removeCallback(name);
         return true;
     }
     return false;
 };
 
-g.services.SingnalRService.removeCallback = function (name) {
-    delete g.services.SingnalRService.callbacks[name];
+g.services.SignalRService.removeCallback = function (name) {
+    delete g.services.SignalRService.callbacks[name];
 };
 
-g.services.SingnalRService.onConnectCallbacks = [];
-g.services.SingnalRService.connecting = false;
-g.services.SingnalRService.Connect = function (callback) {
+g.services.SignalRService.onConnectCallbacks = [];
+g.services.SignalRService.connecting = false;
+g.services.SignalRService.Connect = function (callback) {
     if (callback) {
-        g.services.SingnalRService.onConnectCallbacks.push(callback);
+        g.services.SignalRService.onConnectCallbacks.push(callback);
     }
-    if (!g.services.SingnalRService.connecting) {
-        g.services.SingnalRService.connecting = true;
-        g.services.SingnalRService.InnerConnection(0);
+    if (!g.services.SignalRService.connecting) {
+        g.services.SignalRService.connecting = true;
+        g.services.SignalRService.InnerConnection(0);
     }
 };
 
-g.services.SingnalRService.InnerConnection = function (time) {
+g.services.SignalRService.InnerConnection = function (time) {
     setTimeout(function () {
-        g.services.SingnalRService.connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://wandererwebapp.azurewebsites.net/chat")
+        g.services.SignalRService.connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            //.withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();
-        g.services.SingnalRService.connection.on('BroadcastMessage', g.services.SingnalRService.Callback);
-        g.services.SingnalRService.connection.start().then(function () {
-            g.services.SingnalRService.connecting = false;
-            for (var key in g.services.SingnalRService.groupNames) {
-                if (g.services.SingnalRService.groupNames.hasOwnProperty(key)) {
-                    g.services.SingnalRService.connection.send('JoinGame', g.services.SingnalRService.groupNames[key]);
+        g.services.SignalRService.connection.start().then(function () {
+            g.services.SignalRService.connecting = false;
+
+            // manually messages 
+            g.services.SignalRService.connection.on('BroadcastMessage', g.services.SignalRService.Callback);
+            for (var key in g.services.SignalRService.groupNames) {
+                if (g.services.SignalRService.groupNames.hasOwnProperty(key)) {
+                    g.services.SignalRService.connection.send('JoinGame', g.services.SignalRService.groupNames[key]);
                 }
             }
-            for (var i = 0; i < g.services.SingnalRService.onConnectCallbacks.length; i++) {
-                g.services.SingnalRService.onConnectCallbacks[i]();
+            for (var i = 0; i < g.services.SignalRService.onConnectCallbacks.length; i++) {
+                g.services.SignalRService.onConnectCallbacks[i]();
             }
-            g.services.SingnalRService.onConnectCallbacks = [];
+            g.services.SignalRService.onConnectCallbacks = [];
+
+            // tracked entities
+            g.services.SignalRService.connection.on('EntityUpdate', g.services.SignalRService.EntityUpdateCallback);
+            for (var key in g.services.SignalRService.entityListeners) {
+                if (g.services.SignalRService.entityListeners.hasOwnProperty(key)) {
+                    var splitKey = key.split("|");
+                    var key1 = splitKey[0];
+                    var key2 = splitKey[1];
+                    g.services.SignalRService.connection.send('RequestEntity', key1, key2, g.services.SignalRService.entityListeners[key].fallback);
+                }
+            }
+
         }).catch(function (err) {
-            g.services.SingnalRService.connecting = false;
+            g.services.SignalRService.connecting = false;
             console.error(err.toString());
-            if (time < 1000) {
-                g.services.SingnalRService.InnerConnection(time + 100);
-            }
+            //if (time < 1000) {
+            //    g.services.SignalRService.InnerConnection(time + 100);
+            //}
         });
     }, time);
 };
 
-g.services.SingnalRService.Connect();
-g.services.SingnalRService.groupNames = {};
+g.services.SignalRService.Connect();
+g.services.SignalRService.groupNames = {};
 
-g.services.SingnalRService.Join = function (groupName, key) {
-    g.services.SingnalRService.groupNames[key] = groupName;
+g.services.SignalRService.Join = function (groupName, key) {
+    g.services.SignalRService.groupNames[key] = groupName;
+    console.log("sending group name: " + groupName);
     try {
-        g.services.SingnalRService.connection.send('JoinGame', groupName);
+        g.services.SignalRService.connection.send('JoinGame', groupName);
     } catch (err) {
         console.error(err.toString());
         console.log("attempting to reconnect");
-        g.services.SingnalRService.Connect(function () { });
+        g.services.SignalRService.Connect(function () { });
     }
 };
 
-g.services.SingnalRService.Send = function (key, obj) {
-    if (g.services.SingnalRService.groupNames[key] === null) {
+g.services.SignalRService.Send = function (key, obj) {
+    if (g.services.SignalRService.groupNames[key] === null) {
         throw "Group name: " + key + " should not be null";
     }
     try {
-        g.services.SingnalRService.connection.send('BroadcastMessage', g.services.SingnalRService.groupNames[key], obj);
+        g.services.SignalRService.connection.send('BroadcastMessage', g.services.SignalRService.groupNames[key], obj);
     } catch (err) {
         console.error(err.toString());
         console.log("attempting to reconnect");
-        g.services.SingnalRService.Connect(function () {
-            g.services.SingnalRService.connection.send('BroadcastMessage', g.services.SingnalRService.groupNames[key], obj);
+        g.services.SignalRService.Connect(function () {
+            g.services.SignalRService.connection.send('BroadcastMessage', g.services.SignalRService.groupNames[key], obj);
         });
     }
 };

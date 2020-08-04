@@ -1,52 +1,31 @@
-﻿<div class="pad-me">
-    <form>
+﻿<div >
+    <form class="pad-me">
         <input type ="number" min="1" max="20" value="{{module.ndrolls}}" id="ndicerolls" class="narrowinput"/> 
-        <font size="4px">d</font>
+        d
         <input type ="number" min="1" max="120" value="{{module.hi}}" id="dicerangehi" class="narrowinput"/>
         <input type="submit" data-ng-click="module.diceRoll()" value="Roll!" />
     </form>
     
-    <div class="mybox padme">
-        <table align="left" class="drollresults">
-        <tr> 
-        <td width="50px"> Sum: 
-        <td> {{module.drollsum}}
-        </tr>
-        <tr width="50px"> 
-        <td> Rolls: 
-        <td> {{module.drollstext}}
-        </tr>
-        </table>
+    <div class="pad-me">
+        <span width="50px">
+          Sum:
+        </span>{{module.drollsum}}
+      <br/>
+        <span width="50px">
+          Rolls:
+        </span>{{module.drollstext}}
     </div>
     
-      
-  <div class="advopt padme">
-
-    <input id="toggle3" class="noselect nuchdiceinput" type="checkbox">
-    <label for="toggle3" class="noselect nuchdicelabel collapsible">
-      Advanced options
-    </label>
-    
-    <div id="expand3">
-      <form>
-        <table align="left" class="drollresults">
-          <tr> 
-            <td width="150px"> <font size="3px">RNG seed: </font> 
-            <td> <input type="number" min="0" id="mtseed" value="{{module.initseed}}" />
-          </tr>
-          <tr>
-            <td> <font size="3px">Dice lower bound: </font>
-            <td> <input type="number" id="lowerbnd" value="{{module.lo}}" />
-          </tr>
-          <tr>
-            <td> 
-            <td> <input type="submit" data-ng-click="module.saveAdvSettings()" value="Save" />
-          </tr>
-        </table>
-      </form>
-    </div>
+  <div class="pad-me"> 
+    <input type="button" value="Advanced Options" data-ng-click="module.showAdvanced()"/>
   </div>
 
+  <div data-ng-show="module.advancedDisplayed">
+    
+    <div class="pad-me highlight-section">
+      Dice lower bound: <input type ="number" data-ng-model="module.lo">      
+    </div>
+  </div>
 </div>
 
 <!-- This needs to be on bottom. -->

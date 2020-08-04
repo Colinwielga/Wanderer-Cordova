@@ -1,4 +1,7 @@
 ﻿var component = function () {
+    this.getSystem = function () {
+        return "Tree of a Thousand Lives"
+    };
     this.getId = function () {
         return "colin-wielga-counters";
     };

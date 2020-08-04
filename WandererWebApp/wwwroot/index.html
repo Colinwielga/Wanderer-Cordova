@@ -7,7 +7,7 @@
     -->
     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://dynamodb.us-east-1.amazonaws.com/ https://email.us-east-1.amazonaws.com/ https://cdn.jsdelivr.net/ https://wandererwebapp.azurewebsites.net/ https://wandererwebapp.azurewebsites.net/chat/negotiate https://wanderersignalr.service.signalr.net:5001/ wss://wanderersignalr.service.signalr.net:5001/">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://dynamodb.us-east-1.amazonaws.com/ https://email.us-east-1.amazonaws.com/ https://cdn.jsdelivr.net/ https://wandererwebapp.azurewebsites.net/ https://wanderersignalr.service.signalr.net/ wss://wanderersignalr.service.signalr.net/">
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -29,7 +29,8 @@
     <script src="External/textAngular.min.js"></script>
     <script src="External/aws-sdk.js"></script>
     <script src="External/d3.v4.min.js"></script>
-    <script src="External/SignalR/signalr.js"></script>
+    <script src="lib/@microsoft/signalr/dist/browser/signalr.js"></script>
+    <!--<script src="External/SignalR/signalr.js"></script>-->
 </head>
 <body data-ng-controller="wandererController">
     <div id="all" ng-hack="{{onUpdate()}}">
@@ -55,16 +56,15 @@
         </div>
         <!-- hack? atleast very ugly -->
     </div>
-
     <scripts>
         <!-- some stuff the modules need -->
         <script src="scripts/g.js"></script>
         <script src="scripts/constants.js"></script>
         <script src="scripts/ComponetRegistry.js"></script>
+        <script src="scripts/EntityChanges.js"></script>
 
         <!-- models -->
         <script src="scripts/Models/Account.js"></script>
-
         <script src="scripts/Pages/ExposedPage.js"></script>
 
         <!-- services -->
@@ -90,44 +90,46 @@
         <script src="scripts/Pages/Wiki/WikiPage.js"></script>
         <script src="scripts/Pages/System/SystemPage.js"></script>
         <script src="scripts/Pages/System/SystemController.js"></script>
-        <script src="scripts/Pages/Table/TablePage.js"></script>
-        <script src="scripts/Pages/Table/TableController.js"></script>
+        <!--<script src="scripts/Pages/Table/TablePage.js"></script>
+        <script src="scripts/Pages/Table/TableController.js"></script>-->
 
         <!-- modules -->
-        <!--<script src="modules/wanderer-core-logger/script.js"></script>-->
+        <!-- add to bottom -->
         <script src="modules/wanderer-core-save/script.js"></script>
         <script src="modules/wanderer-core-modules/script.js"></script>
+        <script src="modules/wanderer-core-ledger/script.js"></script>
         <script src="modules/colin-wielga-skill-web/script.js"></script>
         <script src="modules/colin-wielga-cards/namespace.js"></script>
         <script src="modules/colin-wielga-cards/Deck.js"></script>
         <script src="modules/colin-wielga-cards/Card.js"></script>
+        <script src="modules/colin-wielga-cards/QualOutcomeCard.js"></script>
+        <script src="modules/colin-wielga-cards/FlosfulgurCard.js"></script>
         <script src="modules/colin-wielga-cards/TitanagonCard.js"></script>
         <script src="modules/colin-wielga-cards/HumoursCard.js"></script>
         <script src="modules/colin-wielga-cards/script.js"></script>
         <script src="modules/scott-levi-cards/namespace.js"></script>
         <script src="modules/scott-levi-cards/Deck.js"></script>
-        <!--<script src="modules/wanderer-core-activities/script.js"></script>-->
         <script src="modules/scott-levi-cards/script.js"></script>
         <script src="modules/scott-levi-cards/tarotCard.js"></script>
+        <script src="modules/scott-levi-cloud-of-uncertainty/script.js"></script> 
+        <script src="modules/scott-levi-cloud-questionnaires/script.js"></script>
         <script src="modules/scott-levi-npc-gen/script.js"></script>
         <script src="modules/scott-levi-rules/script.js"></script>
         <script src="modules/scott-levi-hearts/script.js"></script>
         <script src="modules/colin-wielga-hp/script.js"></script>
         <script src="modules/colin-wielga-counters/script.js"></script>
         <script src="modules/colin-wielga-notes/script.js"></script>
+        <script src="modules/colin-wielga-roll/dc.js"></script>
         <script src="modules/colin-wielga-roll/roll.js"></script>
         <script src="modules/colin-wielga-roll/script.js"></script>
         <script src="modules/colin-wielga-tools/script.js"></script>
         <script src="modules/manuchehr-aminian-dice/dice.js"></script>
-        <script src="modules/tote-hughes-titanagon-cards/TitanagonCard.js"></script>
-        <script src="modules/tote-hughes-titanagon-cards/script.js"></script>
         <script src="modules/tote-hughes-questions/Questions.js"></script>
         <script src="modules/tote-hughes-questions/script.js"></script>
         <script src="modules/tote-hughes-skill-web-graph/script.js"></script>
         <script src="modules/dc-humours-sliders/script.js"></script>
         <script src="modules/dc-humours-advancements/script.js"></script>
         <script src="modules/dc-humours-player-questions/script.js"></script>
-        <!-- <script src="modules/dc-pbta-moves/script.js"></script> -->
         <script src="modules/dc-humours-moves/script.js"></script>
         <script src="modules/dc-pbta-countdowns/script.js"></script>
         <script src="modules/dc-pc-relationships-debt/script.js"></script>
@@ -139,6 +141,30 @@
         <script src="modules/core-start-account-settings/script.js"></script>
         <script src="modules/chris-qual-outcomes/script.js"></script>
         <script src="modules/core-start-systems/script.js"></script>
+        <script src="modules/colin-lomb-skills/script.js"></script>
+
+        <script src="modules/colin-lomb-alignment/alignment.js"></script>
+        <script src="modules/colin-lomb-alignment/script.js"></script>
+        <script src="modules/colin-lomb-cards/script.js"></script>
+        <script src="modules/colin-lomb-dm-cards/script.js"></script>
+        <script src="modules/colin-lomb-dm-skills/script.js"></script>
+
+        <script src="modules/tote-flosfulgur-tepals/tepals.js"></script>
+        <script src="modules/tote-flosfulgur-tepals/script.js"></script>
+        <script src="modules/tote-flosfulgur-handbook/handbook.js"></script>
+        <script src="modules/tote-flosfulgur-handbook/script.js"></script>
+
+        <script src="modules/scott-levi-pathfinder-2e/script.js"></script>
+	
+        <script src="modules/dc-kingdom-locations/script.js"></script> 
+
+        <script src="modules/dc-kingdom-roles/script.js"></script>
+        <script src="modules/dc-kingdom-bonds/script.js"></script>
+        <script src="modules/dc-kingdom-wishfear/script.js"></script>
+        <script src="modules/dc-kingdom-issue/script.js"></script> 
+
+        <script src="modules/kingdom-k2/script.js"></script>
+
         <!-- stuff that goes after the modules -->
         <script src="scripts/wandererController.js"></script>
     </scripts>

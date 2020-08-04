@@ -13,6 +13,10 @@ DCListReputations.component = function () {
     this.getId = function () {
         return "dc-list-reputations";
     };
+    
+    this.getSystem = function () {
+        return "Humors"
+    };
 
     // A component should know how to handle some events
     // called when Wanderer is ready to talk to us

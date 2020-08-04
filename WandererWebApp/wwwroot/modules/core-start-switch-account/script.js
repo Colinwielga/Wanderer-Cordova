@@ -4,10 +4,22 @@ CoreStartSwitchAccount.component = function () {
     this.getId = function () {
         return "core-start-switch-account";
     };
-
+    
+    this.getSystem = function () {
+        return "Core"
+    };
+    var that = this;
+    this.copyId = async function () {
+        var ID = this.getAccountId();
+        await navigator.clipboard.writeText(ID);
+        g.services.timeoutService.$timeout(function () {
+            that.logger.info("Copy Successful!");
+        });
+    };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
+        this.logger = logger;
     };
     this.OnNewCharacter = function () {
     };

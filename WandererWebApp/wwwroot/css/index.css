@@ -16,6 +16,7 @@ html, body {
     flex: 0 1 auto;
 }
 
+
 #active-page {
     height:100%;
 }
@@ -63,9 +64,7 @@ body {
     align-items: stretch;
     flex-direction: column;
     z-index: 2;
-    -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */
-    -khtml-user-select: none; /* Konqueror */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently  not supported by any browser */
@@ -126,7 +125,7 @@ body {
 }
 
 .section-header, .divider {
-    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
     padding: 8px;
     background-color: #333;
     border-radius: 3px 3px 0 0;
@@ -281,28 +280,67 @@ button, label.hide-button, input[type=button], input[type=submit], label.label-b
         border: 2px solid #333;
     }
 
-input[type=text], input[type=password], textarea {
+input[type=text], 
+input[type=password],
+input[type=number],
+textarea
+ {
     outline: none;
-    border: 2px solid #222;
+    border: 2px solid #333;
     border-radius: 3px;
     margin: 2px;
 }
 
-    input[type=text]:focus, input[type=password]:focus, textarea:focus {
+    input[type=text]:focus, 
+    input[type=password]:focus, 
+    input[type=number]:focus,
+    textarea:focus
+
+    {
         border-color: #903;
     }
 
+    input[type=text].right-part,
+    input[type=password].right-part,
+    input[type=number].right-part,
+    textarea.right-part
+    {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        margin-left: 0;
+    }
+    
+    input[type=text].left-part,
+    input[type=password].left-part,
+    input[type=number].left.part,
+    textarea.left-part
+    {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: 0;
+    }
+
+/* input[type=text].conjoined-left, input[type=button].conjoined-left, input[type=submit].conjoined-left {
+    margin-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 0;
+}
+
+input[type=text].conjoined-right, input[type=button].conjoined-right, input[type=submit].conjoined-right {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 0;
+} */
 
 /*input.input-element {
     }*/
 
 select {
     outline: none;
-    background: transparent;
-    border: 2px solid #222;
-    font-size: 14px;
+    border: 2px solid #333;
     padding: 5px 10px;
-    width: 100px;
     border-radius: 3px;
 }
 
@@ -318,7 +356,7 @@ select {
     border-right: 0px;
     border-top: 0px;
     border-left: 0px;*/
-    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .highlight-section {
@@ -334,14 +372,13 @@ select {
     /*margin-top: 50px;*/
     border-radius: 3px;
     margin-bottom: 40px;
-    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
     /*box-shadow: 0px 0px 10px #fff;
     border: 1px solid #333;
     margin-left:5px;
     margin-right:5px;*/
     /*	border: 2px solid #222;*/
 }
-
 
     .section.hidden .section-body {
         height: 0;
@@ -440,7 +477,7 @@ li {
 
 .roll-result {
     width: 10%;
-    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
     border-color: #000000;
     padding-right: 10px;
     text-align: right;
@@ -472,7 +509,7 @@ table {
 
 
 .ng-enter {
-    -webkit-transition: .5s;
+    transition: .5s;
     opacity: 0;
 }
 
@@ -481,7 +518,7 @@ table {
 }
 
 .ng-leave {
-    -webkit-transition: .5s;
+    transition: .5s;
     opacity: 1;
 }
 
@@ -504,3 +541,13 @@ table {
         margin: 0 2em;
         color: #E0E0E0;
     }
+
+.notification {
+    background-color:#696969;
+    color: #FFFFFF;
+    display: flex;  
+}
+
+.notification-message {
+    flex-grow: 1;
+}

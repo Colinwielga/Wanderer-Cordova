@@ -32,6 +32,9 @@ ColinWielgaSkillWeb.MakeSkill = function (name, specificity, rank) {
 
 ColinWielgaSkillWeb.component = function () {
     var that = this;
+    this.getSystem = function () {
+        return "Tree of a Thousand Lives"
+    };
     this.getId = function () {
         return "colin-wielga-skill-web";
     };

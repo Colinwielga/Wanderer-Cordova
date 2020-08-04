@@ -4,6 +4,11 @@ ToteHughesSkillWebGraph.component = function () {
     this.getId = function () {
         return "tote-hughes-skill-web-graph";
     };
+    
+    this.getSystem = function () {
+        return "Core"
+    };
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.skillWeb = dependencies[0];

@@ -1,0 +1,25 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/scott-levi-pathfinder-2e/stylesheet.css" />
+
+
+<div class="highlight-section pad-me">
+    <center>    
+        <input type="button" ng-click="module.gen()" value="Generate!" />
+        <label for="lvl">NPC Level: </label>
+        <select id="lvl" 
+            data-ng-options="characterLevel for characterLevel in module.characterLevelList"
+            data-ng-model="module.charLevel">
+        </select>
+    </center>
+</div>
+<div class="pad-me">   
+    <h3>{{module.firstName}} {{module.lastName}}</h3>
+    <span class="category">Background: </span>{{module.background}}<br />
+    <span class="category">Ancestry: </span>{{module.ancestry}}<br />
+    <span class="category">Class: </span>{{module.charClass}}<br />
+    <span class="category">Spells: </span><br />
+    <ol>
+        <li ng-repeat="spell in module.characterSpellList">
+            {{spell.spell}}
+        </li>
+    </ol>
+</div>

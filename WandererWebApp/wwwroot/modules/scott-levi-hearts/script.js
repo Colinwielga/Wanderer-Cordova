@@ -11,6 +11,11 @@ ScottLeviHearts.component = function () {
         return "scott-levi-hearts";
     };
 
+    this.getSystem = function () {
+        return "Fools"
+    };
+
+
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
@@ -25,18 +30,19 @@ ScottLeviHearts.component = function () {
                 that.games = [];
                 that.joined = true;
             });
-            g.services.SingnalRService.tryRemoveCallback(that.key);
-            g.services.SingnalRService.setCallback(that.key,
+            g.services.SignalRService.tryRemoveCallback(that.key);
+            g.services.SignalRService.setCallback(that.key,
                 groupName,
-                function (message) { return message.module === that.getId(); },
+                function (message) { 
+                    return message.module === that.getId(); 
+                },
                 function (message) {
-                    console.log("got message:", message);
                     if (message.type === "joined Game") {
                         if (message.id !== that.id) {
                             g.services.timeoutService.$timeout(function () {
                                 that.AddPlayer(message.id, message.name);
                             });
-                            g.services.SingnalRService.Send(that.key, {
+                            g.services.SignalRService.Send(that.key, {
                                 module: that.getId(),
                                 type: "In Room",
                                 name: that.page.name,
@@ -60,7 +66,7 @@ ScottLeviHearts.component = function () {
                                     challengerId: message.challengerId
                                 });
                             });
-                            g.services.SingnalRService.Send(that.key, {
+                            g.services.SignalRService.Send(that.key, {
                                 module: that.getId(),
                                 type: "Challenge Recived",
                                 challengerName: that.page.challengerName,
@@ -151,8 +157,8 @@ ScottLeviHearts.component = function () {
                         }
                     }
                 });
-            g.services.SingnalRService.Join(groupName, this.key);
-            g.services.SingnalRService.Send(that.key, {
+            //g.services.SignalRService.Join(groupName, this.key);
+            g.services.SignalRService.Send(that.key, {
                 module: that.getId(),
                 type: "joined Game",
                 name: that.page.name,
@@ -197,7 +203,7 @@ ScottLeviHearts.component = function () {
             status: "Sent",
             challengeeName: player.name
         });
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge",
             challengee: player.name,
@@ -232,7 +238,7 @@ ScottLeviHearts.component = function () {
     };
 
     this.AcceptChallenge = function (challenge) {
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge Accepted",
             challengeId: challenge.challengeId,
@@ -256,7 +262,7 @@ ScottLeviHearts.component = function () {
                 that.games.splice(i, 1);
             }
         }
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Left Game",
             gameId: game.gameId,
@@ -287,7 +293,7 @@ ScottLeviHearts.component = function () {
             putCardInPlay: function (cardInfo) {
                 // when there are two cards already out
                 // clear the table a start a new trick
-                if (this.inPlay.length == 2) {
+                if (this.inPlay.length === 2) {
                     this.inPlay = [];
                 }
 
@@ -295,7 +301,7 @@ ScottLeviHearts.component = function () {
                 // managing turn is simple
                 // if you played the card it is their turn
                 // if they played the card it is your turn
-                if (this.inPlay.length == 0) {
+                if (this.inPlay.length === 0) {
 
                     if (that.page.name === cardInfo.playedBy) {
                         this.IsYourTurn = false;
@@ -356,7 +362,7 @@ ScottLeviHearts.component = function () {
                     });
 
                 // this sends a message to the other play to let them know you played a card
-                g.services.SingnalRService.Send(that.key, {
+                g.services.SignalRService.Send(that.key, {
                     module: that.getId(),
                     type: "Played Card",
                     gameId: gameId,
@@ -377,7 +383,7 @@ ScottLeviHearts.component = function () {
     };
 
     this.RejectChallenge = function (challenge) {
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge Rejected",
             challengeId: challenge.challengeId,
@@ -388,7 +394,7 @@ ScottLeviHearts.component = function () {
     };
 
     this.RevokeChallenge = function (challenge) {
-        g.services.SingnalRService.Send(that.key, {
+        g.services.SignalRService.Send(that.key, {
             module: that.getId(),
             type: "Challenge Revoked",
             challengeId: challenge.challengeId,

@@ -1,6 +1,8 @@
 ﻿var component = function () {
     this.tools = "";
-
+    this.getSystem = function () {
+        return "Core"
+    };
     this.getId = function () {
         return "colin-wielga-tools";
     };

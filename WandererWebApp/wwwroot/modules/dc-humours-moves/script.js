@@ -1355,6 +1355,10 @@
     this.getTitle = function () {
         return "Moves";
     };
+    
+    this.getSystem = function () {
+        return "Humors"
+    };
 
     this.OnNewCharacter();
 };

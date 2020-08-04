@@ -49,15 +49,8 @@
     padding: 2px;
     border: 0px;
     background-color: black;
+    position:absolute;
 }
-
-.terrain {
-    height: 100px;
-    width: 100px;
-    border-radius: 0%;
-    filter: invert(0%);
-}
-
 
 .side-bar {
     flex: 0 1 200px;
@@ -78,7 +71,7 @@
 }
 
 #canvas {
-    height: 100%;
-    width: 100%;
-    background: rgba(138, 88, 88, 0.075);
+    /* height: 100%;
+    width: 100%; 
+    background: rgba(138, 88, 88, 0.075);*/
 }

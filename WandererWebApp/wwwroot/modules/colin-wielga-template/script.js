@@ -1,7 +1,10 @@
 ﻿var ColinWielgaTemplate = {};
 
 ColinWielgaTemplate.component = function () {
-
+    // which system the module belongs to
+    this.getSystem = function () {
+        return "system name here"
+    };
     // all component need a unique ID
     this.getId = function () {
         return "colin-wielga-template";

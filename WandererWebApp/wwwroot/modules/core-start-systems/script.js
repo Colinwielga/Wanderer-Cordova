@@ -5,7 +5,9 @@ CoreStartSystem.component = function () {
     this.getId = function () {
         return "core-start-systems";
     };
-
+    this.getSystem = function() {
+        return "Core"
+    };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
@@ -57,7 +59,6 @@ CoreStartSystem.component = function () {
         return g.services.pageService.AddSystem();
     };
 
-    this.OnNewCharacter();
 };
 
 g.services.componetService.registerStart(CoreStartSystem.component);

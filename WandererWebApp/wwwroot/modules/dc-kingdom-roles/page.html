@@ -1,0 +1,34 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/dc-kingdom-roles/stylesheet.css">
+<div class="pad-me">
+	<div class="role_button_container">
+		<div class="role_button" data-ng-repeat="role in module.roles">
+			<input type="radio"
+			       id="radioRole{{role}}"
+			       data-ng-model="module.selected_role"
+			       value="{{role}}">
+			<!-- <div class="role_button_border {{role}}"></div> -->
+			<label for="radioRole{{role}}"
+			       class="label_{{role}}">
+					<span>{{role}}</span>
+			</label>
+		</div>
+	</div>
+
+	<div class="role_explanation_container" 
+		data-ng-include="'modules/dc-kingdom-roles/power_explanation.html'" 
+		data-ng-show="module.selected_role == 'power'"
+		/>
+	<div class="role_explanation_container" 
+		data-ng-include="'modules/dc-kingdom-roles/perspective_explanation.html'" 
+		data-ng-show="module.selected_role == 'perspective'"
+		/>
+	<div class="role_explanation_container" 
+		data-ng-include="'modules/dc-kingdom-roles/touchstone_explanation.html'" 
+		data-ng-show="module.selected_role == 'touchstone'"
+		/>
+	<button class="toggle_rules_button"
+		data-ng-click="module.toggleRoleRules()"
+		data-ng-class="module.roleRulesRevealed ? 'open' : 'closed';"
+		data-ng-hide="module.selected_role == '';"
+		/>
+</div>

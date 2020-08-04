@@ -1,0 +1,28 @@
+﻿<link href="modules/colin-lomb-skills/stylesheet.css" rel="stylesheet" type="text/css" />
+<div class="pad-me">
+    <div data-ng-repeat="skill in module.skills"  data-tip="{{skill.ToolTip()}}">
+        <div style="width:200px; display:inline-block;">
+            <div data-ng-class="{'switch-on':skill.Active, 'switch-off':!skill.Active}" class="skill" data-ng-click="skill.Active = !skill.Active">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <div class="skill-name">
+                    {{skill.Name}}
+                </div>
+            </div>
+            <span class="skill-tool-tip" data-ng-if="skill.ToolTip() != ''"> {{skill.ToolTip()}}</span>
+        </div>
+        <span>
+            <input data-ng-disabled="skill.AssignedPoints <= 0" type="button" value="-" data-ng-click="module.directInFlow(skill, -1)" />
+        </span>
+        <span>
+            <input type="button" value="+" data-ng-click="module.directInFlow(skill, 1)" />
+        </span>
+        <div class="bar" style="width:{{(module.outFlowSum(skill))*50}}px; display:inline-block;">
+            <span style="visibility:hidden">shhh</span>
+        </div>
+    </div>
+
+    <p> Total power: {{module.getTotalPower()}}</p>
+    <p> Selected power: {{module.getSelectedPower()}}</p>
+
+    <input type="button" value="reset" data-ng-click="module.reset()" />
+</div>

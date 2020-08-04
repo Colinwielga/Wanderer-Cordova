@@ -1,0 +1,57 @@
+﻿#colin-lomb-skills .switch-off,
+#colin-lomb-skills .switch-on {
+    cursor: pointer;
+}
+
+    #colin-lomb-skills i.switch-on, 
+    #colin-lomb-skills .switch-on i {
+        color: #903;
+    }
+
+    #colin-lomb-skills i.switch-off:hover, 
+    #colin-lomb-skills .switch-off:hover i {
+        color: #333;
+        opacity: 1;
+    }
+
+    #colin-lomb-skills i.switch-off, 
+    #colin-lomb-skills .switch-off i {
+        color: #333;
+        opacity: .3;
+    }
+
+    
+
+#colin-lomb-skills .bar {
+    background-image: linear-gradient(90deg, #333 2px, transparent 2px), linear-gradient(90deg, #fff 1px, transparent 1px);
+    background-size: 50px 50px, 5px 5px;
+    background-position: -2px -2px, -2px -2px;
+}
+/*transition: transform .3s ease-in;*/
+#colin-lomb-skills .skill-tool-tip {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease-in;
+    position: absolute;
+    z-index: 1;
+    background: #333;
+    color: white;
+    border-radius: 3px;
+    padding: 5px;
+    transform: translate(100px, 0px);
+}
+
+#colin-lomb-skills .skill:hover + .skill-tool-tip {
+    transform: translate(0px, 0px);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* .class #id tag */
+
+#colin-lomb-skills .skill .skill-name {
+    display: inline-block;
+}
+
+
+

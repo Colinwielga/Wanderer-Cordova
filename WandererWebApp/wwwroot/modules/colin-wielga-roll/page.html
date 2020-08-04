@@ -1,25 +1,36 @@
-﻿<!-- add tooltips -->
-<div class="pad-me">
+﻿<div class="pad-me">
     <div>
         Bonus: {{module.getBonus()}}
     </div>
-    <div>
+    <!--<div>
         DC: <input type="number" data-ng-model="module.dc" />
-        <input type="button"  value="roll" data-ng-click="module.rollDC()" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="roll" data-ng-click="module.rollDC(module.dc)" data-ng-diable="module.disableRoll()" />
+    </div>-->
+    <div>
+        <input type="button" value="6" data-ng-click="module.rollDC(6)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="8" data-ng-click="module.rollDC(8)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="10" data-ng-click="module.rollDC(10)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="12" data-ng-click="module.rollDC(12)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="14" data-ng-click="module.rollDC(14)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="16" data-ng-click="module.rollDC(16)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="18" data-ng-click="module.rollDC(18)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="20" data-ng-click="module.rollDC(20)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="22" data-ng-click="module.rollDC(22)" data-ng-diable="module.disableRoll()" />
+        <input type="button" value="24" data-ng-click="module.rollDC(22)" data-ng-diable="module.disableRoll()" />
     </div>
 </div>
 <div class="pad-me">
-    <h3>public</h3>
+    <h3>Public</h3>
     <table class="outcomes">
         <tr data-ng-repeat="outcome in module.publicLastRoll" class="pad-me">
-            <td>{{outcome.getDC()}}</td>
+            <td>{{module.getDC(outcome)}}</td>
             <td>{{outcome.result}}</td>
         </tr>
     </table>
     <h3>private</h3>
     <table class="outcomes">
         <tr data-ng-repeat="outcome in module.privateLastRoll" class="pad-me">
-            <td>{{outcome.getDC()}}</td>
+            <td>{{module.getDC(outcome)}}</td>
             <td>{{outcome.result}}</td>
         </tr>
     </table>

@@ -56,6 +56,10 @@ DCPbtACountdowns.component = function () {
     this.getId = function () {
         return "dc-pbta-countdowns";
     };
+    
+    this.getSystem = function () {
+        return "Humors"
+    };
 
     // A component should know how to handle some events
     // called when Wanderer is ready to talk to us

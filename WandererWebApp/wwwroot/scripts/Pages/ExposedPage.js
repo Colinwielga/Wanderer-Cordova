@@ -66,23 +66,43 @@
         return null;
     };
 
-    this.compareWithLastLoaded = function (json) {
+    // types of things in javascript
+    // number
+    // string
+    // object
+    // list
+    // method
+
+    this.getToLoad = function (json){
+        var toLoad = [];
+        if (that.lastLoaded !== null && that.lastLoaded !== undefined) {
+            for (var property in json) {
+                if (json.hasOwnProperty(property)) {
+                    if (angular.toJson(json[property]) !== angular.toJson(that.lastLoaded[property])) {
+                        console.log(property);
+                        console.log(angular.toJson(json[property]));//is
+                        console.log(angular.toJson(that.lastLoaded[property]));//was
+                        toLoad.push(property);
+                    }
+                }
+            }
+        }
+        return toLoad; 
+    }
+
+    // returns true if they are the same
+    this.compareWithLastLoaded = function (json){
+        return this.getToLoad(json).length === 0;
+    }
+
+    this.compareWithLastLoadedAndUpdate = function (json) {
 
         that.components.forEach(function (component) {
             component.injected.dataManager.useLocal = true;
             component.injected.dataManager.remote = null;
         });
 
-        var toLoad = [];
-        if (that.lastLoaded !== null) {
-            for (var property in json) {
-                if (json.hasOwnProperty(property)) {
-                    if (angular.toJson(json[property]) !== angular.toJson(that.lastLoaded[property])) {
-                        toLoad.push(property);
-                    }
-                }
-            }
-        }
+        var toLoad = this.getToLoad(json);
 
         that.updateLastLoaded(json);
 
