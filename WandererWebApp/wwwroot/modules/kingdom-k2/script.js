@@ -14,6 +14,7 @@ KingdomK2.component = function () {
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
+        this.page = page;
     };
     this.OnNewCharacter = function () {
 
@@ -22,7 +23,7 @@ KingdomK2.component = function () {
         fallbackEntity.SetSet("activeBills");  
         fallbackEntity.SetSet("proposedBills");
         
-        //  {
+        // that.trackedEntity = {
         //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
         //      activeBills: [{name:"kill the lizard people", supporting: 100, opposing: 100},{name:"kill the empire", supporting: 100, opposing: 100}]
         //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
@@ -30,51 +31,68 @@ KingdomK2.component = function () {
         
         // TODO standarize on supporting or support
 
+
         // update the entitys
         var that = this;
         g.services.SignalRService.SubscribeToEntity("D77A54E8-77ED-4F5D-A61D-B2BFF6F7B9B7", "8B4EE593-BF96-4A18-80DA-8A8BE40F949D", fallbackEntity.entityChanges.GetEntityChanges() , function (key1,key2,payload){
             g.services.timeoutService.$timeout(function () {
                 if (that.trackedEntity === undefined) {
                     that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                    
+                    // check if tracked entity has a player that represents us
+                    // if it does we are done
+                    // if it does not, make
+                    for (var player of that.trackedEntity.backing.playerVotes.backing) {
+                        var localPlayer = that.page.name;
+                        if (player.backing.name.backing === localPlayer)  {
+                            that.ourPlayer = player;
+                            return;
+                        }
+                    }
+                    that.ourPlayer = that.trackedEntity.backing.playerVotes.AddObject();
+                    that.ourPlayer.SetString("name", localPlayer);
+                    that.ourPlayer.SetNumber("votes", 100);
+                    that.trackedEntity.entityChanges.Publish(); 
+
                 } else {
-                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
-                }
-             });
+                        that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    }
+                });
          });
     };
     
     this.proposeBill = function () {
-        //if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.ourPlayer.backing.votes.backing > 0) {
             var offerBill = this.trackedEntity.backing.proposedBills.AddObject();
             offerBill.SetString("name", this.proposedBillText);
             offerBill.SetNumber("support", 1);
-        //    this.ourPlayer.backing.votes.Add(-1);
+            this.ourPlayer.backing.votes.Add(-1);
             this.trackedEntity.entityChanges.Publish();
-        //}
+        }
     };
 
     this.forProposedBill = function (proposal) {
-        //if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.ourPlayer.backing.votes.backing > 0) {
             proposal.backing.support.Add(1);
-        //    this.ourPlayer.backing.votes.Add(-1);
+           this.ourPlayer.backing.votes.Add(-1);
              this.trackedEntity.entityChanges.Publish();
-        //}
+        }
     };
 
     this.forActiveBill = function (bill) {
-        //if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.ourPlayer.backing.votes.backing > 0) {
             bill.backing.supporting.Add(1);
-        //    this.ourPlayer.backing.votes.Add(-1);
+           this.ourPlayer.backing.votes.Add(-1);
              this.trackedEntity.entityChanges.Publish();
-        //}
+        }
     };
 
     this.againstActiveBill = function (bill) {
-        //if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.ourPlayer.backing.votes.backing > 0) {
             bill.backing.opposing.Add(1);
-        //    this.ourPlayer.backing.votes.Add(-1);
+           this.ourPlayer.backing.votes.Add(-1);
             this.trackedEntity.entityChanges.Publish();
-        //}
+        }
     };
 
     this.endSession = function () {
