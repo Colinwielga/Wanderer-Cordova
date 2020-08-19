@@ -291,6 +291,8 @@ g.SharedEntity.ToTrackedEntity = function (obj,key1,key2) {
 
 g.SharedEntity.CopyMembers = function (fromObject, toObject) {
     for (var member in fromObject) {
+        // TODO
+        // and what if fromObject[member] is null? how will we know what type it is?
         if (typeof fromObject[member] === "number") {
             toObject.SetNumber(member, fromObject[member]);
         }

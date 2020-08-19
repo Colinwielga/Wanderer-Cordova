@@ -43,54 +43,63 @@ KingdomK2.component = function () {
                     // if it does we are done
                     // if it does not, make
                     for (var player of that.trackedEntity.backing.playerVotes.backing) {
-                        var localPlayer = that.page.name;
-                        if (player.backing.name.backing === localPlayer)  {
-                            that.ourPlayer = player;
+                        var localPlayerId = that.page.accessKey;
+                        if (player.backing.id.backing === localPlayerId)  {
                             return;
                         }
                     }
-                    that.ourPlayer = that.trackedEntity.backing.playerVotes.AddObject();
-                    that.ourPlayer.SetString("name", localPlayer);
-                    that.ourPlayer.SetNumber("votes", 100);
+                    var ourPlayer = that.trackedEntity.backing.playerVotes.AddObject();
+                    ourPlayer.SetString("name", that.page.name ?? "");
+                    ourPlayer.SetString("id",that.page.accessKey);
+                    ourPlayer.SetNumber("votes", 25);
                     that.trackedEntity.entityChanges.Publish(); 
 
                 } else {
                         that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
-                    }
-                });
+                }
+            });
          });
     };
+
+    this.GetOurPlayer = function (){
+        for (var player of this.trackedEntity.backing.playerVotes.backing) {
+            var localPlayerId = this.page.accessKey;
+            if (player.backing.id.backing === localPlayerId)  {
+                return player;
+            }
+        }
+    }
     
     this.proposeBill = function () {
-        if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.GetOurPlayer().backing.votes.backing > 0 && this.proposedBillText != null) {
             var offerBill = this.trackedEntity.backing.proposedBills.AddObject();
             offerBill.SetString("name", this.proposedBillText);
             offerBill.SetNumber("support", 1);
-            this.ourPlayer.backing.votes.Add(-1);
+            this.GetOurPlayer().backing.votes.Add(-1);
             this.trackedEntity.entityChanges.Publish();
         }
     };
 
     this.forProposedBill = function (proposal) {
-        if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.GetOurPlayer().backing.votes.backing > 0) {
             proposal.backing.support.Add(1);
-           this.ourPlayer.backing.votes.Add(-1);
-             this.trackedEntity.entityChanges.Publish();
+            this.GetOurPlayer().backing.votes.Add(-1);
+            this.trackedEntity.entityChanges.Publish();
         }
     };
 
     this.forActiveBill = function (bill) {
-        if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.GetOurPlayer().backing.votes.backing > 0) {
             bill.backing.supporting.Add(1);
-           this.ourPlayer.backing.votes.Add(-1);
-             this.trackedEntity.entityChanges.Publish();
+            this.GetOurPlayer().backing.votes.Add(-1);
+            this.trackedEntity.entityChanges.Publish();
         }
     };
 
     this.againstActiveBill = function (bill) {
-        if (this.ourPlayer.backing.votes.backing > 0) {
+        if (this.GetOurPlayer().backing.votes.backing > 0) {
             bill.backing.opposing.Add(1);
-           this.ourPlayer.backing.votes.Add(-1);
+            this.GetOurPlayer().backing.votes.Add(-1);
             this.trackedEntity.entityChanges.Publish();
         }
     };
@@ -149,6 +158,9 @@ KingdomK2.component = function () {
         //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
         //  }
 
+        for (var player of this.trackedEntity.backing.playerVotes.backing) {
+            player.SetNumber("votes", 25);
+        }
 
         this.trackedEntity.entityChanges.Publish();
         
