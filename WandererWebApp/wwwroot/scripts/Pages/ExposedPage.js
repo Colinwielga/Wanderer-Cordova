@@ -66,22 +66,12 @@
         return null;
     };
 
-    // types of things in javascript
-    // number
-    // string
-    // object
-    // list
-    // method
-
     this.getToLoad = function (json){
         var toLoad = [];
         if (that.lastLoaded !== null && that.lastLoaded !== undefined) {
             for (var property in json) {
                 if (json.hasOwnProperty(property)) {
                     if (angular.toJson(json[property]) !== angular.toJson(that.lastLoaded[property])) {
-                        console.log(property);
-                        console.log(angular.toJson(json[property]));//is
-                        console.log(angular.toJson(that.lastLoaded[property]));//was
                         toLoad.push(property);
                     }
                 }

@@ -189,20 +189,28 @@ namespace WandererWebApp
             if (ReferenceEquals(mine.Task, current))
             {
                 var retrieveOperation = TableOperation.Retrieve<Entity>(partitionKey, rowKey);
-                var result = await (await table).ExecuteAsync(retrieveOperation);
-                var entity = result.Result.SafeCastTo<object, Entity>();
-                if (entity == null)
-                {
-                    entity = new Entity(rowKey,partitionKey)
+
+                //try
+                //{
+                    var readyTable = await table;
+                    var result = await readyTable.ExecuteAsync(retrieveOperation);
+               
+                    var entity = result.Result.SafeCastTo<object, Entity>();
+                    if (entity == null)
                     {
-                        JSON = init(new JObject()).ToString(),
-                    };
-                    var tableResult = (await (await table).ExecuteAsync(TableOperation.Insert(entity)));
-                    entity = tableResult.Result.SafeCastTo<object, Entity>();
-                }
-                // TODO get from db
-                // or put in db
-                mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(new Payload { JObject = JObject.Parse(entity.JSON), RecentChanges = new List<string>() },this, rowKey, partitionKey)));
+                        entity = new Entity(rowKey,partitionKey)
+                        {
+                            JSON = init(new JObject()).ToString(),
+                        };
+                        var tableResult = (await readyTable.ExecuteAsync(TableOperation.Insert(entity)));
+                        entity = tableResult.Result.SafeCastTo<object, Entity>();
+                    }
+                    mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(new Payload { JObject = JObject.Parse(entity.JSON), RecentChanges = new List<string>() }, this, rowKey, partitionKey)));
+                //}
+                //    catch (Exception e)
+                //{
+                //    var db = 0;
+                //}
             }
             var jumpBall = await current;
             return jumpBall;

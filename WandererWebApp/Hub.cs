@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Prototypist.Toolbox;
@@ -19,13 +20,17 @@ namespace WandererWebApp
         private const string EntityOwner = "{7362FB24-EE6A-4D46-AF13-C6343A3C21FF}";
         private readonly ItemCache cache;
 
-        public Chat(ItemCache cache)
+        public ILogger<Chat> Logger { get; }
+
+        public Chat(ItemCache cache, ILogger<Chat> logger)
         {
             this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public void JoinGame(string groupName)
         {
+
             Groups.AddToGroupAsync(Context.ConnectionId, groupPrefix + groupName);
         }
 
@@ -35,27 +40,49 @@ namespace WandererWebApp
         }
 
 
-        public async Task RequestEntity(string rowKey, string partitionKey, EntityChanges fallback) {
-            if (rowKey.Contains("|")) {
-                throw new Exception($"invalid key: \"{rowKey}\", key cannot contain \"|\"");
-            }
-            if (partitionKey.Contains("|"))
+        public async Task RequestEntity(string rowKey, string partitionKey, EntityChanges fallback)
+        {
+
+            try
             {
-                throw new Exception($"invalid key: \"{partitionKey}\", key cannot contain \"|\"");
+
+                if (rowKey.Contains("|"))
+                {
+                    throw new Exception($"invalid key: \"{rowKey}\", key cannot contain \"|\"");
+                }
+                if (partitionKey.Contains("|"))
+                {
+                    throw new Exception($"invalid key: \"{partitionKey}\", key cannot contain \"|\"");
+                }
+
+                await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey);
+
+                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, ModifyObject(fallback)));
+
+                var client = Clients.Client(Context.ConnectionId);
+
+                await client.SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
             }
-
-            await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey);
-
-            var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, ModifyObject(fallback)));
-
-            await Clients.Client(Context.ConnectionId).SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
+            catch (Exception e)
+            {
+                Logger.LogError(e.Message);
+            }
         }
 
-        public async Task UpdateSharedEntity(string rowKey, string partitionKey, EntityChanges entityChanges) {
+        public async Task UpdateSharedEntity(string rowKey, string partitionKey, EntityChanges entityChanges)
+        {
+            try
+            {
+                var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges), entityChanges.ChangeId));
 
-            var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges), entityChanges.ChangeId));
+                var group = Clients.Groups(rowKey + "|" + partitionKey);
 
-            await Clients.Groups(rowKey + "|" + partitionKey).SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
+                await group.SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e.Message);
+            }
         }
 
         private static Func<JObject, JObject> ModifyObject(EntityChanges entityChanges) => entity =>
@@ -168,13 +195,15 @@ namespace WandererWebApp
             {
                 return new JObject();
             }
-            else {
+            else
+            {
                 throw new Exception($"unexpected value {value.Name}");
             }
         }
     }
 
-    public class EntityChanges {
+    public class EntityChanges
+    {
         // in order
         public OperationSplit[] Operations { get; set; }
         public string ChangeId { get; set; }
@@ -186,7 +215,8 @@ namespace WandererWebApp
         public string JSON { get; set; }
     }
 
-    public class StringValue {
+    public class StringValue
+    {
         public string Value { get; set; }
     }
 
@@ -205,12 +235,14 @@ namespace WandererWebApp
         // is empty
     }
 
-    public class OperationSplit {
+    public class OperationSplit
+    {
         public string Name { get; set; }
         public string JSON { get; set; }
     }
 
-    public class AddOrSetOperation {
+    public class AddOrSetOperation
+    {
         public string[] Path { get; set; }
         public ValueSplit Value { get; set; }
     }
@@ -233,7 +265,8 @@ namespace WandererWebApp
     {
         public string[] Path { get; set; }
     }
-    public class AddToNumberOperation {
+    public class AddToNumberOperation
+    {
         public string[] Path { get; set; }
         public double Add { get; set; }
     }
