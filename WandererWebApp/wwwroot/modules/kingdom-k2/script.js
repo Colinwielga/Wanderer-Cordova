@@ -61,6 +61,31 @@ KingdomK2.component = function () {
          });
     };
 
+    this.showVoters = function (bills) {
+        if (bills.show === true) {
+            bills.show = false;
+        }
+        else if (bills.show === false) {
+            bills.show = true;
+        }
+        
+    };
+
+    this.showVoteTallies = true;
+
+    this.displayExpanded = function (bills) {
+        if (bills.show === true){
+            return " - ";
+        }
+        else if (bills.show === false){
+            return " + ";
+        }       
+    };
+
+    this.toggle = function (mod) {
+        that.page.toggle(mod);
+    };
+
     this.GetOurPlayer = function (){
         for (var player of this.trackedEntity.backing.playerVotes.backing) {
             var localPlayerId = this.page.accessKey;
@@ -77,6 +102,7 @@ KingdomK2.component = function () {
             offerBill.SetNumber("support", 1);
             this.GetOurPlayer().backing.votes.Add(-1);
             this.trackedEntity.entityChanges.Publish();
+            this.proposedBillText = "";
         }
     };
 
@@ -166,39 +192,23 @@ KingdomK2.component = function () {
         
     };
 
-    this.showPlayers = true;
-    this.showActiveBills = true;
-    this.showProposedBills = true;
-    this.showEnactedBills = true;
+    // instead of these we will categories
+    //
+    this.categories = {
+        players : { show : true},
+        activeBills : { show : true},
+        proposedBills : { show : true},
+        enactedBills : { show : true},
+    }
 
-    this.toggleShowPlayers = function () {
-        if (this.showPlayers === false) {
-            this.showPlayers = true            
+
+    this.toggleShowCategory = function (category) {
+        if (category.show === false) {
+            category.show = true            
         } else {
-            this.showPlayers = false
+            category.show = false
         }
     };
-    this.toggleShowActiveBills = function () {
-        if (this.showActiveBills === false) {
-            this.showActiveBills = true            
-        } else {
-            this.showActiveBills = false
-        }
-    };
-    this.toggleShowProposedBills = function () {
-        if (this.showProposedBills === false) {
-            this.showProposedBills = true            
-        } else {
-            this.showProposedBills = false
-        }
-    };
-    this.toggleShowEnactedBills = function () {
-        if (this.showEnactedBills === false) {
-            this.showEnactedBills = true            
-        } else {
-            this.showEnactedBills = false
-        }
-    };    
 
     this.OnSave = function () {
     };

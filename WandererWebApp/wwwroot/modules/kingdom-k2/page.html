@@ -1,28 +1,28 @@
 ﻿<div class="pad-me">
     <!-- <div data-ng-click="module.showVotes(votes)">{{votes.playerVotes}}{{module.addButton(votes)}} 
         <input type="button" data-ng-show="votes.show" data-ng-click="module.toggle(mod)" data-ng-repeat="mod in votes.playerVotes" data-ng-show="module.show(mod)"/> -->
-    <h3> Players : </h3> 
-    <div data-ng-repeat="player in module.trackedEntity.backing.playerVotes.backing"  data-ng-show="module.showPlayers">
+    <h3 data-ng-click="module.toggleShowCategory(module.categories.players)"> Players {{module.displayExpanded(module.categories.players)}} </h3>     
+    <div data-ng-repeat="player in module.trackedEntity.backing.playerVotes.backing" data-ng-show="module.categories.players.show">
         {{player.backing.name.backing}} : {{player.backing.votes.backing}}
-    </div>
-    <h3>Active Bills : </h3> 
-    <div data-ng-repeat="bill in module.trackedEntity.backing.activeBills.backing" data-ng-show="module.showActiveBills">
+    </div> 
+    <h3 data-ng-click="module.toggleShowCategory(module.categories.activeBills)"> Active Bills {{module.displayExpanded(module.categories.activeBills)}} </h3> 
+    <div data-ng-repeat="bill in module.trackedEntity.backing.activeBills.backing" data-ng-show="module.categories.activeBills.show">
         {{bill.backing.name.backing}} {{bill.backing.opposing.backing}} : {{bill.backing.supporting.backing}}
         <input type="button" value="against" data-ng-click="module.againstActiveBill(bill)"/>
         <input type="button" value="for" data-ng-click="module.forActiveBill(bill)"/>
     </div>
-    <h3>Proposed Bills : </h3>
-    <div data-ng-repeat="proposal in module.trackedEntity.backing.proposedBills.backing" data-ng-show="module.showProposedBills">
+    <h3 data-ng-click="module.toggleShowCategory(module.categories.proposedBills)"> Proposed Bills {{module.displayExpanded(module.categories.proposedBills)}} </h3>
+    <div data-ng-repeat="proposal in module.trackedEntity.backing.proposedBills.backing" data-ng-show="module.categories.proposedBills.show">
         {{proposal.backing.name.backing}} : {{proposal.backing.support.backing}}
         <input type="button" value="for" data-ng-click="module.forProposedBill(proposal)" />
     </div>
-    <h3>Enacted Bills : </h3>
-    <div data-ng-repeat="law in module.trackedEntity.backing.enactedBills.backing" data-ng-show="module.showEnactedBills">
+    <h3 data-ng-click="module.toggleShowCategory(module.categories.enactedBills)"> Enacted Bills {{module.displayExpanded(module.categories.enactedBills)}} </h3>
+    <div data-ng-repeat="law in module.trackedEntity.backing.enactedBills.backing" data-ng-show="module.categories.enactedBills.show">
         {{law.backing.name.backing}}
     </div>
     
     <!-- 
-        end session
+        end sessionz
             - move top n proposed bills to active
             - delete all the active bills (post results to ledger)
             - reset votes
@@ -31,10 +31,4 @@
     <input type="button" value="propose bill" data-ng-click="module.proposeBill()"/> 
     <input type="text" data-ng-model="module.proposedBillText"/>
     <input type="button" value="end session" data-ng-click="module.endSession()"/>
-    <div>
-        <input type="button" value="show players" data-ng-click="module.toggleShowPlayers()">
-        <input type="button" value="show active bills" data-ng-click="module.toggleShowActiveBills()">
-        <input type="button" value="show proposed bills" data-ng-click="module.toggleShowProposedBills()">
-        <input type="button" value="show enacted bills" data-ng-click="module.toggleShowEnactedBills()">
-    </div>
 </div>
