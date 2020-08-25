@@ -212,8 +212,8 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                         break;
                     }
                 }
-                if (index == -1) {
-                    throw { message: "idem not found"} 
+                if (index === -1) {
+                    throw { message: "idem not found" };
                 }
                 this.backing.splice(index, 1)
                 this.entityChanges.changeList.push({
@@ -299,7 +299,7 @@ g.SharedEntity.CopyMembers = function (fromObject, toObject) {
         else if (typeof fromObject[member] === "string") {
             toObject.SetString(member, fromObject[member]);
         }
-        else if (typeof fromObject[member] === "object" && fromObject[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] == "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652" ) {
+        else if (typeof fromObject[member] === "object" && fromObject[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] === "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652" ) {
             var newSet = toObject.SetSet(member);
             g.SharedEntity.CopyElements(fromObject[member], newSet);
         }
@@ -313,7 +313,7 @@ g.SharedEntity.CopyMembers = function (fromObject, toObject) {
 
 g.SharedEntity.CopyElements = function (fromSet, toSet) {
     for (var member in fromSet) {
-        if (member == "is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652") {
+        if (member === "is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652") {
             // we don't track the special magic set member on the JS side
         }
         else if (typeof fromSet[member] === "number") {
@@ -322,7 +322,7 @@ g.SharedEntity.CopyElements = function (fromSet, toSet) {
         else if (typeof fromSet[member] === "string") {
             toSet.AddStringWithId(member,fromSet[member]);
         }
-        else if (typeof fromSet[member] === "object" && fromSet[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] == "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652") {
+        else if (typeof fromSet[member] === "object" && fromSet[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] === "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652") {
             var newSet = toSet.AddSetWithId(member);
             g.SharedEntity.CopyElements(fromSet[member], newSet);
         }

@@ -106,12 +106,12 @@ g.services.SignalRService.InnerConnection = function (time) {
 
             // tracked entities
             g.services.SignalRService.connection.on('EntityUpdate', g.services.SignalRService.EntityUpdateCallback);
-            for (var key in g.services.SignalRService.entityListeners) {
-                if (g.services.SignalRService.entityListeners.hasOwnProperty(key)) {
+            for (var entityListenersKey in g.services.SignalRService.entityListeners) {
+                if (g.services.SignalRService.entityListeners.hasOwnProperty(entityListenersKey)) {
                     var splitKey = key.split("|");
                     var key1 = splitKey[0];
                     var key2 = splitKey[1];
-                    g.services.SignalRService.connection.send('RequestEntity', key1, key2, g.services.SignalRService.entityListeners[key].fallback);
+                    g.services.SignalRService.connection.send('RequestEntity', key1, key2, g.services.SignalRService.entityListeners[entityListenersKey].fallback);
                 }
             }
 
