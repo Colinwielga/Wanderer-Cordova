@@ -55,7 +55,12 @@ KingdomK2.component = function () {
                     that.trackedEntity.entityChanges.Publish(); 
 
                 } else {
-                        that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    var ourPlayer = that.GetOurPlayer();
+                    if (that.page.name != null && ourPlayer.backing.name.backing !== that.page.name) {
+                        ourPlayer.SetString("name", that.page.name);
+                        that.trackedEntity.entityChanges.Publish(); 
+                    }
                 }
             });
          });

@@ -17,11 +17,8 @@ g.services.SignalRService.Callback = function (groupName, x) {
 
 g.services.SignalRService.EntityUpdateCallback = function (key1,key2, payload) {
     var listener = g.services.SignalRService.entityListeners[key1 +"|" + key2];
-    console.log("got a payload");
     if (listener) {
-        console.log("tried to call callback");
         listener.callback(key1, key2, JSON.parse(payload));
-        console.log("called a callback");
     }
 };
 
@@ -31,9 +28,7 @@ g.services.SignalRService.SubscribeToEntity = function (key1, key2, fallback, ca
         fallback: fallback
     };
     try {
-        console.log("requesting an entiry");
         g.services.SignalRService.connection.send('RequestEntity', key1, key2, fallback);
-        console.log("requested an entiry");
     } catch (err) {
         console.error(err.toString());
         console.log("attempting to reconnect");
@@ -85,11 +80,10 @@ g.services.SignalRService.InnerConnection = function (time) {
                 skipNegotiation: true,
                 transport: signalR.HttpTransportType.WebSockets
             })
-            .configureLogging(signalR.LogLevel.Trace)
+            .configureLogging(signalR.LogLevel.Information)
             //.withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();
         g.services.SignalRService.connection.start().then(function () {
-            console.log("joined!")
             g.services.SignalRService.connecting = false;
 
             // manually messages 
