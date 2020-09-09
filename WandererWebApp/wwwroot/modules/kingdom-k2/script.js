@@ -34,7 +34,10 @@ KingdomK2.component = function () {
 
         // update the entitys
         var that = this;
-        g.services.SignalRService.SubscribeToEntity("D77A54E8-77ED-4F5D-A61D-B2BFF6F7B9B7", "8B4EE593-BF96-4A18-80DA-8A8BE40F949D", fallbackEntity.entityChanges.GetEntityChanges() , function (key1,key2,payload){
+        g.services.SignalRService.SubscribeToEntity(
+            "D77A54E8-77ED-4F5D-A61D-B2BFF6F7B9B7",
+            "8B4EE593-BF96-4A18-80DA-8A8BE40F949A",// prod is "8B4EE593-BF96-4A18-80DA-8A8BE40F949D",
+            fallbackEntity.entityChanges.GetEntityChanges(), function (key1, key2, payload) {
             g.services.timeoutService.$timeout(function () {
                 if (that.trackedEntity === undefined) {
                     that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
@@ -55,7 +58,12 @@ KingdomK2.component = function () {
                     that.trackedEntity.entityChanges.Publish(); 
 
                 } else {
-                        that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    var ourPlayer = that.GetOurPlayer();
+                    if (that.page.name != null && ourPlayer.backing.name.backing !== that.page.name) {
+                        ourPlayer.SetString("name", that.page.name);
+                        that.trackedEntity.entityChanges.Publish(); 
+                    }
                 }
             });
          });
@@ -177,7 +185,7 @@ KingdomK2.component = function () {
         // this.trackedEntity.backing.proposedBills.backing[i].id
         // to remove
         // this.trackedEntity.backing.proposedBills.Remove(id )
-        this.trackedEntity.backing.proposedBills.Clear(); 
+        // this.trackedEntity.backing.proposedBills.Clear(); 
         //  {
         //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
         //      activeBills: [{name:"kill the lizard people", supporting: 100, opposing: 100},{name:"kill the empire", supporting: 100, opposing: 100}]
