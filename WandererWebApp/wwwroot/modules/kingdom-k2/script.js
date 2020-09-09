@@ -77,7 +77,7 @@ KingdomK2.component = function () {
             }
         }
     }
-    
+
     this.proposeBill = function () {
         if (this.GetOurPlayer().backing.votes.backing > 0 && this.proposedBillText != null) {
             var offerBill = this.trackedEntity.backing.proposedBills.AddObject();
@@ -112,6 +112,76 @@ KingdomK2.component = function () {
         }
     };
 
+    this.passing = function (bill) {
+        return Math.floor(Math.sqrt(bill.backing.supporting.backing)) > Math.floor(Math.sqrt(bill.backing.opposing.backing)) ? "👍" : "";
+    }
+
+    this.willActivate = function (proposal) {
+        var count = 0;
+        var equal = 0;
+        for (var other of this.trackedEntity.backing.proposedBills.backing) {
+            if (other != proposal) {
+                if (other.backing.support.backing > proposal.backing.support.backing) {
+                    count++;
+                    if (count >= 5) {
+                        return "";
+                    }
+                }
+
+                if (other.backing.support.backing === proposal.backing.support.backing) {
+                    equal++;
+                }
+            }
+        }
+        if (count + equal >= 5) {
+            return "🤷‍♂️"
+        }
+
+        return "⭐";
+    }
+
+    this.sortedPlayers = function () {
+        var list2 = [...this.trackedEntity.backing.playerVotes.backing]
+        list2.sort(function (a, b) {
+            if (a.backing.votes.backing > b.backing.votes.backing) {
+                return -1;
+            } else if (a.backing.votes.backing < b.backing.votes.backing) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return list2;
+    }
+
+    this.sortedProposedBills = function () {
+        var list2 = [...this.trackedEntity.backing.proposedBills.backing]
+        list2.sort(function (a, b) {
+            if (a.backing.support.backing > b.backing.support.backing) {
+                return -1;
+            } else if (a.backing.support.backing < b.backing.support.backing) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return list2;
+    }
+
+    this.sortedActiveBills = function () {
+        var list2 = [...this.trackedEntity.backing.activeBills.backing]
+        list2.sort(function (a, b) {
+            if (a.backing.supporting.backing + a.backing.opposing.backing > b.backing.supporting.backing + b.backing.opposing.backing) {
+                return -1;
+            } else if (a.backing.supporting.backing + a.backing.opposing.backing < b.backing.supporting.backing + b.backing.opposing.backing) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return list2;
+    }
+
     this.endSession = function () {
 
         if (this.trackedEntity.backing.enactedBills === undefined) {
@@ -121,8 +191,7 @@ KingdomK2.component = function () {
         
         // take passing bills and add them to active
         for (var activeBill of this.trackedEntity.backing.activeBills.backing){
-            if (activeBill.backing.supporting.backing > activeBill.backing.opposing.backing) {
-                console.log(activeBill);
+            if (Math.floor(Math.sqrt(activeBill.backing.supporting.backing)) > Math.floor(Math.sqrt(activeBill.backing.opposing.backing))) {
                 var enactLaw = this.trackedEntity.backing.enactedBills.AddObject();
                 enactLaw.SetString("name", activeBill.backing.name.backing );    
             }

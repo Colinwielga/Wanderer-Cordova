@@ -2,18 +2,18 @@
     <!-- <div data-ng-click="module.showVotes(votes)">{{votes.playerVotes}}{{module.addButton(votes)}} 
         <input type="button" data-ng-show="votes.show" data-ng-click="module.toggle(mod)" data-ng-repeat="mod in votes.playerVotes" data-ng-show="module.show(mod)"/> -->
     <h3> Players : </h3> 
-    <div data-ng-repeat="player in module.trackedEntity.backing.playerVotes.backing"  data-ng-show="module.showPlayers">
+    <div data-ng-repeat="player in module.sortedPlayers()" data-ng-show="module.showPlayers">
         {{player.backing.name.backing}} : {{player.backing.votes.backing}}
     </div>
     <h3>Active Bills : </h3> 
     <div data-ng-repeat="bill in module.trackedEntity.backing.activeBills.backing" data-ng-show="module.showActiveBills">
-        {{bill.backing.name.backing}} {{bill.backing.opposing.backing}} : {{bill.backing.supporting.backing}}
-        <input type="button" value="against" data-ng-click="module.againstActiveBill(bill)"/>
-        <input type="button" value="for" data-ng-click="module.forActiveBill(bill)"/>
+        {{bill.backing.name.backing}} {{bill.backing.opposing.backing}} : {{bill.backing.supporting.backing}} {{module.passing(bill)}}
+        <input type="button" value="against" data-ng-click="module.againstActiveBill(bill)" />
+        <input type="button" value="for" data-ng-click="module.forActiveBill(bill)" />
     </div>
     <h3>Proposed Bills : </h3>
     <div data-ng-repeat="proposal in module.trackedEntity.backing.proposedBills.backing" data-ng-show="module.showProposedBills">
-        {{proposal.backing.name.backing}} : {{proposal.backing.support.backing}}
+        {{proposal.backing.name.backing}} : {{proposal.backing.support.backing}} {{module.willActivate(proposal)}}
         <input type="button" value="for" data-ng-click="module.forProposedBill(proposal)" />
     </div>
     <h3>Enacted Bills : </h3>
@@ -21,13 +21,6 @@
         {{law.backing.name.backing}}
     </div>
     
-    <!-- 
-        end session
-            - move top n proposed bills to active
-            - delete all the active bills (post results to ledger)
-            - reset votes
-    -->
-
     <input type="button" value="propose bill" data-ng-click="module.proposeBill()"/> 
     <input type="text" data-ng-model="module.proposedBillText"/>
     <input type="button" value="end session" data-ng-click="module.endSession()"/>
