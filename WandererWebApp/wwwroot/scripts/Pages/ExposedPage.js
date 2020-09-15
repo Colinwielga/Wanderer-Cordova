@@ -1,10 +1,10 @@
-﻿g.ExposedPage = function (components, startingActiveComponentsIds, name, accessKey) {
+﻿g.ExposedPage = function (components, startingActiveComponentsIds, name, accessKey, autosave) {
     this.components = components;
     this.activeComponentsIds = startingActiveComponentsIds;
     this.name = name;
     this.accessKey = accessKey;
     var that = this;
-
+    this.AutoSave = autosave;
 
     this.getComponent = function (compId) {
         for (var i = 0; i < that.components.length; i++) {
@@ -66,7 +66,7 @@
         return null;
     };
 
-    this.getToLoad = function (json){
+    this.getToLoad = function (json) {
         var toLoad = [];
         if (that.lastLoaded !== null && that.lastLoaded !== undefined) {
             for (var property in json) {
@@ -77,13 +77,13 @@
                 }
             }
         }
-        return toLoad; 
-    }
+        return toLoad;
+    };
 
     // returns true if they are the same
-    this.compareWithLastLoaded = function (json){
+    this.compareWithLastLoaded = function (json) {
         return this.getToLoad(json).length === 0;
-    }
+    };
 
     this.compareWithLastLoadedAndUpdate = function (json) {
 

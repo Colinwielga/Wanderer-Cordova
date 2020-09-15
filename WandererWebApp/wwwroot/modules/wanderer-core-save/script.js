@@ -8,7 +8,7 @@
     };
 
     this.getSystem = function () {
-        return "Core"
+        return "Core";
     };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
@@ -93,95 +93,6 @@
         g.services.timeoutService.$timeout(function () {
             that.logger.info("Copy Successful!");
         });
-    };
-    this.save = function () {
-        // var newJson = that.page.getJSON();
-
-        // var reallySave = function () {
-        //     g.services.characterService.SaveCharacter(
-        //         that.page.accessKey, 
-        //         that.page.name,
-        //         angular.toJson(newJson), 
-        //         function (data) {
-        //             g.services.timeoutService.$timeout(
-        //                 function () {
-        //                     that.logger.info("Save Successful!");
-        //                 }
-        //             );
-        //             var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(that.page.accessKey, that.page.name));
-        //             if (changed) {
-        //                 g.services.accountService.saveAccount(function () { }, function () {
-        //                     throw { message: "Save Failed" };
-        //                 });
-        //             }
-        //         },
-        //         function (error) {
-        //             g.services.timeoutService.$timeout(function () {
-        //                 that.logger.error("Save Failed " + error);
-        //             });
-        //         }); 
-        //     console.log("auto save test")
-        // };
-
-        
-        // // current json
-        // // that.page.getJSON()
-
-        // // true when X is the same as last loaded 
-        // // false when X is different than last loaded
-        // //that.page.compareWithLastLoaded(X)
-
-        // // flase when current json is the same as last loaded 
-        // // true when current json is different than last loaded
-        // var changes = !that.page.compareWithLastLoaded(that.page.getJSON());        
-        // if (changes) {
-        //     g.services.characterService.GetCharacter(
-        //         that.page.accessKey, 
-        //         function (json) {
-        //             var ok = that.page.compareWithLastLoadedAndUpdate(json["json"]);
-        //             if (ok) {
-        //                 reallySave();
-        //                 that.page.updateLastLoaded(newJson);
-        //             } else {
-        //                 g.services.timeoutService.$timeout(function () {
-        //                     that.logger.warn("Save Failed, Merge Conflicts!");
-        //                 });
-        //             }
-        //         },
-        //         function (error) {
-        //             reallySave();
-        //         },
-        //         function (error) {
-        //             g.services.timeoutService.$timeout(function () {
-        //                 that.logger.error("Error: " + error);
-        //             });
-        //         });
-
-        // } else { 
-        //     console.log("you didn't change anything");
-        // }
-
-        // g.services.characterService.GetCharacter(
-        //     that.page.accessKey, 
-        //     function (json) {
-        //         var ok = that.page.compareWithLastLoaded(json["json"]);
-        //         if (ok) {
-        //             reallySave();
-        //             that.page.updateLastLoaded(newJson);
-        //         } else {
-        //             g.services.timeoutService.$timeout(function () {
-        //                 that.logger.warn("Save Failed, Merge Conflicts!");
-        //             });
-        //         }
-        //     },
-        //     function (error) {
-        //         reallySave();
-        //     },
-        //     function (error) {
-        //         g.services.timeoutService.$timeout(function () {
-        //             that.logger.error("Error: " + error);
-        //         });
-        //     });
     };
 };
 
