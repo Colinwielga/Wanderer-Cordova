@@ -1,12 +1,12 @@
 ﻿g.Character = function (name, accessKey) {
-    return new g.ModulesPage(name, accessKey, g.services.componetService.characterComponentFactories, ["wanderer-core-modules", "wanderer-core-save"]);
+    return new g.ModulesPage(name, accessKey, g.services.componetService.characterComponentFactories, ["wanderer-core-modules", "wanderer-core-save"], true);
 };
 
 g.StartPageController = function (accessKey) {
-    return new g.ModulesPage("Start", accessKey, g.services.componetService.startComponentFactories, ["wanderer-core-modules", "core-start-add-character", "core-start-recent-characters", "core-start-switch-account"]);
+    return new g.ModulesPage("Start", accessKey, g.services.componetService.startComponentFactories, ["wanderer-core-modules", "core-start-add-character", "core-start-recent-characters", "core-start-switch-account"], false);
 };
 
-g.ModulesPage = function (name, accessKey, componentFactories, startingComponents) {
+g.ModulesPage = function (name, accessKey, componentFactories, startingComponents, autosave) {
     var that = this;
 
     var comboKey = function (id, key) {
@@ -178,7 +178,7 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
         modList.push(tem);
     });
 
-    this.exposedPage = new g.ExposedPage(modList, startingComponents, name, accessKey);
+    this.exposedPage = new g.ExposedPage(modList, startingComponents, name, accessKey, autosave);
 
     this.load = function (json) {
         that.exposedPage.name = json["name"];

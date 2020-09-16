@@ -108,6 +108,7 @@ KingdomK2.component = function () {
             var offerBill = this.trackedEntity.backing.proposedBills.AddObject();
             offerBill.SetString("name", this.proposedBillText);
             offerBill.SetNumber("support", 1);
+            offerBill.setString("proposer", this.GetOurPlayer().backing.name.backing)
             this.GetOurPlayer().backing.votes.Add(-1);
             this.trackedEntity.entityChanges.Publish();
             this.proposedBillText = "";
@@ -167,6 +168,10 @@ KingdomK2.component = function () {
     }
 
     this.sortedPlayers = function () {
+        if (this.trackedEntity === undefined){
+            return [];
+        }
+
         var list2 = [...this.trackedEntity.backing.playerVotes.backing]
         list2.sort(function (a, b) {
             if (a.backing.votes.backing > b.backing.votes.backing) {
