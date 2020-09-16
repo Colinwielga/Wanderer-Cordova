@@ -54,18 +54,8 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
             }
         };
     };
-    var dataManagerFactory = function (json) {
-        var res = {
-            useLocal: true,
-            local: json,
-            remote: null
-        };
-        res.current = function () {
-            return res.useLocal ? res.local : res.remote;
-        };
-        return res;
 
-    };
+
     var logFactory = function () {
         var TypeEnum = {
             VERBOSE: 1,
@@ -164,12 +154,6 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
         }
     };
 
-    this.swap = function (module) {
-        module.OnSave();
-        module.injected.dataManager.useLocal = !module.injected.dataManager.useLocal;
-        module.OnLoad();
-    };
-
     var modList = [];
 
     componentFactories.forEach(function (item) {
@@ -185,7 +169,7 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
         that.exposedPage.accessKey = json["id"];
         that.exposedPage.updateLastLoaded(json["json"]);
         that.exposedPage.getComponents().forEach(function (item) {
-            item.injected.dataManager = dataManagerFactory(json["json"][item.getId()]);
+            item.injected.json = json["json"][item.getId()];
             if (item.OnLoad !== undefined) {
                 try {
                     item.OnLoad();
@@ -202,12 +186,12 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
         // we inject module related info that the modules don't need to know about 
         item.injected = {
             logger: myLogger,
-            dataManager: dataManagerFactory({})
+            json:{}
         };
 
         if (item.OnStart !== undefined) {
 
-            var communicator = comFactory(function () { return item.injected.dataManager.current(); }, item.getId(), item.getPublic().getVersion());
+            var communicator = comFactory(function () { return item.injected.json; }, item.getId(), item.getPublic().getVersion());
 
             var dependencies = [];
             if (item.getRequires !== undefined) {
