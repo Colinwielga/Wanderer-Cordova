@@ -255,16 +255,6 @@ KingdomK2.component = function () {
             newBill.SetNumber("supporting", 0);
             this.trackedEntity.backing.proposedBills.Remove(this.trackedEntity.backing.proposedBills.backing[0].id);
         }
-        // id is:
-        // this.trackedEntity.backing.proposedBills.backing[i].id
-        // to remove
-        // this.trackedEntity.backing.proposedBills.Remove(id )
-        // this.trackedEntity.backing.proposedBills.Clear(); 
-        //  {
-        //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
-        //      activeBills: [{name:"kill the lizard people", supporting: 100, opposing: 100},{name:"kill the empire", supporting: 100, opposing: 100}]
-        //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
-        //  }
 
         for (var player of this.trackedEntity.backing.playerVotes.backing) {
             player.SetNumber("votes", 25);

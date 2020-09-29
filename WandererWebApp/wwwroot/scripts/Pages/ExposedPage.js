@@ -85,31 +85,6 @@
         return this.getToLoad(json).length === 0;
     };
 
-    this.compareWithLastLoadedAndUpdate = function (json) {
-
-        that.components.forEach(function (component) {
-            component.injected.dataManager.useLocal = true;
-            component.injected.dataManager.remote = null;
-        });
-
-        var toLoad = this.getToLoad(json);
-
-        that.updateLastLoaded(json);
-
-        // we load after we finish the check incase 
-        toLoad.forEach(function (property) {
-            var component = that.getComponentById(property);
-            if (component !== null) {
-                component.injected.dataManager.useLocal = false;
-                component.injected.dataManager.remote = json[property];
-                component.OnLoad();
-            } else {
-                console.log(property + " not found, is this a problem?");
-            }
-        });
-
-        return toLoad.length === 0;
-    };
     this.getBonus = function () {
         var res = 0;
         that.components.forEach(function (component) {
@@ -126,7 +101,7 @@
             if (component.OnSave !== undefined) {
                 try {
                     component.OnSave();
-                    var map = component.injected.dataManager.current();
+                    var map = component.injected.json;
                     if (map === undefined) {
                         map = {};
                     }
