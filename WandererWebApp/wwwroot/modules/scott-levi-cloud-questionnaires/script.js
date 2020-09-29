@@ -15,6 +15,8 @@ ScottLeviCloudQuestionnaires.component = function () {
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.Dependencies = dependencies;
+        this.rollsPublic = dependencies[0];
+        this.logger = logger;
     };
 
     this.OnNewCharacter = function () { 
@@ -27,6 +29,7 @@ ScottLeviCloudQuestionnaires.component = function () {
         this.cloudTaskForceQuestion1 = "";
         this.cloudTaskForceQuestion2 = "";
         this.cloudTaskForceQuestion3 = "";
+        this.hand = [];
         
     };
 
@@ -40,6 +43,7 @@ ScottLeviCloudQuestionnaires.component = function () {
         this.communicator.write("cloud task force question1", this.cloudTaskForceQuestion1);
         this.communicator.write("cloud task force question2", this.cloudTaskForceQuestion2);
         this.communicator.write("cloud task force question3", this.cloudTaskForceQuestion3);
+        this.communicator.write("hand", this.hand);
     };
 
     this.OnLoad = function () { 
@@ -88,6 +92,13 @@ ScottLeviCloudQuestionnaires.component = function () {
         } else {
             this.cloudTaskForceQuestion3 = "";
         }
+        var version = this.communicator.lastVersion();
+        this.OnNewCharacter();
+        if (version === 1) {
+            if (this.communicator.canRead("hand")) {
+                this.hand = this.communicator.read("hand");
+            }
+        }
     };
 
     this.OnUpdate = function () {
@@ -120,6 +131,29 @@ ScottLeviCloudQuestionnaires.component = function () {
     this.getTitle = function () {
         return "Cloud Questionnares";
     };
+    
+    this.draw = function () {
+        var center = Math.round(5 + (Math.random() * 13));
+        var dc = this.rollsPublic.generateRollObject(center);
+        this.hand.push(dc);
+    };
+
+    this.discard = function (card) {
+        var index = this.hand.indexOf(card);
+        if (index > -1) {
+            this.hand.splice(index, 1);
+        };
+
+        that.logger.infoWithAction("Undo Discard?", "undo", function(){
+            that.hand.push(card);
+        });
+    };
+
+    this.getDC = function (outcome) {
+        return ColinWielgaRoll.getDC(outcome);
+    }
+
+    this.OnNewCharacter();
 
 };
 
