@@ -14,8 +14,7 @@ ScottLeviCloudQuestionnaires.component = function () {
 
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
-        this.Dependencies = dependencies;
-        this.rollsPublic = dependencies[0];
+        this.ledgerPublic = dependencies[0];
         this.logger = logger;
     };
 
@@ -105,13 +104,13 @@ ScottLeviCloudQuestionnaires.component = function () {
     };
 
     this.getRequires = function () {
-        return [];
+        return ["wanderer-core-ledger"];
     };
 
     this.getPublic = function () {
         return {
             getVersion: function () {
-                return 1;
+                return 1.0;
             }
         };
     };
@@ -129,24 +128,63 @@ ScottLeviCloudQuestionnaires.component = function () {
     };
 
     this.getTitle = function () {
-        return "Cloud Questionnares";
+        return "Cloud Questionnaire";
+    };
+    this.getPublic = function () {
+        return {
+            getVersion: function () {
+                return 1.0;
+            }
+        };
     };
     
+
+
+    // this returns something like:
+    // {
+    //  success : 30,
+    //  failure : 40,
+    //  indeterminate : 30
+    // }
+    this.generateQualCard = function() {
+        var indeterminate = this.nicerRandom(0,50);
+        var success = this.nicerRandom(0,100-indeterminate)
+        var failure = this.nicerRandom(0,100-(indeterminate+success))  
+
+        // var qualCard = { 
+        //     failure: 30,
+        //     name: "scott"
+        //  }
+
+        var qualCard = {
+            indeterminate: indeterminate,  
+            success: success,   
+            failure: failure, 
+        } 
+        return qualCard;
+    }
+    
+    // this.nicerRandom(0,100)
+    // returns a number between low and high
+    this.nicerRandom = function(low, high){
+        return Math.round((Math.random()*(high - low)) +low);
+    }
+
     this.draw = function () {
-        var center = Math.round(5 + (Math.random() * 13));
-        var dc = this.rollsPublic.generateRollObject(center);
-        this.hand.push(dc);
+        var qualCard = this.generateQualCard();
+        this.hand.push(qualCard);
     };
 
     this.discard = function (card) {
         var index = this.hand.indexOf(card);
         if (index > -1) {
             this.hand.splice(index, 1);
-        };
 
-        that.logger.infoWithAction("Undo Discard?", "undo", function(){
-            that.hand.push(card);
-        });
+            this.logger.infoWithAction("Undo Discard?", "undo", function(){
+                this.hand.push(card);
+            });
+           // this.ledgerPublic.PublicSendMessage("discarded" + card.indeterminate + card.success + card.failure);
+        };
     };
 
     this.getDC = function (outcome) {

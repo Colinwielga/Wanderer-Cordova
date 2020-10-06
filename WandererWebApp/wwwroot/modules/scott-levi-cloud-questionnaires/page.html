@@ -1,8 +1,18 @@
-﻿<div class="pad-me typewriter char-text auto-resize">
-    <center>
-        <button data-ng-click="module.draw()"> draw </button>
-    </center>
-    <div data-ng-repeat="card in module.hand" class="pad-me"></div>
+﻿<link rel="stylesheet" type="text/css" href="modules/scott-levi-cloud-questionnaires/stylesheet.css"/>
+    <div class="pad-me highlight-section">
+        <center>
+            <button data-ng-click="module.draw()"> draw </button>
+        </center>
+    </div>
+    <div class="pad-me">
+        <div data-ng-repeat="card in module.hand" class="pad-me">
+            <div class="card pad-me" data-ng-click="module.discard(card)">
+            odds of success {{card.success}}
+            odds of failure {{card.failure}}
+            odds of indeterminate {{card.indeterminate}}
+            </div>
+        </div>
+    </div>
     <h2>Earth Immigration Forms</h2>
     <ul>
         <li>Name and describe your planet of origin.</li>
