@@ -26,8 +26,6 @@ ScottLeviCloudQuestionnaires.component = function () {
         this.cloudPrisonQuestion2 = "";
         this.cloudPrisonQuestion3 = "";
         this.cloudTaskForceQuestion1 = "";
-        this.cloudTaskForceQuestion2 = "";
-        this.cloudTaskForceQuestion3 = "";
         this.hand = [];
         
     };
@@ -40,60 +38,35 @@ ScottLeviCloudQuestionnaires.component = function () {
         this.communicator.write("cloud prison question2", this.cloudPrisonQuestion2);
         this.communicator.write("cloud prison question3", this.cloudPrisonQuestion3);
         this.communicator.write("cloud task force question1", this.cloudTaskForceQuestion1);
-        this.communicator.write("cloud task force question2", this.cloudTaskForceQuestion2);
-        this.communicator.write("cloud task force question3", this.cloudTaskForceQuestion3);
+        
         this.communicator.write("hand", this.hand);
     };
 
     this.OnLoad = function () { 
-        if (this.communicator.canRead("cloud immigration question1")) {
-            this.cloudImmigrationQuestion1 = this.communicator.read("cloud immigration question1");
-        } else {
-            this.cloudImmigrationQuestion1 = "";
-        }
-        if (this.communicator.canRead("cloud immigration question2")) {
-            this.cloudImmigrationQuestion2 = this.communicator.read("cloud immigration question2");
-        } else {
-            this.cloudImmigrationQuestion2 = "";
-        }
-        if (this.communicator.canRead("cloud immigration question3")) {
-            this.cloudImmigrationQuestion3 = this.communicator.read("cloud immigration question3");
-        } else {
-            this.cloudImmigrationQuestion3 = "";
-        }
-        if (this.communicator.canRead("cloud prison question1")) {
-            this.cloudPrisonQuestion1 = this.communicator.read("cloud prison question1");
-        } else {
-            this.cloudPrisonQuestion1 = "";
-        }
-        if (this.communicator.canRead("cloud prison question2")) {
-            this.cloudPrisonQuestion2 = this.communicator.read("cloud prison question2");
-        } else {
-            this.cloudPrisonQuestion2 = "";
-        }
-        if (this.communicator.canRead("cloud prison question3")) {
-            this.cloudPrisonQuestion3 = this.communicator.read("cloud prison question3");
-        } else {
-            this.cloudPrisonQuestion3 = "";
-        }
-        if (this.communicator.canRead("cloud task force question1")) {
-            this.cloudTaskForceQuestion1 = this.communicator.read("cloud task force question1");
-        } else {
-            this.cloudTaskForceQuestion1 = "";
-        }
-        if (this.communicator.canRead("cloud task force question2")) {
-            this.cloudTaskForceQuestion2 = this.communicator.read("cloud task force question2");
-        } else {
-            this.cloudTaskForceQuestion2 = "";
-        }
-        if (this.communicator.canRead("cloud task force question3")) {
-            this.cloudTaskForceQuestion3 = this.communicator.read("cloud task force question3");
-        } else {
-            this.cloudTaskForceQuestion3 = "";
-        }
         var version = this.communicator.lastVersion();
         this.OnNewCharacter();
         if (version === 1) {
+            if (this.communicator.canRead("cloud immigration question1")) {
+                this.cloudImmigrationQuestion1 = this.communicator.read("cloud immigration question1");
+            }
+            if (this.communicator.canRead("cloud immigration question2")) {
+                this.cloudImmigrationQuestion2 = this.communicator.read("cloud immigration question2");
+            }
+            if (this.communicator.canRead("cloud immigration question3")) {
+                this.cloudImmigrationQuestion3 = this.communicator.read("cloud immigration question3");
+            }
+            if (this.communicator.canRead("cloud prison question1")) {
+                this.cloudPrisonQuestion1 = this.communicator.read("cloud prison question1");
+            }
+            if (this.communicator.canRead("cloud prison question2")) {
+                this.cloudPrisonQuestion2 = this.communicator.read("cloud prison question2");
+            }
+            if (this.communicator.canRead("cloud prison question3")) {
+                this.cloudPrisonQuestion3 = this.communicator.read("cloud prison question3");
+            }
+            if (this.communicator.canRead("cloud task force question1")) {
+                this.cloudTaskForceQuestion1 = this.communicator.read("cloud task force question1");
+            }
             if (this.communicator.canRead("hand")) {
                 this.hand = this.communicator.read("hand");
             }
@@ -110,7 +83,7 @@ ScottLeviCloudQuestionnaires.component = function () {
     this.getPublic = function () {
         return {
             getVersion: function () {
-                return 1.0;
+                return 1;
             }
         };
     };
@@ -133,13 +106,10 @@ ScottLeviCloudQuestionnaires.component = function () {
     this.getPublic = function () {
         return {
             getVersion: function () {
-                return 1.0;
+                return 1;
             }
         };
     };
-    
-
-
     // this returns something like:
     // {
     //  success : 30,
@@ -183,7 +153,8 @@ ScottLeviCloudQuestionnaires.component = function () {
             this.logger.infoWithAction("Undo Discard?", "undo", function(){
                 this.hand.push(card);
             });
-           // this.ledgerPublic.PublicSendMessage("discarded" + card.indeterminate + card.success + card.failure);
+
+            this.ledgerPublic.PublicSendMessage("discarded" + card.indeterminate + "/" + card.success + "/" + card.failure);
         };
     };
 

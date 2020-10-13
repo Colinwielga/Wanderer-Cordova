@@ -87,15 +87,15 @@ ColinWielgaCards.QualOutcomeCard = function (guid, name, type, text, oddsOfSucce
     this.discardMessage = name + " - " + oddsOfSuccess + " - " + oddsOfUncertainty;
 };
 
-var uncertaintyX = Math.round(Math.random(100)*10);
-var successY = Math.round(Math.random(100)*10);
+//var uncertaintyX = Math.round(Math.random(100)*10);
+//var successY = Math.round(Math.random(100)*10);
 
 var cardList = [
-    new ColinWielgaCards.QualOutcomeCard("{FB637FA0-CC04-4DC3-BAE3-2FFB3B09C959}", "TRUE NUETRAL", "NUETRAL", "Randomly generated certainty, what could go wrong? ", uncertaintyX + "%", successY + "%"),   
+    //new ColinWielgaCards.QualOutcomeCard("{FB637FA0-CC04-4DC3-BAE3-2FFB3B09C959}", "TRUE NUETRAL", "NUETRAL", "Randomly generated certainty, what could go wrong? ", uncertaintyX + "%", successY + "%"),   
     new ColinWielgaCards.QualOutcomeCard("{F31F0B29-BDB0-4C7B-9D4E-2A23A9E440EF}", "UNKNOWN ORIGIN", "NUETRAL", "Fact: if successful, invent a cool and reasonable fact about the world. ", "0%","50%"),
-    new ColinWielgaCards.QualOutcomeCard("{9BF02CAA-0883-4D95-ABDF-DCED043EFB08}", "ANIMAL FRIEND", "NUETRAL", "A small animal has decided to follow you around. ", "10%", "40%"),
+    //new ColinWielgaCards.QualOutcomeCard("{9BF02CAA-0883-4D95-ABDF-DCED043EFB08}", "ANIMAL FRIEND", "NUETRAL", "A small animal has decided to follow you around. ", "10%", "40%"),
     new ColinWielgaCards.QualOutcomeCard("{A0493DC7-F90A-4E0B-9D40-32BAB80E33A8}", "RANDOM ENCOUNTER", "NUETRAL", "Discard this card to interrupt any action. Increase the Cloud of Uncertainty by one step then c. ", "20%", "40%"),
-    new ColinWielgaCards.QualOutcomeCard("{935019DC-C181-4BB1-B49B-A3E0848A1F1C}", "FLASHBACK", "NUETRAL", "Discard this card to have flashback with one or more other chacters. The CM will decide if the Cloud of Uncertainty should increase or decrease. ", "25%", "35%"),
+    //new ColinWielgaCards.QualOutcomeCard("{935019DC-C181-4BB1-B49B-A3E0848A1F1C}", "FLASHBACK", "NUETRAL", "Discard this card to have flashback with one or more other chacters. The CM will decide if the Cloud of Uncertainty should increase or decrease. ", "25%", "35%"),
     new ColinWielgaCards.QualOutcomeCard("{5F960058-B513-4D9A-A0ED-A0A43C8CBCBD}", "ATLANTYS", "ALIEN ARTIFACT", "Invisibility: Once per day, become invisible and add +10% success for the duration of one encounter. ", "",""),
     new ColinWielgaCards.QualOutcomeCard("{05E19267-BAC8-4972-9E24-A4ECC5876779}", "ATLANTIC", "ALIEN ARTIFACT", "A phaser with different settings in a language you cannot read. ", "40%","25%"),
     new ColinWielgaCards.QualOutcomeCard("{60A78845-8762-4FDE-A4C0-4F15ACAB0CFF}", "ATLANTES", "ALIEN ARTIFACT", "Make your own alien artifact (with CM approval). ", "%","%"),
@@ -108,7 +108,7 @@ var cardList = [
     new ColinWielgaCards.QualOutcomeCard("{AE170BB5-ABC5-4435-A415-DB6D3732404D}", "FUNGAL", "ALIEN ARTIFACT", "Whenever anyone in your party fails, increase the Cloud of Uncertainty. If the Cloud is over 60%, you acquire the knowledge to make fungal mind control helmets. ", "5%","40%"),
     new ColinWielgaCards.QualOutcomeCard("{3D083342-9F22-47B9-8148-E1AC7D053D98}", "NOCTURNAL INSECTOID", "ALIEN ARTIFACT", "+10% success in lowlight/darkness. Take an additional hit, for every hit you take. ", "5%","50%"),
     new ColinWielgaCards.QualOutcomeCard("{2AF06522-6235-4968-A8F3-AFAAA7AF78DC}", "ATLANTOS", "ALIEN ARTIFACT", "Hold: explain how to appease this item; if it is pleased +10% success, if it is unhappy -10% success. Expound on why this object won't leave your posession. ", "20%","20%"),
-    new ColinWielgaCards.QualOutcomeCard("{500B6195-5AC0-4822-8B16-5BCB8AB940C8}", "INSECTOID", "ALIEN ARTIFACT", "You can no longer breathe Earth air, and you can spit corrosive acid. ", "6%","44%"),
+    new ColinWielgaCards.QualOutcomeCard("{500B6195-5AC0-4822-8B16-5BCB8AB940C8}", "INSECTOID", "ALIEN ARTIFACT", "You can no longer breathe Earth's air, and you can spit corrosive acid. ", "6%","44%"),
     new ColinWielgaCards.QualOutcomeCard("{E79A7AC7-01C9-40CA-9C1F-525768D5E54E}", "SUBTERRANEAN INSECTOID", "ALIEN ARTIFACT", "Your body secretes slime unpredictably. ", "6%","44%"),
     new ColinWielgaCards.QualOutcomeCard("{F5C171E3-69B3-4BAC-9BDC-04C7C8E8EFEC}", "AVIAN FLYER", "ALIEN ARTIFACT", "An entity is hunting you for a wind-up personal flight contraption. ", "7%","40%"),
     new ColinWielgaCards.QualOutcomeCard("{6AE0F473-0200-442E-A64A-9A846D87A56F}", "ATLANTIS", "ALIEN ARTIFACT", "+10% chance of success when utilizing water. ", "8%","40%"),
@@ -130,9 +130,9 @@ var cardList = [
     new ColinWielgaCards.QualOutcomeCard("{15D3D15F-6025-4488-AB1B-85C0E6EF1684}", "EPHEMERAL", "SPY GADGET", "When discarding a card you may use the percentages on this card instead of from the discarded card. ", "30%","35%"),
     new ColinWielgaCards.QualOutcomeCard("{12AC575C-FC97-4472-A80C-88A8E02C1B99}", "ACES", "SPY GADGET", "Bullet proof vest. ", "6%","45%"),
     new ColinWielgaCards.QualOutcomeCard("{4E5372BC-F2F1-4EDC-9345-8B451F5017BD}", "ANTHROMORPH", "SPY GADGET", "Pick one, you have considerably improved sight, hearing, or smell. ", "5%","40%"),
-    new ColinWielgaCards.QualOutcomeCard("{EE8F0CAB-5873-4530-BC54-014000CE64ED}", "PIPE GUN", "SPY GADGET", "Functional pipe hiding a muzzle loaded firearm. ", "10%","45%"),
+    new ColinWielgaCards.QualOutcomeCard("{EE8F0CAB-5873-4530-BC54-014000CE64ED}", "PIP", "SPY GADGET", "A crisp 50 dollar bill. ", "10%","45%"),
     new ColinWielgaCards.QualOutcomeCard("{2E441CF5-6FF1-4A4F-A9E4-AC14E3FF59A7}", "FAKE PACK OF CIGARETTES", "SPY GADGET", "Secretive video recording device. ", "",""),
-    new ColinWielgaCards.QualOutcomeCard("{00AB75F2-94CF-4253-8A96-D5BA1498D80E}", "IAIJUTSU", "SPY GADGET", "Deal double the damage if you attack from having your sword sheathed. ", "5%","55%"),
+    new ColinWielgaCards.QualOutcomeCard("{00AB75F2-94CF-4253-8A96-D5BA1498D80E}", "IAIJUTSU", "SPY GADGET", "Deal double damage if you attack from having your sword sheathed. ", "5%","55%"),
     new ColinWielgaCards.QualOutcomeCard("{872A37B4-549D-49D9-BC06-D2D63A9276A0}", "LASER WATCH", "SPY GADGET", "Discard this card, you or another player may discard any Hold card. ", "20%","50%"),
     new ColinWielgaCards.QualOutcomeCard("{046C06DE-2CF1-4017-A647-B2E23E500D1E}", "BALLOON BOMB", "SPY GADGET", "Floats to a specified altitude, then drops. ", "9%","45%"),
     new ColinWielgaCards.QualOutcomeCard("{3F7E1A19-8069-4D3B-A904-C4173048C35A}", "ANTIMATTER", "SPY GADGET", "The most unstable element in the Universe. ", "100%","%"),
