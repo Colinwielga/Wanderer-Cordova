@@ -7,9 +7,11 @@
     <div class="pad-me">
         <div data-ng-repeat="card in module.hand" class="pad-me">
             <div class="card pad-me" data-ng-click="module.discard(card)">
-            odds of success {{card.success}}
-            odds of failure {{card.failure}}
-            odds of indeterminate {{card.indeterminate}}
+                <div class="typewriter">
+                    odds of success {{card.success}}
+                    odds of failure {{card.failure}}
+                    odds of indeterminate {{card.indeterminate}}
+                </div>
             </div>
         </div>
     </div>
@@ -29,7 +31,7 @@
         <textarea data-ng-model="module.cloudPrisonQuestion1"></textarea>
         <li>What are your weaknesses (not answering this question will result in vivisection)?</li>
         <textarea data-ng-model="module.cloudPrisonQuestion2"></textarea>
-        <li>Why are you in a maximum security prison on the West Coast for extraterrestrials?</li>
+        <li>Why are you in a maximum security prison for extraterrestrials?</li>
         <textarea data-ng-model="module.cloudPrisonQuestion3"></textarea>
     </ul>
     <h3>Anything else we should know?</h3>

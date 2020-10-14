@@ -1,3 +1,5 @@
-﻿#scott-levi-cloud-questionnaires {font-family: 'Courier New', Courier, monospace;}
+﻿#scott-levi-cloud-questionnaires .form {font-family: 'Courier New', Courier, monospace;}
 #scott-levi-cloud-questionnaires .card {background: darkgray; border-radius: 25px;}
-#scott-levi-cloud-questionnaires .form {background: #eee2aa;}
+#scott-levi-cloud-questionnaires .form {background: beige;}
+#scott-levi-cloud-questionnaires .typewriter {overflow: hidden; white-space: nowrap; animation: typing 3.5s steps(40, end); }
+@keyframes typing {from {width: 0} to {width: 100%} }
