@@ -153,8 +153,7 @@ ScottLeviCloudQuestionnaires.component = function () {
             this.logger.infoWithAction("Undo Discard?", "undo", function(){
                 this.hand.push(card);
             });
-
-            this.ledgerPublic.PublicSendMessage("discarded" + card.indeterminate + "/" + card.success + "/" + card.failure);
+            this.ledgerPublic.PublicSendMessage("discarded " + card.indeterminate + " uncertain, " + card.success + " success, and failure " + card.failure);
         };
     };
 
