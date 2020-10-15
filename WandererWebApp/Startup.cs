@@ -28,6 +28,8 @@ namespace WandererWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllers();
             //services.AddMvc();
 
             //services.AddCors();
@@ -39,8 +41,13 @@ namespace WandererWebApp
             })
             //.AddAzureSignalR()
              ;
-
-            services.AddSingleton(typeof(ItemCache));
+            
+            services.AddSingleton(typeof(SharedEntitiesTableName));
+            services.AddSingleton(typeof(ItemCache<SharedEntitiesTableName>));
+            services.AddSingleton(typeof(AccountsTableName));
+            services.AddSingleton(typeof(ItemCache<AccountsTableName>));
+            services.AddSingleton(typeof(CharactersTableName));
+            services.AddSingleton(typeof(ItemCache<CharactersTableName>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,12 +57,19 @@ namespace WandererWebApp
                 app.UseDeveloperExceptionPage();
             //}
 
+
+            app.UseHttpsRedirection();
+
             app.UseRouting();
+
+            app.UseAuthorization();
+
             app.UseFileServer();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<Chat>("/chat");
+                endpoints.MapControllers();
             });
         }
 

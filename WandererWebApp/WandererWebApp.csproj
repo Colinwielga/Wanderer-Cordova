@@ -11,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Prototypist.TaskChain" Version="1.0.12" />
     <PackageReference Include="Prototypist.Toolbox" Version="1.0.0.24" />
   </ItemGroup>

@@ -26,16 +26,40 @@ namespace WandererWebApp
         }
     }
 
-    public class ItemCache
+    public interface ITableName { 
+        string Name { get; }
+    }
+    
+
+    public class SharedEntitiesTableName : ITableName
+    {
+        public string Name => "SharedEntities";
+    }
+
+    public class AccountsTableName : ITableName
+    {
+        public string Name => "Accounts";
+    }
+
+    public class CharactersTableName : ITableName
+    {
+        public string Name => "Characters";
+    }
+
+    // this generic is unfortunately unbridled creativilty
+    // I want to get different version of this out of DI
+    // I don't understand DI 
+    public class ItemCache<T>
+        where T: ITableName
     {
 
         private readonly Task<CloudTable> table;
         private Job timer;
 
         private class Job {
-            private readonly ItemCache itemCache;
+            private readonly ItemCache<T> itemCache;
 
-            public Job(ItemCache itemCache)
+            public Job(ItemCache<T> itemCache)
             {
                 this.itemCache = itemCache;
             }
@@ -47,22 +71,22 @@ namespace WandererWebApp
             }
         }
 
-        public ItemCache(IConfiguration config)
+        public ItemCache(IConfiguration config, T tableName)
         {
-            table = Storage.CreateTableAsync(config.GetConnectionString("wanderer-table-storage"), "SharedEntities");
+            table = Storage.CreateTableAsync(config.GetConnectionString("wanderer-table-storage"), tableName.Name);
         }
 
         private class DataToSave
         {
             private readonly string rowKey;
             private readonly string partitionKey;
-            private readonly ItemCache itemCache;
+            private readonly ItemCache<T> itemCache;
             public Payload jObject;
             private bool dirty;
             private DateTime lastUpdate;
             private DateTime firstUpdate;
 
-            public DataToSave(Payload jObject, ItemCache itemCache, string rowKey, string partitionKey)
+            public DataToSave(Payload jObject, ItemCache<T> itemCache, string rowKey, string partitionKey)
             {
                 this.jObject = jObject ?? throw new ArgumentNullException(nameof(jObject));
                 this.itemCache = itemCache ?? throw new ArgumentNullException(nameof(itemCache));
@@ -109,7 +133,7 @@ namespace WandererWebApp
 
         private MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>> cache = new MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>>();
 
-        public async Task<Payload> GetOrInit(string rowKey, string partitionKey, Func<JObject, JObject> init) {
+        public async Task<Payload> GetOrInit(string rowKey, string partitionKey, Func<JObject> init) {
             var jumpBall = await PrivateGet(rowKey, partitionKey, init);
 
 
@@ -142,7 +166,7 @@ namespace WandererWebApp
         public async Task<Payload> Do(string entityName, string entityOwner, Func<JObject, JObject> modify, string changeId)
         {
 
-            var jumpBall = await PrivateGet(entityName, entityOwner, x=>throw new Exception(""));
+            var jumpBall = await PrivateGet(entityName, entityOwner, ()=>throw new Exception(""));
 
             Payload res = null;
 
@@ -172,7 +196,7 @@ namespace WandererWebApp
             return res;
         }
 
-        private async Task<JumpBallConcurrent<DataToSave>> PrivateGet(string rowKey, string partitionKey, Func<JObject, JObject> init)
+        private async Task<JumpBallConcurrent<DataToSave>> PrivateGet(string rowKey, string partitionKey, Func<JObject> init)
         {
             if (rowKey is null)
             {
@@ -200,7 +224,7 @@ namespace WandererWebApp
                     {
                         entity = new Entity(rowKey,partitionKey)
                         {
-                            JSON = init(new JObject()).ToString(),
+                            JSON = init().ToString(),
                         };
                         var tableResult = (await readyTable.ExecuteAsync(TableOperation.Insert(entity)));
                         entity = tableResult.Result.SafeCastTo<object, Entity>();
