@@ -1,0 +1,5 @@
+﻿#scott-levi-cloud-cards .form {font-family: 'Courier New', Courier, monospace;}
+#scott-levi-cloud-cards .card {background: darkgray; border-radius: 25px;}
+#scott-levi-cloud-cards .form {background: beige;}
+#scott-levi-cloud-cards .typewriter {overflow: hidden; white-space: nowrap; animation: typing 3.5s steps(40, end); }
+@keyframes typing {from {width: 0} to {width: 100%} }

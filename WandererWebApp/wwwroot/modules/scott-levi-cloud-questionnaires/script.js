@@ -26,7 +26,7 @@ ScottLeviCloudQuestionnaires.component = function () {
         this.cloudPrisonQuestion2 = "";
         this.cloudPrisonQuestion3 = "";
         this.cloudTaskForceQuestion1 = "";
-        this.hand = [];
+        //this.hand = [];
         
     };
 
@@ -39,7 +39,7 @@ ScottLeviCloudQuestionnaires.component = function () {
         this.communicator.write("cloud prison question3", this.cloudPrisonQuestion3);
         this.communicator.write("cloud task force question1", this.cloudTaskForceQuestion1);
         
-        this.communicator.write("hand", this.hand);
+        //this.communicator.write("hand", this.hand);
     };
 
     this.OnLoad = function () { 
@@ -67,9 +67,9 @@ ScottLeviCloudQuestionnaires.component = function () {
             if (this.communicator.canRead("cloud task force question1")) {
                 this.cloudTaskForceQuestion1 = this.communicator.read("cloud task force question1");
             }
-            if (this.communicator.canRead("hand")) {
-                this.hand = this.communicator.read("hand");
-            }
+            //if (this.communicator.canRead("hand")) {
+                //this.hand = this.communicator.read("hand");
+            //}
         }
     };
 
@@ -110,56 +110,44 @@ ScottLeviCloudQuestionnaires.component = function () {
             }
         };
     };
-    // this returns something like:
-    // {
-    //  success : 30,
-    //  failure : 40,
-    //  indeterminate : 30
-    // }
-    this.generateQualCard = function() {
-        var indeterminate = this.nicerRandom(0,50);
-        var success = this.nicerRandom(0,100-indeterminate)
-        var failure = this.nicerRandom(0,100-(indeterminate+success))  
-
-        // var qualCard = { 
-        //     failure: 30,
-        //     name: "scott"
-        //  }
-
-        var qualCard = {
-            indeterminate: indeterminate,  
-            success: success,   
-            failure: failure, 
-        } 
-        return qualCard;
-    }
     
-    // this.nicerRandom(0,100)
-    // returns a number between low and high
-    this.nicerRandom = function(low, high){
-        return Math.round((Math.random()*(high - low)) +low);
-    }
+    //this.generateQualCard = function() {
+        //var indeterminate = this.nicerRandom(0,50);
+        //var success = this.nicerRandom(0,100-indeterminate)
+        //var failure = this.nicerRandom(0,100-(indeterminate+success))  
 
-    this.draw = function () {
-        var qualCard = this.generateQualCard();
-        this.hand.push(qualCard);
-    };
+        //var qualCard = {
+            //indeterminate: indeterminate,  
+            //success: success,   
+            //failure: failure, 
+        //} 
+        //return qualCard;
+    //}
+    
+    // this.nicerRandom = function(low, high){
+    //     return Math.round((Math.random()*(high - low)) +low);
+    // }
 
-    this.discard = function (card) {
-        var index = this.hand.indexOf(card);
-        if (index > -1) {
-            this.hand.splice(index, 1);
+    // this.draw = function () {
+    //     var qualCard = this.generateQualCard();
+    //     this.hand.push(qualCard);
+    // };
 
-            this.logger.infoWithAction("Undo Discard?", "undo", function(){
-                this.hand.push(card);
-            });
-            this.ledgerPublic.PublicSendMessage("discarded " + card.indeterminate + " uncertain, " + card.success + " success, and failure " + card.failure);
-        };
-    };
+    // this.discard = function (card) {
+    //     var index = this.hand.indexOf(card);
+    //     if (index > -1) {
+    //         this.hand.splice(index, 1);
 
-    this.getDC = function (outcome) {
-        return ColinWielgaRoll.getDC(outcome);
-    }
+    //         this.logger.infoWithAction("Undo Discard?", "undo", function(){
+    //             this.hand.push(card);
+    //         });
+    //         this.ledgerPublic.PublicSendMessage("discarded " + card.indeterminate + " uncertain, " + card.success + " success, and failure " + card.failure);
+    //     };
+    // };
+
+    // this.getDC = function (outcome) {
+    //     return ColinWielgaRoll.getDC(outcome);
+    // }
 
     this.OnNewCharacter();
 

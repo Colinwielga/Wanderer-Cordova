@@ -1,0 +1,19 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/scott-levi-cloud-cards/stylesheet.css"/>
+<div class="pad-me highlight-section">
+    <center>
+        <button data-ng-click="module.draw()"> draw </button>
+    </center>
+</div>
+<div class="pad-me">
+    <div data-ng-repeat="card in module.hand" class="pad-me">
+        <div class="card pad-me" data-ng-click="module.discard(card)">
+            <div class="typewriter">
+                odds of success {{card.success}}
+                odds of failure {{card.failure}}
+                odds of indeterminate {{card.indeterminate}}
+            </div>
+        </div>
+    </div>
+</div>
+
+    

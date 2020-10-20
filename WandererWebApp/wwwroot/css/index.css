@@ -224,10 +224,15 @@ input[type=button].selected-tab, input[type=submit].selected-tab {
             display: inline-block;
             float: left;
         }
+         
+        #page-tab-container .page-tab.page-save {
+            vertical-align: 50%;
+        }
 
             #page-tab-container .page-tab input.cannot-close {
                 border-radius: 3px;
             }
+            
 
 button, label.hide-button, input[type=button], input[type=submit], label.label-button {
     outline: none;

@@ -50,7 +50,9 @@
                            value="x"
                            type="button" />
                 </div>
-                <div class="page-tab" data-ng-show="saving()">💾</div>
+                <!-- this is the code that make the save icon hide when not saving -->
+                <!-- data-ng-show="saving()" -->
+                <div class="page-tab page-save"  >💾</div>
             </div>
         </div>
         <div id="content">
@@ -113,6 +115,7 @@
         <script src="modules/scott-levi-cards/Deck.js"></script>
         <script src="modules/scott-levi-cards/script.js"></script>
         <script src="modules/scott-levi-cards/tarotCard.js"></script>
+        <script src="modules/scott-levi-cloud-cards/script.js"></script> 
         <script src="modules/scott-levi-cloud-of-uncertainty/script.js"></script> 
         <script src="modules/scott-levi-cloud-questionnaires/script.js"></script>
         <script src="modules/scott-levi-npc-gen/script.js"></script>
