@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,9 +38,9 @@ namespace WandererWebApp.Controllers
         }
 
         [HttpPut("Character/{rowKey}/{partitionKey}")]
-        public async Task PutCharacter(string rowKey, string partitionKey,[FromBody]string value)
+        public async Task PutCharacter(string rowKey, string partitionKey,[FromBody]JsonElement value)
         {
-            var @object = JObject.Parse(value);
+            var @object = JObject.Parse(value.ToString());
             await charactersItemCache.Do(rowKey, partitionKey, _ => @object, Guid.NewGuid().ToString("D"));
         }
 
@@ -51,3 +52,5 @@ namespace WandererWebApp.Controllers
         }
     }
 }
+
+// b(a) -> b)a( -> a(b)

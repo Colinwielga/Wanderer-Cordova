@@ -32,6 +32,25 @@ g.services.AWSConnector.SaveCharacter = function (id, name, json, good, bad) {
             good(data);
         }
     });
+
+    const url = 'api/storage/Character/' + id +'/partitionKey/';
+    //const body = {};
+    const optionalParameters = {
+        headers: {
+            "content-type": "application/json; charset=UTF-8"
+        },
+        body: json,
+        method: "PUT"
+    };
+
+    fetch(url, optionalParameters)
+        .then(response =>
+            response.json())
+        .then(data =>
+            console.log(data))
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 g.services.AWSConnector.GetCharacter = function (id, good, doesNotExist, bad) {
