@@ -78,12 +78,12 @@ ScottLeviCloudCards.component = function () {
     this.generateQualCard = function() {
         var indeterminate = this.nicerRandom(0,50);
         var success = this.nicerRandom(0,100-indeterminate)
-        var failure = this.nicerRandom(0,100-(indeterminate+success))  
+        var failure = (100-(indeterminate+success)) 
 
-        var qualCard = {
-            indeterminate: indeterminate,  
+        var qualCard = {  
             success: success,   
             failure: failure, 
+            indeterminate: indeterminate,
         } 
         return qualCard;
     }

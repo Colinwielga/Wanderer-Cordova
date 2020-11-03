@@ -60,6 +60,11 @@
                 if (displayableMaker.CanDisplay(message)){
                     var displayable = displayableMaker.ConvertToDisplayable(message);
                     that.displayables.push(displayable);
+
+                    // scoll to bottom
+                    
+
+
                     return;
                 }
             }
