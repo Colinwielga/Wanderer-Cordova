@@ -56,14 +56,20 @@
 
     this.OnMessageCallBack = function(message){
         g.services.timeoutService.$timeout(function() {
+
+            var objDiv = document.getElementById("message-holder");
+            var wasAtBottom = objDiv.scrollTop === objDiv.scrollHeight;
+            
             for (let displayableMaker of that.displayableMakers) {
                 if (displayableMaker.CanDisplay(message)){
                     var displayable = displayableMaker.ConvertToDisplayable(message);
                     that.displayables.push(displayable);
 
                     // scoll to bottom
-                    
-
+                    // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
+                    if (wasAtBottom){
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }
 
                     return;
                 }

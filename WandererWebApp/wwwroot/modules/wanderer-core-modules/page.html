@@ -1,6 +1,6 @@
 ﻿<div >
         <div data-ng-repeat="system in module.getCategories()" class="pad-me">
-                <div data-ng-click="module.showCategory(system)">{{system.name}}{{module.addButton(system)}}</div> 
+                <div data-ng-click="module.showCategory(system)">{{module.addButton(system)}}{{system.name}}</div> 
                 <input type="button" value="{{mod.getTitle()}}" data-ng-show="system.show" data-ng-click="module.toggle(mod)" data-ng-repeat="mod in system.modules" data-ng-show="module.show(mod)"/>
         </div>
 </div>

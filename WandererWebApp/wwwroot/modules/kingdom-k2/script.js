@@ -83,10 +83,10 @@ KingdomK2.component = function () {
 
     this.displayExpanded = function (bills) {
         if (bills.show === true){
-            return " - ";
+            return " 📖 ";
         }
         else if (bills.show === false){
-            return " + ";
+            return " 📘 ";
         }       
     };
 

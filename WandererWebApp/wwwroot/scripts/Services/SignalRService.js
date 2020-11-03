@@ -83,7 +83,8 @@ g.services.SignalRService.InnerConnection = function (time) {
             .configureLogging(signalR.LogLevel.Information)
             //.withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();
-        g.services.SignalRService.connection.start().then(function () {
+        g.services.SignalRService.connection.start()
+        .then(function () {
             g.services.SignalRService.connecting = false;
 
             // manually messages 
@@ -108,8 +109,8 @@ g.services.SignalRService.InnerConnection = function (time) {
                     g.services.SignalRService.connection.send('RequestEntity', key1, key2, g.services.SignalRService.entityListeners[entityListenersKey].fallback);
                 }
             }
-
-        }).catch(function (err) {
+        })
+        .catch(function (err) {
             g.services.SignalRService.connecting = false;
             console.error(err.toString());
             //if (time < 1000) {

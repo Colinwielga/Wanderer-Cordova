@@ -4,7 +4,7 @@
         return "wanderer-core-modules";
     };
 
-
+    var iD = this.getId();
     
 
     // on the js side we need:
@@ -20,9 +20,11 @@
 
     this.getCategories = function() {
         for (let moduleObject of that.page.getComponents()) {
-            //if (moduleObject.getSystem() === "Core"
-            
-            //}
+            if (moduleObject.getId() === iD) 
+            { 
+                continue;
+            }
+        
             let systemName;
             if (moduleObject.getSystem !== undefined){
                 systemName = moduleObject.getSystem(); 
@@ -45,7 +47,7 @@
                 this.systems.push({
                     name: systemName, 
                     modules: [moduleObject],
-                    show: true,
+                    show: false,
                 });
             }
 
@@ -66,10 +68,10 @@
 
     this.addButton = function (system) {
         if (system.show === true){
-            return " - ";
+            return " 📖 ";
         }
         else if (system.show === false){
-            return " + ";
+            return " 📘 ";
         }       
     };   
 
