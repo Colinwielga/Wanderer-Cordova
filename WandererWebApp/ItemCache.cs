@@ -166,23 +166,39 @@ namespace WandererWebApp
         public async Task<Payload> Do(string entityName, string entityOwner, Func<JObject, JObject> modify, string changeId)
         {
 
-            var jumpBall = await PrivateGet(entityName, entityOwner, ()=>throw new Exception(""));
+            var jumpBall = await PrivateGet(entityName, entityOwner, () => new JObject());
+            return Update(modify, changeId, jumpBall);
+        }
 
+        public async Task Set(string entityName, string entityOwner, JObject newValue, string changeId)
+        {
+
+            var didIt = false;
+            var jumpBall = await PrivateGet(entityName, entityOwner, () => { didIt = true ; return newValue; });
+            if (!didIt) {
+                Update(_ => newValue, changeId, jumpBall);
+            }
+        }
+
+        private Payload Update(Func<JObject, JObject> modify, string changeId, JumpBallConcurrent<DataToSave> jumpBall)
+        {
             Payload res = null;
 
             var jobjectResult = jumpBall.Run(dts =>
             {
-                dts.Update(x=> {
+                dts.Update(x =>
+                {
 
                     x.JObject = modify(x.JObject);
                     x.RecentChanges.Add(changeId);
-                    if (x.RecentChanges.Count > 100) {
+                    if (x.RecentChanges.Count > 100)
+                    {
                         x.RecentChanges.RemoveAt(0);
                     }
                     res = x.Clone();
                     return x;
 
-                    }, jumpBall);
+                }, jumpBall);
 
                 return dts;
             });

@@ -41,14 +41,14 @@ namespace WandererWebApp.Controllers
         public async Task PutCharacter(string rowKey, string partitionKey,[FromBody]JsonElement value)
         {
             var @object = JObject.Parse(value.ToString());
-            await charactersItemCache.Do(rowKey, partitionKey, _ => @object, Guid.NewGuid().ToString("D"));
+            await charactersItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
         }
 
         [HttpPut("Account/{rowKey}/{partitionKey}")]
         public async Task PutAccount(string rowKey, string partitionKey,[FromBody]string value)
         {
             var @object = JObject.Parse(value);
-            await accountsItemCache.Do(rowKey, partitionKey, _ => @object, Guid.NewGuid().ToString("D"));
+            await accountsItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
         }
     }
 }
