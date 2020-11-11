@@ -43,6 +43,10 @@
                 }
             }
 
+            // will return a list of strings ["wanderer-core-modules","wanderer-core-ledger"]
+            // moduleObject.getId() -> "wanderer-core-modules"
+            // in HTML data-ng-disabled="Selected(page)"   
+
             if (!foundMatch){
                 this.systems.push({
                     name: systemName, 
@@ -54,6 +58,15 @@
         }
 
         return this.systems;
+    };
+    
+    this.selected = function () {
+        for (i = 0; i < that.page.getActiveComponentsIds().length; i++ ) {
+            if (that.page.getActiveComponentsIds()[i] === moduleObject.getId()) {
+                return true;    
+            } 
+        }
+        return false;
     };
 
     this.showCategory = function (system) {
