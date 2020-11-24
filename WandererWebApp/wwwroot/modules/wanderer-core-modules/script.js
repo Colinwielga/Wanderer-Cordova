@@ -60,11 +60,11 @@
         return this.systems;
     };
     
-    this.selected = function () {
+    this.selected = function (moduleObject) {
         for (i = 0; i < that.page.getActiveComponentsIds().length; i++ ) {
             if (that.page.getActiveComponentsIds()[i] === moduleObject.getId()) {
-                return true;    
-            } 
+                return true;   
+            }
         }
         return false;
     };
