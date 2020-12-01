@@ -96,10 +96,12 @@ WandererCoreTheme.component = function () {
     this.applyTheme = function () {
         var e = document.getElementById("all");
         if (this.getDarkMode()) {
-            e.style.backgroundColor = "black";
+            e.classList.remove("theme-default");
+            e.classList.add("theme-dark");
         }
         else {
-            e.style.backgroundColor = "white";
+            e.classList.remove("theme-dark");
+            e.classList.add("theme-default");
         }
     }
 
