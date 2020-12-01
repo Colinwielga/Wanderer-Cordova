@@ -1,0 +1,10 @@
+﻿.theme-dark {
+    background-color: black;
+}
+
+
+
+.theme-dark button:disabled, .theme-dark label.hide-button:disabled, .theme-dark input[type=button]:disabled, .theme-dark input[type=submit]:disabled, .theme-dark label.label-button:disabled {
+    background-color: transparent;
+    color: white;
+}

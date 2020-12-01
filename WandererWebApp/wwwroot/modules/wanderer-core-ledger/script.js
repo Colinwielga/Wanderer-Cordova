@@ -58,7 +58,7 @@
         g.services.timeoutService.$timeout(function() {
 
             var objDiv = document.getElementById("message-holder");
-            var wasAtBottom = objDiv.scrollTop === objDiv.scrollHeight;
+            var wasAtBottom = (objDiv.scrollTop + objDiv.offsetHeight) === objDiv.scrollHeight;
             
             for (let displayableMaker of that.displayableMakers) {
                 if (displayableMaker.CanDisplay(message)){
@@ -67,13 +67,18 @@
 
                     // scoll to bottom
                     // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
-                    if (wasAtBottom){
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }
+                    
 
+                    g.services.timeoutService.$timeout(function() {
+                        if (wasAtBottom){
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    });
+                    
                     return;
                 }
             }
+
         });
     };
 
