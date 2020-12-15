@@ -35,6 +35,10 @@ html, body {
     font-style: italic;
 }
 
+.card {
+    cursor: pointer;
+}
+
 .card-buttons-container {
     padding: 8px 8px 8px 8px;
     border: 0;
