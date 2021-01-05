@@ -7,7 +7,6 @@ g.makeSaver = function (accessKey, name, newJson) {
             name,
             angular.toJson(newJson),
             function (data) {
-                console.log("Save Successful!");
                 var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(accessKey, name));
                 if (changed) {
                     g.services.accountService.saveAccount(
@@ -24,7 +23,6 @@ g.makeSaver = function (accessKey, name, newJson) {
                 console.log("Save Failed " + error);
                 saving = false;
             });
-        console.log("really save");
     };
 
     g.savers[accessKey + "-" + name] = func;

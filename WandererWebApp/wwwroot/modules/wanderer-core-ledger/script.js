@@ -83,6 +83,7 @@
     };
 
     this.SendMessage = function (){
+        console.log("ledger test")
         g.services.SignalRService.Send(this.key, {
             text: that.WrittenMessage,
             timestamp: Date.now(),
