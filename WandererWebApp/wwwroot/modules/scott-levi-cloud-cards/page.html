@@ -8,9 +8,9 @@
     <div data-ng-repeat="card in module.hand" class="pad-me">
         <div class="card pad-me" data-ng-click="module.discard(card)">
             <div class="typewriter">
-                odds of success {{card.success}}
+                odds of indeterminate {{card.indeterminate}},
+                odds of success {{card.success}}, and
                 odds of failure {{card.failure}}
-                odds of indeterminate {{card.indeterminate}}
             </div>
         </div>
     </div>

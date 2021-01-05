@@ -100,12 +100,12 @@ ScottLeviCloudCards.component = function () {
     this.discard = function (card) {
         var index = this.hand.indexOf(card);
         if (index > -1) {
+            var that = this;
             this.hand.splice(index, 1);
-
             this.logger.infoWithAction("Undo Discard?", "undo", function(){
-                this.hand.push(card);
+                that.hand.push(card);
             });
-            this.ledgerPublic.PublicSendMessage("discarded " + card.indeterminate + " uncertain, " + card.success + " success, and failure " + card.failure);
+            this.ledgerPublic.PublicSendMessage("discarded: " + card.indeterminate + " uncertain, " + card.success + " success, and failure " + card.failure);
         };
     };
 
