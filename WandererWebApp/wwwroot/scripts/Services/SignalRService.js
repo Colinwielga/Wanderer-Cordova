@@ -73,6 +73,14 @@ g.services.SignalRService.Connect = function (callback) {
     }
 };
 
+g.services.SignalRService.IsConnected = function () {
+    if (!g.services.SignalRService.connection) {
+        return false;
+    }
+
+    return g.services.SignalRService.connection.state === signalR.HubConnectionState.Connected;
+};
+
 g.services.SignalRService.InnerConnection = function (time) {
     setTimeout(function () {
         g.services.SignalRService.connection = new signalR.HubConnectionBuilder()
@@ -80,7 +88,8 @@ g.services.SignalRService.InnerConnection = function (time) {
                 skipNegotiation: true,
                 transport: signalR.HttpTransportType.WebSockets
             })
-            .configureLogging(signalR.LogLevel.Trace)
+            .configureLogging(signalR.LogLevel.Information)
+            .withAutomaticReconnect()
             //.withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();
         g.services.SignalRService.connection.start()
