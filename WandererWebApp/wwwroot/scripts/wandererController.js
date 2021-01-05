@@ -75,6 +75,10 @@ App.controller('wandererController', ['$scope', '$timeout', function ($scope, $t
         return false;
     };
 
+    $scope.connected = function () {
+        return g.services.SignalRService.IsConnected();
+    };
+
     $scope.Pages = g.services.pageService.GetPages();
 
     g.services.pageService.GetAccount();
