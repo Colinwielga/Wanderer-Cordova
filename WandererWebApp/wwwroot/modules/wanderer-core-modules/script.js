@@ -4,7 +4,7 @@
         return "wanderer-core-modules";
     };
 
-
+    var iD = this.getId();
     
 
     // on the js side we need:
@@ -20,9 +20,11 @@
 
     this.getCategories = function() {
         for (let moduleObject of that.page.getComponents()) {
-            //if (moduleObject.getSystem() === "Core"
-            
-            //}
+            if (moduleObject.getId() === iD) 
+            { 
+                continue;
+            }
+        
             let systemName;
             if (moduleObject.getSystem !== undefined){
                 systemName = moduleObject.getSystem(); 
@@ -41,17 +43,30 @@
                 }
             }
 
+            // will return a list of strings ["wanderer-core-modules","wanderer-core-ledger"]
+            // moduleObject.getId() -> "wanderer-core-modules"
+            // in HTML data-ng-disabled="Selected(page)"   
+
             if (!foundMatch){
                 this.systems.push({
                     name: systemName, 
                     modules: [moduleObject],
-                    show: true,
+                    show: false,
                 });
             }
 
         }
 
         return this.systems;
+    };
+    
+    this.selected = function (moduleObject) {
+        for (i = 0; i < that.page.getActiveComponentsIds().length; i++ ) {
+            if (that.page.getActiveComponentsIds()[i] === moduleObject.getId()) {
+                return true;   
+            }
+        }
+        return false;
     };
 
     this.showCategory = function (system) {
@@ -66,10 +81,10 @@
 
     this.addButton = function (system) {
         if (system.show === true){
-            return " - ";
+            return " 📖 ";
         }
         else if (system.show === false){
-            return " + ";
+            return " 📘 ";
         }       
     };   
 

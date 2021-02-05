@@ -83,10 +83,10 @@ KingdomK2.component = function () {
 
     this.displayExpanded = function (bills) {
         if (bills.show === true){
-            return " - ";
+            return " 📖 ";
         }
         else if (bills.show === false){
-            return " + ";
+            return " 📘 ";
         }       
     };
 
@@ -108,6 +108,7 @@ KingdomK2.component = function () {
             var offerBill = this.trackedEntity.backing.proposedBills.AddObject();
             offerBill.SetString("name", this.proposedBillText);
             offerBill.SetNumber("support", 1);
+            offerBill.setString("proposer", this.GetOurPlayer().backing.name.backing)
             this.GetOurPlayer().backing.votes.Add(-1);
             this.trackedEntity.entityChanges.Publish();
             this.proposedBillText = "";
@@ -167,6 +168,10 @@ KingdomK2.component = function () {
     }
 
     this.sortedPlayers = function () {
+        if (this.trackedEntity === undefined){
+            return [];
+        }
+
         var list2 = [...this.trackedEntity.backing.playerVotes.backing]
         list2.sort(function (a, b) {
             if (a.backing.votes.backing > b.backing.votes.backing) {
@@ -250,16 +255,6 @@ KingdomK2.component = function () {
             newBill.SetNumber("supporting", 0);
             this.trackedEntity.backing.proposedBills.Remove(this.trackedEntity.backing.proposedBills.backing[0].id);
         }
-        // id is:
-        // this.trackedEntity.backing.proposedBills.backing[i].id
-        // to remove
-        // this.trackedEntity.backing.proposedBills.Remove(id )
-        // this.trackedEntity.backing.proposedBills.Clear(); 
-        //  {
-        //      playerVotes: [{name:"scott", votes: 100},{name:"colin", votes: 100}}] 
-        //      activeBills: [{name:"kill the lizard people", supporting: 100, opposing: 100},{name:"kill the empire", supporting: 100, opposing: 100}]
-        //      proposedBills: [{name:"make monmentous king", support: 100},{name:"make monmentous emperor", support: 100}]
-        //  }
 
         for (var player of this.trackedEntity.backing.playerVotes.backing) {
             player.SetNumber("votes", 25);

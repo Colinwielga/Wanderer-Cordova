@@ -1,8 +1,45 @@
-﻿App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
+﻿g.savers = {};
+
+g.makeSaver = function (accessKey, name, newJson) {
+    var func = function () {
+        g.services.characterService.SaveCharacter(
+            accessKey,
+            name,
+            angular.toJson(newJson),
+            function (data) {
+                var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(accessKey, name));
+                if (changed) {
+                    g.services.accountService.saveAccount(
+                        function () {
+                            console.log("added to account");
+                        },
+                        function () {
+                            throw { message: "Save Failed" };
+                        });
+                }
+                saving = false;
+            },
+            function (error) {
+                console.log("Save Failed " + error);
+                saving = false;
+            });
+    };
+
+    g.savers[accessKey + "-" + name] = func;
+
+    setTimeout(function () {
+        if (g.savers[accessKey + "-" + name] === func) {
+            func();
+            g.services.timeoutService.$timeout(function () {
+                delete g.savers[accessKey + "-" + name];
+            });
+        }
+    }, 1000);
+};
+
+App.controller('wandererController', ['$scope', '$timeout', function ($scope, $timeout) {
     g.services.timeoutService.$timeout = $timeout;
     
-    var saving = false;
-
     $scope.onUpdate = function () {
         var toRezie = $(".auto-resize");
         for (var i = 0; i < toRezie.length; i++) {
@@ -11,78 +48,40 @@
             target.style.height = 25 + target.scrollHeight + "px";
         }
 
-        // ==================================================== Auto save
         var activePage = g.services.pageService.activePage().getController().exposedPage;
-        
-        if (activePage) {
 
-            if (!saving){
+        if (activePage && activePage.AutoSave === true) {
+
+            var newJson = activePage.getJSON();
                 
-                saving = true;
-
-                var newJson = activePage.getJSON();
-                
-                var reallySave = function () {
-                    g.services.characterService.SaveCharacter(
-                        activePage.accessKey, 
-                        activePage.name,
-                        angular.toJson(newJson),
-                        function (data) {
-                            console.log("Save Successful!");
-                            var changed = g.services.accountService.currentAccount.addChatacterAccesser(g.models.newCharacterAccesser(activePage.accessKey, activePage.name));
-                            if (changed) {
-                                g.services.accountService.saveAccount(function () { }, function () {
-                                    throw { message: "Save Failed" };
-                                });
-                            }
-                            saving = false;
-                        },
-                        function (error) {
-                            console.log("Save Failed " + error);
-                            saving = false;
-                        });   
-                    console.log("really save");
-                };
-
-                // check to see if there are changes
-                var changes = !activePage.compareWithLastLoaded(activePage.getJSON());      
-                if (changes) {
-                    // if there are changes, go ahead and save
-                    g.services.characterService.GetCharacter(
-                        activePage.accessKey, 
-                        function (json) {
-                            var ok = activePage.compareWithLastLoadedAndUpdate(json["json"]);
-                            if (ok) {
-                                reallySave();
-                                activePage.updateLastLoaded(newJson);
-                            } else {
-                                console.log("Save Failed, Merge Conflicts!");
-                                saving = false;
-                            }
-                        },
-                        function (error) {
-                            reallySave();
-                        },
-                        function (error) {
-                            console.log("Error: " + error);
-                            saving = false;
-                        });
-
-                } else { 
-                    saving = false;
-                }
-            }
+            // check to see if there are changes
+            var changes = activePage.lastLoaded === undefined || activePage.lastLoaded === null || !activePage.compareWithLastLoaded(activePage.getJSON());      
+            if (changes) {
+                activePage.updateLastLoaded(newJson);
+                g.makeSaver(activePage.accessKey, activePage.name, newJson);
+            } 
         }
-        //====================================================
 
         return "on update";
+    };
+
+    $scope.saving = function () {
+        for (var key in g.savers) {
+            if (g.savers.hasOwnProperty(key))
+                return true;
+        }
+        return false;
+    };
+
+    $scope.connected = function () {
+        return g.services.SignalRService.IsConnected();
     };
 
     $scope.Pages = g.services.pageService.GetPages();
 
     g.services.pageService.GetAccount();
     g.services.pageService.LoadWiki();
-    //g.services.pageService.LoadTable();
+    // g.services.pageService.LoadTable();
     
     $scope.activePage = function () {
         return g.services.pageService.activePage();

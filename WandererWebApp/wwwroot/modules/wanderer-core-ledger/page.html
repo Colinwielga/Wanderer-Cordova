@@ -3,9 +3,9 @@
     Please join a game.
 </div>
 
-<div ng-show="module.joined" class="scroll-length">
+<div ng-show="module.joined" class="scroll-length" id="message-holder">
     <div data-ng-repeat="displayable in module.displayables" >
-        <div class="pad-me">
+        <div class="pad-me" >
             <div data-ng-include="displayable.getHtml()" id="{{displayable.getId()}}" data-ng-init="model = displayable.getModel()"></div>
         </div>  
     </div>

@@ -1,7 +1,10 @@
-﻿<div >
-        <div data-ng-repeat="system in module.getCategories()" class="pad-me">
-                <div data-ng-click="module.showCategory(system)">{{system.name}}{{module.addButton(system)}}</div> 
-                <input type="button" value="{{mod.getTitle()}}" data-ng-show="system.show" data-ng-click="module.toggle(mod)" data-ng-repeat="mod in system.modules" data-ng-show="module.show(mod)"/>
+﻿<link rel="stylesheet" href="modules/wanderer-core-modules/stylesheet.css">
+<div>
+    <div data-ng-repeat="system in module.getCategories()" class="pad-me">
+        <div>
+            <span class="book-button" data-ng-click="module.showCategory(system)">{{module.addButton(system)}}{{system.name}}</span> 
         </div>
+        <input type="button" value="{{mod.getTitle()}}" data-ng-show="system.show" data-ng-click="module.toggle(mod)" data-ng-repeat="mod in system.modules" data-ng-show="module.show(mod)" data-ng-disabled="module.selected(mod)"/>
+    </div>
 </div>
  

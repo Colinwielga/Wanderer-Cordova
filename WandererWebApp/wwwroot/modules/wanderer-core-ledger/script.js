@@ -56,17 +56,34 @@
 
     this.OnMessageCallBack = function(message){
         g.services.timeoutService.$timeout(function() {
+
+            var objDiv = document.getElementById("message-holder");
+            var wasAtBottom = (objDiv.scrollTop + objDiv.offsetHeight) === objDiv.scrollHeight;
+            
             for (let displayableMaker of that.displayableMakers) {
                 if (displayableMaker.CanDisplay(message)){
                     var displayable = displayableMaker.ConvertToDisplayable(message);
                     that.displayables.push(displayable);
+
+                    // scoll to bottom
+                    // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
+                    
+
+                    g.services.timeoutService.$timeout(function() {
+                        if (wasAtBottom){
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    });
+                    
                     return;
                 }
             }
+
         });
     };
 
     this.SendMessage = function (){
+        console.log("ledger test")
         g.services.SignalRService.Send(this.key, {
             text: that.WrittenMessage,
             timestamp: Date.now(),
