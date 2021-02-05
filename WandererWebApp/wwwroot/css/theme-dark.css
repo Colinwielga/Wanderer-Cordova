@@ -1,5 +1,10 @@
 ﻿.theme-dark {
-    background-color: black;
+    background-color: #171717;
+}
+
+.theme-dark #header {
+    background-color: #1a1a1a;
+	box-shadow: 0px 0px 20px #000000;
 }
 
 

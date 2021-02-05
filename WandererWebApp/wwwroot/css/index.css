@@ -10,12 +10,13 @@ html, body {
     width: 100%;
     flex: 1 1 auto;
     z-index: 2;
+	padding-top: 15px;
 }
 
 #header {
     width: 100%;
     flex: 0 1 auto;
-    box-shadow: 0px 0px 20px #666666; 
+    box-shadow: 0px 0px 20px #666666;
     z-index: 10;
     background-color: #FFFFFF;
 }
@@ -230,7 +231,7 @@ input[type=button].selected-tab, input[type=submit].selected-tab {
             display: inline-block;
             float: left;
         }
-         
+
         #page-tab-container .page-tab.page-save {
             vertical-align: 50%;
         }
@@ -238,7 +239,7 @@ input[type=button].selected-tab, input[type=submit].selected-tab {
             #page-tab-container .page-tab input.cannot-close {
                 border-radius: 3px;
             }
-            
+
 
 button, label.hide-button, input[type=button], input[type=submit], label.label-button {
     outline: none;
@@ -273,6 +274,7 @@ button, label.hide-button, input[type=button], input[type=submit], label.label-b
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         margin-left: 0;
+		margin-right: -1px;
     }
 
     button:hover, label.hide-button:hover, input[type=button]:hover, input[type=submit]:hover, label.label-button:hover {
@@ -291,7 +293,7 @@ button, label.hide-button, input[type=button], input[type=submit], label.label-b
         border: 2px solid #333;
     }
 
-input[type=text], 
+input[type=text],
 input[type=password],
 input[type=number],
 textarea
@@ -302,8 +304,8 @@ textarea
     margin: 2px;
 }
 
-    input[type=text]:focus, 
-    input[type=password]:focus, 
+    input[type=text]:focus,
+    input[type=password]:focus,
     input[type=number]:focus,
     textarea:focus
 
@@ -320,7 +322,7 @@ textarea
         border-bottom-left-radius: 0;
         margin-left: 0;
     }
-    
+
     input[type=text].left-part,
     input[type=password].left-part,
     input[type=number].left.part,
@@ -382,8 +384,8 @@ select {
     /*padding: 30px 0px 20px 0px;*/
     /*margin-top: 50px;*/
     border-radius: 3px;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    /* margin-top: 10px; */
+    margin-bottom: 20px;
     transition: all 0.3s ease;
     /*box-shadow: 0px 0px 10px #fff;
     border: 1px solid #333;
@@ -458,7 +460,7 @@ li {
 }
 /*
 #all.play .write {
-	
+
 	display: none;
 }
 
@@ -557,9 +559,20 @@ table {
 .notification {
     background-color:#696969;
     color: #FFFFFF;
-    display: flex;  
+    display: flex;
 }
 
 .notification-message {
     flex-grow: 1;
+}
+
+
+div.section {
+    transition-duration: 3s;
+    transition-property: transform;
+}
+
+div.section.funny:hover {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
 }
