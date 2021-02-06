@@ -1,0 +1,20 @@
+#tote-flosfulgur-phlossi #phlossi-title-container {
+    margin-bottom: 15px;
+}
+#tote-flosfulgur-phlossi .phlossi-title {
+    color: #333;
+    font-size: 180%;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+#tote-flosfulgur-phlossi .phlossi-subtitle {
+    color: #333;
+    font-size: 110%;
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+}
+#tote-flosfulgur-phlossi #phlossi-surface-container {
+	height: 700px;
+}

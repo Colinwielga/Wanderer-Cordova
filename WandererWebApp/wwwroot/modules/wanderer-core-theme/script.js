@@ -17,10 +17,11 @@ WandererCoreTheme.component = function () {
         this.logger = logger;
     };
 
+    this.myTheme = {};
+
     this.OnNewCharacter = function () {
-        this.darkMode = false;
-        this.funMode = false;
-        this.myTheme = {};
+        this.myTheme.darkMode = false;
+        this.myTheme.funMode = false;
         // this.haveWarnings = [];
         // this.fillInstructions();
         // this.fillWarnings();
