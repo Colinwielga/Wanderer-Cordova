@@ -1,4 +1,5 @@
 #tote-flosfulgur-phlossi #phlossi-container {
+    font-family: monospace;
     margin: 5px;
 	background-color: black;
 	border: 2px solid red;
@@ -23,7 +24,6 @@
 #tote-flosfulgur-phlossi .phlossi-subtitle {
     color: #333;
     font-size: 110%;
-    font-style: italic;
     width: 100%;
     text-align: center;
 	color: white;
@@ -40,12 +40,23 @@
 }
 
 #tote-flosfulgur-phlossi svg.phlossi-poly {
-	height: 50%;
 	display: block;
 	margin: auto;
 }
 #tote-flosfulgur-phlossi svg.phlossi-poly  polygon {
 	fill: red;
+}
+#tote-flosfulgur-phlossi svg.phlossi-poly line {
+	stroke: red;
+	stroke-width: 2px;
+}
+#tote-flosfulgur-phlossi svg.phlossi-poly circle.poly-7-0 {
+	fill: red;
+}
+#tote-flosfulgur-phlossi svg.phlossi-poly circle.poly-0-0  {
+	stroke-width: 2px;
+	stroke: red;
+	stroke-dasharray: 4, 5.0;
 }
 
 

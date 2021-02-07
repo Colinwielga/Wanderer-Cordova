@@ -13,7 +13,9 @@ ToteFlosfulgurPhlossi.component = function () {
     this.joined = false;
     this.displayableMakers = [];
     this.displayables = [];
+	this.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("--");
     this.OnStart = function (communicator, logger, page, dependencies) {
+        this.communicator = communicator;
         this.page = page;
         dependencies[0].onJoin(this.OnJoinCallBack);
     };
@@ -45,6 +47,17 @@ ToteFlosfulgurPhlossi.component = function () {
                     var displayable = displayableMaker.ConvertToDisplayable(message);
                     that.displayables.push(displayable);
 
+					if (displayable != undefined) {
+						that.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(displayable.getModel().polyID)
+					}
+
+					// if (displayable === undefined) {
+					// 	that.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("--")
+					// }
+					// else {
+					// 	that.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(displayable.getModel().polyID)
+					// }
+
                     // scoll to bottom
                     // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
 
@@ -63,6 +76,7 @@ ToteFlosfulgurPhlossi.component = function () {
     };
 
     this.OnNewCharacter = function () {
+		this.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("--");
         // this.havePages = [];
         // this.haveWarnings = [];
         // this.fillInstructions();
@@ -70,16 +84,18 @@ ToteFlosfulgurPhlossi.component = function () {
     };
 
     this.OnSave = function () {
-        // this.communicator.write("havePages", this.getPageLabels(this.havePages));
+        this.communicator.write("currentPhlossiPoly", this.currentPhlossiPoly);
     };
 
     this.OnLoad = function () {
         // var version = this.communicator.lastVersion();
-        // this.OnNewCharacter();
+        this.OnNewCharacter();
         // if (version === 1) {
-        //     if (this.communicator.canRead("havePages")) {
-        //         this.havePages = this.getPages(this.communicator.read("havePages"));
-        //     }
+            if (this.communicator.canRead("currentPhlossiPoly")) {
+				// console.log("loading!");
+				// console.log(this.communicator.read("currentPhlossiPoly"));
+                this.currentPhlossiPoly = this.communicator.read("currentPhlossiPoly");
+            }
             // if (this.communicator.canRead("haveWarnings")) {
             //     this.haveWarnings = this.getWarnings(this.communicator.read("haveWarnings"));
             // }
@@ -139,8 +155,21 @@ ToteFlosfulgurPhlossi.component = function () {
     this.getPhlossiSubtitle = function () {
         return ToteFlosfulgurPhlossi.subtitle
     };
-	this.getCurrentPglossiPoly = function () {
-		return new ToteFlosfulgurPhlossi.phlossiPoly("50 43.3", "25,0 50,43.3 0,43.3")
+	this.getCurrentPhlossiPoly = function () {
+		// console.log(this.currentPhlossiPoly);
+		return new ToteFlosfulgurPhlossi.phlossiPoly(this.currentPhlossiPoly.fulgonId);
+		// var lastCard = this.displayables[this.displayables.length - 1]
+		// // console.log(this.displayables)
+		// if (lastCard === undefined) {
+		// 	// console.log("empty card")
+		// 	return new ToteFlosfulgurPhlossi.phlossiPoly("--")
+		// }
+		// else {
+		// 	// console.log(lastCard)
+		// 	var lastCardModel = lastCard.getModel()
+		// 	// console.log(lastCardModel.polyPoints)
+		// 	return new ToteFlosfulgurPhlossi.phlossiPoly(lastCardModel.polyID)
+		// }
 	}
 
     this.OnNewCharacter();
