@@ -41,6 +41,7 @@
             }
         };
         this.ledgerPublic.AddDisplayableMaker(cardDisplayableMaker);
+        this.phlossiPublic.addDisplayableMaker(cardDisplayableMaker);
     };
     this.OnNewCharacter = function () {
         this.hand = [];
@@ -185,8 +186,13 @@
             deckId: this.selectedDeck.guid
         });
 
-		if (this.selectedDeck.guid == "flosfulgur-deck") {
-			console.log("phlossi good")
+		if (this.selectedDeck.guid === "flosfulgur-deck") {
+			console.log("phlossi good");
+			this.phlossiPublic.sendCard({
+	            displayerModule: this.getId(),
+	            cardId: cardID,
+	            deckId: this.selectedDeck.guid
+	        });
 		}
 		else {
 			console.log("phlossi bad")

@@ -96,7 +96,7 @@ g.services.SignalRService.InnerConnection = function (time) {
         .then(function () {
             g.services.SignalRService.connecting = false;
 
-            // manually messages 
+            // manually messages
             g.services.SignalRService.connection.on('BroadcastMessage', g.services.SignalRService.Callback);
             for (var key in g.services.SignalRService.groupNames) {
                 if (g.services.SignalRService.groupNames.hasOwnProperty(key)) {
@@ -158,4 +158,3 @@ g.services.SignalRService.Send = function (key, obj) {
         });
     }
 };
-

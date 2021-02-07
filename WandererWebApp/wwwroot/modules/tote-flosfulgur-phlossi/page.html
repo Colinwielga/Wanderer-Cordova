@@ -1,10 +1,22 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/tote-flosfulgur-phlossi/stylesheet.css" />
 <div class="pad-me">
-    <div id="phlossi-title-container">
-        <div class="phlossi-title">{{module.getPhlossiTitle()}}</div>
-        <div class="phlossi-subtitle">{{module.getPhlossiSubtitle()}}</div>
-    </div>
-	<div id="phlossi-surface-container">
-		<div id="phlossi-surface"></div>
+    <div id="phlossi-container">
+	    <div id="phlossi-title-container">
+	        <div class="phlossi-title">{{module.getPhlossiTitle()}}</div>
+	        <div class="phlossi-subtitle">{{module.getPhlossiSubtitle()}}</div>
+			<div ng-show="!module.joined" class="pad-me">
+			    Not in a game.
+			</div>
+	    </div>
+		<div id="phlossi-surface-container">
+			<div id="phlossi-surface">
+				<div data-ng-include="module.getCurrentPglossiPoly().getHtml()" data-ng-init="model = module.getCurrentPglossiPoly()"></div>
+			    <!-- <div data-ng-repeat="displayable in module.displayables" >
+			        <div class="pad-me" >
+			            <div data-ng-include="displayable.getHtml()" id="{{displayable.getId()}}" data-ng-init="model = displayable.getModel()"></div>
+			        </div>
+				</div> -->
+			</div>
+		</div>
 	</div>
 </div>

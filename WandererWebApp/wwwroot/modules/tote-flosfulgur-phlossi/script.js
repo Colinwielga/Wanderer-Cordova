@@ -10,7 +10,11 @@ ToteFlosfulgurPhlossi.component = function () {
     };
 
 	this.key = Math.random() + "";
+    this.joined = false;
+    this.displayableMakers = [];
+    this.displayables = [];
     this.OnStart = function (communicator, logger, page, dependencies) {
+        this.page = page;
         dependencies[0].onJoin(this.OnJoinCallBack);
     };
     this.OnJoinCallBack = function(groupName){
@@ -25,33 +29,35 @@ ToteFlosfulgurPhlossi.component = function () {
             that.joined = true;
         })
     };
-    this.ShouldHandleState = function(state){
+
+    this.ShouldHandleMessage = function(message){
         return message.module === that.getId();
     };
+
     this.OnMessageCallBack = function(message){
         g.services.timeoutService.$timeout(function() {
 
-            var objDiv = document.getElementById("phlossi-surface");
+            // var objDiv = document.getElementById("phlossi-surface");
             // var wasAtBottom = (objDiv.scrollTop + objDiv.offsetHeight) === objDiv.scrollHeight;
 
-            // for (let displayableMaker of that.displayableMakers) {
-            //     if (displayableMaker.CanDisplay(message)){
-            //         var displayable = displayableMaker.ConvertToDisplayable(message);
-            //         that.displayables.push(displayable);
-			//
-            //         // scoll to bottom
-            //         // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
-			//
-			//
-            //         g.services.timeoutService.$timeout(function() {
-            //             if (wasAtBottom){
-            //                 objDiv.scrollTop = objDiv.scrollHeight;
-            //             }
-            //         });
-			//
-            //         return;
-            //     }
-            // }
+            for (let displayableMaker of that.displayableMakers) {
+                if (displayableMaker.CanDisplay(message)){
+                    var displayable = displayableMaker.ConvertToDisplayable(message);
+                    that.displayables.push(displayable);
+
+                    // scoll to bottom
+                    // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
+
+
+                    g.services.timeoutService.$timeout(function() {
+                        // if (wasAtBottom){
+                        //     objDiv.scrollTop = objDiv.scrollHeight;
+                        // }
+                    });
+
+                    return;
+                }
+            }
 
         });
     };
@@ -100,13 +106,30 @@ ToteFlosfulgurPhlossi.component = function () {
         return ["wanderer-core-save"];
     };
 
-    this.getPublic = function () {
-        return {
-            getVersion: function () {
-                return 1.0;
-            }
-        };
-    };
+	this.getPublic = function () {
+		var that = this;
+		return {
+			getVersion: function () {
+				return 1;
+			},
+			// PublicSendMessage: function (message) {
+			// 	g.services.SignalRService.Send(that.key, {
+			// 		text: message,
+			// 		timestamp: Date.now(),
+			// 		sender: that.page.name,
+			// 		module: that.getId(),
+			// 		displayerModule : that.getId()
+			// 	});
+			// },
+			sendCard: function(message){
+				message.module = that.getId();
+				g.services.SignalRService.Send(that.key, message);
+			},
+			addDisplayableMaker: function(displayableMaker){
+				that.displayableMakers.push(displayableMaker);
+			}
+		};
+	};
 
 
     this.getPhlossiTitle = function () {
@@ -116,6 +139,9 @@ ToteFlosfulgurPhlossi.component = function () {
     this.getPhlossiSubtitle = function () {
         return ToteFlosfulgurPhlossi.subtitle
     };
+	this.getCurrentPglossiPoly = function () {
+		return new ToteFlosfulgurPhlossi.phlossiPoly("50 43.3", "25,0 50,43.3 0,43.3")
+	}
 
     this.OnNewCharacter();
 };

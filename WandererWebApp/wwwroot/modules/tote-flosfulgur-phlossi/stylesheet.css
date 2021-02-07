@@ -1,5 +1,16 @@
+#tote-flosfulgur-phlossi #phlossi-container {
+    margin: 5px;
+	background-color: black;
+	border: 2px solid red;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
 #tote-flosfulgur-phlossi #phlossi-title-container {
+    padding-top: 15px;
     margin-bottom: 15px;
+    padding-bottom: 15px;
+	border-bottom: 2px dashed white;
 }
 #tote-flosfulgur-phlossi .phlossi-title {
     color: #333;
@@ -7,6 +18,7 @@
     font-weight: bold;
     width: 100%;
     text-align: center;
+	color: white;
 }
 #tote-flosfulgur-phlossi .phlossi-subtitle {
     color: #333;
@@ -14,7 +26,58 @@
     font-style: italic;
     width: 100%;
     text-align: center;
+	color: white;
 }
 #tote-flosfulgur-phlossi #phlossi-surface-container {
-	height: 700px;
+	min-height: 700px;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-container {
+	display: flex;
+	align-items: center;
+	height: 500px;
+	position: relative;
+	animation: ani 8s infinite;
+}
+
+#tote-flosfulgur-phlossi svg.phlossi-poly {
+	height: 50%;
+	display: block;
+	margin: auto;
+}
+#tote-flosfulgur-phlossi svg.phlossi-poly  polygon {
+	fill: red;
+}
+
+
+@keyframes ani {
+	0% {
+		left: 0;
+	}
+	9% {
+	  left: 0;
+	}
+	10% {
+		left: 30px;
+	}
+	11% {
+		left: -10px;
+	}
+	12% {
+		left: 0;
+	}
+	59% {
+	  left: 0;
+	}
+	60% {
+		left: -5px;
+	}
+	61% {
+		left: 2px;
+	}
+	62% {
+		left: 0;
+	}
+	100% {
+		left: 0;
+	}
 }
