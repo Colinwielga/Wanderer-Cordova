@@ -1,10 +1,11 @@
 #tote-flosfulgur-phlossi #phlossi-container {
     font-family: monospace;
-    margin: 5px;
+    margin: 20px;
 	background-color: black;
-	border: 2px solid red;
-	border-radius: 15px;
+	border: 3px solid #313131;
+	border-radius: 30px;
 	overflow: hidden;
+	box-shadow: -4px 5px 8px 3px rgb(0 0 0 / 55%), inset -4px 4px 12px 9px rgb(166 234 154 / 14%);
 }
 
 #tote-flosfulgur-phlossi #phlossi-title-container {
@@ -60,6 +61,7 @@
 }
 #tote-flosfulgur-phlossi .phlossi-poly-operation-container span {
 	display: inline-block;
+	animation: fade 10s linear infinite;
 }
 #tote-flosfulgur-phlossi .phlossi-poly-operation-container div {
 	display: flex;
@@ -188,5 +190,26 @@
 	}
 	100% {
 		left: 0;
+	}
+}
+
+@keyframes fade {
+	18% {
+		opacity: 1;
+	}
+	20% {
+		opacity: 0;
+	}
+	22% {
+		opacity: 1;
+	}
+	39% {
+		opacity: 1;
+	}
+	40% {
+		opacity: 0;
+	}
+	41% {
+		opacity: 1;
 	}
 }

@@ -128,13 +128,63 @@ ToteFlosfulgurPhlossi.getNextPhlossiPoly = function (a, b) {
 		return ToteFlosfulgurPhlossi.getPhlossiPoly(a.fulgonId);
 	}
 	else {
-		var schoolNew = ((parseInt(a.school) + parseInt(b.school)) % 5).toString();
+		var aSchoolN = parseInt(a.school);
+		var bSchoolN = parseInt(b.school);
+		var aGenusN = parseInt(a.genus);
+		var bGenusN = parseInt(b.genus);
+		var aSpeciesN = parseInt(a.species);
+		var bSpeciesN = parseInt(b.species);
+		var aStateN = parseInt(a.state);
+		var bStateN = parseInt(b.state);
+
+		var cSchoolN = aSchoolN;
+		if (bGenusN > aGenusN) {
+			cSchoolN = (aSchoolN + 1) % 5;
+		}
+		else if (bGenusN < aGenusN) {
+			cSchoolN = (((aSchoolN - 1) % 5) + 5)%5;
+		}
+
+		var cGenusN = aGenusN;
+		switch (bSchoolN) {
+			case 0:
+				cGenusN = aGenusN;
+				break;
+			case 1:
+				cGenusN -= 1;
+				break;
+			case 2:
+				cGenusN -= 2;
+				break;
+			case 3:
+				cGenusN += 1;
+				break;
+			case 4:
+				cGenusN += 2;
+		}
+		if (cGenusN <= 1) {
+			cGenusN = 0;
+		}
+		else if (cGenusN > 7) {
+			cGenusN = 7;
+		}
+
+		var cSpeciesN = aSpeciesN;
+		if (cGenusN != bGenusN) {
+			cSpeciesN = 0;
+		}
+
+		var cStateN = aStateN;
+		if (cGenusN != bGenusN) {
+			cStateN = 0;
+		}
+
 		// console.log(schoolNew);
 		return ToteFlosfulgurPhlossi.getPhlossiPoly(
-			a.genus + "-" +
-			a.species + "-" +
-			a.state + "-" +
-			schoolNew
+			cGenusN.toString() + "-" +
+			cSpeciesN.toString() + "-" +
+			cStateN.toString() + "-" +
+			cSchoolN.toString()
 		);
 	}
 	// return ToteFlosfulgurPhlossi.getPhlossiPoly("3-0-0-0");
