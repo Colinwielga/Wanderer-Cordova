@@ -5,11 +5,19 @@ ToteFlosfulgurPhlossi.subtitle = "a friendly wax tablet"
 
 ToteFlosfulgurPhlossi.phlossiPoly = function (fulgonId) {
 	// console.log("here " + polyPoints)
+	var exists = false;
+	if (fulgonId != "" && fulgonId != "-" && fulgonId != "--" && fulgonId != "---") {
+		exists = true;
+	}
 	var atts = fulgonId.split("-");
+	var genus = atts[0];
+	var species = atts[1];
+	var state = atts[2];
+	var school = atts[3];
 	var polyPoints = "";
 	var polyBox = "0 0 0 0";
-	var polyRotation = parseInt(atts[2]);
-	var polyId = atts[0] + "-" + atts[1];
+	var polyRotation = parseInt(state);
+	var polyId = genus + "-" + species;
 	// console.log(atts[0] + "-" + atts[1])
 	switch (polyId) {
 		case "-":
@@ -73,12 +81,17 @@ ToteFlosfulgurPhlossi.phlossiPoly = function (fulgonId) {
 	};
 	// console.log(polyPoints);
 	this.fulgonId = fulgonId;
+	this.exists = exists;
+	this.school = school;
+	this.genus = genus;
+	this.species = species;
+	this.state = state;
 	this.polyId = polyId;
     this.polyPoints = polyPoints;
     this.polyBox = polyBox;
     this.polyBoxWidth = polyBox.split(" ")[2];
-	this.polyScale = 3.5;
 	this.polyRotation = polyRotation;
+
     this.getHtml = function () {
 		if (this.polyPoints === "line"){
         	return "modules/tote-flosfulgur-phlossi/phlossiLine.html";
@@ -94,6 +107,48 @@ ToteFlosfulgurPhlossi.phlossiPoly = function (fulgonId) {
 		}
     };
 };
+
+ToteFlosfulgurPhlossi.getPhlossiPoly = function (fulgonId) {
+	// console.log(fulgonId);
+	return new ToteFlosfulgurPhlossi.phlossiPoly(fulgonId);
+}
+
+
+ToteFlosfulgurPhlossi.getNextPhlossiPoly = function (a, b) {
+	// console.log(a.genus, a.species, a.state);
+	// console.log(b.genus, b.species, b.state);
+	// console.log(b)
+	if (!a.exists && !b.exists) {
+		return ToteFlosfulgurPhlossi.getPhlossiPoly("---");
+	}
+	else if (!a.exists && b.exists) {
+		return ToteFlosfulgurPhlossi.getPhlossiPoly(b.fulgonId);
+	}
+	else if (a.exists && !b.exists) {
+		return ToteFlosfulgurPhlossi.getPhlossiPoly(a.fulgonId);
+	}
+	else {
+		var schoolNew = ((parseInt(a.school) + parseInt(b.school)) % 5).toString();
+		// console.log(schoolNew);
+		return ToteFlosfulgurPhlossi.getPhlossiPoly(
+			a.genus + "-" +
+			a.species + "-" +
+			a.state + "-" +
+			schoolNew
+		);
+	}
+	// return ToteFlosfulgurPhlossi.getPhlossiPoly("3-0-0-0");
+}
+
+//
+// ToteFlosfulgurPhlossi.addGenus = function (a) {
+// 	var fulgonId = a.fulgonId;
+// 	var fulgonIdNext = "0-0-0-0"
+// 	switch (fulgonId) {
+// 		case "0-0-0":
+//
+// 	}
+// }
 
 
 // ToteFlosfulgurPhlossi.getPhlossiPolySvg = function() {

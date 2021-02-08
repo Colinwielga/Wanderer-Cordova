@@ -3,7 +3,7 @@
     margin: 5px;
 	background-color: black;
 	border: 2px solid red;
-	border-radius: 10px;
+	border-radius: 15px;
 	overflow: hidden;
 }
 
@@ -11,7 +11,7 @@
     padding-top: 15px;
     margin-bottom: 15px;
     padding-bottom: 15px;
-	border-bottom: 2px dashed white;
+	border-bottom: 3px dashed #a7a7a7;
 }
 #tote-flosfulgur-phlossi .phlossi-title {
     color: #333;
@@ -19,14 +19,14 @@
     font-weight: bold;
     width: 100%;
     text-align: center;
-	color: white;
+	color: #a7a7a7;
 }
 #tote-flosfulgur-phlossi .phlossi-subtitle {
     color: #333;
     font-size: 110%;
     width: 100%;
     text-align: center;
-	color: white;
+	color: #a7a7a7;
 }
 #tote-flosfulgur-phlossi #phlossi-surface-container {
 	min-height: 700px;
@@ -34,29 +34,127 @@
 #tote-flosfulgur-phlossi .phlossi-poly-container {
 	display: flex;
 	align-items: center;
-	height: 500px;
+	height: 200px;
 	position: relative;
 	animation: ani 8s infinite;
+	margin: auto;
+}
+#tote-flosfulgur-phlossi .positioner {
+	margin: auto;
+	height: 50px;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-previous-container .scaler, #tote-flosfulgur-phlossi .phlossi-poly-played-container .scaler {
+	transform: scale(1.5);
+}
+#tote-flosfulgur-phlossi .phlossi-poly-current-container .scaler {
+	transform: scale(3);
+}
+#tote-flosfulgur-phlossi .phlossi-poly-previous-container, #tote-flosfulgur-phlossi .phlossi-poly-played-container, #tote-flosfulgur-phlossi .phlossi-poly-operation-container {
+	height: 200px;
+	width: 20%;
+	display: inline-block;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container {
+	vertical-align: top;
+	animation: ani 8s infinite;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container span {
+	display: inline-block;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 200px;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container span{
+	font-size: 60px;
+	color: #a7a7a7;
+
+}
+
+#tote-flosfulgur-phlossi .phlossi-poly-current-container {
+	margin-top: 80px;
+}
+
+#tote-flosfulgur-phlossi .phlossi-error-container {
+	padding: 5px 15px;
+}
+#tote-flosfulgur-phlossi .phlossi-error {
+	color: red;
+	font-style: italic;
 }
 
 #tote-flosfulgur-phlossi svg.phlossi-poly {
 	display: block;
 	margin: auto;
 }
-#tote-flosfulgur-phlossi svg.phlossi-poly  polygon {
-	fill: red;
-}
-#tote-flosfulgur-phlossi svg.phlossi-poly line {
-	stroke: red;
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0 {
 	stroke-width: 2px;
-}
-#tote-flosfulgur-phlossi svg.phlossi-poly circle.poly-7-0 {
-	fill: red;
-}
-#tote-flosfulgur-phlossi svg.phlossi-poly circle.poly-0-0  {
-	stroke-width: 2px;
-	stroke: red;
 	stroke-dasharray: 4, 5.0;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-0  {
+	stroke: #777722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-1  {
+	stroke: #772222;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-2  {
+	stroke: #227722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-3  {
+	stroke: #222277;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-4  {
+	stroke: #772277;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2 {
+	stroke-width: 2px;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-0  {
+	stroke: #777722;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-1  {
+	stroke: #772222;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-2  {
+	stroke: #227722;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-3  {
+	stroke: #222277;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-4  {
+	stroke: #772277;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-0 {
+	fill: #777722;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-1 {
+	fill: #772222;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-2 {
+	fill: #227722;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-3 {
+	fill: #222277;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-4 {
+	fill: #772277;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-0 {
+	fill: #777722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-1 {
+	fill: #772222;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-2 {
+	fill: #227722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-3 {
+	fill: #222277;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-4 {
+	fill: #772277;
 }
 
 
