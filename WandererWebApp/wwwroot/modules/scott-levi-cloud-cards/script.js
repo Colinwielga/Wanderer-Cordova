@@ -16,6 +16,23 @@ ScottLeviCloudCards.component = function () {
         this.communicator = communicator;
         this.ledgerPublic = dependencies[0];
         this.logger = logger;
+
+        // var cardDisplayableMaker = {
+        //     CanDisplay: function(message){
+        //         if (message.displayerModule === that.getId()) {
+        //             return true;
+        //         }
+        //         return false;
+        //     },
+        //     ConvertToDisplayable: function (message) {
+        //         return {
+        //             getHtml: function () { return "modules/scott-levi-cloud-cards/card.html"; },
+        //             getModel: function () { return message.model; },
+        //             getId: function () { return "scott-levi-cloud-cards"; }
+        //         };
+        //     }
+        // };
+        // this.ledgerPublic.AddDisplayableMaker(cardDisplayableMaker);
     };
 
     this.OnNewCharacter = function () { 
@@ -105,7 +122,13 @@ ScottLeviCloudCards.component = function () {
             this.logger.infoWithAction("Undo Discard?", "undo", function(){
                 that.hand.push(card);
             });
-            this.ledgerPublic.PublicSendMessage("discarded: " + card.indeterminate + " uncertain, " + card.success + " success, and failure " + card.failure);
+            // this.ledgerPublic.PublicSendDisplayableMessage({
+            //     displayerModule : that.getId(), 
+            //     model:{
+            //         uncertain: card.indeterminate, 
+            //         success: card.success, 
+            //         failure: card.failure }
+            // });
         };
     };
 

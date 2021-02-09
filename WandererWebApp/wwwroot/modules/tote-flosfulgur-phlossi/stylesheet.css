@@ -1,0 +1,215 @@
+#tote-flosfulgur-phlossi #phlossi-container {
+    font-family: monospace;
+    margin: 20px;
+	background-color: black;
+	border: 3px solid #313131;
+	border-radius: 30px;
+	overflow: hidden;
+	box-shadow: -4px 5px 8px 3px rgb(0 0 0 / 55%), inset -4px 4px 12px 9px rgb(166 234 154 / 14%);
+}
+
+#tote-flosfulgur-phlossi #phlossi-title-container {
+    padding-top: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+	border-bottom: 3px dashed #a7a7a7;
+}
+#tote-flosfulgur-phlossi .phlossi-title {
+    color: #333;
+    font-size: 180%;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+	color: #a7a7a7;
+}
+#tote-flosfulgur-phlossi .phlossi-subtitle {
+    color: #333;
+    font-size: 110%;
+    width: 100%;
+    text-align: center;
+	color: #a7a7a7;
+}
+#tote-flosfulgur-phlossi #phlossi-surface-container {
+	min-height: 700px;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-container {
+	display: flex;
+	align-items: center;
+	height: 200px;
+	position: relative;
+	animation: ani 8s infinite;
+	margin: auto;
+}
+#tote-flosfulgur-phlossi .positioner {
+	margin: auto;
+	height: 50px;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-previous-container .scaler, #tote-flosfulgur-phlossi .phlossi-poly-played-container .scaler {
+	transform: scale(1.5);
+}
+#tote-flosfulgur-phlossi .phlossi-poly-current-container .scaler {
+	transform: scale(3);
+}
+#tote-flosfulgur-phlossi .phlossi-poly-previous-container, #tote-flosfulgur-phlossi .phlossi-poly-played-container, #tote-flosfulgur-phlossi .phlossi-poly-operation-container {
+	height: 200px;
+	width: 20%;
+	display: inline-block;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container {
+	vertical-align: top;
+	animation: ani 8s infinite;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container span {
+	display: inline-block;
+	animation: fade 10s linear infinite;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 200px;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-operation-container span{
+	font-size: 60px;
+	color: #a7a7a7;
+
+}
+
+#tote-flosfulgur-phlossi .phlossi-poly-current-container {
+	margin-top: 80px;
+}
+
+#tote-flosfulgur-phlossi .phlossi-error-container {
+	padding: 5px 15px;
+}
+#tote-flosfulgur-phlossi .phlossi-error {
+	color: red;
+	font-style: italic;
+}
+
+#tote-flosfulgur-phlossi svg.phlossi-poly {
+	display: block;
+	margin: auto;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0 {
+	stroke-width: 2px;
+	stroke-dasharray: 4, 5.0;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-0  {
+	stroke: #777722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-1  {
+	stroke: #772222;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-2  {
+	stroke: #227722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-3  {
+	stroke: #222277;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-0.flosfulgur-school-4  {
+	stroke: #772277;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2 {
+	stroke-width: 2px;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-0  {
+	stroke: #777722;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-1  {
+	stroke: #772222;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-2  {
+	stroke: #227722;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-3  {
+	stroke: #222277;
+}
+#tote-flosfulgur-phlossi line.flosfulgur-genus-2.flosfulgur-school-4  {
+	stroke: #772277;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-0 {
+	fill: #777722;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-1 {
+	fill: #772222;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-2 {
+	fill: #227722;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-3 {
+	fill: #222277;
+}
+#tote-flosfulgur-phlossi polygon.flosfulgur-school-4 {
+	fill: #772277;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-0 {
+	fill: #777722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-1 {
+	fill: #772222;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-2 {
+	fill: #227722;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-3 {
+	fill: #222277;
+}
+#tote-flosfulgur-phlossi circle.flosfulgur-genus-7.flosfulgur-school-4 {
+	fill: #772277;
+}
+
+
+@keyframes ani {
+	0% {
+		left: 0;
+	}
+	9% {
+	  left: 0;
+	}
+	10% {
+		left: 30px;
+	}
+	11% {
+		left: -10px;
+	}
+	12% {
+		left: 0;
+	}
+	59% {
+	  left: 0;
+	}
+	60% {
+		left: -5px;
+	}
+	61% {
+		left: 2px;
+	}
+	62% {
+		left: 0;
+	}
+	100% {
+		left: 0;
+	}
+}
+
+@keyframes fade {
+	18% {
+		opacity: 1;
+	}
+	20% {
+		opacity: 0;
+	}
+	22% {
+		opacity: 1;
+	}
+	39% {
+		opacity: 1;
+	}
+	40% {
+		opacity: 0;
+	}
+	41% {
+		opacity: 1;
+	}
+}

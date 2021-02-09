@@ -19,8 +19,8 @@ ColinWielgaCards.FlosfulgurCard = function (guid, name, polyID, polyPoints, valu
     this.getHtml = function () {
         return "modules/colin-wielga-cards/FlosfulgurCard.html";
     };
-    this.discardMessage = name + ":\n"
-                            + " Adjective: " + adjective + "\n"
+    this.discardMessage = name + ":\n" 
+                            + " Adjective: " + adjective + "\n" 
                             + " Value: " + value + "\n"
                             + " Ability: " + ability + "\n"
                             + " Color: " + ColinWielgaCards.FlosfulgurColors[color] + "\n"
@@ -49,21 +49,6 @@ var cardList =
         new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-60-2", "axis", "2-0-60", "", "11", "", "", true, "2"),
         new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-60-3", "axis", "2-0-60", "", "11", "", "", true, "3"),
         new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-60-4", "axis", "2-0-60", "", "11", "", "", true, "4"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-90-0", "axis evasive", "2-0-90", "", "11", "taxes", "", true, "0"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-90-1", "fourth axis", "2-0-90", "", "11", "eleven", "", true, "1"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-90-2", "axis", "2-0-90", "", "11", "", "", true, "2"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-90-3", "axis", "2-0-90", "", "11", "", "", true, "3"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-90-4", "axis", "2-0-90", "", "11", "", "", true, "4"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-120-0", "axis evasive", "2-0-120", "", "11", "taxes", "", true, "0"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-120-1", "fifth axis", "2-0-120", "", "11", "eleven", "", true, "1"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-120-2", "axis", "2-0-120", "", "11", "", "", true, "2"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-120-3", "axis", "2-0-120", "", "11", "", "", true, "3"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-120-4", "axis", "2-0-120", "", "11", "", "", true, "4"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-150-0", "axis evasive", "2-0-150", "", "11", "taxes", "", true, "0"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-150-1", "sixth axis", "2-0-150", "", "11", "eleven", "", true, "1"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-150-2", "axis", "2-0-150", "", "11", "", "", true, "2"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-150-3", "axis", "2-0-150", "", "11", "", "", true, "3"),
-        new ColinWielgaCards.FlosfulgurCard("fulgon-2-0-150-4", "axis", "2-0-150", "", "11", "", "", true, "4"),
 
         new ColinWielgaCards.FlosfulgurCard("fulgon-3-0-0-0", "trigon", "3-0-0", "29,4 54,47.3 4,47.3", "1", "", "", true, "0"),
         new ColinWielgaCards.FlosfulgurCard("fulgon-3-0-0-1", "first trigon", "3-0-0", "29,4 54,47.3 4,47.3", "1", "one", "", true, "1"),
