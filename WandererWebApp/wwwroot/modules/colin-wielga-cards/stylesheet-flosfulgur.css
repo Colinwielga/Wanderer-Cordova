@@ -3,23 +3,28 @@
 }
 #colin-wielga-cards div.card-poly-container {
 	height: 175px;
+	margin: 15px auto;
 }
 
+.flosfulgur-card .card-name {
+	margin-top: 8px !important;
+	margin-bottom: 5px !important;
+}
 
 #colin-wielga-cards .flosfulgur-school-0 {
-	background-color: #666633;
+	background-color: #777722;
 }
 #colin-wielga-cards .flosfulgur-school-1 {
-	background-color: #663333;
+	background-color: #772222;
 }
 #colin-wielga-cards .flosfulgur-school-2 {
-	background-color: #336633;
+	background-color: #227722;
 }
 #colin-wielga-cards .flosfulgur-school-3 {
-	background-color: #333366;
+	background-color: #222277;
 }
 #colin-wielga-cards .flosfulgur-school-4 {
-	background-color: #663366;
+	background-color: #772277;
 }
 
 /*Polygon 0*/
@@ -252,6 +257,7 @@
 	width: 104.6px;
 	height: 104.6px;
 	transform: scale(1.2,1.2) rotate(45deg);
+	margin-left: 20px;
 }
 #colin-wielga-cards .flosfulgur-card svg.poly-6-2-60 {
 	width: 104.6px;

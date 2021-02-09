@@ -12,17 +12,17 @@
         }
     };
 
-    // a list of things that know how to display messages 
-    this.displayableMakers = [messageDisplayableMaker];  
+    // a list of things that know how to display messages
+    this.displayableMakers = [messageDisplayableMaker];
 
-    this.displayables =[];
+    this.displayables = [];
 
     this.joined = false;
 
     this.getId = function () {
         return "wanderer-core-ledger";
     };
-    
+
     this.getSystem = function () {
         return "Core"
     };
@@ -59,7 +59,7 @@
 
             var objDiv = document.getElementById("message-holder");
             var wasAtBottom = (objDiv.scrollTop + objDiv.offsetHeight) === objDiv.scrollHeight;
-            
+
             for (let displayableMaker of that.displayableMakers) {
                 if (displayableMaker.CanDisplay(message)){
                     var displayable = displayableMaker.ConvertToDisplayable(message);
@@ -67,14 +67,14 @@
 
                     // scoll to bottom
                     // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
-                    
+
 
                     g.services.timeoutService.$timeout(function() {
                         if (wasAtBottom){
                             objDiv.scrollTop = objDiv.scrollHeight;
                         }
                     });
-                    
+
                     return;
                 }
             }
@@ -95,7 +95,7 @@
     };
 
     this.OnNewCharacter = function () {
-        this.messages = []; 
+        this.messages = [];
         var that = this;
     };
     this.OnSave = function () {};

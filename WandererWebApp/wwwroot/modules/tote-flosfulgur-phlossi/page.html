@@ -1,0 +1,35 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/tote-flosfulgur-phlossi/stylesheet.css" />
+<div class="pad-me">
+    <div id="phlossi-container">
+	    <div id="phlossi-title-container">
+	        <div class="phlossi-title">{{module.getPhlossiTitle()}}</div>
+	        <div class="phlossi-subtitle">{{module.getPhlossiSubtitle()}}</div>
+	    </div>
+		<div id="phlossi-surface-container">
+			<div id="phlossi-surface">
+				<div class="phlossi-error-container" ng-show="!module.joined" class="pad-me">
+				    <span class="phlossi-error">Not in a game ...</span>
+				</div>
+				<div style="margin: auto; display: flex; justify-content: center; margin-top:20px;">
+				<div class="phlossi-poly-previous-container">
+					<div data-ng-include="module.getPreviousPhlossiPoly().getHtml()" x="{{model = module.getPreviousPhlossiPoly()}}"></div>
+				</div>
+				<div class="phlossi-poly-operation-container">
+					<div><span>+</span></div>
+				</div>
+				<div class="phlossi-poly-played-container">
+					<div data-ng-include="module.getPlayedPhlossiPoly().getHtml()" x="{{model = module.getPlayedPhlossiPoly()}}"></div>
+				</div>
+				</div>
+				<div class="phlossi-poly-current-container">
+					<div data-ng-include="module.getCurrentPhlossiPoly().getHtml()" x="{{model = module.getCurrentPhlossiPoly()}}"></div>
+				</div>
+			    <!-- <div data-ng-repeat="displayable in module.displayables" >
+			        <div class="pad-me" >
+			            <div data-ng-include="displayable.getHtml()" id="{{displayable.getId()}}" data-ng-init="model = displayable.getModel()"></div>
+			        </div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>
