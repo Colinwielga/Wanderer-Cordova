@@ -37,7 +37,7 @@
 </head>
 
 <body data-ng-controller="wandererController">
-    <div id="all" ng-hack="{{onUpdate()}}">
+    <div id="all" ng-hack="{{onUpdate()}}" data-ng-class="{'theme-dark':activePage().getController().styleClass().darkMode, 'theme-default': !activePage().getController().styleClass().darkMode, 'funny': activePage().getController().styleClass().funMode}">
         <div id="header">
             <div id="page-tab-container">
                 <div class="page-tab" data-ng-repeat="page in Pages">
