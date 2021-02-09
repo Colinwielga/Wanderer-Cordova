@@ -24,7 +24,6 @@
                 "/Views": "${workspaceFolder}/Views"
             }
         },
-
         {
             "type": "chrome",
             "request": "launch",
