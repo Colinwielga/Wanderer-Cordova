@@ -88,7 +88,7 @@ g.services.SignalRService.InnerConnection = function (time) {
                 skipNegotiation: true,
                 transport: signalR.HttpTransportType.WebSockets
             })
-            .configureLogging(signalR.LogLevel.Information)
+            .configureLogging(signalR.LogLevel.Trace)
             .withAutomaticReconnect()
             //.withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();
