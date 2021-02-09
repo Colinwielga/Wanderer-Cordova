@@ -1,10 +1,15 @@
 ﻿.theme-dark {
-    background-color: black;
+    background-color: #171717;
+}
+
+.theme-dark #header {
+    background-color: #1a1a1a;
+	box-shadow: 0px 0px 20px #000000;
 }
 
 
 
-.theme-dark button:disabled, .theme-dark label.hide-button:disabled, .theme-dark input[type=button]:disabled, .theme-dark input[type=submit]:disabled, .theme-dark label.label-button:disabled {
+.theme-dark input[type=button]:disabled.left-part  {
     background-color: transparent;
     color: white;
 }

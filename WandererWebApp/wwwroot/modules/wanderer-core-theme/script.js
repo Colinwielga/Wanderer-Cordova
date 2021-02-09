@@ -19,6 +19,7 @@ WandererCoreTheme.component = function () {
 
     this.OnNewCharacter = function () {
         this.darkMode = false;
+        this.funMode = false;
         this.myTheme = {};
         // this.haveWarnings = [];
         // this.fillInstructions();
@@ -103,6 +104,39 @@ WandererCoreTheme.component = function () {
             e.classList.remove("theme-dark");
             e.classList.add("theme-default");
         }
+    }
+    this.getFunMode = function () {
+        return this.myTheme.funMode
+    }
+    this.getFunModeButtonText = function () {
+        if (this.getFunMode()) {
+            return "Turn off fun mode"
+        }
+        else {
+            return "Turn on fun mode"
+        }
+    }
+    this.toggleFunMode = function () {
+        if (this.getFunMode()) {
+            this.myTheme.funMode = false
+        }
+        else {
+            this.myTheme.funMode = true
+        }
+        this.applyFun()
+    }
+    this.applyFun = function () {
+        var es = document.getElementsByClassName("section");
+        if (this.getFunMode()) {
+			for (var i=0, len=es.length|0; i<len; i=i+1|0) {
+			    es[i].classList.add("funny");
+			}
+		}
+        else {
+			for (var i=0, len=es.length|0; i<len; i=i+1|0) {
+			    es[i].classList.remove("funny");
+			}
+		}
     }
 
 }

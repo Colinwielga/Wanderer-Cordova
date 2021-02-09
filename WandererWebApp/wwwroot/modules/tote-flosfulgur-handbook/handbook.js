@@ -35,7 +35,7 @@ ToteFlosfulgurManual.know = `<p>Look, I don't have a whole lot of time to explai
 <ul>
 <li>There are five schools: Averse, Axiomatic, Unific, Chaotic, Agnostic. Look out for all of them. Trust the card fabric!</li>
 <li>The schools have colors, but I'm colorblind, so I can't be much help them. But I hear the colors matter!</li>
-<li>There are seven atomic genera: trivial, axial, trigonal, tetragonal, pentagonal, hexagonal, circular. Damened if I know what they mean.</li>
+<li>There are seven atomic genera: trivial, axial, trigonal, tetragonal, pentagonal, hexagonal, circular. Damned if I know what they mean.</li>
 <li>A tepal is what you call a flower petal when you don't know much about it.</li>
 <li>A corolla is a collection of related tepals.</li>
 <li>You got sand, lightning, and liquids. Most everything's one of those in this shithole. Oh, and then there's flowers, but don't mix them up with lightning! I have a few scars to remind me of that ... I'm sure you'll get your own.</li>
