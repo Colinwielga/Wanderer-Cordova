@@ -22,6 +22,42 @@ ToteFlosfulgurTepal.tepal = function (label, name, corolla, luminosity, genus, s
 };
 
 ToteFlosfulgurTepal.tepals = [
+	// Loitering:
+	ToteFlosfulgurTepal.tepal(
+		"loiter-0-0-0",
+		"Loitering",
+		"loiter",
+		0, 0, 0,
+		["You don't need to do anything."],
+		[]
+	),
+	// Hand:
+	ToteFlosfulgurTepal.tepal(
+		"hand-0-0-0",
+		"Manipulating",
+		"hand",
+		0, 0, 0,
+		["<b>+1</b> when handling objects."],
+		[]
+	),
+	// Build:
+	ToteFlosfulgurTepal.tepal(
+		"build-0-0-0",
+		"Building",
+		"build",
+		0, 0, 0,
+		["<b>+1</b> when crafting or building things."],
+		[["hand-0-0-0"]]
+	),
+	// Weave:
+	ToteFlosfulgurTepal.tepal(
+		"weave-0-0-0",
+		"Weaving",
+		"weave",
+		0, 0, 0,
+		["<b>+1</b> when making or identifying textiles."],
+		[["hand-0-0-0"]]
+	),
     // Climb:
     ToteFlosfulgurTepal.tepal(
         "climb-0-0-0",
@@ -455,15 +491,6 @@ ToteFlosfulgurTepal.tepals = [
     //     ["You have some enigmatic help realizing how things are connected."],
     //     []
     // ),
-    // Hand:
-    ToteFlosfulgurTepal.tepal(
-        "hand-0-0-0",
-        "Manipulating",
-        "hand",
-        0, 0, 0,
-        ["<b>+1</b> when handling objects."],
-        []
-    ),
     // focus:
     ToteFlosfulgurTepal.tepal(
         "focus-0-0-0",
