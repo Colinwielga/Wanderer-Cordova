@@ -572,7 +572,4 @@ div.section {
     transition-property: transform;
 }
 
-div.section.funny:hover {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-}
+
