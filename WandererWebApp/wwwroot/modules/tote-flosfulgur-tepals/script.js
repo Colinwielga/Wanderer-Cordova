@@ -97,9 +97,9 @@ ToteFlosfulgurTepals.component = function () {
         return this.sortTepals(tepals);
     }
     this.sortTepals = function(tepals) {
-        tepals.sort((a, b) => a.luminosity < b.luminosity);
+        tepals.sort((a, b) => (a.luminosity > b.luminosity) ? 1 : -1);
         // tepals.sort((a, b) => a.genus < b.genus);
-        return tepals.sort((a, b) => a.school < b.school);
+        return tepals.sort((a, b) => (a.school > b.school) ? 1 : -1);
     }
 
 
@@ -116,7 +116,7 @@ ToteFlosfulgurTepals.component = function () {
 
         var showTepals = [];
         for (var corolla in haveTepalsDict) {
-            showTepals.push(haveTepalsDict[corolla].sort((a, b) => a.luminosity < b.luminosity)[0])
+            showTepals.push(haveTepalsDict[corolla].sort((a, b) => (parseInt(a.luminosity) < parseInt(b.luminosity)) ? 1 : -1)[0])
         }
 
         return this.sortTepals(showTepals);
