@@ -37,7 +37,6 @@ WandererCoreTheme.component = function () {
         if (version === 1) {
             if (this.communicator.canRead("myTheme")) {
                 this.myTheme = this.communicator.read("myTheme");
-                this.applyTheme();
             }
             // if (this.communicator.canRead("haveWarnings")) {
             //     this.haveWarnings = this.getWarnings(this.communicator.read("haveWarnings"));
