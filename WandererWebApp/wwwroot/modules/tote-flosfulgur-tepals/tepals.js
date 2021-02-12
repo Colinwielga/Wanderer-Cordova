@@ -474,6 +474,15 @@ ToteFlosfulgurTepal.tepals = [
         ["<b>+3</b> when using a story to argue, entertain, or teach."],
         [["remember-0-0-0"], ["speak-0-0-0"]]
     ),
+    // confuse
+    ToteFlosfulgurTepal.tepal(
+        "confuse-1-0-0",
+        "Confusing",
+        "confuse",
+        1, 0, 4,
+        ["<b>+3</b> when trying to confuse someone.", "Astonishing things happen to you when you're confused.", "Order and chaos are two oozlum birds on circuitous trajectories that terminate in each other's rectums."],
+        [["speak-1-0-0"], ["econ-1-0-0"], ["religion-1-0-0"], ["biology-1-0-0"]]
+    ),
     // Realize:
     ToteFlosfulgurTepal.tepal(
         "realize-0-0-0",
@@ -497,8 +506,41 @@ ToteFlosfulgurTepal.tepals = [
         "Concentrating",
         "focus",
         0, 0, 0,
-        ["<b>+1</b> when working under pressure."],
+        ["<b>+1</b> when doing things in high-pressure or distracting circumstances."],
         []
+    ),
+    // art:
+    ToteFlosfulgurTepal.tepal(
+        "art-1-0-0",
+        "Art working",
+        "art",
+        0, 0, 0,
+        ["<b>+1</b> when creating or interpreting visual art."],
+        [["focus-0-0-0", "hand-0-0-0"], ["realize-0-0-0"]]
+    ),
+    ToteFlosfulgurTepal.tepal(
+        "art-2-0-0",
+        "Art working expertly",
+        "art",
+        1, 0, 0,
+        ["<b>+2</b> when creating or interpreting visual art.", "You can be a professional artist."],
+        [["art-0-0-0"]]
+    ),
+    ToteFlosfulgurTepal.tepal(
+        "criticism-1-0-0",
+        "Art criticizing",
+        "criticism",
+        1, 0, 0,
+        ["<b>+3</b> when criticizing or interpreting visual art.", "Strikingly beautiful things trigger an overhelming enthusiasm in you.", "Stikingly ugly things make you physically sick."],
+        [["art-0-0-0", "realize-0-0-0"]]
+    ),
+    ToteFlosfulgurTepal.tepal(
+        "criticism-1-1-0",
+        "Music criticizing",
+        "criticism",
+        1, 1, 0,
+        ["<b>+3</b> when criticizing or interpreting music.", "You can enter a trance while listening to music you like.", "When you hear music you don't like, you must put a stop to it."],
+        [["music-0-0-0", "realize-0-0-0"]]
     ),
     // biology:
     ToteFlosfulgurTepal.tepal(
