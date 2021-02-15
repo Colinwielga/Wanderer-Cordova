@@ -22,6 +22,15 @@ ToteFlosfulgurTepal.tepal = function (label, name, corolla, luminosity, genus, s
 };
 
 ToteFlosfulgurTepal.tepals = [
+	// See:
+	ToteFlosfulgurTepal.tepal(
+		"see-0-0-0",
+		"Seeing",
+		"see",
+		0, 0, 0,
+		["<b>+1</b> when looking for or noticing things via sight.", "You don't need glasses."],
+		[]
+	),
 	// Loitering:
 	ToteFlosfulgurTepal.tepal(
 		"loiter-0-0-0",
@@ -30,6 +39,23 @@ ToteFlosfulgurTepal.tepals = [
 		0, 0, 0,
 		["You don't need to do anything."],
 		[]
+	),
+	// Organizing:
+	ToteFlosfulgurTepal.tepal(
+		"organize-0-0-0",
+		"Organizing",
+		"organize",
+		0, 0, 0,
+		["<b>+2</b> when sorting, cataloging, or cleaning.", "It's often remarked that you and your surroundings are clean and arranged."],
+		[["see-0-0-0"], ["focus-0-0-0"], ["remember-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"organize-1-0-0",
+		"Organizing expertly",
+		"organize",
+		1, 0, 0,
+		["<b>+3</b> when sorting, cataloging, or cleaning.", "You're always bathed, groomed, and cleanly dressed.", "You always know where everything is, and it's always where it's supposed to be.", "You can be a professional secretary, cleaner, or archivist."],
+		[["organize-0-0-0"]]
 	),
 	// Hand:
 	ToteFlosfulgurTepal.tepal(
@@ -40,14 +66,47 @@ ToteFlosfulgurTepal.tepals = [
 		["<b>+1</b> when handling objects."],
 		[]
 	),
+	// Survey:
+	ToteFlosfulgurTepal.tepal(
+		"survey-0-0-0",
+		"Surveying",
+		"survey",
+		0, 0, 0,
+		["<b>+1</b> when measuring things.", "You're rarely lost."],
+		[["see-0-0-0"], ["hand-0-0-0"], ["remember-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"survey-1-0-0",
+		"Surveying expertly",
+		"survey",
+		1, 0, 0,
+		["<b>+2</b> when measuring things.", "You're never lost.", "You can be a professional surveyor."],
+		[["survey-0-0-0"]]
+	),
 	// Build:
 	ToteFlosfulgurTepal.tepal(
 		"build-0-0-0",
 		"Building",
 		"build",
 		0, 0, 0,
-		["<b>+1</b> when crafting or building things."],
-		[["hand-0-0-0"]]
+		["<b>+1</b> when building or repairing things."],
+		[["hand-0-0-0"], ["survey-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"build-1-0-0",
+		"Building expertly",
+		"build",
+		1, 0, 0,
+		["<b>+2</b> when building or repairing things.", "You can be a professional craftsman."],
+		[["build-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"build-1-1-1",
+		"Inventing",
+		"build-1-1",
+		1, 1, 1,
+		["<b>+2</b> when related to inventing new things.", "You suspect that all of reality is constructed to the specifications of a great union of inventors."],
+		[["build-1-0-0", "realize-0-0-0"], ["build-1-0-0", "focus-0-0-0"], ["build-0-0-0", "weave-0-0-0"]]
 	),
 	// Weave:
 	ToteFlosfulgurTepal.tepal(
@@ -165,7 +224,7 @@ ToteFlosfulgurTepal.tepals = [
         "shoot",
         0, 1, 0,
         ["<b>+1</b> when fighting with a ranged weapon.", "You can use ranged weapons."],
-        [["throw-0-0-0"], ["hand-0-0-0"]]
+        [["throw-0-0-0"], ["hand-0-0-0"], ["see-0-0-0"]]
     ),
     ToteFlosfulgurTepal.tepal(
         "shoot-1-1-0",
@@ -515,24 +574,24 @@ ToteFlosfulgurTepal.tepals = [
         "Art working",
         "art",
         0, 0, 0,
-        ["<b>+1</b> when creating or interpreting visual art."],
-        [["focus-0-0-0", "hand-0-0-0"], ["realize-0-0-0"]]
+        ["<b>+2</b> when creating or interpreting visual art."],
+        [["see-0-0-0", "hand-0-0-0"], ["focus-0-0-0", "hand-0-0-0"], ["see-0-0-0", "focus-0-0-0"], ["realize-0-0-0"]]
     ),
     ToteFlosfulgurTepal.tepal(
         "art-2-0-0",
         "Art working expertly",
         "art",
         1, 0, 0,
-        ["<b>+2</b> when creating or interpreting visual art.", "You can be a professional artist."],
-        [["art-0-0-0"]]
+        ["<b>+3</b> when creating or interpreting visual art.", "You can be a professional artist."],
+        [["art-1-0-0"]]
     ),
     ToteFlosfulgurTepal.tepal(
         "criticism-1-0-0",
         "Art criticizing",
         "criticism",
         1, 0, 0,
-        ["<b>+3</b> when criticizing or interpreting visual art.", "Strikingly beautiful things trigger an overhelming enthusiasm in you.", "Stikingly ugly things make you physically sick."],
-        [["art-0-0-0", "realize-0-0-0"]]
+        ["<b>+3</b> when criticizing or interpreting visual art.", "Strikingly beautiful things trigger an overwhelming enthusiasm in you.", "Stikingly ugly things make you physically sick."],
+        [["art-1-0-0", "realize-0-0-0"]]
     ),
     ToteFlosfulgurTepal.tepal(
         "criticism-1-1-0",
@@ -540,7 +599,7 @@ ToteFlosfulgurTepal.tepals = [
         "criticism",
         1, 1, 0,
         ["<b>+3</b> when criticizing or interpreting music.", "You can enter a trance while listening to music you like.", "When you hear music you don't like, you must put a stop to it."],
-        [["music-0-0-0", "realize-0-0-0"]]
+        [["music-1-0-0", "realize-0-0-0"]]
     ),
     // biology:
     ToteFlosfulgurTepal.tepal(

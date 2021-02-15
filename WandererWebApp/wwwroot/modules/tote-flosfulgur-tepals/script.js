@@ -145,7 +145,7 @@ ToteFlosfulgurTepals.component = function () {
 
     this.fillOptions = function () {
         var haveLabels = this.getHaveLabels();
-        var maxOptions = 6;
+        var maxOptions = 8;
         if (haveLabels.length == 0) {
             maxOptions = 10;
         }
