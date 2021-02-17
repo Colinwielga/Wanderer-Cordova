@@ -22,6 +22,15 @@ ToteFlosfulgurTepal.tepal = function (label, name, corolla, luminosity, genus, s
 };
 
 ToteFlosfulgurTepal.tepals = [
+	// See:
+	ToteFlosfulgurTepal.tepal(
+		"see-0-0-0",
+		"Seeing",
+		"see",
+		0, 0, 0,
+		["<b>+1</b> when looking for or noticing things via sight.", "You don't need glasses."],
+		[]
+	),
 	// Loitering:
 	ToteFlosfulgurTepal.tepal(
 		"loiter-0-0-0",
@@ -30,6 +39,40 @@ ToteFlosfulgurTepal.tepals = [
 		0, 0, 0,
 		["You don't need to do anything."],
 		[]
+	),
+	// Organizing:
+	ToteFlosfulgurTepal.tepal(
+		"organize-0-0-0",
+		"Organizing",
+		"organize",
+		0, 0, 0,
+		["<b>+2</b> when sorting, cataloging, or cleaning.", "It's often remarked that you and your surroundings are clean and arranged."],
+		[["see-0-0-0"], ["focus-0-0-0"], ["remember-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"organize-1-0-0",
+		"Organizing expertly",
+		"organize",
+		1, 0, 0,
+		["<b>+3</b> when sorting, cataloging, or cleaning.", "You're always bathed, groomed, and cleanly dressed.", "You always know where everything is, and it's always where it's supposed to be.", "You can be a professional secretary, cleaner, or archivist."],
+		[["organize-0-0-0"]]
+	),
+	// Systems:
+	ToteFlosfulgurTepal.tepal(
+		"system-1-0-3",
+		"Systematizing",
+		"system",
+		1, 0, 3,
+		["<b>+2</b> when understanding or constructing complex systems.", "You're often told that you should be making the rules."],
+		[["organize-1-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"system-2-0-3",
+		"Systematizing expertly",
+		"system",
+		2, 0, 3,
+		["<b>+3</b> when understanding or constructing complex systems.", "Sometimes the rules are so familiar that you think you made them.", "Systems have spectra, and you feel their vibrations in the world.", "You can be a professional bureaucrat, manager, or cyberneticist."],
+		[["system-1-0-2"]]
 	),
 	// Hand:
 	ToteFlosfulgurTepal.tepal(
@@ -40,14 +83,47 @@ ToteFlosfulgurTepal.tepals = [
 		["<b>+1</b> when handling objects."],
 		[]
 	),
+	// Survey:
+	ToteFlosfulgurTepal.tepal(
+		"survey-0-0-0",
+		"Surveying",
+		"survey",
+		0, 0, 0,
+		["<b>+1</b> when measuring things.", "You're rarely lost."],
+		[["see-0-0-0"], ["hand-0-0-0"], ["remember-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"survey-1-0-0",
+		"Surveying expertly",
+		"survey",
+		1, 0, 0,
+		["<b>+2</b> when measuring things.", "You're never lost.", "You can be a professional surveyor."],
+		[["survey-0-0-0"]]
+	),
 	// Build:
 	ToteFlosfulgurTepal.tepal(
 		"build-0-0-0",
 		"Building",
 		"build",
 		0, 0, 0,
-		["<b>+1</b> when crafting or building things."],
-		[["hand-0-0-0"]]
+		["<b>+1</b> when building or repairing things."],
+		[["hand-0-0-0"], ["survey-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"build-1-0-0",
+		"Building expertly",
+		"build",
+		1, 0, 0,
+		["<b>+2</b> when building or repairing things.", "You can be a professional craftsman."],
+		[["build-0-0-0"]]
+	),
+	ToteFlosfulgurTepal.tepal(
+		"build-1-1-1",
+		"Inventing",
+		"build-1-1",
+		1, 1, 1,
+		["<b>+2</b> when related to inventing new things.", "You suspect that all of reality is constructed to the specifications of a great union of inventors."],
+		[["build-1-0-0", "realize-0-0-0"], ["build-1-0-0", "focus-0-0-0"], ["build-0-0-0", "weave-0-0-0"]]
 	),
 	// Weave:
 	ToteFlosfulgurTepal.tepal(
@@ -165,7 +241,7 @@ ToteFlosfulgurTepal.tepals = [
         "shoot",
         0, 1, 0,
         ["<b>+1</b> when fighting with a ranged weapon.", "You can use ranged weapons."],
-        [["throw-0-0-0"], ["hand-0-0-0"]]
+        [["throw-0-0-0"], ["hand-0-0-0"], ["see-0-0-0"]]
     ),
     ToteFlosfulgurTepal.tepal(
         "shoot-1-1-0",
@@ -436,7 +512,7 @@ ToteFlosfulgurTepal.tepals = [
         "Narrative substantiating",
         "create-0-4",
         1, 0, 4,
-        ["<b>+2</b> when willing others to do things.", "Sometimes things you make up turn out to be real."],
+        ["<b>+2</b> when willing others to do things.", "Sometimes things you make up turn out to be real.", "You can have followers."],
         [["cook-2-1-4", "story-1-0-0"]]
     ),
     // Remember:
@@ -447,6 +523,14 @@ ToteFlosfulgurTepal.tepals = [
         0, 0, 0,
         ["You have some enigmatic help remembering things."],
         []
+    ),
+    ToteFlosfulgurTepal.tepal(
+        "remember-1-0-0",
+        "Remembering expertly",
+        "remember",
+        1, 0, 0,
+        ["<b>+2</b> when memorization is involved.", "Sometimes you wonder if your memories aren't the only memories in your brain, and if your brain isn't just in your head."],
+        [["remember-0-0-0"]]
     ),
     //rhetoric
     ToteFlosfulgurTepal.tepal(
@@ -474,6 +558,15 @@ ToteFlosfulgurTepal.tepals = [
         ["<b>+3</b> when using a story to argue, entertain, or teach."],
         [["remember-0-0-0"], ["speak-0-0-0"]]
     ),
+    // confuse
+    ToteFlosfulgurTepal.tepal(
+        "confuse-1-0-0",
+        "Confusing",
+        "confuse",
+        1, 0, 4,
+        ["<b>+3</b> when trying to confuse someone.", "Astonishing things happen to you when you're confused.", "Order and chaos are two oozlum birds on circuitous trajectories that terminate in each other's rectums."],
+        [["speak-1-0-0"], ["econ-1-0-0"], ["religion-1-0-0"], ["biology-1-0-0"]]
+    ),
     // Realize:
     ToteFlosfulgurTepal.tepal(
         "realize-0-0-0",
@@ -497,8 +590,41 @@ ToteFlosfulgurTepal.tepals = [
         "Concentrating",
         "focus",
         0, 0, 0,
-        ["<b>+1</b> when working under pressure."],
+        ["<b>+1</b> when doing things in high-pressure or distracting circumstances."],
         []
+    ),
+    // art:
+    ToteFlosfulgurTepal.tepal(
+        "art-1-0-0",
+        "Art working",
+        "art",
+        0, 0, 0,
+        ["<b>+2</b> when creating or interpreting visual art."],
+        [["see-0-0-0", "hand-0-0-0"], ["focus-0-0-0", "hand-0-0-0"], ["see-0-0-0", "focus-0-0-0"], ["realize-0-0-0"]]
+    ),
+    ToteFlosfulgurTepal.tepal(
+        "art-2-0-0",
+        "Art working expertly",
+        "art",
+        1, 0, 0,
+        ["<b>+3</b> when creating or interpreting visual art.", "You can be a professional artist."],
+        [["art-1-0-0"]]
+    ),
+    ToteFlosfulgurTepal.tepal(
+        "criticism-1-0-0",
+        "Art criticizing",
+        "criticism",
+        1, 0, 0,
+        ["<b>+3</b> when criticizing or interpreting visual art.", "Strikingly beautiful things trigger an overwhelming enthusiasm in you.", "Stikingly ugly things make you physically sick.", "You can have followers."],
+        [["art-1-0-0", "realize-0-0-0"]]
+    ),
+    ToteFlosfulgurTepal.tepal(
+        "criticism-1-1-0",
+        "Music criticizing",
+        "criticism",
+        1, 1, 0,
+        ["<b>+3</b> when criticizing or interpreting music.", "You can enter a trance while listening to music you like.", "When you hear music you don't like, you must put a stop to it.", "You can have followers."],
+        [["music-1-0-0", "realize-0-0-0"]]
     ),
     // biology:
     ToteFlosfulgurTepal.tepal(
