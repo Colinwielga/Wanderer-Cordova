@@ -1,0 +1,22 @@
+﻿<link rel="stylesheet" type="text/css" href="modules/tote-flosfulgur-gm/stylesheet.css" />
+<div class="pad-me">
+    <div id="gm-title-container">
+        <div class="gm-title">Pick a challenge:</div>
+		<br>
+        <div class="gm-button-container">
+			<button data-ng-click="module.setChallenge('Keep the color the same.')">Keep color</button>
+            <button data-ng-click="module.setChallenge('Change the color.')">Change color</button>
+			<br><br>
+            <button data-ng-click="module.setChallenge('Keep the shape the same.')">Keep shape</button>
+            <button data-ng-click="module.setChallenge('Change the shape.')">Change shape</button>
+            <button data-ng-click="module.setChallenge('Increase the shape.')">Increase shape</button>
+            <button data-ng-click="module.setChallenge('Decrease the shape.')">Decrease shape</button>
+			<br><br>
+            <button data-ng-click="module.setChallenge('Keep the color and shape the same.')">Keep shape, color</button>
+            <button data-ng-click="module.setChallenge('Change the color and shape.')">Change shape, color</button>
+			<br><br>
+            <button data-ng-click="module.setChallenge(0)">Reset challenge</button>
+        </div>
+		<!-- <div>Entity ID: {{module.entityId}}</div> -->
+    </div>
+</div>

@@ -6,6 +6,7 @@
 	border-radius: 30px;
 	overflow: hidden;
 	box-shadow: -4px 5px 8px 3px rgb(0 0 0 / 55%), inset -4px 4px 12px 9px rgb(166 234 154 / 14%);
+	color: #a7a7a7;
 }
 
 #tote-flosfulgur-phlossi #phlossi-title-container {
@@ -50,10 +51,22 @@
 #tote-flosfulgur-phlossi .phlossi-poly-current-container .scaler {
 	transform: scale(3);
 }
+#tote-flosfulgur-phlossi .phlossi-poly-challenge-container .scaler {
+	transform: scale(0.8);
+}
 #tote-flosfulgur-phlossi .phlossi-poly-previous-container, #tote-flosfulgur-phlossi .phlossi-poly-played-container, #tote-flosfulgur-phlossi .phlossi-poly-operation-container {
 	height: 200px;
 	width: 20%;
 	display: inline-block;
+}
+#tote-flosfulgur-phlossi .phlossi-poly-challenge-container {
+	height: 100px;
+	width: 20%;
+	display: inline-block;
+}
+
+#tote-flosfulgur-phlossi .phlossi-poly-challenge-container .phlossi-poly-container {
+	height: 100px;
 }
 #tote-flosfulgur-phlossi .phlossi-poly-operation-container {
 	vertical-align: top;
@@ -85,6 +98,29 @@
 #tote-flosfulgur-phlossi .phlossi-error {
 	color: red;
 	font-style: italic;
+}
+
+#tote-flosfulgur-phlossi .phlossi-challenge-container {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 10px 20px;
+	margin-top: 120px;
+	margin-bottom: 40px;
+	border-top: 3px dashed #a7a7a7;
+}
+
+#tote-flosfulgur-phlossi  .phlossi-challenge-title-container {
+	flex: 0 0 100%;
+    font-size: 110%;
+	margin-bottom: 20px;
+}
+#tote-flosfulgur-phlossi .phlossi-challenge-text-container {
+	margin-left: 20px;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: column;
 }
 
 #tote-flosfulgur-phlossi svg.phlossi-poly {
