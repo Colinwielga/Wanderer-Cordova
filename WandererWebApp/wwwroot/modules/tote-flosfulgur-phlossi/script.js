@@ -9,18 +9,24 @@ ToteFlosfulgurPhlossi.component = function () {
         return "Flosfulgur"
     };
 
+    this.getRequires = function () {
+		return ["wanderer-core-save", "tote-flosfulgur-gm"];
+    };
+    this.OnStart = function (communicator, logger, page, dependencies) {
+        this.communicator = communicator;
+        this.page = page;
+        dependencies[0].onJoin(this.OnJoinCallBack);
+		this.gmPublic = dependencies[1];
+    };
+
 	this.key = Math.random() + "";
 	// this.key = "tote-test";
     this.joined = false;
 	this.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
 	this.previousPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
 	this.playedPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
-    this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator;
-        this.page = page;
-        dependencies[0].onJoin(this.OnJoinCallBack);
-		console.log("start", this.key);
-    };
+	this.challengePhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
+	that.currentChallengeId = 0;
     this.OnJoinCallBack = function(groupName){
         g.services.SignalRService.tryRemoveCallback(that.key);
         g.services.SignalRService.setCallback(
@@ -35,15 +41,23 @@ ToteFlosfulgurPhlossi.component = function () {
     };
 
     this.ShouldHandleMessage = function(message){
-        return message.module === that.getId();
+        return message.module === that.getId() || message.module === that.gmPublic.getId();
     };
 
     this.OnMessageCallBack = function(message){
 		// console.log("callback");
         g.services.timeoutService.$timeout(function() {
-			that.previousPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.previous);
-			that.playedPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.played);
-			that.currentPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.current);
+			// console.log(message.module);
+			if (message.module === that.getId()) {
+				that.previousPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.previous);
+				that.playedPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.played);
+				that.currentPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.current);
+			}
+			else if (message.module === that.gmPublic.getId()) {
+				that.currentChallengeId = message.challengeId;
+				that.challengePhlossiPoly = that.currentPhlossiPoly;
+				console.log("set challenge", that.gmPublic.getChallenge(that.currentChallengeId).id);
+			}
 
             // var objDiv = document.getElementById("phlossi-surface");
             // var wasAtBottom = (objDiv.scrollTop + objDiv.offsetHeight) === objDiv.scrollHeight;
@@ -95,6 +109,7 @@ ToteFlosfulgurPhlossi.component = function () {
         this.communicator.write("currentPhlossiPoly", this.currentPhlossiPoly);
         this.communicator.write("previousPhlossiPoly", this.previousPhlossiPoly);
         this.communicator.write("playedPhlossiPoly", this.playedPhlossiPoly);
+        this.communicator.write("currentChallengeId", this.currentChallengeId);
     };
 
     this.OnLoad = function () {
@@ -107,6 +122,9 @@ ToteFlosfulgurPhlossi.component = function () {
         }
         if (this.communicator.canRead("playedPhlossiPoly")) {
             this.playedPhlossiPoly = this.communicator.read("playedPhlossiPoly");
+        }
+        if (this.communicator.canRead("currentChallengeId")) {
+            this.currentChallengeId = this.communicator.read("currentChallengeId");
         }
     };
 
@@ -126,9 +144,6 @@ ToteFlosfulgurPhlossi.component = function () {
         return "Phlossi";
     };
 
-    this.getRequires = function () {
-        return ["wanderer-core-save"];
-    };
 
 	this.getPublic = function () {
 		var that = this;
@@ -158,9 +173,9 @@ ToteFlosfulgurPhlossi.component = function () {
 				that.previousPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(a.fulgonId);
 				that.playedPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(b.fulgonId);
 				that.currentPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(c.fulgonId);
-				console.log(a);
-				console.log(b);
-				console.log(c);
+				// console.log(a);
+				// console.log(b);
+				// console.log(c);
 
 				// console.log(that.previousPhlossiPoly);
 				// console.log(that.currentPhlossiPoly);
@@ -191,6 +206,12 @@ ToteFlosfulgurPhlossi.component = function () {
 	};
 	this.getPlayedPhlossiPoly = function () {
 		return ToteFlosfulgurPhlossi.getPhlossiPoly(this.playedPhlossiPoly.fulgonId);
+	};
+	this.getChallengePhlossiPoly = function () {
+		return ToteFlosfulgurPhlossi.getPhlossiPoly(this.challengePhlossiPoly.fulgonId);
+	};
+	this.getCurrentChallenge = function () {
+		return that.gmPublic.getChallenge(that.currentChallengeId);
 	};
 
     this.OnNewCharacter();

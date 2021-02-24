@@ -24,11 +24,16 @@
 				<div class="phlossi-poly-current-container">
 					<div data-ng-include="module.getCurrentPhlossiPoly().getHtml()" x="{{model = module.getCurrentPhlossiPoly()}}"></div>
 				</div>
-			    <!-- <div data-ng-repeat="displayable in module.displayables" >
-			        <div class="pad-me" >
-			            <div data-ng-include="displayable.getHtml()" id="{{displayable.getId()}}" data-ng-init="model = displayable.getModel()"></div>
-			        </div>
-				</div> -->
+				<div class="phlossi-challenge-container" ng-show="module.currentChallengeId != 0">
+					<div class="phlossi-challenge-title-container">Challenge:</div>
+					<div class="phlossi-poly-challenge-container">
+						<div data-ng-include="module.getChallengePhlossiPoly().getHtml()" x="{{model = module.getChallengePhlossiPoly()}}"></div>
+					</div>
+					<div class="phlossi-challenge-text-container">
+						<--&nbsp;&nbsp;{{module.getCurrentChallenge().id}}
+					</div>
+					<!-- <div data-ng-include="module.getCurrentChallenge().getHtml()" x="{{model = module.getCurrentChallenge()}}"></div> -->
+				</div>
 			</div>
 		</div>
 	</div>
