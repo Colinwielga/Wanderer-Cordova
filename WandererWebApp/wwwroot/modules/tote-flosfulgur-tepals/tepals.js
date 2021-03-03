@@ -40,6 +40,15 @@ ToteFlosfulgurTepal.tepals = [
 		["You don't need to do anything."],
 		[]
 	),
+	// Obscening:
+	ToteFlosfulgurTepal.tepal(
+		"obscene-1-0-0",
+		"Obscening",
+		"obscene",
+		1, 0, 0,
+		["+1 when accomplishing a goal in an obscene way.", "You're prone to questionable habits and are drawn to indecent proposals."],
+		["contort-1-0-0", "loiter-0-0-0", "hand-0-0-0"]
+	),
 	// Organizing:
 	ToteFlosfulgurTepal.tepal(
 		"organize-0-0-0",
