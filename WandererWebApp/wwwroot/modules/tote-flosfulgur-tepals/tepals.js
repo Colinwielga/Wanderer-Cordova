@@ -47,7 +47,7 @@ ToteFlosfulgurTepal.tepals = [
 		"obscene",
 		1, 0, 0,
 		["+1 when accomplishing a goal in an obscene way.", "You're prone to questionable habits and are drawn to indecent proposals."],
-		["contort-1-0-0", "loiter-0-0-0", "hand-0-0-0"]
+		[["contort-1-0-0"], ["loiter-0-0-0"], ["hand-0-0-0"]]
 	),
 	// Organizing:
 	ToteFlosfulgurTepal.tepal(
