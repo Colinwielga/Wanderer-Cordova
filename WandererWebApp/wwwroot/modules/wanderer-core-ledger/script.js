@@ -58,7 +58,7 @@
         g.services.timeoutService.$timeout(function() {
 
             var objDiv = document.getElementById("message-holder");
-            var wasAtBottom = (objDiv.scrollTop + objDiv.offsetHeight) === objDiv.scrollHeight;
+            var wasAtBottom = !(Math.abs(objDiv.scrollHeight - (objDiv.scrollTop + objDiv.offsetHeight)) > 5);
 
             for (let displayableMaker of that.displayableMakers) {
                 if (displayableMaker.CanDisplay(message)){
@@ -69,6 +69,7 @@
                     // https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
 
 
+					// console.log("check scroll", wasAtBottom, objDiv.scrollTop, objDiv.offsetHeight, objDiv.scrollHeight);
                     g.services.timeoutService.$timeout(function() {
                         if (wasAtBottom){
                             objDiv.scrollTop = objDiv.scrollHeight;

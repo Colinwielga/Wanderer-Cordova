@@ -52,6 +52,7 @@ ToteFlosfulgurPhlossi.component = function () {
 				that.previousPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.previous);
 				that.playedPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.played);
 				that.currentPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(message.current);
+				// console.log(that.currentPhlossiPoly);
 			}
 			else if (message.module === that.gmPublic.getId()) {
 				that.currentChallengeId = message.challengeId;
@@ -190,6 +191,20 @@ ToteFlosfulgurPhlossi.component = function () {
 		};
 	};
 
+	this.reachPhlossiPoly = function(tag) {
+		// console.log("here", tag);
+		switch (tag) {
+			case "previous":
+				return this.previousPhlossiPoly;
+			case "played":
+				return this.playedPhlossiPoly;
+			case "current":
+				return this.currentPhlossiPoly;
+			case "challenge":
+				return this.challengePhlossiPoly;
+		}
+	}
+
 
     this.getPhlossiTitle = function () {
         return ToteFlosfulgurPhlossi.title
@@ -202,6 +217,7 @@ ToteFlosfulgurPhlossi.component = function () {
 		return ToteFlosfulgurPhlossi.getPhlossiPoly(this.currentPhlossiPoly.fulgonId);
 	};
 	this.getPreviousPhlossiPoly = function () {
+		// console.log("x");
 		return ToteFlosfulgurPhlossi.getPhlossiPoly(this.previousPhlossiPoly.fulgonId);
 	};
 	this.getPlayedPhlossiPoly = function () {

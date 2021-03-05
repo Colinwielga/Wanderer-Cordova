@@ -12,22 +12,22 @@
 				</div>
 				<div style="margin: auto; display: flex; justify-content: center; margin-top:20px;">
 				<div class="phlossi-poly-previous-container">
-					<div data-ng-include="module.getPreviousPhlossiPoly().getHtml()" x="{{model = module.getPreviousPhlossiPoly()}}"></div>
+					<div data-ng-include="module.getPreviousPhlossiPoly().getHtml()" ng-if="true" data-ng-init="modelTag = 'previous'"></div>
 				</div>
 				<div class="phlossi-poly-operation-container">
 					<div><span>+</span></div>
 				</div>
 				<div class="phlossi-poly-played-container">
-					<div data-ng-include="module.getPlayedPhlossiPoly().getHtml()" x="{{model = module.getPlayedPhlossiPoly()}}"></div>
+					<div data-ng-include="module.getPlayedPhlossiPoly().getHtml()" ng-if="true" data-ng-init="modelTag = 'played'"></div>
 				</div>
 				</div>
 				<div class="phlossi-poly-current-container">
-					<div data-ng-include="module.getCurrentPhlossiPoly().getHtml()" x="{{model = module.getCurrentPhlossiPoly()}}"></div>
+					<div data-ng-include="module.getCurrentPhlossiPoly().getHtml()" ng-if="true" data-ng-init="modelTag = 'current'"></div>
 				</div>
 				<div class="phlossi-challenge-container" ng-show="module.currentChallengeId != 0">
 					<div class="phlossi-challenge-title-container">Challenge:</div>
 					<div class="phlossi-poly-challenge-container">
-						<div data-ng-include="module.getChallengePhlossiPoly().getHtml()" x="{{model = module.getChallengePhlossiPoly()}}"></div>
+						<div data-ng-include="module.getChallengePhlossiPoly().getHtml()" ng-if="true" data-ng-init="modelTag = 'challenge'"></div>
 					</div>
 					<div class="phlossi-challenge-text-container">
 						<--&nbsp;&nbsp;{{module.getCurrentChallenge().id}}
