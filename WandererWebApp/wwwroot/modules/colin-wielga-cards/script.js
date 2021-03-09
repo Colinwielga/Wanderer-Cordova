@@ -11,7 +11,8 @@
     };
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
-        this.ledgerPublic = dependencies[0]; 
+        this.ledgerPublic = dependencies[0];
+        this.phlossiPublic = dependencies[1];
 
         var cardDisplayableMaker = {
             CanDisplay: function(message){
@@ -105,7 +106,7 @@
         return "Hand";
     };
     this.getRequires = function () {
-        return ["wanderer-core-ledger"];//"colin-wielga-gods"
+        return ["wanderer-core-ledger", "tote-flosfulgur-phlossi"];//"colin-wielga-gods"
     };
 
     this.getPublic = function () {
@@ -179,10 +180,20 @@
         //var card = this.getCard(cardID);
         //this.ledgerPublic.PublicSendMessage("discarded " + card.discardMessage);
         this.ledgerPublic.PublicSendDisplayableMessage({
-            displayerModule: this.getId(),   
+            displayerModule: this.getId(),
             cardId: cardID,
             deckId: this.selectedDeck.guid
         });
+
+		if (this.selectedDeck.guid === "flosfulgur-deck") {
+			// console.log("phlossi sent");
+			var atts = cardID.split("-");
+			var fulgonId = atts[1] + "-" + atts[2] + "-" + atts[3] + "-" + atts[4];
+			this.phlossiPublic.sendCard(fulgonId);
+		}
+		else {
+			console.log("phlossi bad")
+		}
     };
     this.OnNewCharacter();
 };

@@ -185,6 +185,10 @@
                 reDraw();
 
             }
+        },
+
+        styleClass: function () {
+            return { darkMode: false, funMode: false };
         }
     };
 

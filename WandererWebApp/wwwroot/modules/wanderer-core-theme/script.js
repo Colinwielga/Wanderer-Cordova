@@ -17,10 +17,11 @@ WandererCoreTheme.component = function () {
         this.logger = logger;
     };
 
+    this.myTheme = {};
+
     this.OnNewCharacter = function () {
-        this.darkMode = false;
-        this.funMode = false;
-        this.myTheme = {};
+        this.myTheme.darkMode = false;
+        this.myTheme.funMode = false;
         // this.haveWarnings = [];
         // this.fillInstructions();
         // this.fillWarnings();
@@ -36,7 +37,6 @@ WandererCoreTheme.component = function () {
         if (version === 1) {
             if (this.communicator.canRead("myTheme")) {
                 this.myTheme = this.communicator.read("myTheme");
-                this.applyTheme();
             }
             // if (this.communicator.canRead("haveWarnings")) {
             //     this.haveWarnings = this.getWarnings(this.communicator.read("haveWarnings"));
@@ -68,6 +68,9 @@ WandererCoreTheme.component = function () {
         return {
             getVersion: function () {
                 return 1.0;
+            },
+            styleClass: function () {
+                return that.myTheme;
             }
         };
     };
@@ -91,20 +94,9 @@ WandererCoreTheme.component = function () {
         else {
             this.myTheme.darkMode = true
         }
-        this.applyTheme()
     }
 
-    this.applyTheme = function () {
-        var e = document.getElementById("all");
-        if (this.getDarkMode()) {
-            e.classList.remove("theme-default");
-            e.classList.add("theme-dark");
-        }
-        else {
-            e.classList.remove("theme-dark");
-            e.classList.add("theme-default");
-        }
-    }
+
     this.getFunMode = function () {
         return this.myTheme.funMode
     }
@@ -123,20 +115,6 @@ WandererCoreTheme.component = function () {
         else {
             this.myTheme.funMode = true
         }
-        this.applyFun()
-    }
-    this.applyFun = function () {
-        var es = document.getElementsByClassName("section");
-        if (this.getFunMode()) {
-			for (var i=0, len=es.length|0; i<len; i=i+1|0) {
-			    es[i].classList.add("funny");
-			}
-		}
-        else {
-			for (var i=0, len=es.length|0; i<len; i=i+1|0) {
-			    es[i].classList.remove("funny");
-			}
-		}
     }
 
 }

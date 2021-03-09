@@ -1,0 +1,4 @@
+﻿.funny div.section:hover {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}

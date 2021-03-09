@@ -223,4 +223,12 @@ g.ModulesPage = function (name, accessKey, componentFactories, startingComponent
     this.Remove = function (module) {
         that.exposedPage.toggle(module);
     };
+    this.styleClass = function () {
+        for (var mod of modList) {
+            if (mod.getId() == "wanderer-core-theme") {
+                return mod.getPublic().styleClass();
+            }
+        }
+        return { darkMode: false, funMode : false};
+    }
 };

@@ -79,14 +79,14 @@
     };
 
     this.joinedButtonText = function () {
-        if (that.lastJoined === that.groupName) { 
-            return "Joined"; 
-        } else { 
+        if (that.lastJoined === that.groupName) {
+            return "Joined";
+        } else {
             return "Join";
-        } 
+        }
     };
-    
-    
+
+
     this.copyId = async function () {
         var ID = this.page.accessKey;
         await navigator.clipboard.writeText(ID);

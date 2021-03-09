@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/theme-default.css">
     <link rel="stylesheet" href="css/theme-dark.css">
+    <link rel="stylesheet" href="css/theme-fun.css">
     <link rel="stylesheet" href="External/textAngular.css">
     <link href="External/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
     <!-- module css -->
@@ -37,7 +38,7 @@
 </head>
 
 <body data-ng-controller="wandererController">
-    <div id="all" ng-hack="{{onUpdate()}}">
+    <div id="all" ng-hack="{{onUpdate()}}" data-ng-class="{'theme-dark':activePage().getController().styleClass().darkMode, 'theme-default': !activePage().getController().styleClass().darkMode, 'funny': activePage().getController().styleClass().funMode}">
         <div id="header">
             <div id="page-tab-container">
                 <div class="page-tab" data-ng-repeat="page in Pages">
@@ -158,8 +159,12 @@
 
         <script src="modules/tote-flosfulgur-tepals/tepals.js"></script>
         <script src="modules/tote-flosfulgur-tepals/script.js"></script>
+        <script src="modules/tote-flosfulgur-phlossi/phlossi.js"></script>
+        <script src="modules/tote-flosfulgur-phlossi/script.js"></script>
         <script src="modules/tote-flosfulgur-handbook/handbook.js"></script>
         <script src="modules/tote-flosfulgur-handbook/script.js"></script>
+        <script src="modules/tote-flosfulgur-gm/gm.js"></script>
+        <script src="modules/tote-flosfulgur-gm/script.js"></script>
 
         <script src="modules/scott-levi-pathfinder-2e/script.js"></script>
 
