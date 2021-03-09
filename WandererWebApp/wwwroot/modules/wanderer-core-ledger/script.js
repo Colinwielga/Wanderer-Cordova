@@ -57,6 +57,8 @@
     this.OnMessageCallBack = function(message){
         g.services.timeoutService.$timeout(function() {
 
+            console.log("got a message!")
+
             var objDiv = document.getElementById("message-holder");
             var wasAtBottom = !(Math.abs(objDiv.scrollHeight - (objDiv.scrollTop + objDiv.offsetHeight)) > 5);
 

@@ -2,7 +2,7 @@
 
 ScottLeviCloudCards.component = function () {
     this.cloudCards = "";
-
+    var that = this;
     this.getId = function () {
         return "scott-levi-cloud-cards";
     };
@@ -15,24 +15,30 @@ ScottLeviCloudCards.component = function () {
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.communicator = communicator;
         this.ledgerPublic = dependencies[0];
+        this.qualPublic = dependencies[1];
         this.logger = logger;
 
-        // var cardDisplayableMaker = {
-        //     CanDisplay: function(message){
-        //         if (message.displayerModule === that.getId()) {
-        //             return true;
-        //         }
-        //         return false;
-        //     },
-        //     ConvertToDisplayable: function (message) {
-        //         return {
-        //             getHtml: function () { return "modules/scott-levi-cloud-cards/card.html"; },
-        //             getModel: function () { return message.model; },
-        //             getId: function () { return "scott-levi-cloud-cards"; }
-        //         };
-        //     }
-        // };
-        // this.ledgerPublic.AddDisplayableMaker(cardDisplayableMaker);
+        var cardDisplayableMaker = {
+            CanDisplay: function(message){
+                if (message.displayerModule === that.getId()) {
+                    return true;
+                }
+                return false;
+            },
+            ConvertToDisplayable: function (message) {
+                return {
+                    getHtml: function () { return "modules/scott-levi-cloud-cards/card.html"; },
+                    getModel: function () { 
+                        message.model.roll = function () {
+                            that.qualPublic.publicRoll(message.model.uncertain, message.model.success); 
+                        }
+                        return message.model; 
+                    },
+                    getId: function () { return "scott-levi-cloud-cards"; }
+                };
+            }
+        };
+        this.ledgerPublic.AddDisplayableMaker(cardDisplayableMaker);
     };
 
     this.OnNewCharacter = function () { 
@@ -58,7 +64,7 @@ ScottLeviCloudCards.component = function () {
     };
 
     this.getRequires = function () {
-        return ["wanderer-core-ledger"];
+        return ["wanderer-core-ledger", "chris-qual-outcomes"];
     };
 
     this.getPublic = function () {
@@ -117,18 +123,17 @@ ScottLeviCloudCards.component = function () {
     this.discard = function (card) {
         var index = this.hand.indexOf(card);
         if (index > -1) {
-            var that = this;
             this.hand.splice(index, 1);
             this.logger.infoWithAction("Undo Discard?", "undo", function(){
                 that.hand.push(card);
             });
-            // this.ledgerPublic.PublicSendDisplayableMessage({
-            //     displayerModule : that.getId(), 
-            //     model:{
-            //         uncertain: card.indeterminate, 
-            //         success: card.success, 
-            //         failure: card.failure }
-            // });
+            this.ledgerPublic.PublicSendDisplayableMessage({
+                displayerModule : that.getId(), 
+                model:{
+                    uncertain: card.indeterminate, 
+                    success: card.success, 
+                    failure: card.failure, }
+            });
         };
     };
 

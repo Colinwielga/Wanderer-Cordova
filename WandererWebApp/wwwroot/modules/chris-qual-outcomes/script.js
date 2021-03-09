@@ -1,7 +1,7 @@
 ﻿var ChrisQualOutcomes = {};
 
 ChrisQualOutcomes.component = function () {
-
+    var that = this;
 
     this.getSuccess = function () {
         return Math.round(((100.0 - this.uncertain)/100.0) * ((this.success)/100.0) * 100.0);
@@ -105,6 +105,15 @@ ChrisQualOutcomes.component = function () {
         return {
             getVersion: function () {
                 return 1;
+            },
+            publicRoll: function (newUncertainty, newSuccess) {
+                
+                g.services.timeoutService.$timeout(function () {
+                    that.uncertain = newUncertainty;
+                    that.success = newSuccess;
+                    that.roll();
+                });
+                
             }
         };
     };
