@@ -37,36 +37,37 @@ KingdomK2.component = function () {
         g.services.SignalRService.SubscribeToEntity(
             "D77A54E8-77ED-4F5D-A61D-B2BFF6F7B9B7",
             "8B4EE593-BF96-4A18-80DA-8A8BE40F949A",// prod is "8B4EE593-BF96-4A18-80DA-8A8BE40F949D",
-            fallbackEntity.entityChanges.GetEntityChanges(), function (key1, key2, payload) {
-            g.services.timeoutService.$timeout(function () {
-                if (that.trackedEntity === undefined) {
-                    that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
-                    
-                    // check if tracked entity has a player that represents us
-                    // if it does we are done
-                    // if it does not, make
-                    for (var player of that.trackedEntity.backing.playerVotes.backing) {
-                        var localPlayerId = that.page.accessKey;
-                        if (player.backing.id.backing === localPlayerId)  {
-                            return;
+            fallbackEntity.entityChanges.GetEntityChanges(), 
+            function (key1, key2, payload) {
+                g.services.timeoutService.$timeout(function () {
+                    if (that.trackedEntity === undefined) {
+                        that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                        
+                        // check if tracked entity has a player that represents us
+                        // if it does we are done
+                        // if it does not, make
+                        for (var player of that.trackedEntity.backing.playerVotes.backing) {
+                            var localPlayerId = that.page.accessKey;
+                            if (player.backing.id.backing === localPlayerId)  {
+                                return;
+                            }
+                        }
+                        var ourPlayer = that.trackedEntity.backing.playerVotes.AddObject();
+                        ourPlayer.SetString("name", that.page.name ?? "");
+                        ourPlayer.SetString("id",that.page.accessKey);
+                        ourPlayer.SetNumber("votes", 25);
+                        that.trackedEntity.entityChanges.Publish(); 
+
+                    } else {
+                        that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                        var ourPlayer = that.GetOurPlayer();
+                        if (that.page.name != null && ourPlayer.backing.name.backing !== that.page.name) {
+                            ourPlayer.SetString("name", that.page.name);
+                            that.trackedEntity.entityChanges.Publish(); 
                         }
                     }
-                    var ourPlayer = that.trackedEntity.backing.playerVotes.AddObject();
-                    ourPlayer.SetString("name", that.page.name ?? "");
-                    ourPlayer.SetString("id",that.page.accessKey);
-                    ourPlayer.SetNumber("votes", 25);
-                    that.trackedEntity.entityChanges.Publish(); 
-
-                } else {
-                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
-                    var ourPlayer = that.GetOurPlayer();
-                    if (that.page.name != null && ourPlayer.backing.name.backing !== that.page.name) {
-                        ourPlayer.SetString("name", that.page.name);
-                        that.trackedEntity.entityChanges.Publish(); 
-                    }
-                }
+                });
             });
-         });
     };
 
     this.showVoters = function (bills) {

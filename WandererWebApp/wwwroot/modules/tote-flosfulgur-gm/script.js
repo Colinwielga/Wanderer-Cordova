@@ -10,50 +10,50 @@ ToteFlosfulgurGm.component = function () {
     };
 
     this.getRequires = function () {
-        return ["wanderer-core-save"];
-        // return ["wanderer-core-save", "tote-flosfulgur-phlossi"];
+        //return ["wanderer-core-save"];
+         return ["wanderer-core-save", "tote-flosfulgur-phlossi"];
     };
 
     this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator;
+        // this.communicator = communicator;
         this.logger = logger;
-        // this.phlossiPublic = dependencies[1];
+        this.phlossiPublic = dependencies[1];
     };
 
-	this.key = Math.random() + "";
-    this.joined = false;
-	this.currentChallenge = ToteFlosfulgurGm.getChallenge(0);
-    this.OnStart = function (communicator, logger, page, dependencies) {
-        this.communicator = communicator;
-        this.page = page;
-        dependencies[0].onJoin(this.OnJoinCallBack);
-    };
-    this.OnJoinCallBack = function(groupName){
-        g.services.SignalRService.tryRemoveCallback(that.key);
-        g.services.SignalRService.setCallback(
-            that.key,
-            groupName,
-            that.ShouldHandleMessage,
-            that.OnMessageCallBack
-		);
-        g.services.timeoutService.$timeout(function () {
-            that.joined = true;
-        })
-    };
+	// this.key = Math.random() + "";
+    // this.joined = false;
+	// this.currentChallenge = ToteFlosfulgurGm.getChallenge(0);
+    // this.OnStart = function (communicator, logger, page, dependencies) {
+    //     this.communicator = communicator;
+    //     this.page = page;
+    //     //dependencies[0].onJoin(this.OnJoinCallBack);
+    // };
+    // this.OnJoinCallBack = function(groupName){
+    //     g.services.SignalRService.tryRemoveCallback(that.key);
+    //     g.services.SignalRService.setCallback(
+    //         that.key,
+    //         groupName,
+    //         that.ShouldHandleMessage,
+    //         that.OnMessageCallBack
+	// 	);
+    //     g.services.timeoutService.$timeout(function () {
+    //         that.joined = true;
+    //     })
+    // };
 
-    this.ShouldHandleMessage = function(message){
-        return message.module === that.getId();
-    };
+    // this.ShouldHandleMessage = function(message){
+    //     return message.module === that.getId();
+    // };
 
-    this.OnMessageCallBack = function(message){
-		// console.log("callback");
-        g.services.timeoutService.$timeout(function() {
-			that.currentChallenge = ToteFlosfulgurGm.getChallenge(message.challengeId);
-        });
-    };
+    // this.OnMessageCallBack = function(message){
+	// 	// console.log("callback");
+    //     g.services.timeoutService.$timeout(function() {
+	// 		that.currentChallenge = ToteFlosfulgurGm.getChallenge(message.challengeId);
+    //     });
+    // };
 
     this.OnNewCharacter = function () {
-		this.currentChallenge = ToteFlosfulgurGm.getChallenge(0);
+		// this.currentChallenge = ToteFlosfulgurGm.getChallenge(0);
     };
 
     this.reset = function () {
@@ -61,15 +61,15 @@ ToteFlosfulgurGm.component = function () {
     };
 
     this.OnSave = function () {
-        this.communicator.write("challengeId", this.currentChallenge.id);
+        // this.communicator.write("challengeId", this.currentChallenge.id);
     };
 
     this.OnLoad = function () {
-        if (this.communicator.canRead("challengeId")) {
-            this.currentChallenge = ToteFlosfulgurGm.getChallenge(this.communicator.read("challengeId"));
-        } else {
-            this.currentChallenge = ToteFlosfulgurGm.getChallenge(0);
-        }
+        // if (this.communicator.canRead("challengeId")) {
+        //     this.currentChallenge = ToteFlosfulgurGm.getChallenge(this.communicator.read("challengeId"));
+        // } else {
+        //     this.currentChallenge = ToteFlosfulgurGm.getChallenge(0);
+        // }
     };
 
     this.getHmtl = function () {
@@ -90,13 +90,14 @@ ToteFlosfulgurGm.component = function () {
 
 
 	this.setChallenge = function(challengeId){
+        this.phlossiPublic.setChallenge(challengeId);
 		// console.log(challengeId);
-		that.currentChallenge = ToteFlosfulgurGm.getChallenge(challengeId);
-		g.services.SignalRService.Send(that.key, {
-			module: that.getId(),
-			challengeId: challengeId
-		});
-	}
+		// that.currentChallenge = ToteFlosfulgurGm.getChallenge(challengeId);
+		// g.services.SignalRService.Send(that.key, {
+		// 	module: that.getId(),
+		// 	challengeId: challengeId
+		// }); 
+	};
 
 
     this.getPublic = function () {
@@ -107,9 +108,9 @@ ToteFlosfulgurGm.component = function () {
             getId: function () {
                 return that.getId();
             },
-			getChallenge: function (challengeId) {
-				return ToteFlosfulgurGm.getChallenge(challengeId);
-			}
+			// getChallenge: function (challengeId) {
+			// 	return ToteFlosfulgurGm.getChallenge(challengeId);
+			// }
         };
     };
 

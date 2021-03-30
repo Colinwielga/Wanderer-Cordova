@@ -299,7 +299,7 @@ g.SharedEntity.CopyMembers = function (fromObject, toObject) {
         else if (typeof fromObject[member] === "string") {
             toObject.SetString(member, fromObject[member]);
         }
-        else if (typeof fromObject[member] === "object" && fromObject[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] === "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652" ) {
+        else if (typeof fromObject[member] === "object" && fromObject[member] != null && fromObject[member]["is-set-35EF2BBB-D1CA-4E64-BC28-7CB16392D652"] === "true-35EF2BBB-D1CA-4E64-BC28-7CB16392D652" ) {
             var newSet = toObject.SetSet(member);
             g.SharedEntity.CopyElements(fromObject[member], newSet);
         }
