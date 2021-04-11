@@ -193,7 +193,7 @@ ToteFlosfulgurTepal.tepals = [
         ["<b>+3</b> when jumping over or across things.", "You feel a vague sense of boyancy when you're off the ground."],
         [["jump-1-0-0"]]
     ),
-    // Contort
+    // Contort:
     ToteFlosfulgurTepal.tepal(
         "contort-1-0-0",
         "Contorting",
@@ -716,7 +716,7 @@ ToteFlosfulgurTepal.tepals = [
         "Praying devoutly",
         "religion",
         1, 0, 0,
-        ["<b>+2</b> when communing spiritually.", "Spiritual forces occasionally give you helpful direction.", "You have a strong religious faith and a good understanding of your religion's dogma and intricacies.", "You feel physically ill when your break any of your religion's tenants."],
+        ["<b>+2</b> when communing spiritually.", "Spiritual forces occasionally give you helpful direction.", "You have a strong religious faith and a good understanding of your religion's dogma and intricacies.", "You feel physically ill when your break any of your religion's tenets."],
         [["religion-0-0-0"]]
     ),
 ]
