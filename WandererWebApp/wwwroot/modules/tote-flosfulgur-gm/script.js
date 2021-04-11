@@ -88,16 +88,21 @@ ToteFlosfulgurGm.component = function () {
         return "Flosfulgur GM";
     };
 
+	this.currentChallenge = ToteFlosfulgurGm.getChallenge("", "");
 
-	this.setChallenge = function(challengeId){
-        this.phlossiPublic.setChallenge(challengeId);
+
+	this.setChallenge = function(color, shape){
+        this.phlossiPublic.setChallenge(color, shape);
+		this.currentChallenge = ToteFlosfulgurGm.getChallenge(color, shape);
 		// console.log(challengeId);
 		// that.currentChallenge = ToteFlosfulgurGm.getChallenge(challengeId);
 		// g.services.SignalRService.Send(that.key, {
 		// 	module: that.getId(),
 		// 	challengeId: challengeId
-		// }); 
+		// });
 	};
+	this.optionsColor = ToteFlosfulgurGm.challengeChoicesColor;
+	this.optionsShape = ToteFlosfulgurGm.challengeChoicesShape;
 
 
     this.getPublic = function () {

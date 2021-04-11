@@ -1,9 +1,28 @@
 ﻿<link rel="stylesheet" type="text/css" href="modules/tote-flosfulgur-gm/stylesheet.css" />
 <div class="pad-me">
     <div id="gm-title-container">
-        <div class="gm-title">Pick a challenge:</div>
+        <div class="gm-title">
+			<b>Current challenge:</b>
+			<div ng-bind-html="module.currentChallenge.text"></div>
+		</div>
+		<br>
+        <div class="gm-title"><b>Pick a challenge:</b></div>
 		<br>
         <div class="gm-button-container">
+			<span>Color requirement: </span>
+			<select ng-init="selectedColor=module.optionsColor[0]" ng-options="x for x in module.optionsColor" data-ng-model="selectedColor"></select>
+			<!-- <select ng-model="gmcolor" default="any">
+				<option value="any" selected>any color</option>
+				<option value="keep">keep color</option>
+				<option value="change">change color</option>
+			</select> -->
+			<br><br>
+			<span>Shape requirement: </span>
+			<select ng-init="selectedShape=module.optionsShape[0]" ng-options="x for x in module.optionsShape" data-ng-model="selectedShape"></select>
+			<br><br>
+			<button ng-click="module.setChallenge(selectedColor, selectedShape)">Set challenge</button>
+			<!-- <button data-ng-click="module.setChallenge('Keep the color the same.')">Set challenge</button> -->
+			<!-- <br><br>
 			<button data-ng-click="module.setChallenge('Keep the color the same.')">Keep color</button>
             <button data-ng-click="module.setChallenge('Change the color.')">Change color</button>
 			<br><br>
@@ -13,9 +32,9 @@
             <button data-ng-click="module.setChallenge('Decrease the shape.')">Decrease shape</button>
 			<br><br>
             <button data-ng-click="module.setChallenge('Keep the color and shape the same.')">Keep shape, color</button>
-            <button data-ng-click="module.setChallenge('Change the color and shape.')">Change shape, color</button>
+            <button data-ng-click="module.setChallenge('Change the color and shape.')">Change shape, color</button> -->
 			<br><br>
-            <button data-ng-click="module.setChallenge(0)">Reset challenge</button>
+            <button data-ng-click="module.setChallenge('', '')">Reset challenge</button>
         </div>
 		<!-- <div>Entity ID: {{module.entityId}}</div> -->
     </div>
