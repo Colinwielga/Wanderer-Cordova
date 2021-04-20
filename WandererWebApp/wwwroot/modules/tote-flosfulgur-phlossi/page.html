@@ -7,7 +7,7 @@
 	    </div>
 		<div id="phlossi-surface-container">
 			<div id="phlossi-surface">
-				<!-- <div class="phlossi-error-container" ng-show="!module.joined" class="pad-me"> 
+				<!-- <div class="phlossi-error-container" ng-show="!module.joined" class="pad-me">
 				    <span class="phlossi-error">Not in a game ...</span>
 				</div> -->
 				<div style="margin: auto; display: flex; justify-content: center; margin-top:20px;">
@@ -24,13 +24,13 @@
 				<div class="phlossi-poly-current-container">
 					<div data-ng-include="module.getCurrentPhlossiPoly().getHtml()" ng-if="true" data-ng-init="modelTag = 'current'"></div>
 				</div>
-				<div class="phlossi-challenge-container" ng-show="module.currentChallengeId != 0">
+				<div class="phlossi-challenge-container" ng-show="module.currentChallenge.id != ''">
 					<div class="phlossi-challenge-title-container">Challenge:</div>
 					<div class="phlossi-poly-challenge-container">
 						<div data-ng-include="module.getChallengePhlossiPoly().getHtml()" ng-if="true" data-ng-init="modelTag = 'challenge'"></div>
 					</div>
 					<div class="phlossi-challenge-text-container">
-						&lt;--&nbsp;&nbsp;{{module.currentChallengeId}}
+						&lt;--&nbsp;&nbsp;{{module.currentChallenge.text}}
 					</div>
 					<!-- <div data-ng-include="module.getCurrentChallenge().getHtml()" x="{{model = module.getCurrentChallenge()}}"></div> -->
 				</div>

@@ -19,26 +19,27 @@ ToteFlosfulgurPhlossi.component = function () {
     };
 
     this.OnNewCharacter = function () {
-		
+
 		var fallbackEntity = g.SharedEntity.MakeTrackedEntity();
-		
+
 		fallbackEntity.SetString("currentPhlossiPoly","---");
 		fallbackEntity.SetString("previousPhlossiPoly","---");
 		fallbackEntity.SetString("playedPhlossiPoly", "---");
 		fallbackEntity.SetString("challengePhlossiPoly", "---");
-		fallbackEntity.SetString("currentChallengeId", 0);		
+		fallbackEntity.SetString("currentChallengeColor", "");
+		fallbackEntity.SetString("currentChallengeShape", "");
 
 		this.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
 		this.previousPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
 		this.playedPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
 		this.challengePhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly("---");
-		this.currentChallengeId = 0;
+		this.currentChallenge = ToteFlosfulgurGm.getChallenge("", "");
 
 		var that = this;
         g.services.SignalRService.SubscribeToEntity(
             "B0AB3C37-C02A-4CF3-A2AB-E93948FAB9C3",
             "B7139F4D-D46C-45E7-80D8-A2A9A66AF539",
-            fallbackEntity.entityChanges.GetEntityChanges(), 
+            fallbackEntity.entityChanges.GetEntityChanges(),
             function (key1, key2, payload) {
                 g.services.timeoutService.$timeout(function () {
                     if (that.trackedEntity === undefined) {
@@ -48,9 +49,9 @@ ToteFlosfulgurPhlossi.component = function () {
                     }
 					that.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.currentPhlossiPoly.backing);
 					that.previousPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.previousPhlossiPoly.backing);
-					that.playedPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.playedPhlossiPoly.backing);	
+					that.playedPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.playedPhlossiPoly.backing);
 					that.challengePhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.challengePhlossiPoly.backing);
-					that.currentChallengeId = that.trackedEntity.backing.currentChallengeId.backing;
+					that.currentChallenge = ToteFlosfulgurGm.getChallenge(that.trackedEntity.backing.currentChallengeColor.backing, that.trackedEntity.backing.currentChallengeShape.backing);
                 });
             });
 
@@ -89,25 +90,26 @@ ToteFlosfulgurPhlossi.component = function () {
 			getVersion: function () {
 				return 1;
 			},
-			setChallenge: function (currentChallenge) {
-				that.trackedEntity.SetString("currentChallengeId", currentChallenge);
-				this.currentChallengeId = currentChallenge;
-				
+			setChallenge: function (challengeColor, challengeShape) {
+				that.trackedEntity.SetString("currentChallengeColor", challengeColor);
+				that.trackedEntity.SetString("currentChallengeShape", challengeShape);
+				this.currentChallenge = ToteFlosfulgurGm.getChallenge(challengeColor, challengeShape);
+
 				that.trackedEntity.SetString("challengePhlossiPoly", that.trackedEntity.backing.currentPhlossiPoly.backing);
 				this.challengePhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.currentPhlossiPoly.backing);
 
-				that.trackedEntity.entityChanges.Publish(); 
+				that.trackedEntity.entityChanges.Publish();
 			},
-			
+
 			sendCard: function(fulgonId){
-			
+
 				var a = ToteFlosfulgurPhlossi.getPhlossiPoly(that.currentPhlossiPoly.fulgonId);
 				var b = ToteFlosfulgurPhlossi.getPhlossiPoly(fulgonId);
 				var c = ToteFlosfulgurPhlossi.getNextPhlossiPoly(a, b);
 				that.previousPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(a.fulgonId);
 				that.playedPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(b.fulgonId);
 				that.currentPhlossiPoly = ToteFlosfulgurPhlossi.getPhlossiPoly(c.fulgonId);
-				
+
 				that.trackedEntity.SetString("previousPhlossiPoly", that.previousPhlossiPoly.fulgonId)
 				that.trackedEntity.SetString("playedPhlossiPoly", that.playedPhlossiPoly.fulgonId)
 				that.trackedEntity.SetString("currentPhlossiPoly", that.currentPhlossiPoly.fulgonId)
