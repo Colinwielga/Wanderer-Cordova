@@ -83,7 +83,7 @@
         }
 
         this.drollstext = this.drolls.join(", ");
-        this.ledgerPublic.PublicSendMessage("rolled a " + this.drollstext + " for a total of " + this.drollsum);
+        this.ledgerPublic.AutoMessage("rolled a " + this.drollstext + " for a total of " + this.drollsum);
 
         return 0;
     }

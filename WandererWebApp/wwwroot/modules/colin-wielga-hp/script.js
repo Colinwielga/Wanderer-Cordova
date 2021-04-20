@@ -47,6 +47,7 @@ var component = function () {
         } else {
             this.encounterHP = this.MaxEncounterHP;
         }
+        this.status = this.getStatus();
     };
     this.ColorString = function () {
         var r = Math.floor((this.hp + this.encounterHP) / (this.MaxHP + this.MaxEncounterHP) * (0xCC - 0x33));
@@ -95,21 +96,21 @@ var component = function () {
         var x = this.MoveEncounterHP(-hpMover());
         this.MoveHP(x);
         this.status = this.getStatus();
-        this.ledgerPublic.PublicSendMessage("took a hit! status: " + this.status);  
+        this.ledgerPublic.AutoMessage("took a hit! status: " + this.status);  
     };
 
     this.FullHeal = function () {
         var x = this.MoveEncounterHP(1000);
         this.MoveHP(x);
         this.status = this.getStatus();
-        this.ledgerPublic.PublicSendMessage("fully restored their health! status: " + this.status);
+        this.ledgerPublic.AutoMessage("fully restored their health! status: " + this.status);
     };
 
     this.recoverEncounterHP = function () {
         this.MoveEncounterHP(1000);
         this.MoveHP(hpMover() / 2.0);
         this.status = this.getStatus();
-        this.ledgerPublic.PublicSendMessage("Survived the encounter. status: " + this.status);
+        this.ledgerPublic.AutoMessage("Survived the encounter. status: " + this.status);
     };
 
     this.getStatus = function () {

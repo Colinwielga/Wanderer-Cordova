@@ -100,8 +100,8 @@ ScottLeviCloudCards.component = function () {
    
     this.generateQualCard = function() {
         var indeterminate = this.nicerRandom(0,50);
-        var success = this.nicerRandom(0,100-indeterminate)
-        var failure = (100-(indeterminate+success)) 
+        var success = this.nicerRandom(1,99-indeterminate);
+        var failure = (100-(indeterminate+success));
 
         var qualCard = {  
             success: success,   
@@ -125,6 +125,7 @@ ScottLeviCloudCards.component = function () {
         if (index > -1) {
             this.hand.splice(index, 1);
             this.logger.infoWithAction("Undo Discard?", "undo", function(){
+                that.ledgerPublic.AutoMessage("undid their last discard.");
                 that.hand.push(card);
             });
             this.ledgerPublic.PublicSendDisplayableMessage({

@@ -2,7 +2,8 @@
 
     var messageDisplayableMaker = {
         CanDisplay: function(message){
-            return message.displayerModule === that.getId();
+            // we display messages when moduleId matches ours and its not an auto message
+            return message.autoMessage !== true && message.displayerModule === that.getId();
         },
         ConvertToDisplayable:function(message){
             return {
@@ -12,8 +13,21 @@
         }
     };
 
+    var autoMessageDisplayableMaker = {
+        CanDisplay: function(message){
+            // we display auto messages when it is an auto message and moduleId matches ours
+            return message.autoMessage === true && message.displayerModule === that.getId();
+        },
+        ConvertToDisplayable:function(message){
+            return {
+                getHtml: function(){ return "modules/wanderer-core-ledger/auto-message.html";},
+                getModel: function(){ return message;}
+            };
+        }
+    };
+
     // a list of things that know how to display messages
-    this.displayableMakers = [messageDisplayableMaker];
+    this.displayableMakers = [messageDisplayableMaker, autoMessageDisplayableMaker];
 
     this.displayables = [];
 
@@ -118,7 +132,18 @@
                     timestamp: Date.now(),
                     sender: that.page.name,
                     module: that.getId(),
-                    displayerModule : that.getId()
+                    displayerModule: that.getId(),
+                    autoMessage: false,
+                });
+            },
+            AutoMessage: function (message) {
+                g.services.SignalRService.Send(that.key, {
+                    text: message,
+                    timestamp: Date.now(),
+                    sender: that.page.name,
+                    module: that.getId(),
+                    displayerModule: that.getId(),
+                    autoMessage: true,
                 });
             },
             PublicSendDisplayableMessage: function(message){
