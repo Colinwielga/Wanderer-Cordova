@@ -18,11 +18,11 @@ namespace WandererWebApp
         private const string entityPrefix = "entity-";
         // need to think about this
         private const string EntityOwner = "{7362FB24-EE6A-4D46-AF13-C6343A3C21FF}";
-        private readonly ItemCache cache;
+        private readonly ItemCache<SharedEntitiesTableName> cache;
 
         public ILogger<Chat> Logger { get; }
 
-        public Chat(ItemCache cache, ILogger<Chat> logger)
+        public Chat(ItemCache<SharedEntitiesTableName> cache, ILogger<Chat> logger)
         {
             this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -57,7 +57,7 @@ namespace WandererWebApp
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey);
 
-                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, ModifyObject(fallback)));
+                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey,()=> ModifyObject(fallback)(new JObject())));
 
                 var client = Clients.Client(Context.ConnectionId);
 
