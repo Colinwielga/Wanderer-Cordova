@@ -47,10 +47,10 @@
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
         dependencies[0].onJoin(this.OnJoinCallBack);
+        this.ledgerPublic = that.ledgerPublic;
     };
 
     this.OnJoinCallBack = function(groupName){
-
         g.services.SignalRService.tryRemoveCallback(that.key);
         g.services.SignalRService.setCallback(
             that.key,
@@ -60,6 +60,7 @@
         g.services.timeoutService.$timeout(function () {
             that.joined = true;
         })
+        that.getPublic().AutoMessage(" has joined the game session.");
     };
 
     this.ShouldHandleMessage = function(message){
