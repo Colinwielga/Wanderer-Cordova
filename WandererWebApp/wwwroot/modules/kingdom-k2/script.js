@@ -36,7 +36,7 @@ KingdomK2.component = function () {
         var that = this;
         g.services.SignalRService.SubscribeToEntity(
             "D77A54E8-77ED-4F5D-A61D-B2BFF6F7B9B7",
-            "8B4EE593-BF96-4A18-80DA-8A8BE40F949A",// prod is "8B4EE593-BF96-4A18-80DA-8A8BE40F949D",
+            "8B4EE593-BF96-4A18-80DA-8A8BE40F949D",// prod is "8B4EE593-BF96-4A18-80DA-8A8BE40F949D",
             fallbackEntity.entityChanges.GetEntityChanges(), 
             function (key1, key2, payload) {
                 g.services.timeoutService.$timeout(function () {

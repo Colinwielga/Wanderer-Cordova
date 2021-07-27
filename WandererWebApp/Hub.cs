@@ -153,6 +153,42 @@ namespace WandererWebApp
                     }
                     at[addToNumber.Path.Last()] = ((double)at[addToNumber.Path.Last()]) + addToNumber.Add;
                 }
+                else if (item.Name == nameof(UpdateCollaborativeString))
+                {
+                    var updateCollaborativeString = JsonConvert.DeserializeObject<UpdateCollaborativeString>(item.JSON);   
+                    var at = entity; ;
+                    foreach (var pathPart in updateCollaborativeString.Path.SkipLast(1))
+                    {
+                        at = Navigate(at, pathPart);
+                    }
+
+                    // we want to be able to handle:
+                    // say Scott chagned:
+                    // hello my dear
+                    // to:
+                    // hello my dear,
+                    // that would cteat a change
+                    // {type: "add",  atIndex: 13, test ","}
+                    //
+                    // but on the server someone has deleted "my" so it has:
+                    // hello dear
+                    // here we need to intelligently find the index of the add
+                    
+                    // go through the list of changes
+                    // if it's an add, add it
+                    // it it's a delete, delete it
+                    foreach (var change in updateCollaborativeString.Changes) 
+                    {
+                        if (change.Type == "add") 
+                        { 
+                            at[updateCollaborativeString.Path.Last()] = ((string)at[updateCollaborativeString.Path.Last()]).Insert(change.AtIndex, change.Text);   
+                        }
+                        if (change.Type == "delete") 
+                        {
+                            at[updateCollaborativeString.Path.Last()] = ((string)at[updateCollaborativeString.Path.Last()]).Remove(change.AtIndex, change.Text.Length);
+                        }
+                    }
+                }
                 else
                 {
                     throw new Exception($"unexpected operation {item.Name}");
@@ -270,4 +306,19 @@ namespace WandererWebApp
         public string[] Path { get; set; }
         public double Add { get; set; }
     }
+
+    public class UpdateCollaborativeString
+    {
+        public string[] Path {get; set; }
+        public CollaborativeChange[] Changes {get; set; }
+        public string Original {get;set; } 
+    }
+
+    public class CollaborativeChange
+    {
+        public string Type {get; set; }
+        public int AtIndex {get; set; }
+        public string Text {get; set; }
+    }
+
 }

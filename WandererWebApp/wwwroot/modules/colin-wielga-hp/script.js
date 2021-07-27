@@ -1,6 +1,8 @@
 ﻿// TODO all this max and mins should be in getters + setters 
 
-var component = function () {
+var colinWielgaHp = {};
+
+colinWielgaHp.component = function () {
     this.MaxHP = 8.0;
     this.MaxEncounterHP = 4.0;
 
@@ -168,4 +170,4 @@ var component = function () {
 
 };
 
-g.services.componetService.registerCharacter(component);
+g.services.componetService.registerCharacter(colinWielgaHp.component);

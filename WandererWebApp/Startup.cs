@@ -48,6 +48,8 @@ namespace WandererWebApp
             services.AddSingleton(typeof(ItemCache<AccountsTableName>));
             services.AddSingleton(typeof(CharactersTableName));
             services.AddSingleton(typeof(ItemCache<CharactersTableName>));
+            services.AddSingleton(typeof(CampaignsTableName));
+            services.AddSingleton(typeof(ItemCache<CampaignsTableName>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

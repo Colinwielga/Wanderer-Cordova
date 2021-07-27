@@ -1,4 +1,6 @@
-﻿var component = function () {
+﻿var colinWielgaCounters = {}
+
+colinWielgaCounters.component = function () {
     this.getSystem = function () {
         return "Tree of a Thousand Lives"
     };
@@ -75,4 +77,4 @@
 
 };
 
-g.services.componetService.registerCharacter(component);
+g.services.componetService.registerCharacter(colinWielgaCounters.component);

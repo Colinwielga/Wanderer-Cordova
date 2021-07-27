@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace WandererWebApp
 {
-
     public class Payload { 
         public JObject JObject { get; set; }
         public List<string> RecentChanges { get; set; }
@@ -44,6 +43,11 @@ namespace WandererWebApp
     public class CharactersTableName : ITableName
     {
         public string Name => "Characters";
+    }
+
+    public class CampaignsTableName : ITableName
+    {
+        public string Name => "Campaigns";
     }
 
     // this generic is unfortunately unbridled creativilty

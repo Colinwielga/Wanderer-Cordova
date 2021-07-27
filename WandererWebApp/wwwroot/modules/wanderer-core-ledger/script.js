@@ -47,7 +47,6 @@
     this.OnStart = function (communicator, logger, page, dependencies) {
         this.page = page;
         dependencies[0].onJoin(this.OnJoinCallBack);
-        this.ledgerPublic = that.ledgerPublic;
     };
 
     this.OnJoinCallBack = function(groupName){
@@ -75,8 +74,13 @@
             console.log("got a message!")
 
             var objDiv = document.getElementById("message-holder");
-            var wasAtBottom = !(Math.abs(objDiv.scrollHeight - (objDiv.scrollTop + objDiv.offsetHeight)) > 5);
-
+            
+            // when the ledger is closed 
+            // objDiv closed
+            if (objDiv != null) {
+                var wasAtBottom = !(Math.abs(objDiv.scrollHeight - (objDiv.scrollTop + objDiv.offsetHeight)) > 5);
+            }
+            
             for (let displayableMaker of that.displayableMakers) {
                 if (displayableMaker.CanDisplay(message)){
                     var displayable = displayableMaker.ConvertToDisplayable(message);
@@ -88,8 +92,10 @@
 
 					// console.log("check scroll", wasAtBottom, objDiv.scrollTop, objDiv.offsetHeight, objDiv.scrollHeight);
                     g.services.timeoutService.$timeout(function() {
-                        if (wasAtBottom){
-                            objDiv.scrollTop = objDiv.scrollHeight;
+                        if (objDiv != null) {
+                            if (wasAtBottom){
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
                         }
                     });
 

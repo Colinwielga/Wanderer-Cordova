@@ -1,4 +1,6 @@
-﻿var component = function () {
+﻿
+
+var component = function () {
     this.getId = function () {
         return "colin-wielga-description";
     };

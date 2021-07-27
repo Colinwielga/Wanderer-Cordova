@@ -1,4 +1,6 @@
-﻿var component = function () {
+﻿var colinWielgaNodes = {};
+
+colinWielgaNodes.component = function () {
     this.notes = "";
     this.getSystem = function () {
         return "Core"
@@ -49,7 +51,7 @@
     this.OnNewCharacter();
 };
 
-g.services.componetService.registerCharacter(component);
+g.services.componetService.registerCharacter(colinWielgaNodes.component);
 
 /*This is the simpliest module you can make in Wanderer.
 Starts as a blank text box, then uses functions to save, load, etc.

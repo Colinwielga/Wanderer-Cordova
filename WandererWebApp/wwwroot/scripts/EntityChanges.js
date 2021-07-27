@@ -50,13 +50,15 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
         },
         Publish: function () {
             var changes = this.GetEntityChanges();
-            g.services.SignalRService.connection.send('UpdateSharedEntity', key1, key2, changes);
-            changeList = [];
-            this.waitFor = changes.ChangeId;    
-            if (this.lastSend === 0) {
-                var d = new Date();
-                this.lastSend = d.getTime();
+            if (changes.Operations.length != 0 ){
+                g.services.SignalRService.connection.send('UpdateSharedEntity', key1, key2, changes);
+                changeList = [];
+                this.waitFor = changes.ChangeId;    
+                if (this.lastSend === 0) {
+                    var d = new Date();
+                    this.lastSend = d.getTime();
 
+                }
             }
         }
     };
@@ -73,7 +75,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 return {
                     Name: "NumberValue",
                     JSON: JSON.stringify({
-                        Value: number
+                        Value: this.backing
                     })
                 };
             },
@@ -111,7 +113,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 return {
                     Name: "StringValue",
                     JSON: JSON.stringify({
-                        Value: string
+                        Value: this.backing 
                     })
                 };
             },
@@ -124,6 +126,224 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                         Value: this.ToValue()
                     })
                 });
+            },
+            UpdateForCollaboration: function (newString) {
+
+                var from = this.backing;
+                var to = newString;
+
+                // abd
+                // acd
+                // list of lists of lists of strings ("↘","➡","⬇")
+                // columns then row
+                // each entry is 
+                // [[[],["⬇"],["⬇","⬇"],["⬇","⬇","⬇"]],
+                //  [["➡"],["↘"],["↘","⬇"],["↘","⬇","⬇"]],
+                //  [["➡", "➡"],["↘", "➡"],["↘","⬇","➡"],["↘","⬇","⬇","➡"]],
+                //  [["➡", "➡", "➡"],["↘","➡","➡"],["↘","⬇","➡","➡"],["↘","⬇","➡","↘"]],
+                //  ]
+                //
+                //_     ➡  ➡➡   ➡➡➡
+                // a ⬇   ↘  ↘➡    ↘➡➡
+                // c ⬇⬇  ↘⬇ ↘⬇➡   ↘⬇➡➡
+                // d ⬇⬇⬇ ↘⬇⬇ ↘⬇⬇➡ ↘⬇➡↘
+
+                // accessed like: grid[x][y]
+
+                var copyAndAppend = function(list,toAdd){
+                    var res = [];
+                    for (var item of list){
+                        res.push(item);
+                    }
+                    res.push(toAdd);
+                    return res;
+                }
+
+                // create the grid
+                var grid = [];
+                // create the columns
+                for (var x=0; x <= from.length; x++){
+                    // create a column
+                    var columnToAdd = [];
+                    // for each row
+                    for (var y=0; y <= to.length; y++){
+                        var rowToAdd = null;
+                        // add our new row to our column
+                        columnToAdd.push(rowToAdd);
+                    }
+                    // add our new column to our gird
+                    grid.push(columnToAdd);
+                }
+
+                // fill the grid:
+                //  working left to right, top to bottom look at each square:
+                for (var x=0; x <= from.length; x++){
+                    for (var y=0; y <= to.length; y++){
+                        //  calculate the 3 possible paths to that square
+                        var bestPath = null;
+                        // 1st path the square above plus "⬇"
+                        if (y != 0) { 
+                            var path1 = copyAndAppend(grid[x][y-1], "⬇");
+                            // we are the best path 
+                            bestPath = path1;
+                        }
+                        // the square diagonal plus "↘" when the letters match
+                        if (y != 0 && x != 0 && from[x-1] === to[y-1]){
+                            var path2 = copyAndAppend(grid[x-1][y-1], "↘")
+                            // is the best path empty? if so, we are the best path
+                            // otherwise, are we shorter than the path? if so we are the best
+                            if (bestPath === null){
+                                bestPath = path2;
+                            }
+                            else if (path2.length < bestPath.length){
+                                bestPath = path2;
+                            }
+                        }
+                        // the square to the left plus "➡"
+                        if (x != 0) {
+                            var path3 = copyAndAppend(grid[x-1][y], "➡")
+                            // is the best path empty? if so, we are the best path
+                            // otherwise, are we shorter than the path? if so we are the best
+                            if (bestPath === null){
+                                bestPath = path3;
+                            }
+                            else if (path3.length < bestPath.length){
+                                bestPath = path3;
+                            }
+                        }
+                        // the square is 0,0 use the empty list
+                        if (y === 0 && x === 0) {
+                            var path4 = []
+                            // is the best path empty? if so, we are the best path
+                            // otherwise, are we shorter than the path? if so we are the best
+                            if (bestPath === null){
+                                bestPath = path4;
+                            }
+                            else if (path4.length < bestPath.length){
+                                bestPath = path4;
+                            }
+                        }
+                        //  fill the square with the best path
+                        grid[x][y] = bestPath;
+                    }
+                }
+
+                //   _   a   b      d
+                // _     ➡  ➡➡   ➡➡➡
+                // a ⬇   ↘  ↘➡    ↘➡➡
+                // c ⬇⬇  ↘⬇ ↘⬇➡   ↘⬇➡➡
+                // d ⬇⬇⬇ ↘⬇⬇ ↘⬇⬇➡ ↘⬇➡↘
+
+
+                // abc
+                // acd
+
+                // ↘ moves both
+                // ➡ moves only orginal
+                // ⬇ moves only new
+
+                // ↘
+                // a     0
+                // a     0
+                // res: []
+
+                // ↘➡
+                // ab     1
+                // a      0
+                // res: [{type:"delete", atIndex: 1, text: "b" }]
+
+                // ↘➡↘
+                // abc    2 
+                // ac     1
+                // res: [{type:"delete", atIndex: 1, text: "b" }]
+
+                // ↘➡↘⬇
+                // abc   2
+                // acd   2 
+                // res: [{type:"delete", atIndex: 1, text: "b" }, {type:"add", atIndex:2, text:"d"}]
+
+               
+                var bestPath = grid[from.length][to.length];
+
+
+                var changes = [];
+                var fromIndex = -1;
+                var toIndex = -1;
+                for (var arrow of bestPath){
+                    if (arrow === "↘"){
+                        fromIndex = fromIndex + 1;
+                        toIndex = toIndex + 1;
+                    } 
+                    else if (arrow === "➡"){
+                        fromIndex = fromIndex + 1;
+                        changes.push({type:"delete", atIndex: toIndex + 1, text: from[fromIndex]});
+                    }
+                    else if (arrow === "⬇"){
+                        toIndex = toIndex + 1;
+                        changes.push({type:"add", atIndex: toIndex, text: to[toIndex]});   
+                    }
+                }
+
+                // test with 
+                // abc => dog
+                // right now it is:
+                // var changes = [
+                //   { type: "delete", atIndex: 0, text: "a" },
+                //   { type: "delete", atIndex: 0, text: "b" },
+                //   { type: "delete", atIndex: 0, text: "c" },
+                //   { type: "add", atIndex: 0, text: "d" }
+                //   { type: "add", atIndex: 1, text: "o" }
+                //   { type: "add", atIndex: 2, text: "g" }
+                // ]
+                // var flattenedChanges = [
+                //   { type: "delete", atIndex: 0, text: "abc" },
+                //   { type: "add", atIndex: 0, text: "dog" }
+                // ]
+
+                // we are going to have a concept of last set it to null
+                // create flattenedChanges as an empty list
+                var last = null;
+                var flattenedChanges = [];
+                // we are going to loop through changes
+                for (var current of changes){
+                    // on each change:
+                    //  if there is a last (aka last is not null)
+                    //  do the code we wrote
+                    //  update last to be current
+                    if (last != null){
+                        // try combine deletes and set last to the result
+                        if (current.type === last.type && current.type === "delete" && current.atIndex === last.atIndex){
+                            last = {type:"delete", atIndex: current.atIndex, text: last.text + current.text};
+                        }
+                        // otherwise try combine adds and set last to the result
+                        else if (current.type === last.type && current.type === "add" && current.atIndex === last.atIndex + last.text.length){
+                            last = {type:"add", atIndex: last.atIndex, text: last.text + current.text}
+                        }
+                        // otherwise push to flattenedChanges
+                        else {
+                            flattenedChanges.push(last);
+                            last = current;
+                        }
+                    }
+                    else {
+                        last = current;
+                    }
+                }
+
+                if (last != null){
+                    flattenedChanges.push(last);
+                }
+
+                this.entityChanges.changeList.push({
+                    Name: "UpdateCollaborativeString",
+                    JSON: JSON.stringify({
+                        Path: this.path,
+                        Changes: flattenedChanges,
+                        Original: from,
+                    })
+                });
+                this.backing = newString;
+
             }
         };
     };
@@ -213,7 +433,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                     }
                 }
                 if (index === -1) {
-                    throw { message: "idem not found" };
+                    throw { message: "item not found" };
                 }
                 this.backing.splice(index, 1)
                 this.entityChanges.changeList.push({
@@ -276,6 +496,11 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 var added = this.entityChanges.MakeObject(this.entityChanges.MakePath(this.path, member));
                 return this.SetShared(member, added);
             }
+            // ,
+            // UpdateCollaborativeString: function (member, string) {
+            //     var added = this.entityChanges.MakeString(this.entityChanges.MakePath(this.path, member), string);
+            //     return this.SetShared(member, added);
+            // },
         };
     };
 
