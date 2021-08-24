@@ -22,10 +22,43 @@ sharedNotes.component = function () {
                 if (that.trackedEntity === undefined) {
                     that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
                 } else {
+
+                    var editor = $window.document.getElementById("wanderer-core-shared-notes-text-area");
+                    var startCaretPosition = editor.selectionStart;
+                    var endCaretPosition = editor.selectionEnd;
+                    
                     that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    
+                    // hello[caret] world!
+                    // gooodbye[caret] world!
+                    //[
+                    //   { type: "delete", atIndex: 0, text: "hello" },
+                    //   { type: "add", atIndex: 0, text: "goodbye" }
+                    // ]
+                    
+                    var  changes =  g.EntityChanges.compareStrings(that.notes, that.trackedEntity.backing.sharedNotes.backing);
+                    
+                    for (change of changes) {
+                        if (change.type === "delete" && startCaretPosition < change.atIndex) {
+                            startCaretPosition = startCaretPosition - change.text.length;
+                        }
+                        if (change.type === "add" && startCaretPosition > change.atIndex) {
+                            startCaretPosition = startCaretPosition + change.text.length;
+                        }
+                        if (change.type === "delete" && endCaretPosition < change.atIndex) {
+                            endCaretPosition = endCaretPosition - change.ext.length;
+                        }
+                        if (change.type === "add" && endCaretPosition > change.atIndex) {
+                            endCaretPosition = endCaretPosition + change.text.length;
+                        }
+                    } 
+                    
+                    editor.selectionStart = startCaretPosition;
+                    editor.selectionEnd = endCaretPosition;
+
                 }
                 that.notes = that.trackedEntity.backing.sharedNotes.backing;  
-                console.log("got a message:",payload);
+                console.log("got a message:", payload);
             });
         };
 
