@@ -21,9 +21,10 @@ sharedNotes.component = function () {
             g.services.timeoutService.$timeout(function () {
                 if (that.trackedEntity === undefined) {
                     that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                    that.notes = that.trackedEntity.backing.sharedNotes.backing;  
                 } else {
 
-                    var editor = $window.document.getElementById("wanderer-core-shared-notes-text-area");
+                    var editor = document.getElementById("wanderer-core-shared-notes-text-area");
                     var startCaretPosition = editor.selectionStart;
                     var endCaretPosition = editor.selectionEnd;
                     
@@ -36,7 +37,8 @@ sharedNotes.component = function () {
                     //   { type: "add", atIndex: 0, text: "goodbye" }
                     // ]
                     
-                    var  changes =  g.EntityChanges.compareStrings(that.notes, that.trackedEntity.backing.sharedNotes.backing);
+                    console.log("before: " + startCaretPosition + " - " +  endCaretPosition);
+                    var  changes =  g.SharedEntity.CompareStrings(that.notes, that.trackedEntity.backing.sharedNotes.backing);
                     
                     for (change of changes) {
                         if (change.type === "delete" && startCaretPosition < change.atIndex) {
@@ -52,12 +54,12 @@ sharedNotes.component = function () {
                             endCaretPosition = endCaretPosition + change.text.length;
                         }
                     } 
-                    
+                    that.notes = that.trackedEntity.backing.sharedNotes.backing;  
                     editor.selectionStart = startCaretPosition;
                     editor.selectionEnd = endCaretPosition;
-
+                    console.log("after: " +startCaretPosition + " - " +  endCaretPosition);
                 }
-                that.notes = that.trackedEntity.backing.sharedNotes.backing;  
+
                 console.log("got a message:", payload);
             });
         };
