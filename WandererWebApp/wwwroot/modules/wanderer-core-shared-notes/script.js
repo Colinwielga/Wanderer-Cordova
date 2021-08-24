@@ -25,7 +25,7 @@ sharedNotes.component = function () {
                     that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
                 }
                 that.notes = that.trackedEntity.backing.sharedNotes.backing;  
-                console.log(payload);
+                console.log("got a message:",payload);
             });
         };
 

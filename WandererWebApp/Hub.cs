@@ -182,10 +182,13 @@ namespace WandererWebApp
                         if (change.Type == "add") 
                         { 
                             at[updateCollaborativeString.Path.Last()] = ((string)at[updateCollaborativeString.Path.Last()]).Insert(change.AtIndex, change.Text);   
-                        }
-                        if (change.Type == "delete") 
+                        } 
+                        else if (change.Type == "delete") 
                         {
                             at[updateCollaborativeString.Path.Last()] = ((string)at[updateCollaborativeString.Path.Last()]).Remove(change.AtIndex, change.Text.Length);
+                        }
+                        else {
+                            throw new NotImplementedException("should be an add or delete");
                         }
                     }
                 }

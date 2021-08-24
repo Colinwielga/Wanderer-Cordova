@@ -18,15 +18,29 @@ g.services.SignalRService.Callback = function (groupName, x) {
 g.services.SignalRService.EntityUpdateCallback = function (key1,key2, payload) {
     var listener = g.services.SignalRService.entityListeners[key1 +"|" + key2];
     if (listener) {
-        listener.callback(key1, key2, JSON.parse(payload));
+        for (var callback of listener.callbacks) 
+        {
+            callback(key1, key2, JSON.parse(payload));
+        }
     }
 };
 
 g.services.SignalRService.SubscribeToEntity = function (key1, key2, fallback, callback) {
-    g.services.SignalRService.entityListeners[key1 + "|" + key2] = {
-        callback: callback,
-        fallback: fallback
-    };
+    // is there any entity listeners with the id?
+    
+    if (g.services.SignalRService.entityListeners[key1 + "|" + key2] === undefined){
+        // we need to create a entry in the dictionary
+        g.services.SignalRService.entityListeners[key1 + "|" + key2] = {
+            callbacks: [callback],
+            fallback: fallback
+        };
+    } 
+    else 
+    { 
+        g.services.SignalRService.entityListeners[key1 + "|" + key2].callbacks.push(callback);
+        g.services.SignalRService.entityListeners[key1 + "|" + key2].fallback = fallback;
+    }
+    
     try {
         g.services.SignalRService.connection.send('RequestEntity', key1, key2, fallback);
     } catch (err) {
@@ -88,7 +102,7 @@ g.services.SignalRService.InnerConnection = function (time) {
                 skipNegotiation: true,
                 transport: signalR.HttpTransportType.WebSockets
             })
-            .configureLogging(signalR.LogLevel.Trace)
+            .configureLogging(signalR.LogLevel.Error)
             .withAutomaticReconnect()
             //.withUrl("https://wandererwebapp.azurewebsites.net/chat")
             .build();

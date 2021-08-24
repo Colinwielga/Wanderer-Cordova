@@ -51,8 +51,9 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
         Publish: function () {
             var changes = this.GetEntityChanges();
             if (changes.Operations.length != 0 ){
+                console.log("sending changes",changes.Operations);
                 g.services.SignalRService.connection.send('UpdateSharedEntity', key1, key2, changes);
-                changeList = [];
+                this.changeList = [];
                 this.waitFor = changes.ChangeId;    
                 if (this.lastSend === 0) {
                     var d = new Date();

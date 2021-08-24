@@ -209,7 +209,7 @@
 
                 // for now we will just log
                 // run it!
-                console.log("got a message:", message);
+               
 
                 // check if the message is a move
                 if (message.message === "miniature moved") {
