@@ -339,7 +339,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                 var from = this.backing;
                 var to = newString;
 
-                var flattenedChanges = g.SharedEntity.CompareStrings(from, po);
+                var flattenedChanges = g.SharedEntity.CompareStrings(from, to);
 
                 this.entityChanges.changeList.push({
                     Name: "UpdateCollaborativeString",
