@@ -20,8 +20,12 @@ sharedNotes.component = function () {
         var handleUpdateFromServer = function (key1, key2, payload) {
             g.services.timeoutService.$timeout(function () {
                 if (that.trackedEntity === undefined) {
+                    var editor = document.getElementById("wanderer-core-shared-notes-text-area");
                     that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
-                    that.notes = that.trackedEntity.backing.sharedNotes.backing;  
+                    that.notes = that.trackedEntity.backing.sharedNotes.backing;
+
+                    // see {24CE38E4-9FA3-4EF8-8D99-67CD3C91A194}
+                    editor.value = that.notes;  
                 } else {
 
                     var editor = document.getElementById("wanderer-core-shared-notes-text-area");
@@ -55,6 +59,16 @@ sharedNotes.component = function () {
                         }
                     } 
                     that.notes = that.trackedEntity.backing.sharedNotes.backing;  
+                    // {24CE38E4-9FA3-4EF8-8D99-67CD3C91A194}
+                    // you wouldn't think it would need this
+                    // given we are using ng-model
+                    // but without it the caret goes to the end whenever we make a change
+                    // but it seems the ng-model is also doing something
+                    // if I remove that I get a wierd angular error
+                    // I think I might need data-ng-model to use data-ng-change
+                    // but I need data-ng-change, onchange only fires when you change focus
+                    editor.value = that.notes;
+                    
                     editor.selectionStart = startCaretPosition;
                     editor.selectionEnd = endCaretPosition;
                     console.log("after: " +startCaretPosition + " - " +  endCaretPosition);
