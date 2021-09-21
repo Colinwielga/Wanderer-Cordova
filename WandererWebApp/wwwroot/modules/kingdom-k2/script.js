@@ -41,7 +41,7 @@ KingdomK2.component = function () {
             function (key1, key2, payload) {
                 g.services.timeoutService.$timeout(function () {
                     if (that.trackedEntity === undefined) {
-                        that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                        that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, payload.RecentChanges[payload.RecentChanges.length -1]);
                         
                         // check if tracked entity has a player that represents us
                         // if it does we are done
@@ -59,7 +59,7 @@ KingdomK2.component = function () {
                         that.trackedEntity.entityChanges.Publish(); 
 
                     } else {
-                        that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                        that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                         var ourPlayer = that.GetOurPlayer();
                         if (that.page.name != null && ourPlayer.backing.name.backing !== that.page.name) {
                             ourPlayer.SetString("name", that.page.name);

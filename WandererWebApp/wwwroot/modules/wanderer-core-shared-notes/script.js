@@ -20,7 +20,7 @@ sharedNotes.component = function () {
         var handleUpdateFromServer = function (key1, key2, payload) {
             g.services.timeoutService.$timeout(function () {
                 if (that.trackedEntity === undefined) {
-                    that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                    that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                     that.notes = that.trackedEntity.backing.sharedNotes.backing;  
                 } else {
 
@@ -28,7 +28,7 @@ sharedNotes.component = function () {
                     var startCaretPosition = editor.selectionStart;
                     var endCaretPosition = editor.selectionEnd;
                     
-                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                     
                     // hello[caret] world!
                     // gooodbye[caret] world!
@@ -41,14 +41,14 @@ sharedNotes.component = function () {
                     var  changes =  g.SharedEntity.CompareStrings(that.notes, that.trackedEntity.backing.sharedNotes.backing);
                     
                     for (change of changes) {
-                        if (change.type === "delete" && startCaretPosition < change.atIndex) {
-                            startCaretPosition = startCaretPosition - change.text.length;
+                        if (change.type === "delete" && startCaretPosition > change.atIndex) {
+                            startCaretPosition = startCaretPosition - Math.min(change.text.length, startCaretPosition - change.atIndex);
                         }
                         if (change.type === "add" && startCaretPosition > change.atIndex) {
                             startCaretPosition = startCaretPosition + change.text.length;
                         }
-                        if (change.type === "delete" && endCaretPosition < change.atIndex) {
-                            endCaretPosition = endCaretPosition - change.ext.length;
+                        if (change.type === "delete" && endCaretPosition > change.atIndex) {
+                            endCaretPosition = endCaretPosition - Math.min(change.text.length, endCaretPosition - change.atIndex);
                         }
                         if (change.type === "add" && endCaretPosition > change.atIndex) {
                             endCaretPosition = endCaretPosition + change.text.length;

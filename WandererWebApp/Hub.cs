@@ -39,7 +39,6 @@ namespace WandererWebApp
             Clients.Groups(groupPrefix + groupName).SendAsync("BroadcastMessage", groupName, message);
         }
 
-
         public async Task RequestEntity(string rowKey, string partitionKey, EntityChanges fallback)
         {
 
@@ -57,7 +56,7 @@ namespace WandererWebApp
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey);
 
-                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey,()=> ModifyObject(fallback)(new JObject())));
+                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, () => ModifyObject(fallback)(new JObject(), new List<EntityChanges>())));
 
                 var client = Clients.Client(Context.ConnectionId);
 
@@ -73,7 +72,7 @@ namespace WandererWebApp
         {
             try
             {
-                var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges), entityChanges.ChangeId));
+                var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges), entityChanges));
 
                 var group = Clients.Groups(rowKey + "|" + partitionKey);
 
@@ -85,9 +84,8 @@ namespace WandererWebApp
             }
         }
 
-        private static Func<JObject, JObject> ModifyObject(EntityChanges entityChanges) => entity =>
+        private static Func<JObject, IReadOnlyList<EntityChanges>, JObject> ModifyObject(EntityChanges entityChanges) => (entity, recentChanges) =>
         {
-
             foreach (var item in entityChanges.Operations)
             {
                 if (item.Name == nameof(AddOrSetOperation))
@@ -155,12 +153,24 @@ namespace WandererWebApp
                 }
                 else if (item.Name == nameof(UpdateCollaborativeString))
                 {
-                    var updateCollaborativeString = JsonConvert.DeserializeObject<UpdateCollaborativeString>(item.JSON);   
+                    var updateCollaborativeString = JsonConvert.DeserializeObject<UpdateCollaborativeString>(item.JSON);
                     var at = entity; ;
                     foreach (var pathPart in updateCollaborativeString.Path.SkipLast(1))
                     {
                         at = Navigate(at, pathPart);
                     }
+
+                    var sourceChange = recentChanges.Where(x => x.ChangeId == updateCollaborativeString.FromChangeId).SingleOrDefault();
+
+                    if (sourceChange == null)
+                    {
+                        // a change was applied to a really old version
+                        // we just ignore it 
+                        // for now
+                        // TODO log
+                        goto end;
+                    }
+
 
                     // we want to be able to handle:
                     // say Scott chagned:
@@ -173,24 +183,76 @@ namespace WandererWebApp
                     // but on the server someone has deleted "my" so it has:
                     // hello dear
                     // here we need to intelligently find the index of the add
-                    
+
+                    var reachedTheSouceChange = false;
+                    foreach (var change in recentChanges)
+                    {
+                        if (reachedTheSouceChange)
+                        {
+                            foreach (var operation in change.Operations)
+                            {
+                                if (operation.Name == nameof(UpdateCollaborativeString))
+                                {
+                                    var innerUpdateCollaborativeString = JsonConvert.DeserializeObject<UpdateCollaborativeString>(item.JSON);
+                                    if (innerUpdateCollaborativeString.Path.Zip(updateCollaborativeString.Path, (x, y) => x == y).All(x=>x)) {
+                                        foreach (var innerChange in innerUpdateCollaborativeString.Changes)
+                                        {
+                                            foreach (var outerChange in updateCollaborativeString.Changes)
+                                            {
+                                                if (innerChange.AtIndex < outerChange.AtIndex && innerChange.AtIndex + innerChange.Text.Length > outerChange.AtIndex && innerChange.Type == "delete")
+                                                {
+                                                    // the text that included the change was deleted ignore the change
+                                                    goto end;
+                                                }
+                                                else if(innerChange.AtIndex < outerChange.AtIndex && innerChange.Type == "delete") 
+                                                {
+                                                    outerChange.AtIndex -= innerChange.Text.Length;
+                                                }
+                                                else if (innerChange.AtIndex < outerChange.AtIndex && innerChange.Type == "add")
+                                                {
+                                                    outerChange.AtIndex += innerChange.Text.Length;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (operation.Name == nameof(AddOrSetOperation))
+                                {
+                                    var addOrSet = JsonConvert.DeserializeObject<AddOrSetOperation>(item.JSON);
+                                    // a hard set since our change... 
+                                    // it would have overwritten our change.
+                                    // don't apply the change
+                                    goto end;
+                                }
+                            }
+                        }
+                        else if (change == sourceChange)
+                        {
+                            reachedTheSouceChange = true;
+                        }
+                    }
+
                     // go through the list of changes
                     // if it's an add, add it
                     // it it's a delete, delete it
-                    foreach (var change in updateCollaborativeString.Changes) 
+                    foreach (var change in updateCollaborativeString.Changes)
                     {
-                        if (change.Type == "add") 
-                        { 
-                            at[updateCollaborativeString.Path.Last()] = ((string)at[updateCollaborativeString.Path.Last()]).Insert(change.AtIndex, change.Text);   
-                        } 
-                        else if (change.Type == "delete") 
+                        if (change.Type == "add")
+                        {
+                            at[updateCollaborativeString.Path.Last()] = ((string)at[updateCollaborativeString.Path.Last()]).Insert(change.AtIndex, change.Text);
+                        }
+                        else if (change.Type == "delete")
                         {
                             at[updateCollaborativeString.Path.Last()] = ((string)at[updateCollaborativeString.Path.Last()]).Remove(change.AtIndex, change.Text.Length);
                         }
-                        else {
+                        else
+                        {
                             throw new NotImplementedException("should be an add or delete");
                         }
                     }
+
+
+                end:;
                 }
                 else
                 {
@@ -246,6 +308,15 @@ namespace WandererWebApp
         // in order
         public OperationSplit[] Operations { get; set; }
         public string ChangeId { get; set; }
+
+        internal EntityChanges Clone()
+        {
+            return new EntityChanges
+            {
+                Operations = this.Operations.Select(x => x.Clone()).ToArray(),
+                ChangeId = this.ChangeId
+            };
+        }
     }
 
     public class ValueSplit
@@ -278,6 +349,15 @@ namespace WandererWebApp
     {
         public string Name { get; set; }
         public string JSON { get; set; }
+
+        internal OperationSplit Clone()
+        {
+            return new OperationSplit
+            {
+                Name = this.Name,
+                JSON = this.JSON,
+            };
+        }
     }
 
     public class AddOrSetOperation
@@ -312,16 +392,16 @@ namespace WandererWebApp
 
     public class UpdateCollaborativeString
     {
-        public string[] Path {get; set; }
-        public CollaborativeChange[] Changes {get; set; }
-        public string Original {get;set; } 
+        public string[] Path { get; set; }
+        public CollaborativeChange[] Changes { get; set; }
+        public string FromChangeId { get; set; }
     }
 
     public class CollaborativeChange
     {
-        public string Type {get; set; }
-        public int AtIndex {get; set; }
-        public string Text {get; set; }
+        public string Type { get; set; }
+        public int AtIndex { get; set; }
+        public string Text { get; set; }
     }
 
 }

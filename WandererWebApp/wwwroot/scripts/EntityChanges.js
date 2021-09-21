@@ -212,9 +212,15 @@ g.SharedEntity.uuidv4 = function() {
     );
 }
 
-g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
+g.SharedEntity.MakeTrackedEntity = function (key1, key2, changeId) {
 
     var res = {
+        key1: key1,
+        key2: key2,
+        changeList: [],
+        waitFor: null,
+        lastSend: 0,
+        sourceChangeId: changeId,
         GetEntityChanges: function () {
             var res = [];
             for (var item of this.changeList) {
@@ -222,9 +228,6 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             }
             return { Operations: res, ChangeId: g.SharedEntity.uuidv4() };
         },
-        key1: key1,
-        key2: key2,
-        changeList: [],
         MakePath: function (path, string) {
             var res = [];
             for (var item of path) {
@@ -233,23 +236,21 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             res.push(string);
             return res;
         },
-        waitFor: null,
-        lastSend: 0,
-        PossiblyUpdateTrackedEntity: function (payload, key1,key2) {
+        PossiblyUpdateTrackedEntity: function (payload, key1, key2, changeId) {
             // we are not waiting
             if (this.waitFor === null) {
-                return g.SharedEntity.ToTrackedEntity(payload.JObject,key1,key2);
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, changeId);
             }
 
             // try have what we are waiting for
             var waitFor = this.waitFor;
             if (payload.RecentChanges.find(item => { return item === waitFor })) {
-                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, changeId);
             }
 
             // we have been waiting a long time
             if ((new Date().getTime() - this.lastSend) > 10*1000) {
-                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, changeId);
             }
 
             return this.root;
@@ -346,7 +347,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                     JSON: JSON.stringify({
                         Path: this.path,
                         Changes: flattenedChanges,
-                        Original: from,
+                        FromChangeId: res.sourceChangeId,
                     })
                 });
                 this.backing = newString;
@@ -515,8 +516,8 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
     return res.root;
 };
 
-g.SharedEntity.ToTrackedEntity = function (obj,key1,key2) {
-    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity(key1, key2));
+g.SharedEntity.ToTrackedEntity = function (obj,key1,key2,changeId) {
+    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity(key1, key2, changeId));
     res.entityChanges.changeList = [];
     return res;
 };

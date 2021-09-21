@@ -15,14 +15,14 @@ namespace WandererWebApp
         public JObject JObject { get; set; }
         public List<string> RecentChanges { get; set; }
 
-        internal Payload Clone()
-        {
-            return new Payload
-            {
-                JObject = (JObject)JObject.DeepClone(),
-                RecentChanges = RecentChanges.ToList()
-            };
-        }
+        //internal Payload Clone()
+        //{
+        //    return new Payload
+        //    {
+        //        JObject = (JObject)JObject.DeepClone(),
+        //        RecentChanges = RecentChanges.ToList(),
+        //    };
+        //}
     }
 
     public interface ITableName { 
@@ -82,20 +82,22 @@ namespace WandererWebApp
 
         private class DataToSave
         {
+            public ConcurrentLinkedList<EntityChanges> RecentChanges;
             private readonly string rowKey;
             private readonly string partitionKey;
             private readonly ItemCache<T> itemCache;
-            public Payload jObject;
+            public JObject jObject;
             private bool dirty;
             private DateTime lastUpdate;
             private DateTime firstUpdate;
 
-            public DataToSave(Payload jObject, ItemCache<T> itemCache, string rowKey, string partitionKey)
+            public DataToSave(JObject jObject, ItemCache<T> itemCache, string rowKey, string partitionKey, ConcurrentLinkedList<EntityChanges> recentChanges)
             {
                 this.jObject = jObject ?? throw new ArgumentNullException(nameof(jObject));
                 this.itemCache = itemCache ?? throw new ArgumentNullException(nameof(itemCache));
                 this.rowKey = rowKey ?? throw new ArgumentNullException(nameof(partitionKey));
                 this.partitionKey = partitionKey ?? throw new ArgumentNullException(nameof(partitionKey));
+                this.RecentChanges = recentChanges ?? throw new ArgumentNullException(nameof(recentChanges));
             }
 
             internal async Task SaveIfNeeded(CloudTable table)
@@ -104,7 +106,7 @@ namespace WandererWebApp
                     // save
                      await table.ExecuteAsync(TableOperation.InsertOrReplace(new Entity(rowKey, partitionKey)
                     {
-                        JSON = jObject.JObject.ToString(),
+                        JSON = jObject.ToString(),
                     }));
 
                     dirty = false;
@@ -122,7 +124,7 @@ namespace WandererWebApp
                 return false;
             }
 
-            internal void Update(Func<Payload, Payload> update, JumpBallConcurrent<DataToSave> self) {
+            internal void Update(Func<JObject, JObject> update, JumpBallConcurrent<DataToSave> self) {
                 this.jObject = update(jObject);
                 if (!dirty) {
                     firstUpdate = DateTime.UtcNow;
@@ -141,9 +143,18 @@ namespace WandererWebApp
             var jumpBall = await PrivateGet(rowKey, partitionKey, init);
 
 
-            var jobjectResult = jumpBall.Read();
-            return jobjectResult.jObject;
+            var jobjectResult = jumpBall.Read(); 
+            return new Payload
+            {
+                JObject = jobjectResult.jObject,
+                RecentChanges = jobjectResult.RecentChanges.Select(x => x.ChangeId).ToList()
+            };
         }
+
+        // Payload
+        // { JObject : {"Shared-Notes":"somethin about how it's working" }, RecentChages: ["234qasdf","a35ased43asd"]}
+        // JObject
+        // {"Shared-Notes":"somethin about how it's working" }
 
         public async Task PassoverToSaveAsync() {
             timer = null;
@@ -167,24 +178,24 @@ namespace WandererWebApp
             }
         }
 
-        public async Task<Payload> Do(string entityName, string entityOwner, Func<JObject, JObject> modify, string changeId)
+        public async Task<Payload> Do(string entityName, string entityOwner, Func<JObject, IReadOnlyList<EntityChanges>, JObject> modify, EntityChanges change)
         {
 
             var jumpBall = await PrivateGet(entityName, entityOwner, () => new JObject());
-            return Update(modify, changeId, jumpBall);
+            return Update(modify, change, jumpBall);
         }
 
-        public async Task Set(string entityName, string entityOwner, JObject newValue, string changeId)
+        public async Task Set(string entityName, string entityOwner, JObject newValue, EntityChanges change)
         {
 
             var didIt = false;
             var jumpBall = await PrivateGet(entityName, entityOwner, () => { didIt = true ; return newValue; });
             if (!didIt) {
-                Update(_ => newValue, changeId, jumpBall);
+                Update((_,_) => newValue, change, jumpBall);
             }
         }
 
-        private Payload Update(Func<JObject, JObject> modify, string changeId, JumpBallConcurrent<DataToSave> jumpBall)
+        private Payload Update(Func<JObject, IReadOnlyList<EntityChanges>, JObject> modify, EntityChanges change, JumpBallConcurrent<DataToSave> jumpBall)
         {
             Payload res = null;
 
@@ -192,17 +203,21 @@ namespace WandererWebApp
             {
                 dts.Update(x =>
                 {
-
-                    x.JObject = modify(x.JObject);
-                    x.RecentChanges.Add(changeId);
-                    if (x.RecentChanges.Count > 100)
+                    dts.jObject = modify(x, dts.RecentChanges);
+                    dts.RecentChanges.Add(change);
+                    while (dts.RecentChanges.Count > 100)
                     {
-                        x.RecentChanges.RemoveAt(0);
+                        dts.RecentChanges.RemoveStart();
                     }
-                    res = x.Clone();
-                    return x;
+                    return dts.jObject;
 
                 }, jumpBall);
+
+                res = new Payload
+                {
+                    JObject = dts.jObject,
+                    RecentChanges = dts.RecentChanges.Select(x => x.ChangeId).ToList()
+                };
 
                 return dts;
             });
@@ -249,7 +264,7 @@ namespace WandererWebApp
                         var tableResult = (await readyTable.ExecuteAsync(TableOperation.Insert(entity)));
                         entity = tableResult.Result.SafeCastTo<object, Entity>();
                     }
-                    mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(new Payload { JObject = JObject.Parse(entity.JSON), RecentChanges = new List<string>() }, this, rowKey, partitionKey)));
+                    mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(JObject.Parse(entity.JSON), this, rowKey, partitionKey, new ConcurrentLinkedList<EntityChanges>())));
                 //}
                 //    catch (Exception e)
                 //{
