@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace WandererWebApp
 {
-
     public class Chat : Hub
     {
         private const string groupPrefix = "group-";
@@ -358,6 +357,10 @@ namespace WandererWebApp
                 JSON = this.JSON,
             };
         }
+    }
+
+    public class InitOperation
+    {
     }
 
     public class AddOrSetOperation

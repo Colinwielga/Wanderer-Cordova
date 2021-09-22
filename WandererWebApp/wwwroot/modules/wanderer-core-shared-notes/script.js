@@ -20,12 +20,13 @@ sharedNotes.component = function () {
         var handleUpdateFromServer = function (key1, key2, payload) {
             g.services.timeoutService.$timeout(function () {
                 if (that.trackedEntity === undefined) {
-                    var editor = document.getElementById("wanderer-core-shared-notes-text-area");
+                    
                     that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                     that.notes = that.trackedEntity.backing.sharedNotes.backing;
 
                     // see {24CE38E4-9FA3-4EF8-8D99-67CD3C91A194}
-                    editor.value = that.notes;  
+                    var editor = document.getElementById("wanderer-core-shared-notes-text-area");
+                    editor.value = that.notes;
                 } else {
 
                     var editor = document.getElementById("wanderer-core-shared-notes-text-area");
@@ -41,7 +42,6 @@ sharedNotes.component = function () {
                     //   { type: "add", atIndex: 0, text: "goodbye" }
                     // ]
                     
-                    console.log("before: " + startCaretPosition + " - " +  endCaretPosition);
                     var  changes =  g.SharedEntity.CompareStrings(that.notes, that.trackedEntity.backing.sharedNotes.backing);
                     
                     for (change of changes) {
@@ -71,7 +71,6 @@ sharedNotes.component = function () {
                     
                     editor.selectionStart = startCaretPosition;
                     editor.selectionEnd = endCaretPosition;
-                    console.log("after: " +startCaretPosition + " - " +  endCaretPosition);
                 }
 
                 console.log("got a message:", payload);
@@ -106,7 +105,6 @@ sharedNotes.component = function () {
         if (this.trackedEntity === undefined){
             return;
         }
-        console.log(this.trackedEntity.backing.sharedNotes);
 
         this.trackedEntity.backing.sharedNotes.UpdateForCollaboration(this.notes);
         this.trackedEntity.entityChanges.Publish();
