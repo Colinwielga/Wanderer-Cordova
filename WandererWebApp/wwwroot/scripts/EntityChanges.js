@@ -17,16 +17,27 @@ g.SharedEntity.CompareStrings = function(from, to){
     // c ⬇⬇  ↘⬇ ↘⬇➡   ↘⬇➡➡
     // d ⬇⬇⬇ ↘⬇⬇ ↘⬇⬇➡ ↘⬇➡↘
 
+    // TODO
+
+    // I think I can just do a grid of numbers
+    // _ 0 1 2 3
+    // a 1 1 2 3
+    // c 2 2 3 4
+    // d 3 3 4 4
+
+    // and then we find a path from the end to the start
+    // that counts down
+
     // accessed like: grid[x][y]
 
-    var copyAndAppend = function(list,toAdd){
-        var res = [];
-        for (var item of list){
-            res.push(item);
-        }
-        res.push(toAdd);
-        return res;
-    }
+    //var copyAndAppend = function(list,toAdd){
+    //    var res = [];
+    //    for (var item of list){
+    //        res.push(item);
+    //    }
+    //    res.push(toAdd);
+    //    return res;
+    //}
 
     // create the grid
     var grid = [];
@@ -36,7 +47,7 @@ g.SharedEntity.CompareStrings = function(from, to){
         var columnToAdd = [];
         // for each row
         for (var y=0; y <= to.length; y++){
-            var rowToAdd = null;
+            var rowToAdd = 0;
             // add our new row to our column
             columnToAdd.push(rowToAdd);
         }
@@ -48,52 +59,24 @@ g.SharedEntity.CompareStrings = function(from, to){
     //  working left to right, top to bottom look at each square:
     for (var x=0; x <= from.length; x++){
         for (var y=0; y <= to.length; y++){
-            //  calculate the 3 possible paths to that square
-            var bestPath = null;
-            // 1st path the square above plus "⬇"
-            if (y != 0) { 
-                var path1 = copyAndAppend(grid[x][y-1], "⬇");
-                // we are the best path 
-                bestPath = path1;
-            }
+
             // the square diagonal plus "↘" when the letters match
             if (y != 0 && x != 0 && from[x-1] === to[y-1]){
-                var path2 = copyAndAppend(grid[x-1][y-1], "↘")
-                // is the best path empty? if so, we are the best path
-                // otherwise, are we shorter than the path? if so we are the best
-                if (bestPath === null){
-                    bestPath = path2;
-                }
-                else if (path2.length < bestPath.length){
-                    bestPath = path2;
-                }
-            }
+                grid[x][y] = grid[x - 1][y - 1] + 1;
+
+            }else
+            // 1st path the square above plus "⬇"
+            if (y != 0) {
+                grid[x][y] = grid[x][y - 1] + 1;
+            }else 
             // the square to the left plus "➡"
             if (x != 0) {
-                var path3 = copyAndAppend(grid[x-1][y], "➡")
-                // is the best path empty? if so, we are the best path
-                // otherwise, are we shorter than the path? if so we are the best
-                if (bestPath === null){
-                    bestPath = path3;
-                }
-                else if (path3.length < bestPath.length){
-                    bestPath = path3;
-                }
-            }
+                grid[x][y] = grid[x - 1][y] + 1;
+            }else 
             // the square is 0,0 use the empty list
             if (y === 0 && x === 0) {
-                var path4 = []
-                // is the best path empty? if so, we are the best path
-                // otherwise, are we shorter than the path? if so we are the best
-                if (bestPath === null){
-                    bestPath = path4;
-                }
-                else if (path4.length < bestPath.length){
-                    bestPath = path4;
-                }
+                grid[x][y] = 0
             }
-            //  fill the square with the best path
-            grid[x][y] = bestPath;
         }
     }
 
@@ -131,9 +114,24 @@ g.SharedEntity.CompareStrings = function(from, to){
     // acd   2 
     // res: [{type:"delete", atIndex: 1, text: "b" }, {type:"add", atIndex:2, text:"d"}]
 
-    
-    var bestPath = grid[from.length][to.length];
+    var atX = from.length;
+    var atY = to.length;
 
+    var bestPath = [];
+    while (atX != 0 && atY != 0) {
+        current = grid[atX][atY];
+        if (atX > 0 && atY > 0 && grid[atX - 1][atY - 1] == current - 1) {
+            atX--;
+            atY--;
+            bestPath.unshift("↘");
+        } else if (atX > 0 && grid[atX - 1][atY] == current - 1) {
+            atX--;
+            bestPath.unshift("➡");
+        } else if (atY > 0 && grid[atX][atY - 1] == current - 1) {
+            atY--;
+            bestPath.unshift("⬇");
+        } 
+    }
 
     var changes = [];
     var fromIndex = -1;

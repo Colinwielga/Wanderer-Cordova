@@ -13,29 +13,7 @@ using System.Threading.Tasks;
 namespace WandererWebApp
 {
 
-    public class InnerPayload
-    {
-        public JObject JObject { get; set; }
-        public List<EntityChanges> RecentChanges { get; set; }
 
-        internal ReturnedPayload ToReturnable()
-        {
-            return new ReturnedPayload
-            {
-                JObject = this.JObject,
-                RecentChanges = this.RecentChanges.Select(x => x.ChangeId).ToList(),
-            };
-        }
-
-        internal InnerPayload Clone()
-        {
-            return new InnerPayload
-            {
-                JObject = (JObject)JObject.DeepClone(),
-                RecentChanges = RecentChanges.ToList(),
-            };
-        }
-    }
 
     public class ReturnedPayload
     {
@@ -101,71 +79,62 @@ namespace WandererWebApp
             table = Storage.CreateTableAsync(config.GetConnectionString("wanderer-table-storage"), tableName.Name);
         }
 
-        private class DataToSave
+        private class CacheEntry
         {
             private readonly string rowKey;
             private readonly string partitionKey;
             private readonly ItemCache<T> itemCache;
-            public InnerPayload jObject;
-            private bool dirty;
+            public OptimisticConcurrent<SaveInDatabase> data;
             private DateTime lastUpdate;
             private DateTime firstUpdate;
 
-            public DataToSave(InnerPayload jObject, ItemCache<T> itemCache, string rowKey, string partitionKey)
+            public CacheEntry(SaveInDatabase jObject, ItemCache<T> itemCache, string rowKey, string partitionKey)
             {
-                this.jObject = jObject ?? throw new ArgumentNullException(nameof(jObject));
+                if (jObject is null)
+                {
+                    throw new ArgumentNullException(nameof(jObject));
+                }
+
+                this.data = new OptimisticConcurrent<SaveInDatabase>(jObject);
                 this.itemCache = itemCache ?? throw new ArgumentNullException(nameof(itemCache));
                 this.rowKey = rowKey ?? throw new ArgumentNullException(nameof(partitionKey));
                 this.partitionKey = partitionKey ?? throw new ArgumentNullException(nameof(partitionKey));
             }
 
-            internal async Task SaveIfNeeded(CloudTable table)
+            internal async Task<bool> SaveIfNeeded(CloudTable table)
             {
-                if (dirty && (DateTime.UtcNow - lastUpdate > TimeSpan.FromMinutes(1) || DateTime.UtcNow - firstUpdate > TimeSpan.FromMinutes(3)))
+                if (DateTime.UtcNow - lastUpdate > TimeSpan.FromMinutes(1) || DateTime.UtcNow - firstUpdate > TimeSpan.FromMinutes(3))
                 {
                     // save
-                    await table.ExecuteAsync(TableOperation.InsertOrReplace(EntityRehydrator.Dehydrate(jObject, rowKey, partitionKey)));
-
-                    dirty = false;
-                }
-            }
-
-            // assumes this is the start of this list
-            // it is weird for it to live in here but we need checking dirty and removing to be a transaction
-            internal bool TryRemove()
-            {
-                if (!dirty)
-                {
-                    itemCache.ToSaves.RemoveStart();
+                    await table.ExecuteAsync(TableOperation.InsertOrReplace(EntityRehydrator.Dehydrate(data.Read(), rowKey, partitionKey)));
                     return true;
                 }
                 return false;
             }
 
-            internal void Update(Func<InnerPayload, InnerPayload> update, JumpBallConcurrent<DataToSave> self)
+
+            internal void Update(Func<SaveInDatabase, SaveInDatabase> update)
             {
-                this.jObject = update(jObject.Clone());
-                if (!dirty)
+                data.Update(update);
+                // I'm not going to worry about a little bit of racing 
+                if (!itemCache.ToSaves.Contains(this))
                 {
                     firstUpdate = DateTime.UtcNow;
-                    itemCache.ToSaves.Add(self);
+                    itemCache.ToSaves.Add(this);
                 }
-                dirty = true;
                 lastUpdate = DateTime.UtcNow;
             }
         }
 
-        private ConcurrentLinkedList<JumpBallConcurrent<DataToSave>> ToSaves = new ConcurrentLinkedList<JumpBallConcurrent<DataToSave>>();
+        private readonly ConcurrentLinkedList<CacheEntry> ToSaves = new ConcurrentLinkedList<CacheEntry>();
 
-        private MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>> cache = new MonsterIndexBackedIndex.View<(string, string), Task<JumpBallConcurrent<DataToSave>>>();
+        private readonly MonsterIndexBackedIndex.View<(string, string), Task<CacheEntry>> cache = new MonsterIndexBackedIndex.View<(string, string), Task<CacheEntry>>();
 
         public async Task<ReturnedPayload> GetOrInit(string rowKey, string partitionKey, Func<JObject> init)
         {
             var jumpBall = await PrivateGet(rowKey, partitionKey, init);
 
-            var jobjectResult = jumpBall.Read();
-            var inner = jobjectResult.jObject;
-            return inner.ToReturnable();
+            return jumpBall.data.Read().ToReturnable();
         }
 
         // Payload
@@ -177,20 +146,21 @@ namespace WandererWebApp
         {
             timer = null;
             var readyTable = await table;
+            var toAdds = new List<CacheEntry>();
+            while (ToSaves.RemoveStart(out var toSave))
+            {
+                if (!await toSave.SaveIfNeeded(readyTable)) {
+                    // we didn't save add it back to the list
+                    toAdds.Add(toSave);
+                }
+            }
 
-            foreach (var toSave in ToSaves)
+            foreach (var toAdd in toAdds)
             {
-                await toSave.RunAsync(async x => { await x.SaveIfNeeded(readyTable); return x; });
+                ToSaves.Add(toAdd);
             }
-            var go = true;
-            while (go && ToSaves.TryGetFirst(out var dataToSave))
-            {
-                dataToSave.Run(x =>
-                {
-                    go = x.TryRemove();
-                    return x;
-                });
-            }
+
+            // if anything is in ToSaves, run again soon
             var myJob = new Job(this);
             if (ToSaves.TryGetFirst(out var _) && null == Interlocked.CompareExchange(ref timer, myJob, null))
             {
@@ -198,11 +168,10 @@ namespace WandererWebApp
             }
         }
 
-        public async Task<ReturnedPayload> Do(string entityName, string entityOwner, Func<JObject, IReadOnlyList<EntityChanges>, JObject> modify, EntityChanges change)
+        public async Task<ReturnedPayload> Do(string entityName, string entityOwner, Func<JObject, IReadOnlyList<EntityChanges>, (JObject, EntityChanges)> modify)
         {
-
             var jumpBall = await PrivateGet(entityName, entityOwner, () => new JObject());
-            var inner = Update(modify, change, jumpBall);
+            var inner = Update(modify, jumpBall);
             return inner.ToReturnable();
         }
 
@@ -216,30 +185,21 @@ namespace WandererWebApp
         //    }
         //}
 
-        private InnerPayload Update(Func<JObject, IReadOnlyList<EntityChanges>, JObject> modify, EntityChanges change, JumpBallConcurrent<DataToSave> jumpBall)
+        private SaveInDatabase Update(Func<JObject, IReadOnlyList<EntityChanges>, (JObject, EntityChanges)> modify, CacheEntry jumpBall)
         {
-            InnerPayload res = null;
+            SaveInDatabase res = null;
 
-            var jobjectResult = jumpBall.Run(dts =>
+            jumpBall.Update(x =>
             {
-
-                dts.Update(x =>
+                res = x;
+                var (obj,appliedChange) = modify(res.JObject, res.RecentChanges);
+                res.JObject = obj;
+                res.RecentChanges.Add(appliedChange);
+                while (res.RecentChanges.Count > 100)
                 {
-                    res = x;
-                    res.JObject = modify(res.JObject, res.RecentChanges);
-                    res.RecentChanges.Add(change);
-                    while (res.RecentChanges.Count > 100)
-                    {
-                        res.RecentChanges.RemoveAt(0);
-                    }
-                    dts.jObject = res;
-                    return dts.jObject;
-
-                }, jumpBall);
-
-
-
-                return dts;
+                    res.RecentChanges.RemoveAt(0);
+                }
+                return res;
             });
 
             var myJob = new Job(this);
@@ -251,7 +211,7 @@ namespace WandererWebApp
             return res;
         }
 
-        private async Task<JumpBallConcurrent<DataToSave>> PrivateGet(string rowKey, string partitionKey, Func<JObject> init)
+        private async Task<CacheEntry> PrivateGet(string rowKey, string partitionKey, Func<JObject> init)
         {
             if (rowKey is null)
             {
@@ -263,7 +223,7 @@ namespace WandererWebApp
                 throw new ArgumentNullException(nameof(partitionKey));
             }
 
-            var mine = new TaskCompletionSource<JumpBallConcurrent<DataToSave>>();
+            var mine = new TaskCompletionSource<CacheEntry>();
             var current = cache.GetOrAdd((rowKey, partitionKey), mine.Task);
             if (ReferenceEquals(mine.Task, current))
             {
@@ -275,7 +235,7 @@ namespace WandererWebApp
                 var entity = result.Result.SafeCastTo<object, Entity>();
                 if (entity == null)
                 {
-                    entity = EntityRehydrator.Dehydrate(new InnerPayload
+                    entity = EntityRehydrator.Dehydrate(new SaveInDatabase
                     {
                         JObject = init(),
                         RecentChanges = new List<EntityChanges>() 
@@ -291,10 +251,10 @@ namespace WandererWebApp
                             }
                         }
                     }, rowKey, partitionKey); ;
-                    var tableResult = (await readyTable.ExecuteAsync(TableOperation.Insert(entity)));
+                    var tableResult = await readyTable.ExecuteAsync(TableOperation.Insert(entity));
                     entity = tableResult.Result.SafeCastTo<object, Entity>();
                 }
-                mine.SetResult(new JumpBallConcurrent<DataToSave>(new DataToSave(EntityRehydrator.Rehydrate(entity), this, rowKey, partitionKey)));
+                mine.SetResult(new CacheEntry(EntityRehydrator.Rehydrate(entity), this, rowKey, partitionKey));
 
             }
             var jumpBall = await current;
@@ -306,11 +266,11 @@ namespace WandererWebApp
     public static class EntityRehydrator
     {
 
-        public static InnerPayload Rehydrate(Entity entity)
+        public static SaveInDatabase Rehydrate(Entity entity)
         {
             if (entity.Version == default)
             {
-                return new InnerPayload
+                return new SaveInDatabase
                 {
                     JObject = JObject.Parse(entity.JSON),
                     RecentChanges = new List<EntityChanges>()
@@ -318,12 +278,12 @@ namespace WandererWebApp
             }
             else if (entity.Version == 1)
             {
-                return JsonConvert.DeserializeObject<InnerPayload>(entity.JSON);
+                return JsonConvert.DeserializeObject<SaveInDatabase>(entity.JSON);
             }
             throw new NotImplementedException("the version is greater than the current version!");
         }
 
-        public static Entity Dehydrate(InnerPayload payload, string rowKey, string partitionKey)
+        public static Entity Dehydrate(SaveInDatabase payload, string rowKey, string partitionKey)
         {
             return new Entity(rowKey, partitionKey)
             {
@@ -348,5 +308,29 @@ namespace WandererWebApp
         }
         public string JSON { get; set; }
         public int Version { get; set; }
+    }
+
+    public class SaveInDatabase: ICopy<SaveInDatabase>
+    {
+        public JObject JObject { get; set; }
+        public List<EntityChanges> RecentChanges { get; set; }
+
+        internal ReturnedPayload ToReturnable()
+        {
+            return new ReturnedPayload
+            {
+                JObject = this.JObject,
+                RecentChanges = this.RecentChanges.Select(x => x.ChangeId).ToList(),
+            };
+        }
+
+        public SaveInDatabase Copy()
+        {
+            return new SaveInDatabase
+            {
+                JObject = (JObject)JObject.DeepClone(),
+                RecentChanges = RecentChanges.ToList(),
+            };
+        }
     }
 }
