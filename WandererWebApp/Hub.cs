@@ -202,7 +202,6 @@ namespace WandererWebApp
                                     {
                                         foreach (var innerChange in innerUpdateCollaborativeString.Changes)
                                         {
-
                                             if (innerChange.AtIndex < changeToApply.AtIndex && innerChange.AtIndex + innerChange.Text.Length > changeToApply.AtIndex && innerChange.Type == "delete")
                                             {
                                                 // the text that included the change was deleted ignore the change
@@ -216,7 +215,6 @@ namespace WandererWebApp
                                             {
                                                 changeToApply.AtIndex += innerChange.Text.Length;
                                             }
-
                                         }
                                     }
                                 }

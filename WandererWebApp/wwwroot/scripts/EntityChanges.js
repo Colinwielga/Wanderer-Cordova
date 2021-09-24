@@ -47,11 +47,9 @@ g.SharedEntity.CompareStrings = function(from, to){
         var columnToAdd = [];
         // for each row
         for (var y=0; y <= to.length; y++){
-            var rowToAdd = 0;
-            // add our new row to our column
-            columnToAdd.push(rowToAdd);
+            columnToAdd.push(null);
         }
-        // add our new column to our gird
+        // add our new column to our grid
         grid.push(columnToAdd);
     }
 
@@ -59,23 +57,17 @@ g.SharedEntity.CompareStrings = function(from, to){
     //  working left to right, top to bottom look at each square:
     for (var x=0; x <= from.length; x++){
         for (var y=0; y <= to.length; y++){
-
-            // the square diagonal plus "↘" when the letters match
-            if (y != 0 && x != 0 && from[x-1] === to[y-1]){
-                grid[x][y] = grid[x - 1][y - 1] + 1;
-
-            }else
-            // 1st path the square above plus "⬇"
-            if (y != 0) {
+            if (y != 0 && x != 0 && from[x - 1] === to[y - 1]) {// the square diagonal plus 1 when the letters match
+                grid[x][y] = grid[x - 1][y - 1];
+            }
+            if (y != 0 && (grid[x][y] == null || grid[x][y] > grid[x][y - 1] + 1)) { // 1st path the square above plus one
                 grid[x][y] = grid[x][y - 1] + 1;
-            }else 
-            // the square to the left plus "➡"
-            if (x != 0) {
+            }
+            if (x != 0 && (grid[x][y] == null || grid[x][y] > grid[x - 1][y] + 1)) { // the square to the left plus one
                 grid[x][y] = grid[x - 1][y] + 1;
-            }else 
-            // the square is 0,0 use the empty list
-            if (y === 0 && x === 0) {
-                grid[x][y] = 0
+            }
+            if (y === 0 && x === 0 && (grid[x][y] == null || grid[x][y] > 0)) {
+                grid[x][y] = 0;
             }
         }
     }
@@ -118,18 +110,18 @@ g.SharedEntity.CompareStrings = function(from, to){
     var atY = to.length;
 
     var bestPath = [];
-    while (atX != 0 && atY != 0) {
+    while (atX != 0 || atY != 0) {
         current = grid[atX][atY];
-        if (atX > 0 && atY > 0 && grid[atX - 1][atY - 1] == current - 1) {
+        if (atX > 0 && atY > 0 && grid[atX - 1][atY - 1] == current && from[atX - 1] === to[atY - 1]) {
             atX--;
             atY--;
             bestPath.unshift("↘");
         } else if (atX > 0 && grid[atX - 1][atY] == current - 1) {
             atX--;
-            bestPath.unshift("➡");
+            bestPath.unshift("⬇");
         } else if (atY > 0 && grid[atX][atY - 1] == current - 1) {
             atY--;
-            bestPath.unshift("⬇");
+            bestPath.unshift("➡");
         } 
     }
 
@@ -141,11 +133,11 @@ g.SharedEntity.CompareStrings = function(from, to){
             fromIndex = fromIndex + 1;
             toIndex = toIndex + 1;
         } 
-        else if (arrow === "➡"){
+        else if (arrow === "⬇"){
             fromIndex = fromIndex + 1;
             changes.push({type:"delete", atIndex: toIndex + 1, text: from[fromIndex]});
         }
-        else if (arrow === "⬇"){
+        else if (arrow === "➡"){
             toIndex = toIndex + 1;
             changes.push({type:"add", atIndex: toIndex, text: to[toIndex]});   
         }
