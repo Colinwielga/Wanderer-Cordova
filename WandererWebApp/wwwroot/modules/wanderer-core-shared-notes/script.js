@@ -26,7 +26,9 @@ sharedNotes.component = function () {
 
                     // see {24CE38E4-9FA3-4EF8-8D99-67CD3C91A194}
                     var editor = document.getElementById("wanderer-core-shared-notes-text-area");
-                    editor.value = that.notes;
+                    if (editor != null) {
+                        editor.value = that.notes;
+                    }
                 } else {
 
                     var editor = document.getElementById("wanderer-core-shared-notes-text-area");
@@ -108,6 +110,13 @@ sharedNotes.component = function () {
 
         this.trackedEntity.backing.sharedNotes.UpdateForCollaboration(this.notes);
         this.trackedEntity.entityChanges.Publish();
+    }
+
+    this.init = function () {
+        var editor = document.getElementById("wanderer-core-shared-notes-text-area");
+        if (editor != null && editor.value == null) {
+            editor.value = this.notes;
+        }
     }
 
     this.OnSave = function () {

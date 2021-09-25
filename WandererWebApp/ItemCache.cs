@@ -68,9 +68,9 @@ namespace WandererWebApp
 
             public async Task Do()
             {
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(false);
 
-                await itemCache.PassoverToSaveAsync();
+                await itemCache.PassoverToSaveAsync().ConfigureAwait(false);
             }
         }
 
@@ -106,7 +106,7 @@ namespace WandererWebApp
                 if (DateTime.UtcNow - lastUpdate > TimeSpan.FromMinutes(1) || DateTime.UtcNow - firstUpdate > TimeSpan.FromMinutes(3))
                 {
                     // save
-                    await table.ExecuteAsync(TableOperation.InsertOrReplace(EntityRehydrator.Dehydrate(data.Read(), rowKey, partitionKey)));
+                    await table.ExecuteAsync(TableOperation.InsertOrReplace(EntityRehydrator.Dehydrate(data.Read(), rowKey, partitionKey))).ConfigureAwait(false);
                     return true;
                 }
                 return false;
@@ -132,7 +132,7 @@ namespace WandererWebApp
 
         public async Task<ReturnedPayload> GetOrInit(string rowKey, string partitionKey, Func<JObject> init)
         {
-            var jumpBall = await PrivateGet(rowKey, partitionKey, init);
+            var jumpBall = await PrivateGet(rowKey, partitionKey, init).ConfigureAwait(false);
 
             return jumpBall.data.Read().ToReturnable();
         }
@@ -145,11 +145,11 @@ namespace WandererWebApp
         public async Task PassoverToSaveAsync()
         {
             timer = null;
-            var readyTable = await table;
+            var readyTable = await table.ConfigureAwait(false);
             var toAdds = new List<CacheEntry>();
             while (ToSaves.RemoveStart(out var toSave))
             {
-                if (!await toSave.SaveIfNeeded(readyTable)) {
+                if (!await toSave.SaveIfNeeded(readyTable).ConfigureAwait(false)) {
                     // we didn't save add it back to the list
                     toAdds.Add(toSave);
                 }
@@ -170,7 +170,7 @@ namespace WandererWebApp
 
         public async Task<ReturnedPayload> Do(string entityName, string entityOwner, Func<JObject, IReadOnlyList<EntityChanges>, (JObject, EntityChanges)> modify)
         {
-            var jumpBall = await PrivateGet(entityName, entityOwner, () => new JObject());
+            var jumpBall = await PrivateGet(entityName, entityOwner, () => new JObject()).ConfigureAwait(false);
             var inner = Update(modify, jumpBall);
             return inner.ToReturnable();
         }
@@ -179,7 +179,7 @@ namespace WandererWebApp
         //{
 
         //    var didIt = false;
-        //    var jumpBall = await PrivateGet(entityName, entityOwner, () => { didIt = true ; return  newValue; });
+        //    var jumpBall = await PrivateGet(entityName, entityOwner, () => { didIt = true ; return  newValue; }).ConfigureAwait(false);
         //    if (!didIt) {
         //        Update((_,_) => newValue, change, jumpBall);
         //    }
@@ -229,8 +229,8 @@ namespace WandererWebApp
             {
                 var retrieveOperation = TableOperation.Retrieve<Entity>(partitionKey, rowKey);
 
-                var readyTable = await table;
-                var result = await readyTable.ExecuteAsync(retrieveOperation);
+                var readyTable = await table.ConfigureAwait(false);
+                var result = await readyTable.ExecuteAsync(retrieveOperation).ConfigureAwait(false);
 
                 var entity = result.Result.SafeCastTo<object, Entity>();
                 if (entity == null)
@@ -251,13 +251,13 @@ namespace WandererWebApp
                             }
                         }
                     }, rowKey, partitionKey); ;
-                    var tableResult = await readyTable.ExecuteAsync(TableOperation.Insert(entity));
+                    var tableResult = await readyTable.ExecuteAsync(TableOperation.Insert(entity)).ConfigureAwait(false);
                     entity = tableResult.Result.SafeCastTo<object, Entity>();
                 }
                 mine.SetResult(new CacheEntry(EntityRehydrator.Rehydrate(entity), this, rowKey, partitionKey));
 
             }
-            var jumpBall = await current;
+            var jumpBall = await current.ConfigureAwait(false);
             return jumpBall;
         }
 
@@ -320,7 +320,7 @@ namespace WandererWebApp
             return new ReturnedPayload
             {
                 JObject = this.JObject,
-                RecentChanges = this.RecentChanges.Select(x => x.ChangeId).ToList(),
+                RecentChanges = this.RecentChanges.Select(x => x.ChangeId).TakeLast(20).ToList(),
             };
         }
 

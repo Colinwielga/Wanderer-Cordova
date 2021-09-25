@@ -53,13 +53,13 @@ namespace WandererWebApp
                     throw new Exception($"invalid key: \"{partitionKey}\", key cannot contain \"|\"");
                 }
 
-                await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey);
+                await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey).ConfigureAwait(false);
 
-                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, () => ModifyObject(fallback)(new JObject(), new List<EntityChanges>()).Item1));
+                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, () => ModifyObject(fallback)(new JObject(), new List<EntityChanges>()).Item1).ConfigureAwait(false));
 
                 var client = Clients.Client(Context.ConnectionId);
 
-                await client.SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
+                await client.SendAsync("EntityUpdate", rowKey, partitionKey, jsonString).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -71,11 +71,11 @@ namespace WandererWebApp
         {
             try
             {
-                var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges)));
+                var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges)).ConfigureAwait(false));
 
                 var group = Clients.Groups(rowKey + "|" + partitionKey);
 
-                await group.SendAsync("EntityUpdate", rowKey, partitionKey, jsonString);
+                await group.SendAsync("EntityUpdate", rowKey, partitionKey, jsonString).ConfigureAwait(false);
             }
             catch (Exception e)
             {

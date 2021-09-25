@@ -1,5 +1,47 @@
 ﻿g.SharedEntity = {};
 
+
+g.SharedEntity.UpdateArray = function (grid, x, y, from, to) {
+    if (grid[x] == undefined) {
+        grid[x] = [];
+    }else if (grid[x][y] != undefined) {
+        return grid[x][y];
+    }
+
+    // we want to early exit if we can
+    // we target case where there is just one change
+    // in these case we hope to old populate a diaginal 
+
+    if (y != 0 && x != 0 && from[x - 1] === to[y - 1] && g.SharedEntity.UpdateArray(grid,x - 1, y - 1,from,to) == Math.abs(x-y) ) {
+        grid[x][y] = Math.abs(x - y);
+        return Math.abs(x - y);
+    }
+
+    if (x > y && (x - 1) - y == g.SharedEntity.UpdateArray(grid, x - 1, y, from, to)) {
+        grid[x][y] = grid[x - 1][y] + 1
+        return grid[x][y];
+    }
+
+    if (y > x  && (y - 1) - x == g.SharedEntity.UpdateArray(grid, x, y - 1, from, to)) {
+        grid[x][y] = grid[x][y - 1] + 1
+        return grid[x][y];
+    }
+
+    if (y != 0 && x != 0 && from[x - 1] === to[y - 1]) {// the square diagonal plus 1 when the letters match
+        grid[x][y] = grid[x - 1][y - 1];
+    }
+    if (y != 0 && (grid[x][y] === undefined || grid[x][y] > g.SharedEntity.UpdateArray(grid, x,y - 1, from , to) + 1)) { // 1st path the square above plus one
+        grid[x][y] = g.SharedEntity.UpdateArray(grid, x, y - 1, from, to) + 1;
+    }
+    if (x != 0 && (grid[x][y] === undefined || grid[x][y] > g.SharedEntity.UpdateArray(grid, x - 1,y, from, to) + 1)) { // the square to the left plus one
+        grid[x][y] = g.SharedEntity.UpdateArray(grid, x - 1, y, from, to) + 1;
+    }
+    if (y === 0 && x === 0) {
+        grid[x][y] = 0;
+    }
+    return grid[x][y];
+}
+
 g.SharedEntity.CompareStrings = function(from, to){
     // abd
     // acd
@@ -42,35 +84,40 @@ g.SharedEntity.CompareStrings = function(from, to){
     // create the grid
     var grid = [];
     // create the columns
-    for (var x=0; x <= from.length; x++){
-        // create a column
-        var columnToAdd = [];
-        // for each row
-        for (var y=0; y <= to.length; y++){
-            columnToAdd.push(null);
-        }
-        // add our new column to our grid
-        grid.push(columnToAdd);
-    }
+    //for (var x=0; x <= from.length; x++){
+    //    // create a column
+    //    var columnToAdd = [];
+    //    // for each row
+    //    for (var y=0; y <= to.length; y++){
+    //        columnToAdd.push(null);
+    //    }
+    //    // add our new column to our grid
+    //    grid.push(columnToAdd);
+    //}
 
     // fill the grid:
     //  working left to right, top to bottom look at each square:
-    for (var x=0; x <= from.length; x++){
-        for (var y=0; y <= to.length; y++){
-            if (y != 0 && x != 0 && from[x - 1] === to[y - 1]) {// the square diagonal plus 1 when the letters match
-                grid[x][y] = grid[x - 1][y - 1];
-            }
-            if (y != 0 && (grid[x][y] == null || grid[x][y] > grid[x][y - 1] + 1)) { // 1st path the square above plus one
-                grid[x][y] = grid[x][y - 1] + 1;
-            }
-            if (x != 0 && (grid[x][y] == null || grid[x][y] > grid[x - 1][y] + 1)) { // the square to the left plus one
-                grid[x][y] = grid[x - 1][y] + 1;
-            }
-            if (y === 0 && x === 0 && (grid[x][y] == null || grid[x][y] > 0)) {
-                grid[x][y] = 0;
-            }
+    //for (var x=0; x <= from.length; x++){
+    //    for (var y=0; y <= to.length; y++){
+
+    //    }
+    //}
+    var atX = 0;
+    var atY = 0;
+    var at = 0;
+    while (atX < from.length || atY < to.length) {
+        var next = g.SharedEntity.UpdateArray(grid, atX, atY, from, to);
+        if (at == next || (from.length - atX) == (to.length - atY)) {
+            atX++;
+            atY++;
+        } else if ((from.length - atX) > (to.length - atY)) {
+            atX++;
+        } else {
+            atY++;
         }
+        at = next;
     }
+    g.SharedEntity.UpdateArray(grid, atX, atY, from, to);
 
     //   _   a   b      d
     // _     ➡  ➡➡   ➡➡➡
