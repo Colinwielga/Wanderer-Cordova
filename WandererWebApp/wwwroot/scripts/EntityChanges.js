@@ -175,21 +175,18 @@ g.SharedEntity.CompareStrings = function(from, to){
     var changes = [];
     var fromIndex = 0;
     var toIndex = 0;
-    var effectiveIndex = 0;
     for (var arrow of bestPath){
         if (arrow === "↘"){
             fromIndex = fromIndex + 1;
             toIndex = toIndex + 1;
-            effectiveIndex = effectiveIndex + 1;
         } 
         else if (arrow === "⬇") {
-            changes.push({ type: "delete", atIndex: effectiveIndex, text: from[fromIndex] });
+            changes.push({ type: "delete", atIndex: toIndex, text: from[fromIndex] });
             fromIndex = fromIndex + 1;
         }
         else if (arrow === "➡") {
-            changes.push({ type: "add", atIndex: effectiveIndex, text: to[toIndex] });
+            changes.push({ type: "add", atIndex: toIndex, text: to[toIndex] });
             toIndex = toIndex + 1;
-            effectiveIndex = effectiveIndex + 1;
         }
     }
 
