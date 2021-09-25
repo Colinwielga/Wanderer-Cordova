@@ -173,20 +173,23 @@ g.SharedEntity.CompareStrings = function(from, to){
     }
 
     var changes = [];
-    var fromIndex = -1;
-    var toIndex = -1;
+    var fromIndex = 0;
+    var toIndex = 0;
+    var effectiveIndex = 0;
     for (var arrow of bestPath){
         if (arrow === "↘"){
             fromIndex = fromIndex + 1;
             toIndex = toIndex + 1;
+            effectiveIndex = effectiveIndex + 1;
         } 
-        else if (arrow === "⬇"){
+        else if (arrow === "⬇") {
+            changes.push({ type: "delete", atIndex: effectiveIndex, text: from[fromIndex] });
             fromIndex = fromIndex + 1;
-            changes.push({type:"delete", atIndex: toIndex + 1, text: from[fromIndex]});
         }
-        else if (arrow === "➡"){
+        else if (arrow === "➡") {
+            changes.push({ type: "add", atIndex: effectiveIndex, text: to[toIndex] });
             toIndex = toIndex + 1;
-            changes.push({type:"add", atIndex: toIndex, text: to[toIndex]});   
+            effectiveIndex = effectiveIndex + 1;
         }
     }
 
@@ -218,12 +221,12 @@ g.SharedEntity.CompareStrings = function(from, to){
         //  update last to be current
         if (last != null){
             // try combine deletes and set last to the result
-            if (current.type === last.type && current.type === "delete" && current.atIndex === last.atIndex){
-                last = {type:"delete", atIndex: current.atIndex, text: last.text + current.text};
+            if (current.type === last.type && current.type === "delete" && current.atIndex === last.atIndex) {
+                last = { type: "delete", atIndex: current.atIndex, text: last.text + current.text };
             }
             // otherwise try combine adds and set last to the result
-            else if (current.type === last.type && current.type === "add" && current.atIndex === last.atIndex + last.text.length){
-                last = {type:"add", atIndex: last.atIndex, text: last.text + current.text}
+            else if (current.type === last.type && current.type === "add" && current.atIndex === last.atIndex + last.text.length) {
+                last = { type: "add", atIndex: last.atIndex, text: last.text + current.text }
             }
             // otherwise push to flattenedChanges
             else {

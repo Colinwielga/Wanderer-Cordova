@@ -278,7 +278,7 @@ namespace WandererWebApp
 
         private static IEnumerable<EntityChanges> ChangesAfterSourceChange(IReadOnlyList<EntityChanges> recentChanges, EntityChanges sourceChange)
         {
-            return recentChanges.SkipWhile(x => x.ChangeId != sourceChange.ChangeId);
+            return recentChanges.SkipWhile(x => x.ChangeId != sourceChange.ChangeId).SkipWhile(x => x.ChangeId == sourceChange.ChangeId);
         }
 
         private static JObject Navigate(JObject x, string pathPart)
