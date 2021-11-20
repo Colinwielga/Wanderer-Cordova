@@ -55,7 +55,7 @@ namespace WandererWebApp
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, rowKey + "|" + partitionKey).ConfigureAwait(false);
 
-                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, () => ModifyObject(fallback)(new JObject(), new List<EntityChanges>()).Item1).ConfigureAwait(false));
+                var jsonString = JsonConvert.SerializeObject(await cache.GetOrInit(rowKey, partitionKey, () => ModifyObject(fallback, Logger)(new JObject(), new List<EntityChanges>()).Item1).ConfigureAwait(false));
 
                 var client = Clients.Client(Context.ConnectionId);
 
@@ -71,7 +71,7 @@ namespace WandererWebApp
         {
             try
             {
-                var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges)).ConfigureAwait(false));
+                var jsonString = JsonConvert.SerializeObject(await cache.Do(rowKey, partitionKey, ModifyObject(entityChanges, Logger)).ConfigureAwait(false));
 
                 var group = Clients.Groups(rowKey + "|" + partitionKey);
 
@@ -83,7 +83,7 @@ namespace WandererWebApp
             }
         }
 
-        private static Func<JObject, IReadOnlyList<EntityChanges>, (JObject, EntityChanges)> ModifyObject(EntityChanges entityChanges) => (entity, recentChanges) =>
+        private static Func<JObject, IReadOnlyList<EntityChanges>, (JObject, EntityChanges)> ModifyObject(EntityChanges entityChanges, ILogger<Chat> logger) => (entity, recentChanges) =>
         {
             var operations = entityChanges.Operations.SelectMany(item =>
             {
@@ -177,17 +177,20 @@ namespace WandererWebApp
 
                     var sourceChange = recentChanges.Where(x => x.ChangeId == updateCollaborativeString.FromChangeId).SingleOrDefault();
 
+
+
                     // we want to be able to handle:
                     // say Scott chagned:
-                    // hello my dear
+                    // hello my dear ...
                     // to:
-                    // hello my dear,
-                    // that would cteat a change
+                    // hello my dear, ...
+                    // that would create a change
                     // {type: "add",  atIndex: 13, test ","}
                     //
                     // but on the server someone has deleted "my" so it has:
                     // hello dear
                     // here we need to intelligently find the index of the add
+                    var myEvent = new EventId(entityChanges.ChangeId.GetHashCode(), entityChanges.ChangeId);
 
                     var changesToApply = updateCollaborativeString.Changes.SelectMany(changeToApply =>
                     {
@@ -197,8 +200,8 @@ namespace WandererWebApp
                             {
                                 if (operation.Name == nameof(UpdateCollaborativeString))
                                 {
-                                    var innerUpdateCollaborativeString = JsonConvert.DeserializeObject<UpdateCollaborativeString>(item.JSON);
-                                    if (innerUpdateCollaborativeString.Path.Zip(updateCollaborativeString.Path, (x, y) => x == y).All(x => x))
+                                    var innerUpdateCollaborativeString = JsonConvert.DeserializeObject<UpdateCollaborativeString>(operation.JSON);
+                                    if (innerUpdateCollaborativeString.Path.SequenceEqual(updateCollaborativeString.Path))
                                     {
                                         foreach (var innerChange in innerUpdateCollaborativeString.Changes)
                                         {
@@ -209,11 +212,11 @@ namespace WandererWebApp
                                             }
                                             else if (innerChange.AtIndex < changeToApply.AtIndex && innerChange.Type == "delete")
                                             {
-                                                changeToApply.AtIndex -= innerChange.Text.Length;
+                                                changeToApply.AtIndex -= Math.Min(innerChange.Text.Length, changeToApply.AtIndex - innerChange.AtIndex);
                                             }
                                             else if (innerChange.AtIndex < changeToApply.AtIndex && innerChange.Type == "add")
                                             {
-                                                changeToApply.AtIndex += innerChange.Text.Length;
+                                               changeToApply.AtIndex += innerChange.Text.Length;
                                             }
                                         }
                                     }
