@@ -249,6 +249,8 @@ g.SharedEntity.uuidv4 = function() {
     );
 }
 
+g.SharedEntity.sourceId = g.SharedEntity.uuidv4();
+
 g.SharedEntity.MakeTrackedEntity = function (key1, key2, changeId) {
 
     var res = {
@@ -263,7 +265,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2, changeId) {
             for (var item of this.changeList) {
                 res.push(item);
             }
-            return { Operations: res, ChangeId: g.SharedEntity.uuidv4() };
+            return { Operations: res, ChangeId: g.SharedEntity.uuidv4(), SourceId: g.SharedEntity.sourceId };
         },
         MakePath: function (path, string) {
             var res = [];

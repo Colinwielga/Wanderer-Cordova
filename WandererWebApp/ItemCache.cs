@@ -247,7 +247,10 @@ namespace WandererWebApp
                                        Name = nameof(InitOperation),
                                        JSON = JsonConvert.SerializeObject(new InitOperation{})
                                    }
-                               }
+                               },
+                               // what do we have source ID?
+                               // find all for {26E6C5FD-EAE7-40AC-BF0E-FBAFFA2EC40C}
+                               SourceId = Guid.NewGuid().ToString("D"),
                             }
                         }
                     }, rowKey, partitionKey); ;

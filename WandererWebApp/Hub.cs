@@ -190,11 +190,27 @@ namespace WandererWebApp
                     // but on the server someone has deleted "my" so it has:
                     // hello dear
                     // here we need to intelligently find the index of the add
-                    var myEvent = new EventId(entityChanges.ChangeId.GetHashCode(), entityChanges.ChangeId);
+
+                    // {26E6C5FD-EAE7-40AC-BF0E-FBAFFA2EC40C}
+                    // say the client ends two changes from change id 123
+                    // they sending them in series without getting an update from the server
+                    //
+                    // the client is typing "hi" at the start of "Colin, how are you?"
+                    //
+                    // 123: "Colin, how are you?"
+                    // {type: "add", atIndex: 0, text: "h"} source change: 123
+                    // {type: "add", atIndex: 1, text: "i"} source change: 123
+                    //
+                    // when the seond one comes in the first one updates it's index
+                    // so you end up with "h iColin, how are you?"
+                    // 
+                    // we identifiy changes from the same source by source Id ignore them below
 
                     var changesToApply = updateCollaborativeString.Changes.SelectMany(changeToApply =>
                     {
-                        foreach (var recentChange in ChangesAfterSourceChange(recentChanges, sourceChange))
+                        foreach (var recentChange in ChangesAfterSourceChange(recentChanges, sourceChange)
+                            .Where(recentChange => recentChange.SourceId != entityChanges.SourceId)//  {26E6C5FD-EAE7-40AC-BF0E-FBAFFA2EC40C}
+                        )
                         {
                             foreach (var operation in recentChange.Operations)
                             {
@@ -275,7 +291,8 @@ namespace WandererWebApp
             return (entity, new EntityChanges
             {
                 ChangeId = entityChanges.ChangeId,
-                Operations = operations
+                Operations = operations,
+                SourceId = entityChanges.SourceId,
             });
         };
 
@@ -330,13 +347,15 @@ namespace WandererWebApp
         // in order
         public OperationSplit[] Operations { get; set; }
         public string ChangeId { get; set; }
+        public string SourceId { get; set; }
 
         internal EntityChanges Clone()
         {
             return new EntityChanges
             {
                 Operations = this.Operations.Select(x => x.Clone()).ToArray(),
-                ChangeId = this.ChangeId
+                ChangeId = this.ChangeId,
+                SourceId=  this.SourceId,
             };
         }
     }
