@@ -20,19 +20,22 @@ sharedNotes.component = function () {
         var handleUpdateFromServer = function (key1, key2, payload) {
             g.services.timeoutService.$timeout(function () {
                 if (that.trackedEntity === undefined) {
-                    var editor = document.getElementById("wanderer-core-shared-notes-text-area");
-                    that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                    
+                    that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                     that.notes = that.trackedEntity.backing.sharedNotes.backing;
 
                     // see {24CE38E4-9FA3-4EF8-8D99-67CD3C91A194}
-                    editor.value = that.notes;  
+                    var editor = document.getElementById("wanderer-core-shared-notes-text-area");
+                    if (editor != null) {
+                        editor.value = that.notes;
+                    }
                 } else {
 
                     var editor = document.getElementById("wanderer-core-shared-notes-text-area");
                     var startCaretPosition = editor.selectionStart;
                     var endCaretPosition = editor.selectionEnd;
                     
-                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+                    that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                     
                     // hello[caret] world!
                     // gooodbye[caret] world!
@@ -41,18 +44,17 @@ sharedNotes.component = function () {
                     //   { type: "add", atIndex: 0, text: "goodbye" }
                     // ]
                     
-                    console.log("before: " + startCaretPosition + " - " +  endCaretPosition);
                     var  changes =  g.SharedEntity.CompareStrings(that.notes, that.trackedEntity.backing.sharedNotes.backing);
                     
                     for (change of changes) {
                         if (change.type === "delete" && startCaretPosition > change.atIndex) {
-                            startCaretPosition = startCaretPosition - change.text.length;
+                            startCaretPosition = startCaretPosition - Math.min(change.text.length, startCaretPosition - change.atIndex);
                         }
                         if (change.type === "add" && startCaretPosition > change.atIndex) {
                             startCaretPosition = startCaretPosition + change.text.length;
                         }
                         if (change.type === "delete" && endCaretPosition > change.atIndex) {
-                            endCaretPosition = endCaretPosition - change.text.length;
+                            endCaretPosition = endCaretPosition - Math.min(change.text.length, endCaretPosition - change.atIndex);
                         }
                         if (change.type === "add" && endCaretPosition > change.atIndex) {
                             endCaretPosition = endCaretPosition + change.text.length;
@@ -71,7 +73,6 @@ sharedNotes.component = function () {
                     
                     editor.selectionStart = startCaretPosition;
                     editor.selectionEnd = endCaretPosition;
-                    console.log("after: " +startCaretPosition + " - " +  endCaretPosition);
                 }
 
                 console.log("got a message:", payload);
@@ -106,10 +107,16 @@ sharedNotes.component = function () {
         if (this.trackedEntity === undefined){
             return;
         }
-        console.log(this.trackedEntity.backing.sharedNotes);
 
         this.trackedEntity.backing.sharedNotes.UpdateForCollaboration(this.notes);
         this.trackedEntity.entityChanges.Publish();
+    }
+
+    this.init = function () {
+        var editor = document.getElementById("wanderer-core-shared-notes-text-area");
+        if (editor != null && editor.value == null) {
+            editor.value = this.notes;
+        }
     }
 
     this.OnSave = function () {

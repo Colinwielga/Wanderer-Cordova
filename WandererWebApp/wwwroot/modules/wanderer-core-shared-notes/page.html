@@ -1,4 +1,4 @@
 ﻿
 <div class="pad-me">
-    <textarea data-ng-model="module.notes" placeholder="Keep notes" class="char-text auto-resize" data-ng-change="module.notesChanged()" id="wanderer-core-shared-notes-text-area"></textarea>
+    <textarea data-ng-model="module.notes" placeholder="Keep notes" class="char-text auto-resize" data-ng-init="module.init()" data-ng-change="module.notesChanged()" ng-trim="false" id="wanderer-core-shared-notes-text-area"></textarea>
 </div>

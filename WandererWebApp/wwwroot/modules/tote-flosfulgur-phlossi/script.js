@@ -43,9 +43,9 @@ ToteFlosfulgurPhlossi.component = function () {
             function (key1, key2, payload) {
                 g.services.timeoutService.$timeout(function () {
                     if (that.trackedEntity === undefined) {
-                        that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+						that.trackedEntity = g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                     } else {
-                        that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2);
+						that.trackedEntity = that.trackedEntity.entityChanges.PossiblyUpdateTrackedEntity(payload, key1, key2, payload.RecentChanges[payload.RecentChanges.length - 1]);
                     }
 					that.currentPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.currentPhlossiPoly.backing);
 					that.previousPhlossiPoly = new ToteFlosfulgurPhlossi.phlossiPoly(that.trackedEntity.backing.previousPhlossiPoly.backing);

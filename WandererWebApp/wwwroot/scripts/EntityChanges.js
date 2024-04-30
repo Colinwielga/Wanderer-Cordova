@@ -1,5 +1,47 @@
 ﻿g.SharedEntity = {};
 
+
+g.SharedEntity.UpdateArray = function (grid, x, y, from, to) {
+    if (grid[x] == undefined) {
+        grid[x] = [];
+    }else if (grid[x][y] != undefined) {
+        return grid[x][y];
+    }
+
+    // we want to early exit if we can
+    // we target case where there is just one change
+    // in these case we hope to old populate a diaginal 
+
+    if (y != 0 && x != 0 && from[x - 1] === to[y - 1] && g.SharedEntity.UpdateArray(grid,x - 1, y - 1,from,to) == Math.abs(x-y) ) {
+        grid[x][y] = Math.abs(x - y);
+        return Math.abs(x - y);
+    }
+
+    if (x > y && (x - 1) - y == g.SharedEntity.UpdateArray(grid, x - 1, y, from, to)) {
+        grid[x][y] = grid[x - 1][y] + 1
+        return grid[x][y];
+    }
+
+    if (y > x  && (y - 1) - x == g.SharedEntity.UpdateArray(grid, x, y - 1, from, to)) {
+        grid[x][y] = grid[x][y - 1] + 1
+        return grid[x][y];
+    }
+
+    if (y != 0 && x != 0 && from[x - 1] === to[y - 1]) {// the square diagonal plus 1 when the letters match
+        grid[x][y] = grid[x - 1][y - 1];
+    }
+    if (y != 0 && (grid[x][y] === undefined || grid[x][y] > g.SharedEntity.UpdateArray(grid, x,y - 1, from , to) + 1)) { // 1st path the square above plus one
+        grid[x][y] = g.SharedEntity.UpdateArray(grid, x, y - 1, from, to) + 1;
+    }
+    if (x != 0 && (grid[x][y] === undefined || grid[x][y] > g.SharedEntity.UpdateArray(grid, x - 1,y, from, to) + 1)) { // the square to the left plus one
+        grid[x][y] = g.SharedEntity.UpdateArray(grid, x - 1, y, from, to) + 1;
+    }
+    if (y === 0 && x === 0) {
+        grid[x][y] = 0;
+    }
+    return grid[x][y];
+}
+
 g.SharedEntity.CompareStrings = function(from, to){
     // abd
     // acd
@@ -17,85 +59,65 @@ g.SharedEntity.CompareStrings = function(from, to){
     // c ⬇⬇  ↘⬇ ↘⬇➡   ↘⬇➡➡
     // d ⬇⬇⬇ ↘⬇⬇ ↘⬇⬇➡ ↘⬇➡↘
 
+    // TODO
+
+    // I think I can just do a grid of numbers
+    // _ 0 1 2 3
+    // a 1 1 2 3
+    // c 2 2 3 4
+    // d 3 3 4 4
+
+    // and then we find a path from the end to the start
+    // that counts down
+
     // accessed like: grid[x][y]
 
-    var copyAndAppend = function(list,toAdd){
-        var res = [];
-        for (var item of list){
-            res.push(item);
-        }
-        res.push(toAdd);
-        return res;
-    }
+    //var copyAndAppend = function(list,toAdd){
+    //    var res = [];
+    //    for (var item of list){
+    //        res.push(item);
+    //    }
+    //    res.push(toAdd);
+    //    return res;
+    //}
 
     // create the grid
     var grid = [];
     // create the columns
-    for (var x=0; x <= from.length; x++){
-        // create a column
-        var columnToAdd = [];
-        // for each row
-        for (var y=0; y <= to.length; y++){
-            var rowToAdd = null;
-            // add our new row to our column
-            columnToAdd.push(rowToAdd);
-        }
-        // add our new column to our gird
-        grid.push(columnToAdd);
-    }
+    //for (var x=0; x <= from.length; x++){
+    //    // create a column
+    //    var columnToAdd = [];
+    //    // for each row
+    //    for (var y=0; y <= to.length; y++){
+    //        columnToAdd.push(null);
+    //    }
+    //    // add our new column to our grid
+    //    grid.push(columnToAdd);
+    //}
 
     // fill the grid:
     //  working left to right, top to bottom look at each square:
-    for (var x=0; x <= from.length; x++){
-        for (var y=0; y <= to.length; y++){
-            //  calculate the 3 possible paths to that square
-            var bestPath = null;
-            // 1st path the square above plus "⬇"
-            if (y != 0) { 
-                var path1 = copyAndAppend(grid[x][y-1], "⬇");
-                // we are the best path 
-                bestPath = path1;
-            }
-            // the square diagonal plus "↘" when the letters match
-            if (y != 0 && x != 0 && from[x-1] === to[y-1]){
-                var path2 = copyAndAppend(grid[x-1][y-1], "↘")
-                // is the best path empty? if so, we are the best path
-                // otherwise, are we shorter than the path? if so we are the best
-                if (bestPath === null){
-                    bestPath = path2;
-                }
-                else if (path2.length < bestPath.length){
-                    bestPath = path2;
-                }
-            }
-            // the square to the left plus "➡"
-            if (x != 0) {
-                var path3 = copyAndAppend(grid[x-1][y], "➡")
-                // is the best path empty? if so, we are the best path
-                // otherwise, are we shorter than the path? if so we are the best
-                if (bestPath === null){
-                    bestPath = path3;
-                }
-                else if (path3.length < bestPath.length){
-                    bestPath = path3;
-                }
-            }
-            // the square is 0,0 use the empty list
-            if (y === 0 && x === 0) {
-                var path4 = []
-                // is the best path empty? if so, we are the best path
-                // otherwise, are we shorter than the path? if so we are the best
-                if (bestPath === null){
-                    bestPath = path4;
-                }
-                else if (path4.length < bestPath.length){
-                    bestPath = path4;
-                }
-            }
-            //  fill the square with the best path
-            grid[x][y] = bestPath;
+    //for (var x=0; x <= from.length; x++){
+    //    for (var y=0; y <= to.length; y++){
+
+    //    }
+    //}
+    var atX = 0;
+    var atY = 0;
+    var at = 0;
+    while (atX < from.length || atY < to.length) {
+        var next = g.SharedEntity.UpdateArray(grid, atX, atY, from, to);
+        if (at == next || (from.length - atX) == (to.length - atY)) {
+            atX++;
+            atY++;
+        } else if ((from.length - atX) > (to.length - atY)) {
+            atX++;
+        } else {
+            atY++;
         }
+        at = next;
     }
+    g.SharedEntity.UpdateArray(grid, atX, atY, from, to);
 
     //   _   a   b      d
     // _     ➡  ➡➡   ➡➡➡
@@ -131,25 +153,40 @@ g.SharedEntity.CompareStrings = function(from, to){
     // acd   2 
     // res: [{type:"delete", atIndex: 1, text: "b" }, {type:"add", atIndex:2, text:"d"}]
 
-    
-    var bestPath = grid[from.length][to.length];
+    var atX = from.length;
+    var atY = to.length;
 
+    var bestPath = [];
+    while (atX != 0 || atY != 0) {
+        current = grid[atX][atY];
+        if (atX > 0 && atY > 0 && grid[atX - 1][atY - 1] == current && from[atX - 1] === to[atY - 1]) {
+            atX--;
+            atY--;
+            bestPath.unshift("↘");
+        } else if (atX > 0 && grid[atX - 1][atY] == current - 1) {
+            atX--;
+            bestPath.unshift("⬇");
+        } else if (atY > 0 && grid[atX][atY - 1] == current - 1) {
+            atY--;
+            bestPath.unshift("➡");
+        } 
+    }
 
     var changes = [];
-    var fromIndex = -1;
-    var toIndex = -1;
+    var fromIndex = 0;
+    var toIndex = 0;
     for (var arrow of bestPath){
         if (arrow === "↘"){
             fromIndex = fromIndex + 1;
             toIndex = toIndex + 1;
         } 
-        else if (arrow === "➡"){
+        else if (arrow === "⬇") {
+            changes.push({ type: "delete", atIndex: toIndex, text: from[fromIndex] });
             fromIndex = fromIndex + 1;
-            changes.push({type:"delete", atIndex: toIndex + 1, text: from[fromIndex]});
         }
-        else if (arrow === "⬇"){
+        else if (arrow === "➡") {
+            changes.push({ type: "add", atIndex: toIndex, text: to[toIndex] });
             toIndex = toIndex + 1;
-            changes.push({type:"add", atIndex: toIndex, text: to[toIndex]});   
         }
     }
 
@@ -181,12 +218,12 @@ g.SharedEntity.CompareStrings = function(from, to){
         //  update last to be current
         if (last != null){
             // try combine deletes and set last to the result
-            if (current.type === last.type && current.type === "delete" && current.atIndex === last.atIndex){
-                last = {type:"delete", atIndex: current.atIndex, text: last.text + current.text};
+            if (current.type === last.type && current.type === "delete" && current.atIndex === last.atIndex) {
+                last = { type: "delete", atIndex: current.atIndex, text: last.text + current.text };
             }
             // otherwise try combine adds and set last to the result
-            else if (current.type === last.type && current.type === "add" && current.atIndex === last.atIndex + last.text.length){
-                last = {type:"add", atIndex: last.atIndex, text: last.text + current.text}
+            else if (current.type === last.type && current.type === "add" && current.atIndex === last.atIndex + last.text.length) {
+                last = { type: "add", atIndex: last.atIndex, text: last.text + current.text }
             }
             // otherwise push to flattenedChanges
             else {
@@ -212,19 +249,24 @@ g.SharedEntity.uuidv4 = function() {
     );
 }
 
-g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
+g.SharedEntity.sourceId = g.SharedEntity.uuidv4();
+
+g.SharedEntity.MakeTrackedEntity = function (key1, key2, changeId) {
 
     var res = {
+        key1: key1,
+        key2: key2,
+        changeList: [],
+        waitFor: null,
+        lastSend: 0,
+        sourceChangeId: changeId,
         GetEntityChanges: function () {
             var res = [];
             for (var item of this.changeList) {
                 res.push(item);
             }
-            return { Operations: res, ChangeId: g.SharedEntity.uuidv4() };
+            return { Operations: res, ChangeId: g.SharedEntity.uuidv4(), SourceId: g.SharedEntity.sourceId };
         },
-        key1: key1,
-        key2: key2,
-        changeList: [],
         MakePath: function (path, string) {
             var res = [];
             for (var item of path) {
@@ -233,23 +275,21 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
             res.push(string);
             return res;
         },
-        waitFor: null,
-        lastSend: 0,
-        PossiblyUpdateTrackedEntity: function (payload, key1,key2) {
+        PossiblyUpdateTrackedEntity: function (payload, key1, key2, changeId) {
             // we are not waiting
             if (this.waitFor === null) {
-                return g.SharedEntity.ToTrackedEntity(payload.JObject,key1,key2);
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, changeId);
             }
 
             // try have what we are waiting for
             var waitFor = this.waitFor;
             if (payload.RecentChanges.find(item => { return item === waitFor })) {
-                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, changeId);
             }
 
             // we have been waiting a long time
             if ((new Date().getTime() - this.lastSend) > 10*1000) {
-                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2);
+                return g.SharedEntity.ToTrackedEntity(payload.JObject, key1, key2, changeId);
             }
 
             return this.root;
@@ -346,7 +386,7 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
                     JSON: JSON.stringify({
                         Path: this.path,
                         Changes: flattenedChanges,
-                        Original: from,
+                        FromChangeId: res.sourceChangeId,
                     })
                 });
                 this.backing = newString;
@@ -515,8 +555,8 @@ g.SharedEntity.MakeTrackedEntity = function (key1, key2) {
     return res.root;
 };
 
-g.SharedEntity.ToTrackedEntity = function (obj,key1,key2) {
-    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity(key1, key2));
+g.SharedEntity.ToTrackedEntity = function (obj,key1,key2,changeId) {
+    var res = g.SharedEntity.CopyMembers(obj, g.SharedEntity.MakeTrackedEntity(key1, key2, changeId));
     res.entityChanges.changeList = [];
     return res;
 };

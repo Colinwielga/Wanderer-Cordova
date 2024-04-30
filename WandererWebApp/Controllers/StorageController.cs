@@ -30,46 +30,48 @@ namespace WandererWebApp.Controllers
             this.campaignsItemCache = campaignsItemCache ?? throw new ArgumentNullException(nameof(charactersItemCache));
         }
 
-        [HttpGet("Character/{rowKey}/{partitionKey}")]
-        public async Task<string> GetCharacter(string rowKey, string partitionKey) {
-            var task = await accountsItemCache.GetOrInit(rowKey, partitionKey, () => new JObject());
-            return task.JObject.ToString(Formatting.None);
-        }
+        // TODO revive
 
-        [HttpGet("Account/{rowKey}/{partitionKey}")]
-        public async Task<string> GetAccount(string rowKey, string partitionKey)
-        {
-            var task = await charactersItemCache.GetOrInit(rowKey, partitionKey, () => new JObject());
-            return task.JObject.ToString(Formatting.None);
-        }
+        //[HttpGet("Character/{rowKey}/{partitionKey}")]
+        //public async Task<string> GetCharacter(string rowKey, string partitionKey) {
+        //    var task = await accountsItemCache.GetOrInit(rowKey, partitionKey, () => new JObject());
+        //    return task.JObject.ToString(Formatting.None);
+        //}
 
-        [HttpGet("Campaign/{rowKey}/{partitionKey}")]
-        public async Task<string> GetCampaign(string rowKey, string partitionKey)
-        {
-            var task = await campaignsItemCache.GetOrInit(rowKey, partitionKey, () => new JObject());
-            return task.JObject.ToString(Formatting.None);
-        }
+        //[HttpGet("Account/{rowKey}/{partitionKey}")]
+        //public async Task<string> GetAccount(string rowKey, string partitionKey)
+        //{
+        //    var task = await charactersItemCache.GetOrInit(rowKey, partitionKey, () => new JObject());
+        //    return task.JObject.ToString(Formatting.None);
+        //}
 
-        [HttpPut("Character/{rowKey}/{partitionKey}")]
-        public async Task PutCharacter(string rowKey, string partitionKey,[FromBody]JsonElement value)
-        {
-            var @object = JObject.Parse(value.ToString());
-            await charactersItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
-        }
+        //[HttpGet("Campaign/{rowKey}/{partitionKey}")]
+        //public async Task<string> GetCampaign(string rowKey, string partitionKey)
+        //{
+        //    var task = await campaignsItemCache.GetOrInit(rowKey, partitionKey, () => new JObject());
+        //    return task.JObject.ToString(Formatting.None);
+        //}
 
-        [HttpPut("Account/{rowKey}/{partitionKey}")]
-        public async Task PutAccount(string rowKey, string partitionKey,[FromBody]string value)
-        {
-            var @object = JObject.Parse(value);
-            await accountsItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
-        }
+        //[HttpPut("Character/{rowKey}/{partitionKey}")]
+        //public async Task PutCharacter(string rowKey, string partitionKey,[FromBody]JsonElement value)
+        //{
+        //    var @object = JObject.Parse(value.ToString());
+        //    await charactersItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
+        //}
 
-        [HttpPut("Campaign/{rowKey}/{partitionKey}")]
-        public async Task PutCampaign(string rowKey, string partitionKey,[FromBody]string value)
-        {
-            var @object = JObject.Parse(value);
-            await campaignsItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
-        }
+        //[HttpPut("Account/{rowKey}/{partitionKey}")]
+        //public async Task PutAccount(string rowKey, string partitionKey,[FromBody]string value)
+        //{
+        //    var @object = JObject.Parse(value);
+        //    await accountsItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
+        //}
+
+        //[HttpPut("Campaign/{rowKey}/{partitionKey}")]
+        //public async Task PutCampaign(string rowKey, string partitionKey,[FromBody]string value)
+        //{
+        //    var @object = JObject.Parse(value);
+        //    await campaignsItemCache.Set(rowKey, partitionKey, @object, Guid.NewGuid().ToString("D"));
+        //}
     }
 }
 
