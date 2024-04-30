@@ -1,0 +1,8 @@
+﻿#scott-levi-six-shooter #action-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    justify-items: stretch;
+}
+

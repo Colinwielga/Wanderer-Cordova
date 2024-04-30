@@ -1,0 +1,23 @@
+﻿<link rel="stylesheet" href="modules/scott-levi-map-grid/stylesheet.css" />
+<div class="pad-me">
+    <div data-ng-repeat="row in module.getVisibleGrid()" >
+        <div data-ng-repeat="cell in row" style="display: inline-block; width: 30%" >
+            {{cell.description}}
+        </div>
+        
+    </div>
+    <div>
+        <input data-ng-disabled="module.x === 0" type ="button" value="←" data-ng-click="module.x = module.x - 1"/>
+        <input data-ng-disabled="module.y === 0" type ="button" value="↑" data-ng-click="module.y = module.y - 1"/>
+        <input data-ng-disabled="module.x === module.grid[module.y].length - 1" type ="button" value="→" data-ng-click="module.x = module.x + 1"/>
+        <input data-ng-disabled="module.y === module.grid.length - 1" type ="button" value="↓" data-ng-click="module.y = module.y + 1"/>
+        <input data-ng-disabled="module.x === 0 || module.y === 0" type ="button" value="↖" data-ng-click="module.x = module.x - 1; module.y = module.y - 1"/>
+        <input data-ng-disabled="module.x === module.grid[module.y].length - 1 || module.y === 0" type ="button" value="↗" data-ng-click="module.x = module.x + 1; module.y = module.y - 1"/>
+        <input data-ng-disabled="module.x === 0 || module.y === module.grid.length - 1" type ="button" value="↙" data-ng-click="module.x = module.x - 1; module.y = module.y + 1"/>
+        <input data-ng-disabled="module.x === module.grid[module.y].length - 1 || module.y === module.grid.length - 1" type ="button" value="↘" data-ng-click="module.x = module.x + 1; module.y = module.y + 1"/>
+        
+
+    </div>
+    {{module.x}} {{module.y}} - 
+    {{module.grid.length}} - {{module.grid[module.y].length}}
+</div>    

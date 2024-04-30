@@ -292,7 +292,7 @@ button, label.hide-button, input[type=button], input[type=submit], label.label-b
         /*text-transform: lowercase;*/
         border: 2px solid #333;
     }
-
+    
 input[type=text],
 input[type=password],
 input[type=number],
@@ -302,6 +302,7 @@ textarea
     border: 2px solid #333;
     border-radius: 3px;
     margin: 2px;
+    padding: 5px 10px;
 }
 
     input[type=text]:focus,
@@ -379,6 +380,14 @@ select {
 
 .pad-me {
     padding: 10px 8px;
+}
+
+.margin-me {
+    margin: 10px 8px;
+}
+
+.round-me {
+    border-radius: 3px;
 }
 
 .section, .mock-section { /*#skills-section, #traits-section, #misc-section*/

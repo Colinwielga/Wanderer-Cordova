@@ -1,0 +1,33 @@
+﻿<link rel="stylesheet" href="modules/scott-levi-six-shooter/stylesheet.css" />
+<div class="pad-me highlight-selection">
+    <h3>Counters</h3>
+    <div data-ng-repeat="counter in module.counterList">
+        {{counter.name}} - {{counter.value}}
+    </div>
+    <!-- button to add counter --> 
+    <h3>Actions</h3>
+    <div id="action-container">
+        <div data-ng-repeat="action in module.actionList" style="flex-wrap: wrap;" class="highlight-section pad-me margin-me round-me">
+            <input type="button" value="{{action.name}}" data-ng-click="module.applyAction(action)"/> 
+            <input type="button" value="x" data-ng-click="module.deleteAction(action)" />
+            <p data-ng-repeat="subAction in action.subActions">
+                {{subAction.counterName}} <!-- dropdown? -->
+                {{subAction.value}}
+                <input type="button" value="x" data-ng-click="module.deleteSubAction(subAction)" />
+            </p>
+            <!-- needs subAction name-->
+
+            <label for="subAct">Add Subaction </label>
+            <select id="subAct" 
+                data-ng-options="counter.name for counter in module.counterList"
+                data-ng-model="action.subActionCounter">
+            </select>
+            <input type ="number" min="-6" max="6" data-ng-model="action.subActionValue" />
+            <input type="button" value="subaction" data-ng-click="module.addSubActionToAction(action)" />
+        </div>
+    </div>  
+    <input type="text" value="" data-ng-model="module.actionName"/> 
+    <input type="button" value="add action" data-ng-click="module.createAction(module.actionName);module.actionName=''"/>
+    <input type="text" value="" data-ng-model="module.counterName" />
+    <input type="button" value="add counter" data-ng-click="module.createCounter(module.counterName);module.counterName=''"/>
+</div>
