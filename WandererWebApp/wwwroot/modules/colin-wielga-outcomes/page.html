@@ -1,0 +1,24 @@
+﻿<link rel="stylesheet" href="modules/colin-wielga-template/stylesheet.css" />
+<div class="pad-me">
+
+    <h3> Players </h3>
+    <div data-ng-repeat="player in module.sortedPlayers()">
+        {{player.backing.name.backing}} : {{player.backing.votes.backing}}
+    </div>
+
+    <h3> Outcomes </h3>
+    <div data-ng-repeat="outcome in module.trackedEntity.backing.outcomes.backing">
+        {{outcome.backing}}
+    </div>
+
+
+    <h3> Actions </h3>
+    <input type="text" data-ng-model="module.proposedOutcomeText" />
+    <input type="button" value="propose outcome" data-ng-click="module.proposeOutcome()" data-ng-disabled="module.GetOurPlayer().backing.votes.backing < 1"/>
+    <input type="button" value="roll" data-ng-click="module.roll()" data-ng-disabled="module.GetOurPlayer().backing.isDM.backing !== 0"/>
+    <input type="button" value="clear" data-ng-click="module.clear()" data-ng-disabled="module.GetOurPlayer().backing.isDM.backing !== 0"/>
+
+    <h3> Settings </h3>
+    <p>you're a {{module.GetOurPlayer().backing.isDM.backing == 0 ? 'DM' : 'player'}}</p>
+    <input type="button" value="toggle DM" data-ng-click="module.toggleDM()" />
+</div>
